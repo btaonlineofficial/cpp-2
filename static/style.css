@@ -1,0 +1,339 @@
+/*
+ * ================================================================
+ *  Contai Polytechnic — Shared White Theme CSS
+ *  Applied across all public pages.
+ * ================================================================
+ */
+
+/* ── Variables ─────────────────────────────────────────────── */
+:root {
+    --primary:        #1a56db;
+    --primary-light:  #eff4ff;
+    --primary-mid:    #c7d7fd;
+    --primary-dark:   #1447b3;
+
+    --accent:         #7c3aed;
+    --accent-light:   #f5f3ff;
+
+    --success:        #0e9f6e;
+    --success-light:  #ecfdf5;
+    --danger:         #e02424;
+    --danger-light:   #fef2f2;
+    --warning:        #d97706;
+    --warning-light:  #fffbeb;
+
+    --bg:             #f8fafc;
+    --bg-2:           #f1f5f9;
+    --surface:        #ffffff;
+    --surface-2:      #f8fafc;
+
+    --border:         #e2e8f0;
+    --border-dark:    #cbd5e1;
+
+    --text-1:         #0f172a;
+    --text-2:         #475569;
+    --text-3:         #94a3b8;
+
+    --radius-lg:      18px;
+    --radius-md:      12px;
+    --radius-sm:      8px;
+
+    --shadow-sm:  0 1px 3px rgba(0,0,0,0.06),0 1px 2px rgba(0,0,0,0.04);
+    --shadow-md:  0 4px 16px rgba(0,0,0,0.08),0 2px 6px rgba(0,0,0,0.05);
+    --shadow-lg:  0 10px 40px rgba(0,0,0,0.10),0 4px 12px rgba(0,0,0,0.06);
+
+    --header-h:   72px;
+}
+
+/* ── Reset ──────────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+    font-family: 'Inter', sans-serif;
+    background: var(--bg);
+    color: var(--text-1);
+    min-height: 100vh;
+    overflow-x: hidden;
+}
+
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--bg-2); }
+::-webkit-scrollbar-thumb { background: var(--border-dark); border-radius: 3px; }
+
+/* ── Shared Header ──────────────────────────────────────────── */
+.header {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 1000;
+    height: var(--header-h);
+    padding: 0 48px;
+    background: rgba(255,255,255,0.96);
+    backdrop-filter: blur(20px) saturate(180%);
+    border-bottom: 1px solid var(--border);
+    box-shadow: var(--shadow-sm);
+    display: flex;
+    align-items: center;
+}
+
+.header-content {
+    max-width: 1280px;
+    margin: 0 auto;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.logo-section {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    text-decoration: none;
+}
+
+.logo-img { width: 44px; height: 44px; object-fit: contain; }
+
+.logo-section h2 {
+    font-size: 18px;
+    font-weight: 800;
+    color: var(--text-1);
+    letter-spacing: -0.3px;
+    margin: 0;
+}
+
+.logo-section h2 span,
+.logo-section span { color: var(--primary); }
+
+.nav-center { display: flex; align-items: center; gap: 4px; }
+
+.nav-link {
+    padding: 7px 14px;
+    border-radius: 10px;
+    color: var(--text-2);
+    font-size: 13px;
+    font-weight: 600;
+    text-decoration: none;
+    border: 1px solid var(--border);
+    background: var(--surface-2);
+    transition: all 0.2s;
+}
+
+.nav-link:hover, .nav-link.active {
+    color: var(--primary);
+    background: var(--primary-light);
+    border-color: var(--primary-mid);
+    box-shadow: 0 0 0 3px rgba(26,86,219,0.08);
+}
+
+/* Dept Dropdown */
+.dept-dropdown-wrap { position: relative; }
+
+.dept-trigger {
+    padding: 7px 14px;
+    border-radius: 10px;
+    color: var(--text-2);
+    font-size: 13px;
+    font-weight: 600;
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    cursor: pointer;
+    font-family: inherit;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    transition: all 0.2s;
+}
+
+.dept-trigger:hover {
+    color: var(--primary);
+    background: var(--primary-light);
+    border-color: var(--primary-mid);
+}
+
+.dept-trigger svg { transition: transform 0.22s; }
+.dept-dropdown-wrap:hover .dept-trigger svg { transform: rotate(180deg); }
+
+.dept-dropdown {
+    position: absolute;
+    top: calc(100% + 10px);
+    left: 50%;
+    transform: translateX(-50%) translateY(-6px);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s, transform 0.2s;
+    z-index: 999;
+    min-width: 220px;
+}
+
+.dept-dropdown-wrap:hover .dept-dropdown {
+    opacity: 1;
+    pointer-events: all;
+    transform: translateX(-50%) translateY(0);
+}
+
+.dept-dropdown-inner {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 8px;
+    box-shadow: var(--shadow-lg);
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    position: relative;
+}
+
+.dept-dropdown-inner::before {
+    content: '';
+    position: absolute;
+    top: -5px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 10px; height: 10px;
+    background: var(--surface);
+    border-left: 1px solid var(--border);
+    border-top: 1px solid var(--border);
+    rotate: 45deg;
+}
+
+.dd-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 9px 10px;
+    border-radius: 8px;
+    text-decoration: none;
+    color: var(--text-2);
+    transition: all 0.15s;
+}
+
+.dd-item:hover { background: var(--primary-light); color: var(--primary); }
+
+.dd-icon {
+    width: 28px; height: 28px;
+    border-radius: 7px;
+    border: 1px solid var(--border);
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    background: var(--surface-2);
+}
+
+.dd-item strong { display: block; font-size: 12px; font-weight: 700; color: var(--text-1); }
+.dd-item small  { display: block; font-size: 9px; color: var(--text-3); }
+
+.header-right { display: flex; align-items: center; gap: 10px; }
+
+.btn-outline {
+    padding: 8px 20px;
+    border-radius: 10px;
+    border: 1px solid var(--primary-mid);
+    background: var(--primary-light);
+    color: var(--primary);
+    font-size: 13px;
+    font-weight: 700;
+    text-decoration: none;
+    transition: all 0.2s;
+}
+
+.btn-outline:hover {
+    background: var(--primary);
+    color: white;
+    border-color: var(--primary);
+    box-shadow: 0 4px 14px rgba(26,86,219,0.3);
+}
+
+/* Push body below fixed header */
+body { padding-top: var(--header-h); }
+
+/* ── Shared Footer ──────────────────────────────────────────── */
+.footer {
+    background: var(--text-1);
+    padding: 64px 48px 0;
+    margin-top: auto;
+}
+
+.footer-inner {
+    max-width: 1280px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr;
+    gap: 48px;
+    padding-bottom: 48px;
+}
+
+.footer-brand p {
+    color: #94a3b8;
+    font-size: 13px;
+    line-height: 1.9;
+    margin-top: 16px;
+}
+
+.logo-row { display: flex; align-items: center; gap: 12px; }
+.logo-row h2 { font-size: 20px; font-weight: 800; color: white; }
+
+.footer-col h5 {
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: #64748b;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.footer-col h5::before {
+    content: '';
+    display: block;
+    width: 3px; height: 14px;
+    background: var(--primary);
+    border-radius: 2px;
+}
+
+.footer-links { list-style: none; display: flex; flex-direction: column; gap: 12px; }
+
+.footer-links li a, .footer-links li {
+    color: #64748b;
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 500;
+    transition: color 0.2s;
+}
+
+.footer-links li a:hover { color: #94a3b8; }
+
+.footer-bottom {
+    max-width: 1280px;
+    margin: 0 auto;
+    border-top: 1px solid rgba(255,255,255,0.06);
+    padding: 24px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 11px;
+    color: #475569;
+    font-weight: 600;
+}
+
+.footer-bottom a {
+    color: #475569;
+    text-decoration: none;
+    transition: color 0.2s;
+}
+.footer-bottom a:hover { color: #94a3b8; }
+
+@media (max-width: 1024px) {
+    .footer-inner { grid-template-columns: 1fr 1fr; }
+}
+
+@media (max-width: 640px) {
+    .header { padding: 0 20px; }
+    .nav-center { display: none; }
+    .footer { padding: 48px 24px 0; }
+    .footer-inner { grid-template-columns: 1fr; }
+    .footer-bottom { flex-direction: column; gap: 14px; }
+}

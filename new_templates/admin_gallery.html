@@ -1,0 +1,838 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manage Gallery — Admin</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
+    <style>
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #020510;
+            color: #cbd5e1;
+            min-height: 100vh;
+            overflow-x: hidden;
+            width: 100%;
+            max-width: 100vw;
+        }
+
+        /* -- HEADER -- */
+        .header {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: rgba(2, 5, 16, 0.88);
+            backdrop-filter: blur(16px);
+            border-bottom: 1px solid rgba(99, 102, 241, 0.15);
+            padding: 0 40px;
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            height: 68px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .logo-section {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .logo-img {
+            width: 42px;
+            height: 42px;
+            object-fit: contain;
+        }
+
+        .logo-section h2 {
+            font-size: 17px;
+            font-weight: 900;
+            color: white;
+            white-space: nowrap;
+        }
+
+        .nav-buttons {
+            display: flex;
+            gap: 10px;
+        }
+
+        .btn-ghost {
+            padding: 8px 18px;
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            border-radius: 50px;
+            color: #94a3b8;
+            font-size: 13px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.2s;
+        }
+
+        .btn-ghost:hover {
+            border-color: rgba(255, 255, 255, 0.3);
+            color: white;
+            background: rgba(255, 255, 255, 0.06);
+        }
+
+        /* -- PAGE -- */
+        .page-wrapper {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 40px 24px 80px;
+        }
+
+        .page-title {
+            margin-bottom: 32px;
+        }
+
+        .page-title h1 {
+            font-size: 28px;
+            font-weight: 900;
+            color: white;
+            margin-bottom: 6px;
+        }
+
+        .page-title p {
+            color: #64748b;
+            font-size: 14px;
+        }
+
+        /* -- FLASH -- */
+        .flash {
+            padding: 14px 20px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .flash.success {
+            background: rgba(52, 211, 153, 0.1);
+            border: 1px solid rgba(52, 211, 153, 0.25);
+            color: #34d399;
+        }
+
+        .flash.error {
+            background: rgba(239, 68, 68, 0.1);
+            border: 1px solid rgba(239, 68, 68, 0.25);
+            color: #f87171;
+        }
+
+        /* -- UPLOAD CARD -- */
+        .upload-card {
+            background: #0a0f1e;
+            border: 1px solid #1e293b;
+            border-radius: 20px;
+            padding: 36px;
+            margin-bottom: 40px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .upload-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(to right, transparent, #6366f1, transparent);
+        }
+
+        .upload-card h2 {
+            font-size: 17px;
+            font-weight: 800;
+            color: white;
+            margin-bottom: 24px;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .form-group.full {
+            grid-column: 1 / -1;
+        }
+
+        .form-group label {
+            font-size: 12px;
+            font-weight: 700;
+            color: #64748b;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+
+        .form-group input,
+        .form-group select {
+            padding: 12px 16px;
+            border-radius: 10px;
+            background: #0f172a;
+            border: 1px solid #1e293b;
+            color: white;
+            font-size: 14px;
+            font-family: inherit;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus {
+            border-color: rgba(99, 102, 241, 0.5);
+        }
+
+        .form-group select option {
+            background: #0f172a;
+        }
+
+        /* drag-drop upload zone */
+        .upload-zone {
+            border: 2px dashed #1e293b;
+            border-radius: 14px;
+            padding: 40px 20px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.25s;
+            position: relative;
+        }
+
+        .upload-zone:hover,
+        .upload-zone.drag-over {
+            border-color: #6366f1;
+            background: rgba(99, 102, 241, 0.05);
+        }
+
+        .upload-zone input[type=file] {
+            position: absolute;
+            inset: 0;
+            opacity: 0;
+            cursor: pointer;
+            width: 100%;
+            height: 100%;
+        }
+
+        .upload-zone .icon {
+            font-size: 36px;
+            margin-bottom: 12px;
+        }
+
+        .upload-zone p {
+            color: #94a3b8;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .upload-zone span {
+            color: #6366f1;
+        }
+
+        .upload-zone .hint {
+            font-size: 12px;
+            color: #475569;
+            margin-top: 6px;
+        }
+
+        /* preview */
+        #preview-wrap {
+            display: none;
+            margin-top: 16px;
+            border-radius: 12px;
+            overflow: hidden;
+            max-height: 200px;
+            background: #0f172a;
+            border: 1px solid #1e293b;
+        }
+
+        #preview-img {
+            width: 100%;
+            max-height: 200px;
+            object-fit: cover;
+            display: block;
+        }
+
+        #preview-name {
+            padding: 8px 14px;
+            font-size: 12px;
+            color: #64748b;
+            font-weight: 600;
+        }
+
+        .btn-submit {
+            margin-top: 20px;
+            padding: 13px 32px;
+            background: linear-gradient(135deg, #4f46e5, #7c3aed);
+            border: none;
+            border-radius: 10px;
+            color: white;
+            font-size: 14px;
+            font-weight: 800;
+            cursor: pointer;
+            transition: opacity 0.2s, transform 0.2s;
+        }
+
+        .btn-submit:hover {
+            opacity: 0.88;
+            transform: translateY(-1px);
+        }
+
+        /* -- PHOTO TABLE -- */
+        .table-section h2 {
+            font-size: 17px;
+            font-weight: 800;
+            color: white;
+            margin-bottom: 18px;
+        }
+
+        .table-card {
+            background: #0a0f1e;
+            border: 1px solid #1e293b;
+            border-radius: 20px;
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th {
+            background: #0f172a;
+            color: #818cf8;
+            font-size: 11px;
+            font-weight: 800;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            padding: 14px 20px;
+            text-align: left;
+            border-bottom: 1px solid #1e293b;
+        }
+
+        td {
+            padding: 14px 20px;
+            font-size: 13px;
+            border-bottom: 1px solid rgba(30, 41, 59, 0.5);
+            vertical-align: middle;
+        }
+
+        tr:last-child td {
+            border-bottom: none;
+        }
+
+        tr:hover td {
+            background: rgba(99, 102, 241, 0.03);
+        }
+
+        .empty-row td {
+            text-align: center;
+            color: #475569;
+            padding: 40px;
+        }
+
+        .thumb {
+            width: 60px;
+            height: 48px;
+            object-fit: cover;
+            border-radius: 8px;
+            border: 1px solid #1e293b;
+        }
+
+        .cat-badge {
+            font-size: 10px;
+            font-weight: 800;
+            padding: 3px 10px;
+            border-radius: 50px;
+            white-space: nowrap;
+        }
+
+        .tag-campus {
+            background: rgba(99, 102, 241, 0.15);
+            color: #818cf8;
+        }
+
+        .tag-events {
+            background: rgba(16, 185, 129, 0.15);
+            color: #34d399;
+        }
+
+        .tag-labs {
+            background: rgba(245, 158, 11, 0.15);
+            color: #fbbf24;
+        }
+
+        .tag-sports {
+            background: rgba(239, 68, 68, 0.15);
+            color: #f87171;
+        }
+
+        .tag-cultural {
+            background: rgba(217, 70, 239, 0.15);
+            color: #e879f9;
+        }
+
+        .tag-workshop {
+            background: rgba(14, 165, 233, 0.15);
+            color: #38bdf8;
+        }
+
+        .btn-del {
+            padding: 6px 14px;
+            border-radius: 8px;
+            background: rgba(239, 68, 68, 0.10);
+            border: 1px solid rgba(239, 68, 68, 0.25);
+            color: #f87171;
+            font-size: 12px;
+            font-weight: 700;
+            cursor: pointer;
+            text-decoration: none;
+            transition: all 0.2s;
+        }
+
+        .btn-del:hover {
+            background: rgba(239, 68, 68, 0.2);
+            border-color: rgba(239, 68, 68, 0.5);
+        }
+
+        /* -- MOBILE MENU -- */
+        .mobile-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(2, 5, 16, 0.6);
+            backdrop-filter: blur(8px);
+            z-index: 1500;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.4s;
+        }
+
+        .mobile-overlay.active {
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        .mobile-menu {
+            position: fixed;
+            top: 0;
+            right: -300px;
+            width: 300px; max-width: 85vw;
+            height: 100vh;
+            background: #0f172a;
+            z-index: 2000;
+            box-shadow: -10px 0 40px rgba(0, 0, 0, 0.4);
+            transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            padding: 80px 24px 40px;
+            border-left: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .mobile-menu.active {
+            transform: translateX(-300px);
+        }
+
+        .mobile-nav-group {
+            margin-bottom: 32px;
+        }
+
+        .mobile-nav-title {
+            display: block;
+            font-size: 11px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: #64748b;
+            margin-bottom: 16px;
+            padding-left: 4px;
+        }
+
+        .mobile-nav-links {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .mobile-nav-link {
+            padding: 14px 18px;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 12px;
+            text-decoration: none;
+            color: #cbd5e1;
+            font-weight: 600;
+            font-size: 14px;
+            transition: all 0.2s;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .mobile-nav-link:active {
+            background: rgba(99, 102, 241, 0.1);
+            border-color: rgba(99, 102, 241, 0.3);
+            color: white;
+        }
+
+        .mobile-toggle {
+            display: none;
+            flex-direction: column;
+            justify-content: center;
+            gap: 5px;
+            width: 42px;
+            height: 42px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            cursor: pointer;
+            z-index: 2500;
+            padding: 12px;
+            transition: all 0.2s;
+        }
+
+        .mobile-toggle span {
+            width: 100%;
+            height: 2px;
+            background: white;
+            border-radius: 4px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .mobile-toggle.active span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+        .mobile-toggle.active span:nth-child(2) { opacity: 0; }
+        .mobile-toggle.active span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+        @media (max-width: 900px) {
+            .header { padding: 0 20px; }
+            .nav-buttons { display: none; }
+            .mobile-toggle { display: flex; }
+        }
+
+        @media (max-width: 768px) {
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+            .logo-section h2 { font-size: 14px;     white-space: nowrap;
+        }
+            .page-wrapper { padding: 32px 16px 80px; }
+            .page-title h1 { font-size: 24px; }
+            .table-card {
+                overflow-x: auto;
+                -webkit-overflow-scrolling: touch;
+            }
+            table { min-width: 650px; }
+        }
+    </style>
+    <link rel="icon" type="image/png" href="{{ url_for('static', filename='logo.png') }}">
+</head>
+
+<body>
+    <div class="mobile-overlay" id="mobileOverlay"></div>
+    <div class="mobile-menu" id="mobileMenu">
+        <div class="mobile-nav-group">
+            <span class="mobile-nav-title">Navigation</span>
+            <div class="mobile-nav-links">
+                <a href="/admin" class="mobile-nav-link">?? Q&A Admin</a>
+                <a href="/admin/notices" class="mobile-nav-link">?? Manage Notices</a>
+                <a href="/gallery" class="mobile-nav-link">??? View Gallery</a>
+                <a href="/" class="mobile-nav-link">?? Public Home</a>
+            </div>
+        </div>
+        <div class="mobile-nav-group">
+            <span class="mobile-nav-title">Account</span>
+            <div class="mobile-nav-links">
+                <a href="/logout" class="mobile-nav-link" style="color:#f87171">?? Logout</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- HEADER -->
+    <div class="header">
+        <div class="header-content">
+            <a href="/" class="logo-section">
+                <img src="{{ url_for('static', filename='logo.png') }}" alt="Logo" class="logo-img">
+                <h2>Contai Polytechnic — Admin</h2>
+            </a>
+            <div class="nav-buttons">
+                <a href="/admin" class="btn-ghost">?? Q&amp;A</a>
+                <a href="/admin/notices" class="btn-ghost">?? Notices</a>
+                <a href="/gallery" class="btn-ghost">??? View Gallery</a>
+                <a href="/logout" class="btn-ghost">Logout</a>
+            </div>
+            <button class="mobile-toggle" id="mobileToggle" aria-label="Menu">
+                <span></span><span></span><span></span>
+            </button>
+        </div>
+    </div>
+
+    <div class="page-wrapper">
+        <div class="page-title">
+            <h1>??? Manage Gallery</h1>
+            <p>Upload new photos or delete existing ones from the college gallery.</p>
+        </div>
+
+        {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+        {% for category, message in messages %}
+        <div class="flash {{ category }}">{{ message }}</div>
+        {% endfor %}
+        {% endif %}
+        {% endwith %}
+
+        <!-- Upload Status Message -->
+        <div id="uploadMsg" style="display:none; padding:14px 20px; border-radius:12px; margin-bottom:20px; font-size:14px; font-weight:600;"></div>
+
+        <!-- UPLOAD FORM -->
+        <div class="upload-card">
+            <div style="display:flex; align-items:center; gap:12px; margin-bottom:24px;">
+                <div style="width:38px; height:38px; border-radius:10px; background:rgba(99,102,241,0.15); border:1px solid rgba(99,102,241,0.3); display:flex; align-items:center; justify-content:center; font-size:18px;">??</div>
+                <div>
+                    <h2 style="margin:0; font-size:16px;">Upload New Photo</h2>
+                    <span id="photoCountBadge" style="font-size:12px; color:#64748b;">{{ photos|length }} Photos</span>
+                </div>
+            </div>
+            <form id="uploadForm" enctype="multipart/form-data">
+                <div class="form-grid">
+
+                    <div class="form-group full">
+                        <label>Photo File *</label>
+                        <div class="upload-zone" id="dropZone">
+                            <input type="file" name="photo" accept="image/*" required id="fileInput">
+                            <div class="icon" id="dropIcon">??</div>
+                            <p><span>Click to choose a photo</span> or drag &amp; drop here</p>
+                            <p class="hint">Supported: JPG, PNG, WEBP &middot; Maximum 5 MB</p>
+                        </div>
+                        <div id="preview-wrap">
+                            <img id="preview-img" src="" alt="preview">
+                            <div id="preview-name"></div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Photo Title *</label>
+                        <input type="text" name="title" placeholder="e.g. Annual Sports Day 2024" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Category *</label>
+                        <select name="category" required>
+                            <option value="campus">?? Campus</option>
+                            <option value="events">?? Events</option>
+                            <option value="labs">?? Labs</option>
+                            <option value="sports">? Sports</option>
+                            <option value="cultural">?? Cultural</option>
+                            <option value="workshop">?? Workshop</option>
+                        </select>
+                    </div>
+
+                </div>
+                <button type="submit" class="btn-submit" id="submitBtn">?? Upload Photo</button>
+            </form>
+        </div>
+
+        <!-- PHOTO TABLE -->
+        <div class="table-section">
+            <h2>?? All Uploaded Photos ({{ photos|length }})</h2>
+            <div class="table-card">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Preview</th>
+                            <th>Title</th>
+                            <th>Category</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% if photos %}
+                        {% for p in photos %}
+                        <tr>
+                            <td style="color:#475569;">{{ loop.index }}</td>
+                            <td>
+                                <img class="thumb" src="{{ url_for('static', filename='gallery/' + p[2]) }}"
+                                    alt="{{ p[1] }}"
+                                    onerror="this.src='https://via.placeholder.com/60x48/0f172a/475569?text=IMG'">
+                            </td>
+                            <td style="color:white; font-weight:600;">{{ p[1] }}</td>
+                            <td><span class="cat-badge tag-{{ p[3] }}">{{ p[3]|title }}</span></td>
+                            <td>
+                                <a href="/admin/gallery/delete/{{ p[0] }}" class="btn-del"
+                                    onclick="return confirm('?? ????? delete ?????')">??? Delete</a>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                        {% else %}
+                        <tr class="empty-row">
+                            <td colspan="5">???? ??? ???? ???? upload ??? ?</td>
+                        </tr>
+                        {% endif %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // -- File preview --
+        const fileInput  = document.getElementById('fileInput');
+        const dropZone   = document.getElementById('dropZone');
+        const previewWrap= document.getElementById('preview-wrap');
+        const previewImg = document.getElementById('preview-img');
+        const previewName= document.getElementById('preview-name');
+        const dropIcon   = document.getElementById('dropIcon');
+
+        fileInput.addEventListener('change', () => showPreview(fileInput.files[0]));
+
+        dropZone.addEventListener('dragover',  e => { e.preventDefault(); dropZone.classList.add('drag-over'); });
+        dropZone.addEventListener('dragleave', () => dropZone.classList.remove('drag-over'));
+        dropZone.addEventListener('drop', e => {
+            e.preventDefault();
+            dropZone.classList.remove('drag-over');
+            const file = e.dataTransfer.files[0];
+            if (file) { fileInput.files = e.dataTransfer.files; showPreview(file); }
+        });
+
+        function showPreview(file) {
+            if (!file || !file.type.startsWith('image/')) return;
+            const reader = new FileReader();
+            reader.onload = e => {
+                previewImg.src = e.target.result;
+                previewName.textContent = '?? ' + file.name + ' (' + (file.size / 1024).toFixed(0) + ' KB)';
+                previewWrap.style.display = 'block';
+                dropIcon.textContent = '?';
+            };
+            reader.readAsDataURL(file);
+        }
+
+        // -- AJAX Upload --
+        const uploadForm  = document.getElementById('uploadForm');
+        const submitBtn   = document.getElementById('submitBtn');
+        const uploadMsg   = document.getElementById('uploadMsg');
+        const photoCount  = document.getElementById('photoCountBadge');
+
+        function showMsg(text, isOk) {
+            uploadMsg.textContent = text;
+            uploadMsg.style.display = 'block';
+            if (isOk) {
+                uploadMsg.style.background   = 'rgba(52,211,153,0.1)';
+                uploadMsg.style.border       = '1px solid rgba(52,211,153,0.25)';
+                uploadMsg.style.color        = '#34d399';
+            } else {
+                uploadMsg.style.background   = 'rgba(239,68,68,0.1)';
+                uploadMsg.style.border       = '1px solid rgba(239,68,68,0.25)';
+                uploadMsg.style.color        = '#f87171';
+            }
+            setTimeout(() => { uploadMsg.style.display = 'none'; }, 4000);
+        }
+
+        const catLabels = {
+            campus:'Campus', events:'Events', labs:'Labs',
+            sports:'Sports', cultural:'Cultural', workshop:'Workshop'
+        };
+        const catClass = {
+            campus:'tag-campus', events:'tag-events', labs:'tag-labs',
+            sports:'tag-sports', cultural:'tag-cultural', workshop:'tag-workshop'
+        };
+
+        function addRowToTable(p) {
+            const tbody = document.querySelector('table tbody');
+            // Remove empty-row if present
+            const emptyRow = tbody.querySelector('.empty-row');
+            if (emptyRow) emptyRow.remove();
+
+            const rowCount = tbody.querySelectorAll('tr').length + 1;
+            const imgSrc   = '/static/gallery/' + p.filename;
+            const tr = document.createElement('tr');
+            tr.innerHTML = `
+                <td style="color:#475569;">${rowCount}</td>
+                <td><img class="thumb" src="${imgSrc}" alt="${p.title}" onerror="this.src='https://via.placeholder.com/60x48/0f172a/475569?text=IMG'"></td>
+                <td style="color:white; font-weight:600;">${p.title}</td>
+                <td><span class="cat-badge ${catClass[p.category] || 'tag-campus'}">${catLabels[p.category] || p.category}</span></td>
+                <td><a href="/admin/gallery/delete/${p.id}" class="btn-del" onclick="return confirm('?? ????? delete ?????')">??? Delete</a></td>
+            `;
+            tbody.insertBefore(tr, tbody.firstChild);
+
+            // Update count badge
+            const current = parseInt(photoCount.textContent) || 0;
+            photoCount.textContent = (current + 1) + ' Photos';
+            const h2 = document.querySelector('.table-section h2');
+            if (h2) h2.textContent = '?? All Uploaded Photos (' + (current + 1) + ')';
+        }
+
+        uploadForm.addEventListener('submit', async function(e) {
+            e.preventDefault();
+
+            const formData = new FormData(uploadForm);
+            submitBtn.disabled   = true;
+            submitBtn.textContent = '? Uploading...';
+
+            try {
+                const res  = await fetch('/admin/gallery/upload', {
+                    method: 'POST',
+                    headers: { 'X-Requested-With': 'XMLHttpRequest' },
+                    body: formData
+                });
+                const data = await res.json();
+
+                showMsg(data.msg, data.ok);
+
+                if (data.ok) {
+                    addRowToTable(data.photo);
+                    // Reset form
+                    uploadForm.reset();
+                    previewWrap.style.display = 'none';
+                    previewImg.src = '';
+                    dropIcon.textContent = '??';
+                    // Scroll to new row
+                    document.querySelector('.table-section').scrollIntoView({ behavior: 'smooth' });
+                }
+            } catch(err) {
+                showMsg('? Network error. Please try again.', false);
+            } finally {
+                submitBtn.disabled   = false;
+                submitBtn.textContent = '?? Upload Photo';
+            }
+        });
+
+        // -- Mobile Toggle --
+        const mobileToggle  = document.getElementById('mobileToggle');
+        const mobileMenu    = document.getElementById('mobileMenu');
+        const mobileOverlay = document.getElementById('mobileOverlay');
+
+        function toggleMenu() {
+            mobileToggle.classList.toggle('active');
+            mobileMenu.classList.toggle('active');
+            mobileOverlay.classList.toggle('active');
+            document.body.style.overflow = mobileMenu.classList.contains('active') ? 'hidden' : '';
+        }
+
+        mobileToggle.addEventListener('click', toggleMenu);
+        mobileOverlay.addEventListener('click', toggleMenu);
+
+        document.querySelectorAll('.mobile-nav-link').forEach(link => {
+            link.addEventListener('click', () => {
+                if (mobileMenu.classList.contains('active')) toggleMenu();
+            });
+        });
+    </script>
+
+</body>
+
+</html>

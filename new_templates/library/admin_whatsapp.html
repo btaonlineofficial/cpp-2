@@ -1,0 +1,298 @@
+{% extends 'library/base.html' %}
+{% block title %}WhatsApp Bot{% endblock %}
+{% block page_title %}🤖 WhatsApp Bot{% endblock %}
+{% block content %}
+<style>
+.wa-card { background: #1a3a5c; border-radius: 12px; padding: 24px; color: white; margin-bottom: 20px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); border: 1px solid #2e86de; }
+.wa-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
+.wa-status { padding: 6px 12px; border-radius: 20px; font-size: 13px; font-weight: 700; display: flex; align-items: center; gap: 6px; }
+.status-connected { background: rgba(39, 174, 96, 0.2); color: #2ecc71; border: 1px solid #27ae60; }
+.status-disconnected { background: rgba(231, 76, 60, 0.2); color: #e74c3c; border: 1px solid #c0392b; }
+.status-qr { background: rgba(241, 196, 15, 0.2); color: #f1c40f; border: 1px solid #f39c12; }
+.stats-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 24px; }
+.stat-box { background: rgba(0,0,0,0.2); border-radius: 10px; padding: 16px; text-align: center; border: 1px solid rgba(255,255,255,0.05); }
+.stat-num { font-size: 28px; font-weight: 700; margin: 8px 0 4px; }
+.stat-label { font-size: 11px; text-transform: uppercase; letter-spacing: 1px; color: #90caf9; }
+.qr-container { background: white; padding: 20px; border-radius: 12px; display: inline-block; margin-top: 16px; }
+.btn-wa { background: #25D366; color: white; border: none; padding: 10px 20px; border-radius: 8px; font-weight: bold; cursor: pointer; display: inline-flex; align-items: center; gap: 8px; }
+.btn-wa:hover { background: #128C7E; }
+.btn-danger { background: rgba(231, 76, 60, 0.1); color: #e74c3c; border: 1px solid #e74c3c; padding: 8px 16px; border-radius: 6px; cursor: pointer; }
+.btn-danger:hover { background: #e74c3c; color: white; }
+.fg input, .fg textarea { width: 100%; padding: 12px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.1); background: rgba(0,0,0,0.2); color: white; margin-top: 6px; font-family: inherit; }
+.fg label { color: #90caf9; font-size: 12px; font-weight: bold; text-transform: uppercase; }
+</style>
+
+<div class="wa-card">
+  <div class="wa-header">
+    <div>
+      <h2 style="margin-bottom: 4px; font-family: 'Playfair Display', serif;">WhatsApp Web Bot</h2>
+      <p style="font-size: 13px; color: #90caf9;">Self-hosted · Automatic notifications</p>
+    </div>
+    <div id="statusBadge" class="wa-status status-disconnected">
+      <span class="icon">❌</span> <span class="text">Disconnected</span>
+    </div>
+  </div>
+
+
+</div>
+
+<div style="background: rgba(231,76,60,0.1); border: 1px solid #e74c3c; border-radius: 10px; padding: 14px 20px; margin-bottom: 16px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px;">
+  <div>
+    <strong style="color: #e74c3c;">🔴 Bot not connecting or QR not showing?</strong>
+    <p style="color: #90caf9; font-size: 12px; margin: 4px 0 0;">Hard Reset kills the bot process from OS level, deletes the old session completely, and starts fresh. QR will appear in 60-90 seconds.</p>
+  </div>
+  <button class="btn-danger" onclick="hardReset()" style="flex-shrink:0; font-weight: bold; padding: 10px 18px;">💥 Hard Reset Bot</button>
+</div>
+
+<div class="grid-2">
+  <div class="wa-card" id="botControlPanel">
+    <h3 style="margin-bottom: 16px; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 12px;">Bot Controls</h3>
+    
+    <div id="qrSection" style="text-align: center; display: none;">
+      <p style="color: #f1c40f; margin-bottom: 10px;">Please scan this QR code with your WhatsApp</p>
+      <div class="qr-container">
+        <img id="qrImage" src="" alt="QR Code" style="max-width: 200px;">
+      </div>
+      <p style="font-size: 12px; color: #90caf9; margin-top: 16px;">Waiting for connection...</p>
+      <div style="margin-top: 14px; display: flex; gap: 10px; justify-content: center;">
+        <button class="btn-wa" onclick="regenerateQR()" style="font-size: 13px;">🔄 Regenerate QR</button>
+        <button class="btn-danger" onclick="restartBot(true)" style="font-size: 13px;">🗑️ New Session</button>
+      </div>
+    </div>
+
+    <div id="connectedSection" style="text-align: center; display: none; padding: 20px 0;">
+      <div style="font-size: 48px; color: #2ecc71; margin-bottom: 12px;">📱</div>
+      <h3 style="color: #2ecc71; margin-bottom: 8px;">Bot সংযুক্ত!</h3>
+      <p style="color: #90caf9; font-size: 14px; margin-bottom: 20px;">Connected to: <strong id="connectedPhone"></strong></p>
+      <button class="btn-danger" onclick="logoutBot()">🚪 Logout (নতুন QR দরকার হবে)</button>
+    </div>
+
+    <div id="loadingSection" style="text-align: center; padding: 40px 0;">
+      <p style="color: #90caf9;">Connecting to bot service...</p>
+    </div>
+  </div>
+
+  <div class="wa-card">
+    <h3 style="margin-bottom: 16px; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 12px;">Test Message</h3>
+    <div class="fg" style="margin-bottom: 16px;">
+      <label>Phone Number</label>
+      <input type="text" id="testPhone" placeholder="e.g. 919876543210">
+    </div>
+    <div class="fg" style="margin-bottom: 20px;">
+      <label>Message Content</label>
+      <textarea id="testMsg" rows="4" placeholder="Type your message here...">*Contai Polytechnic Library* 📚
+Hello, this is a test message from the new WhatsApp Bot!</textarea>
+    </div>
+    <button class="btn-wa" onclick="sendMessage()" id="sendBtn" style="width: 100%; justify-content: center;">
+      💬 Send Message
+    </button>
+  </div>
+</div>
+
+<script>
+const BOT_URL = 'http://localhost:3001';
+
+async function fetchStatus() {
+    try {
+        const res = await fetch(`${BOT_URL}/status`);
+        const data = await res.json();
+        updateUI(data);
+    } catch(err) {
+        document.getElementById('statusBadge').className = 'wa-status status-disconnected';
+        document.getElementById('statusBadge').innerHTML = '<span class="icon">❌</span> <span class="text">Server Offline</span>';
+        document.getElementById('loadingSection').innerHTML = '<p style="color:#e74c3c;">⚠️ Please start the Node.js bot server!</p>';
+    }
+}
+
+function updateUI(data) {
+    const qrSec = document.getElementById('qrSection');
+    const connSec = document.getElementById('connectedSection');
+    const loadSec = document.getElementById('loadingSection');
+    const badge = document.getElementById('statusBadge');
+
+    loadSec.style.display = 'none';
+
+    if (data.status === 'connected') {
+        badge.className = 'wa-status status-connected';
+        badge.innerHTML = '<span class="icon">✅</span> <span class="text">Connected</span>';
+        qrSec.style.display = 'none';
+        connSec.style.display = 'block';
+        document.getElementById('connectedPhone').innerText = '+' + data.phone;
+    } else if (data.status === 'qr_ready') {
+        badge.className = 'wa-status status-qr';
+        badge.innerHTML = '<span class="icon">📱</span> <span class="text">Scan QR Code</span>';
+        connSec.style.display = 'none';
+        qrSec.style.display = 'block';
+        document.getElementById('qrImage').src = data.qr;
+    } else if (data.status === 'error') {
+        badge.className = 'wa-status status-disconnected';
+        badge.innerHTML = '<span class="icon">⚠️</span> <span class="text">Error</span>';
+        connSec.style.display = 'none';
+        qrSec.style.display = 'none';
+        loadSec.style.display = 'block';
+        loadSec.innerHTML = `
+            <div style="padding: 20px 0; text-align: center;">
+                <div style="font-size: 40px; margin-bottom: 12px;">⚠️</div>
+                <p style="color: #e74c3c; font-weight: bold; margin-bottom: 8px;">Bot initialization failed!</p>
+                <p style="color: #90caf9; font-size: 13px; margin-bottom: 16px;">Max retries exceeded. Click below to restart.</p>
+                <button class="btn-wa" onclick="restartBot(false)" style="margin: 4px;">🔄 Restart Bot</button>
+                <button class="btn-danger" onclick="clearAndRestart()" style="margin: 4px;">🗑️ Clear Session & New QR</button>
+            </div>`;
+    } else if (data.status === 'disconnected') {
+        badge.className = 'wa-status status-disconnected';
+        badge.innerHTML = '<span class="icon">🔌</span> <span class="text">Disconnected</span>';
+        connSec.style.display = 'none';
+        qrSec.style.display = 'none';
+        loadSec.style.display = 'block';
+        loadSec.innerHTML = `
+            <div style="padding: 20px 0; text-align: center;">
+                <div style="font-size: 40px; margin-bottom: 10px;">🔌</div>
+                <p style="color: #f39c12; margin-bottom: 6px; font-weight: bold;">Bot is disconnected.</p>
+                <p style="color: #90caf9; font-size: 13px; margin-bottom: 16px;">Auto-reconnecting... If stuck, use the buttons below.</p>
+                <button class="btn-wa" onclick="restartBot(false)" style="margin: 4px;">🔄 Force Restart</button>
+                <button class="btn-danger" onclick="clearAndRestart()" style="margin: 4px;">🗑️ Clear Session & New QR</button>
+            </div>`;
+    } else {
+        badge.className = 'wa-status status-disconnected';
+        badge.innerHTML = '<span class="icon">⏳</span> <span class="text">Initializing...</span>';
+        connSec.style.display = 'none';
+        qrSec.style.display = 'none';
+        loadSec.style.display = 'block';
+        loadSec.innerHTML = `
+            <div style="padding: 20px 0; text-align: center;">
+                <p style="color: #90caf9; margin-bottom: 14px;">Starting WhatsApp Client... Please wait.</p>
+                <p style="color: #5a7fa0; font-size: 12px; margin-bottom: 14px;">This may take 30-90 seconds on first start.</p>
+                <button class="btn-danger" onclick="clearAndRestart()" style="margin: 4px; font-size: 13px;">🗑️ Stuck? Clear Session & New QR</button>
+            </div>`;
+    }
+}
+
+async function sendMessage() {
+    const phone = document.getElementById('testPhone').value.trim();
+    const message = document.getElementById('testMsg').value.trim();
+    if(!phone || !message) { alert('Phone and message required!'); return; }
+    
+    const btn = document.getElementById('sendBtn');
+    btn.disabled = true;
+    btn.innerText = 'Sending...';
+
+    try {
+        const res = await fetch(`${BOT_URL}/send`, {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({phone, message})
+        });
+        const data = await res.json();
+        if(data.success) {
+            alert('✅ Message sent successfully!');
+            fetchStatus();
+        } else {
+            alert('❌ Failed: ' + data.error);
+        }
+    } catch(err) {
+        alert('Server connection error!');
+    }
+    btn.disabled = false;
+    btn.innerHTML = '💬 Send Message';
+}
+
+async function logoutBot() {
+    if(!confirm('Are you sure you want to logout?')) return;
+    try {
+        await fetch(`${BOT_URL}/logout`, { method: 'POST' });
+        fetchStatus();
+    } catch(err) {}
+}
+
+async function restartBot(clearSession) {
+    const msg = clearSession 
+        ? 'Session মুছে নতুন QR code তৈরি হবে। চালিয়ে যেতে চান?' 
+        : 'Bot restart হবে। চালিয়ে যেতে চান?';
+    if(!confirm(msg)) return;
+    try {
+        const url = clearSession ? `${BOT_URL}/restart?clearSession=true` : `${BOT_URL}/restart`;
+        await fetch(url, { 
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: '{}'
+        });
+        // Show loading state immediately
+        document.getElementById('loadingSection').style.display = 'block';
+        document.getElementById('loadingSection').innerHTML = '<p style="color: #90caf9;">&#9851;&#65039; Restarting bot...</p>';
+        document.getElementById('qrSection').style.display = 'none';
+        document.getElementById('connectedSection').style.display = 'none';
+    } catch(err) {
+        alert('\u26a0\ufe0f Could not reach bot server!');
+    }
+}
+
+async function regenerateQR() {
+    if(!confirm('নতুন QR code তৈরি করবেন? (পুরানো session থাকবে)')) return;
+    try {
+        const btn = event.target;
+        btn.disabled = true;
+        btn.innerText = 'Generating...';
+        // Auto-re-enable after 90s in case something goes wrong
+        setTimeout(() => { btn.disabled = false; btn.innerText = '\ud83d\udd04 Regenerate QR'; }, 90000);
+        await fetch(`${BOT_URL}/regenerate-qr`, { 
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: '{}'
+        });
+        document.getElementById('loadingSection').style.display = 'block';
+        document.getElementById('loadingSection').innerHTML = '<div style="padding: 20px 0; text-align:center;"><p style="color: #90caf9; margin-bottom:14px;">\u23f3 Generating new QR code...<br><small style="color:#5a7fa0;">Please wait 30-90 seconds</small></p><button class="btn-danger" onclick="clearAndRestart()" style="font-size:13px;">\ud83d\uddd1\ufe0f Stuck? Clear Session & New QR</button></div>';
+        document.getElementById('qrSection').style.display = 'none';
+        document.getElementById('connectedSection').style.display = 'none';
+    } catch(err) {
+        alert('\u26a0\ufe0f Could not reach bot server! Make sure the bot process is running.');
+    }
+}
+
+async function clearAndRestart() {
+    if(!confirm('Session সম্পূর্ণ মুছে নতুন QR code তৈরি হবে। আপনাকে আবার WhatsApp scan করতে হবে। Continue?')) return;
+    try {
+        document.getElementById('loadingSection').style.display = 'block';
+        document.getElementById('loadingSection').innerHTML = '<p style="color: #f39c12;">\ud83d\uddd1\ufe0f Clearing session & restarting...</p>';
+        document.getElementById('qrSection').style.display = 'none';
+        document.getElementById('connectedSection').style.display = 'none';
+        await fetch(`${BOT_URL}/restart?clearSession=true`, { 
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: '{}'
+        });
+        setTimeout(() => {
+            document.getElementById('loadingSection').innerHTML = '<div style="padding: 20px 0; text-align:center;"><p style="color: #90caf9; margin-bottom:14px;">\u23f3 Starting fresh... Please wait 60-90 seconds.</p></div>';
+        }, 2000);
+    } catch(err) {
+        alert('\u26a0\ufe0f Could not reach bot server!');
+    }
+}
+
+async function hardReset() {
+    if(!confirm('HARD RESET: This will force-kill the bot process from the OS, delete the session, and start fresh. The QR code will appear in 60-90 seconds.\n\nContinue?')) return;
+    try {
+        const badge = document.getElementById('statusBadge');
+        badge.className = 'wa-status status-disconnected';
+        badge.innerHTML = '<span class="icon">⏳</span> <span class="text">Hard Resetting...</span>';
+        document.getElementById('loadingSection').style.display = 'block';
+        document.getElementById('loadingSection').innerHTML = '<div style="padding:20px 0;text-align:center;"><p style="color:#f39c12;margin-bottom:8px;">💥 Hard reset in progress...</p><p style="color:#5a7fa0;font-size:13px;">Killing bot process and clearing session.<br>Please wait 60-90 seconds for QR to appear.</p></div>';
+        document.getElementById('qrSection').style.display = 'none';
+        document.getElementById('connectedSection').style.display = 'none';
+        const res = await fetch('/api/wa-hard-reset', { method: 'POST' });
+        const data = await res.json();
+        if(data.success) {
+            setTimeout(() => {
+                document.getElementById('loadingSection').innerHTML = '<div style="padding:20px 0;text-align:center;"><p style="color:#90caf9;margin-bottom:8px;">⏳ Starting fresh bot... QR will appear soon.</p><p style="color:#5a7fa0;font-size:12px;">This may take 60-90 seconds.</p></div>';
+            }, 3000);
+        } else {
+            alert('Hard reset failed: ' + data.message);
+        }
+    } catch(err) {
+        alert('⚠️ Could not contact Flask server!');
+    }
+}
+
+setInterval(fetchStatus, 3000);
+fetchStatus();
+</script>
+{% endblock %}

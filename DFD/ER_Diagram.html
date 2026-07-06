@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>College System - Entity Relationship (ER) Diagram</title>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f8f9fa;
+            color: #333;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        h1 {
+            color: #2c3e50;
+            margin-bottom: 5px;
+        }
+        p {
+            color: #555;
+            margin-bottom: 20px;
+        }
+        .diagram-container {
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            width: 100%;
+            max-width: 1000px;
+            overflow-x: auto;
+        }
+        .controls {
+            margin-top: 20px;
+        }
+        button {
+            padding: 10px 20px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background 0.3s;
+        }
+        button:hover {
+            background-color: #218838;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Entity Relationship (ER) Diagram</h1>
+    <p>Database Schema: Contai Nova College Management System</p>
+
+    <div class="diagram-container">
+        <div class="mermaid">
+            erDiagram
+                ADMIN {
+                    string username PK
+                    string password
+                }
+                
+                QA {
+                    int id PK
+                    string question
+                    string answer
+                    string source
+                }
+
+                CHAT_LOG {
+                    int id PK
+                    string question
+                    string answer
+                    string source
+                    string status
+                    string asked_at
+                }
+
+                NOTICES {
+                    int id PK
+                    string title
+                    string body
+                    string category
+                    string department
+                    string date
+                    string link
+                }
+
+                GALLERY {
+                    int id PK
+                    string title
+                    string filename
+                    string category
+                }
+
+                LIB_USERS {
+                    int id PK
+                    string user_id UK
+                    string name
+                    string password
+                    string role
+                    string dept
+                    string email
+                    string phone
+                    string status
+                    string reg_no
+                    string created
+                }
+
+                EBOOKS {
+                    int id PK
+                    string title
+                    string author
+                    string description
+                    string dept
+                    string subject
+                    string semester
+                    string filename
+                    string filetype
+                    string filesize
+                    string drive_link
+                    string uploaded_by
+                    string upload_date
+                    int downloads
+                    int reads
+                }
+
+                READ_HISTORY {
+                    int id PK
+                    int user_id FK
+                    int book_id FK
+                    string action
+                    string date
+                }
+
+                LIB_DEPARTMENTS {
+                    string id PK
+                    string name
+                    string heading
+                    string icon
+                    string color
+                }
+
+                LIB_SUBJECTS {
+                    string id PK
+                    string dept_id FK
+                    string name
+                    string icon
+                    string color
+                }
+
+                %% Relationships
+                LIB_USERS ||--o{ READ_HISTORY : "tracks"
+                EBOOKS ||--o{ READ_HISTORY : "has"
+                LIB_DEPARTMENTS ||--o{ LIB_SUBJECTS : "contains"
+                LIB_DEPARTMENTS ||--o{ EBOOKS : "categorizes"
+                LIB_SUBJECTS ||--o{ EBOOKS : "has"
+                LIB_USERS ||--o{ EBOOKS : "uploads (if admin/teacher)"
+        </div>
+    </div>
+
+    <div class="controls">
+        <button onclick="window.print()">Save as PDF / Print Picture</button>
+    </div>
+
+    <script>
+        mermaid.initialize({ 
+            startOnLoad: true,
+            theme: 'default',
+        });
+    </script>
+</body>
+</html>

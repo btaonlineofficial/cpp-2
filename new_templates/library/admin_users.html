@@ -1,0 +1,288 @@
+{% extends 'library/base.html' %}
+{% block title %}Users Manage{% endblock %}
+{% block page_title %}👥 Users Manage{% endblock %}
+{% block content %}
+
+{% set demo_depts = {
+  'civil': '🏗️ Civil Engineering',
+  'pharmacy': '💊 Pharmacy',
+  'cst': '💻 Computer Science & Technology',
+  'etce': '📡 Electronics & Tele-comm. Engineering',
+  'chemical': '⚗️ Chemical Engineering',
+  'electrical': '⚡ Electrical Engineering',
+  'mechanical': '⚙️ Mechanical Engineering'
+} %}
+
+<!-- Add User Form -->
+<div class="card" style="margin-bottom:20px">
+  <div class="sec-title" style="margin-bottom:16px">➕ Add New User</div>
+  <form method="POST" action="/library/admin/add-user">
+    <div class="form-grid">
+      <div class="fg"><label>Full Name *</label><input type="text" name="name" placeholder="Student / Teacher Name"
+          required></div>
+      <div class="fg"><label>Registration No. *</label><input type="text" name="reg_no" placeholder="e.g. 10234567890"
+          required></div>
+      <div class="fg"><label>Role</label>
+        <select name="role">
+          <option value="student">👨‍🎓 Student</option>
+          <option value="teacher">👩‍🏫 Teacher</option>
+          <option value="admin">⚙️ Admin</option>
+        </select>
+      </div>
+      <div class="fg"><label>Department</label>
+        <select name="dept">
+          <option value="">— General —</option>
+          {% for k, v in demo_depts.items() %}<option value="{{k}}">{{v}}</option>{% endfor %}
+        </select>
+      </div>
+      <div class="fg"><label>Mobile (WhatsApp) *</label><input type="text" name="phone" placeholder="10 digits"
+          required></div>
+      <div class="fg"><label>Email (Optional)</label><input type="email" name="email" placeholder="Email address"></div>
+    </div>
+    <div style="margin-top:16px"><button type="submit" class="btn btn-pr">➕ Add User</button></div>
+  </form>
+</div>
+
+<!-- Filter Bar -->
+<div class="card" style="margin-bottom:20px;padding:14px 20px">
+  <form action="/library/admin/users" method="GET" style="display:flex;gap:12px;flex-wrap:wrap;align-items:center">
+    <input type="text" name="q" value="{{search_q or ''}}" placeholder="Search Name, ID, or Phone..."
+      style="padding:7px 12px;border:2px solid var(--bd);border-radius:8px;font-size:13px;flex:1;min-width:200px;font-family:'Hind Siliguri',sans-serif">
+    <span style="font-size:12px;font-weight:700;color:var(--muted)">FILTER:</span>
+    <select name="role"
+      style="padding:7px 12px;border:2px solid var(--bd);border-radius:8px;font-size:13px;font-family:'Hind Siliguri',sans-serif">
+      <option value="" {% if not role_filter %}selected{% endif %}>All Roles</option>
+      <option value="student" {% if role_filter=='student' %}selected{% endif %}>👨‍🎓 Students</option>
+      <option value="teacher" {% if role_filter=='teacher' %}selected{% endif %}>👩‍🏫 Teachers</option>
+      <option value="admin" {% if role_filter=='admin' %}selected{% endif %}>⚙️ Admins</option>
+    </select>
+    <select name="dept"
+      style="padding:7px 12px;border:2px solid var(--bd);border-radius:8px;font-size:13px;font-family:'Hind Siliguri',sans-serif">
+      <option value="" {% if not dept_filter %}selected{% endif %}>All Departments</option>
+      {% for k, v in demo_depts.items() %}<option value="{{k}}" {% if dept_filter==k %}selected{% endif %}>{{v}}</option>{% endfor %}
+    </select>
+    <select name="status"
+      style="padding:7px 12px;border:2px solid var(--bd);border-radius:8px;font-size:13px;font-family:'Hind Siliguri',sans-serif">
+      <option value="" {% if not status_filter %}selected{% endif %}>All Status</option>
+      <option value="active" {% if status_filter=='active' %}selected{% endif %}>✅ Active</option>
+      <option value="pending" {% if status_filter=='pending' %}selected{% endif %}>⏳ Pending</option>
+      <option value="inactive" {% if status_filter=='inactive' %}selected{% endif %}>🚫 Inactive</option>
+    </select>
+    <button type="submit" class="btn btn-pr btn-sm">Filter</button>
+    <a href="/library/admin/users" class="btn btn-sm"
+      style="background:var(--light);color:var(--text);text-decoration:none">✕ Reset</a>
+    <span style="margin-left:auto;font-size:13px;color:var(--muted);font-weight:600">Total: {{users|length}}</span>
+  </form>
+</div>
+
+<!-- Users Table -->
+<div class="card">
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Name</th>
+          <th>Library ID</th>
+          <th>Reg No.</th>
+          <th>Role</th>
+          <th>Department</th>
+          <th>Mobile</th>
+          <th>Email</th>
+          <th>Status</th>
+          <th>Join Date</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for u in users %}
+        <tr>
+          <td style="color:var(--muted)">{{u['id']}}</td>
+          <td>
+            <div style="display:flex;align-items:center;gap:12px">
+              <div
+                style="width:36px;height:36px;border-radius:10px;background:var(--pr);color:var(--white);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:16px">
+                {{u['name'][0]|upper}}
+              </div>
+              <div>
+                <div style="font-weight:700;font-size:13px">{{u['name']}}</div>
+              </div>
+            </div>
+          </td>
+          <td>
+            <span
+              style="background:#eaf2fb;color:#2c5282;padding:4px 10px;border-radius:6px;font-size:11px;font-weight:700">
+              {{u['user_id']}}
+            </span>
+          </td>
+          <td>
+            <span
+              style="background:#f0eafa;color:#553c9a;padding:4px 10px;border-radius:6px;font-size:11px;font-weight:700">
+              {{u['reg_no'] or '—'}}
+            </span>
+          </td>
+          <td>
+            <span
+              class="badge {% if u['role']=='admin' %}badge-gold{% elif u['role']=='teacher' %}badge-green{% else %}badge-blue{% endif %}">
+              {% if u['role']=='admin' %}⚙️{% elif u['role']=='teacher' %}👩‍🏫{% else %}👨‍🎓{% endif %}
+              {{u['role']|title}}
+            </span>
+          </td>
+          <td style="font-size:12px">
+            {% if u['dept'] and demo_depts.get(u['dept']) %}
+            {{ demo_depts.get(u['dept']) }}
+            {% else %}—{% endif %}
+          </td>
+          <td style="font-size:12px;color:var(--muted)">{{u['phone'] or '—'}}</td>
+          <td style="font-size:12px;color:var(--muted)">{{u['email'] or '—'}}</td>
+          <td>
+            {% set s_bg = '#f0fff4' if u['status']=='active' else '#fffbeb' if u['status']=='pending' else '#fff5f5' %}
+            {% set s_c = '#276749' if u['status']=='active' else '#b45309' if u['status']=='pending' else '#c53030' %}
+            <span
+              style="padding:3px 10px;border-radius:12px;font-size:10px;font-weight:700;--bg: {{ s_bg }}; --c: {{ s_c }}; background:var(--bg);color:var(--c)">
+              {{u['status']|title}}
+            </span>
+          </td>
+          <td style="font-size:11px;color:var(--muted)">{{u['created'] or '—'}}</td>
+          <td>
+            <div style="display:flex;gap:5px;flex-wrap:wrap">
+              {% if u['user_id'] != 'LIB-ADMIN' %}
+              <!-- Toggle Status -->
+              <form method="POST" action="/library/admin/toggle-user/{{u['id']}}">
+                <button type="submit"
+                  class="btn btn-sm {% if u['status']=='active' %}btn-warn{% else %}btn-success{% endif %}"
+                  title="{% if u['status']=='active' %}Deactivate{% elif u['status']=='pending' %}Approve Registration{% else %}Activate{% endif %}">
+                  {% if u['status']=='active' %}🔒{% elif u['status']=='pending' %}Approve ✅{% else %}🔓{% endif %}
+                </button>
+              </form>
+              <!-- Edit -->
+              <button
+                data-id="{{u.id}}" data-name="{{u.name or ''}}" data-uid="{{u.user_id or ''}}"
+                data-reg="{{u.reg_no or ''}}" data-role="{{u.role or ''}}" data-dept="{{u.dept or ''}}"
+                data-phone="{{u.phone or ''}}" data-email="{{u.email or ''}}"
+                onclick="showEditUser(this)"
+                class="btn btn-sm btn-warn" title="Edit User">✏️</button>
+              <!-- Reset Password -->
+              <button onclick="showReset(this)" data-id="{{u.id}}" data-name="{{u.name or ''}}" class="btn btn-sm btn-warn"
+                title="Password Reset">🔑</button>
+              <!-- Delete -->
+              {% if user.role=='admin' %}
+              <form method="POST" action="/library/admin/delete-user/{{u['id']}}"
+                onsubmit="return confirm('Remove &quot;{{u.name}}&quot;?')">
+                <button type="submit" class="btn btn-sm btn-danger" title="Delete">🗑️</button>
+              </form>
+              {% endif %}
+              {% else %}
+              <span style="font-size:11px;color:var(--muted)">Protected</span>
+              {% endif %}
+            </div>
+          </td>
+        </tr>
+        {% else %}
+        <tr>
+          <td colspan="11" style="text-align:center;padding:40px;color:var(--muted)">No users found.</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- Password Reset Modal -->
+<div id="reset-modal"
+  style="display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,.5);z-index:1000;align-items:center;justify-content:center">
+  <div style="background:white;border-radius:14px;padding:28px;width:360px;box-shadow:0 20px 60px rgba(0,0,0,.3)">
+    <div style="font-size:18px;font-weight:700;color:var(--pr);margin-bottom:6px">🔑 Password Reset</div>
+    <div id="reset-name" style="font-size:13px;color:var(--muted);margin-bottom:18px"></div>
+    <form id="reset-form" method="POST">
+      <div class="fg" style="margin-bottom:16px">
+        <label>New Password</label>
+        <input type="text" name="new_password" value="pass1234" required minlength="6"
+          style="padding:10px 14px;border:2px solid var(--bd);border-radius:8px;width:100%;font-family:'Hind Siliguri',sans-serif;font-size:14px">
+      </div>
+      <div style="display:flex;gap:10px">
+        <button type="submit" class="btn btn-pr" style="flex:1">✅ Reset</button>
+        <button type="button" onclick="closeReset()" class="btn"
+          style="background:var(--light);color:var(--text)">Cancel</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- Edit User Modal -->
+<div class="modal" id="editModal"
+  style="display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,.5);z-index:1000;align-items:center;justify-content:center">
+  <div class="modal-box"
+    style="background:white;border-radius:14px;padding:28px;width:360px;box-shadow:0 20px 60px rgba(0,0,0,.3)">
+    <div class="modal-header" style="display:flex;justify-content:space-between;margin-bottom:15px">
+      <h3>Edit User Details</h3>
+      <button class="modal-close" onclick="document.getElementById('editModal').style.display='none'">✕</button>
+    </div>
+    <div class="modal-body">
+      <form id="editForm" method="POST">
+        <div class="field" style="margin-bottom:10px">
+          <label>Full Name</label>
+          <input type="text" name="name" id="eu_name" required style="width:100%">
+        </div>
+        <div class="field" style="margin-bottom:10px">
+          <label>Library ID (Auto Generated)</label>
+          <input type="text" name="user_id" id="eu_uid" readonly
+            style="width:100%; background: #f0f0f0; cursor: not-allowed;">
+        </div>
+        <div class="field" style="margin-bottom:10px">
+          <label>Registration No.</label>
+          <input type="text" name="reg_no" id="eu_reg" required style="width:100%">
+        </div>
+        <div class="field" style="margin-bottom:10px">
+          <label>Role</label>
+          <select name="role" id="eu_role" style="width:100%">
+            <option value="student">Student</option>
+            <option value="teacher">Teacher</option>
+            <option value="admin">Admin</option>
+          </select>
+        </div>
+        <div class="field" style="margin-bottom:10px">
+          <label>Department</label>
+          <select name="dept" id="eu_dept" style="width:100%">
+            <option value="">— Select —</option>
+            {% for k, v in demo_depts.items() %}<option value="{{k}}">{{v}}</option>{% endfor %}
+          </select>
+        </div>
+        <div class="field" style="margin-bottom:10px">
+          <label>Mobile Number</label>
+          <input type="text" name="phone" id="eu_phone" style="width:100%">
+        </div>
+        <div class="field" style="margin-bottom:15px">
+          <label>Email Address</label>
+          <input type="email" name="email" id="eu_email" style="width:100%">
+        </div>
+        <button type="submit" class="btn btn-pr" style="width:100%">Save Changes</button>
+      </form>
+    </div>
+  </div>
+</div>
+
+<script>
+  function showReset(btn) {
+    document.getElementById('reset-modal').style.display = 'flex';
+    document.getElementById('reset-name').textContent = 'User: ' + btn.dataset.name;
+    document.getElementById('reset-form').action = '/library/admin/reset-password/' + btn.dataset.id;
+  }
+  function closeReset() {
+    document.getElementById('reset-modal').style.display = 'none';
+  }
+
+  function showEditUser(btn) {
+    var ds = btn.dataset;
+    document.getElementById('editForm').action = '/library/admin/edit-user/' + ds.id;
+    document.getElementById('eu_name').value = ds.name || '';
+    document.getElementById('eu_uid').value = ds.uid || '';
+    document.getElementById('eu_reg').value = ds.reg || '';
+    document.getElementById('eu_role').value = ds.role || 'student';
+    document.getElementById('eu_dept').value = ds.dept || '';
+    document.getElementById('eu_phone').value = ds.phone || '';
+    document.getElementById('eu_email').value = ds.email || '';
+    document.getElementById('editModal').style.display = 'flex';
+  }
+</script>
+{% endblock %}

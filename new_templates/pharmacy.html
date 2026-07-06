@@ -1,0 +1,2031 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pharmacy — Contai Polytechnic</title>
+    <meta name="description"
+        content="Department of Pharmacy at Contai Polytechnic — Diploma in Pharmacy (D.Pharm) under PCI, est. 1997.">
+    <link rel="icon" type="image/png" href="{{ url_for('static', filename='logo.png') }}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;0,800;0,900;1,700&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;0,9..40,800;1,9..40,400&display=swap"
+        rel="stylesheet">
+
+    <style>
+        /* ══ ROOT VARIABLES (From Index) ══ */
+        :root {
+            --white: #ffffff;
+            --bg: #f8fafc;
+            --bg2: #f1f5f9;
+            --border: #e2e8f0;
+            --border2: #cbd5e1;
+            --text: #0f172a;
+            --text2: #334155;
+            --text3: #64748b;
+            --navy: #1e3a5f;
+            --blue: #2563eb;
+            --blue-light: #dbeafe;
+            --blue-mid: #bfdbfe;
+            --accent: #0ea5e9;
+            --shadow: 0 1px 3px rgba(0, 0, 0, .08), 0 4px 16px rgba(0, 0, 0, .06);
+            --shadow-md: 0 4px 24px rgba(0, 0, 0, .10);
+            --shadow-lg: 0 10px 40px rgba(0, 0, 0, .12);
+            --radius: 14px;
+            --radius-lg: 22px;
+        }
+
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            overflow-x: hidden;
+            width: 100%;
+            max-width: 100vw;
+        }
+
+        body {
+            font-family: 'DM Sans', sans-serif;
+            background: #f1f5f9;
+            color: #0f172a;
+            min-height: 100vh;
+            padding-top: 0;
+            display: flex;
+            flex-direction: column;
+            overflow-x: hidden;
+            width: 100%;
+            max-width: 100vw;
+        }
+
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #f1f5f9;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 3px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
+
+        /* ══ MOBILE MENU ══ */
+        .mobile-toggle {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 5px;
+            z-index: 1100;
+        }
+
+        .mobile-toggle span {
+            width: 24px;
+            height: 2.5px;
+            background: var(--navy);
+            border-radius: 2px;
+            transition: all 0.3s;
+        }
+
+        .mobile-menu {
+            position: fixed;
+            top: 0;
+            right: 0;
+            transform: translateX(100%);
+            width: 85%;
+            height: 100vh;
+            background: var(--white);
+            z-index: 1050;
+            padding: 90px 24px 40px;
+            box-shadow: -10px 0 30px rgba(0, 0, 0, 0.1);
+            transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            overflow-y: auto;
+        }
+
+        .mobile-menu.active {
+            transform: translateX(0);
+        }
+
+        .mobile-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(15, 23, 42, 0.5);
+            backdrop-filter: blur(4px);
+            z-index: 1040;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s;
+        }
+
+        .mobile-overlay.active {
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        .mobile-nav-group {
+            margin-bottom: 32px;
+        }
+
+        .mobile-nav-title {
+            font-size: 11px;
+            font-weight: 800;
+            color: var(--text3);
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            margin-bottom: 16px;
+            display: block;
+        }
+
+        .mobile-nav-links {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .mobile-nav-link {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 16px;
+            background: #f8fafc;
+            border-radius: 12px;
+            text-decoration: none;
+            color: var(--text2);
+            font-weight: 600;
+            font-size: 14px;
+            transition: all 0.2s;
+            border: 1px solid var(--border);
+        }
+
+        .mobile-nav-link:active {
+            background: var(--blue-light);
+            border-color: var(--blue-mid);
+            color: var(--blue);
+        }
+
+        /* Hamburger Animation */
+        .mobile-toggle.active span:nth-child(1) {
+            transform: translateY(7.5px) rotate(45deg);
+        }
+
+        .mobile-toggle.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .mobile-toggle.active span:nth-child(3) {
+            transform: translateY(-7.5px) rotate(-45deg);
+        }
+
+        @media(max-width:1024px) {
+            .footer-inner {
+                grid-template-columns: 1fr 1fr
+            }
+        }
+
+        @media(max-width:768px) {
+            .header-content {
+                padding: 0 20px;
+                height: 64px;
+            }
+
+            .nav-center {
+                display: none;
+            }
+
+            .mobile-toggle {
+                display: flex;
+            }
+
+            .header-right {
+                display: none;
+            }
+
+            .logo-section h2 {
+                font-size: 16px;
+                white-space: nowrap;
+        }
+
+            .logo-img {
+                width: 40px;
+                height: 40px;
+            }
+
+            .dept-hero {
+                padding: 60px 20px 50px;
+            }
+
+            .hero-stats {
+                display: grid;
+                grid-template-columns: repeat(2, 1fr);
+                gap: 20px;
+                text-align: center;
+            }
+
+            .stat-number {
+                font-size: 24px;
+            }
+
+            .page-wrapper {
+                padding: 30px 20px 60px;
+            }
+
+            .hod-card {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+                padding: 30px 20px;
+                gap: 24px;
+            }
+
+            .hod-highlight {
+                border-left: none;
+                border-top: 3px solid #1a56db;
+                border-radius: 0 0 8px 8px;
+            }
+
+            .footer-inner {
+                grid-template-columns: 1fr;
+                padding-top: 60px;
+                gap: 40px;
+            }
+
+            .footer-bottom {
+                flex-direction: column;
+                gap: 16px;
+                text-align: center;
+            }
+        }
+
+        /* ══ HEADER (100% Exact from Index) ══ */
+        .header {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background: rgba(255, 255, 255, .92);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border);
+            box-shadow: 0 1px 12px rgba(0, 0, 0, .06);
+        }
+
+        .header-content {
+            max-width: 1280px;
+            margin: 0 auto;
+            min-height: 74px;
+            padding: 12px 32px; /* updated */
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 32px;
+        }
+
+        .logo-section {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+        }
+
+        .logo-img {
+            width: 52px;
+            height: 52px;
+            object-fit: contain;
+        }
+
+        .logo-section h2,
+        .header h2 {
+            margin: 0;
+            font-family: 'Playfair Display', serif;
+            font-size: 20px;
+            font-weight: 800;
+            color: var(--navy);
+            letter-spacing: .3px;
+            white-space: nowrap;
+        }
+
+        .logo-section span {
+            color: var(--blue);
+        }
+
+        .nav-center {
+            display: flex;
+            align-items: center;
+            row-gap: 2px;
+            column-gap: 12px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .nav-link {
+            padding: 8px 18px;
+            border-radius: 8px;
+            color: var(--text2);
+            font-size: 13.5px;
+            font-weight: 600;
+            text-decoration: none;
+            background: var(--white);
+            border: 1px solid var(--border);
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+            transition: all .2s;
+            white-space: nowrap;
+        }
+
+        .nav-link:hover {
+            color: var(--blue);
+            background: var(--blue-light);
+            border-color: var(--blue-mid);
+            transform: translateY(-1px);
+            box-shadow: 0 3px 8px rgba(37, 99, 235, 0.12);
+        }
+
+        .dept-dropdown-wrap {
+            position: relative;
+        }
+
+        .dept-trigger {
+            padding: 8px 18px;
+            border-radius: 8px;
+            color: var(--text2);
+            font-size: 13.5px;
+            font-weight: 600;
+            background: var(--white);
+            border: 1px solid var(--border);
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+            cursor: pointer;
+            font-family: inherit;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            transition: all .2s;
+            white-space: nowrap;
+        }
+
+        .dept-trigger:hover {
+            color: var(--blue);
+            background: var(--blue-light);
+            border-color: var(--blue-mid);
+            transform: translateY(-1px);
+            box-shadow: 0 3px 8px rgba(37, 99, 235, 0.12);
+        }
+
+        .dept-trigger svg {
+            transition: transform .22s;
+        }
+
+        .dept-dropdown-wrap:hover .dept-trigger svg {
+            transform: rotate(180deg);
+        }
+
+        .dept-dropdown {
+            position: absolute;
+            top: calc(100% + 8px);
+            left: 50%;
+            transform: translateX(-50%) translateY(-6px);
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity .2s, transform .2s;
+            z-index: 999;
+            min-width: 220px;
+        }
+
+        .dept-dropdown-wrap:hover .dept-dropdown {
+            opacity: 1;
+            pointer-events: all;
+            transform: translateX(-50%) translateY(0);
+        }
+
+        .dept-dropdown-inner {
+            background: var(--white);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 8px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, .14);
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+            position: relative;
+        }
+
+        .dept-dropdown-inner::before {
+            content: '';
+            position: absolute;
+            top: -5px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 10px;
+            height: 10px;
+            background: var(--white);
+            border-left: 1px solid var(--border);
+            border-top: 1px solid var(--border);
+            rotate: 45deg;
+        }
+
+        .dd-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 9px 12px;
+            border-radius: 10px;
+            text-decoration: none;
+            color: var(--text2);
+            transition: all .15s;
+        }
+
+        .dd-item:hover {
+            background: var(--bg);
+            color: var(--navy);
+        }
+
+        .dd-icon {
+            width: 30px;
+            height: 30px;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 15px;
+            background: var(--bg);
+        }
+
+        .dd-item strong {
+            display: block;
+            font-size: 12px;
+            font-weight: 700;
+            color: var(--text);
+        }
+
+        .dd-item small {
+            display: block;
+            font-size: 10px;
+            color: var(--text3);
+        }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .btn-result {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 20px;
+            border-radius: 50px;
+            border: 1.5px solid #ef4444;
+            color: #ef4444;
+            font-size: 0.85rem;
+            font-weight: 700;
+            text-decoration: none;
+            transition: all 0.3s;
+            background: transparent;
+        }
+
+        .btn-result:hover {
+            background: #ef4444;
+            color: #fff;
+            box-shadow: 0 4px 12px rgba(239, 68, 68, 0.2);
+        }
+
+        .btn-notice {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 20px;
+            border-radius: 50px;
+            border: 1.5px solid #334155;
+            color: #334155;
+            font-size: 0.85rem;
+            font-weight: 700;
+            text-decoration: none;
+            transition: all 0.3s;
+            background: transparent;
+        }
+
+        .btn-notice:hover {
+            background: #334155;
+            color: #fff;
+            box-shadow: 0 4px 12px rgba(51, 65, 85, 0.25);
+        }
+
+        /* DEPT HERO */
+        .page-content-wrapper {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .dept-hero {
+            position: relative;
+            z-index: 10;
+            overflow: hidden;
+            padding: 80px 24px 70px;
+            text-align: center;
+            background: #0f172a;
+            border-bottom: none;
+            box-shadow: 0 12px 30px -8px rgba(15, 23, 42, 0.3);
+        }
+
+        .hero-bg {
+            position: absolute;
+            inset: 0;
+            display: block;
+            z-index: 0;
+        }
+
+        .hero-bg img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0.25;
+            filter: blur(2px);
+        }
+
+        .hero-bg::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to bottom, rgba(15, 23, 42, 0.4), #0f172a);
+        }
+
+        .hero-inner {
+            position: relative;
+            z-index: 2;
+        }
+
+        .dept-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(167, 139, 250, 0.1);
+            border: 1px solid rgba(167, 139, 250, 0.25);
+            color: #a855f7;
+            font-size: 11px;
+            font-weight: 800;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            padding: 6px 16px;
+            border-radius: 50px;
+            margin-bottom: 20px;
+        }
+
+        .dept-hero h1 {
+            margin: 0 0 14px;
+            font-size: clamp(32px, 6vw, 68px);
+            font-weight: 900;
+            letter-spacing: -2px;
+            color: white;
+            line-height: 1;
+            font-style: italic;
+            text-transform: uppercase;
+            font-family: 'Playfair Display', serif;
+        }
+
+        .dept-hero h1 span {
+            color: #a855f7;
+            display: block;
+        }
+
+        .dept-hero p {
+            max-width: 620px;
+            margin: 0 auto 32px;
+            color: #94a3b8;
+            font-size: 15px;
+            line-height: 1.7;
+        }
+
+        .hero-stats {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            flex-wrap: wrap;
+        }
+
+        .stat-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .stat-number {
+            font-size: 32px;
+            font-weight: 900;
+            color: #a855f7;
+            font-family: 'Playfair Display', serif;
+        }
+
+        .stat-label {
+            font-size: 10px;
+            font-weight: 700;
+            color: #94a3b8;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+        }
+
+        /* MAIN CONTENT */
+        .page-wrapper {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 24px 80px;
+        }
+
+        .section-heading {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            margin-bottom: 24px;
+        }
+
+        .section-heading .icon {
+            width: 44px;
+            height: 44px;
+            background: #eff4ff;
+            border: 1px solid #c7d7fd;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+        }
+
+        .section-heading h2 {
+            margin: 0;
+            font-size: 20px;
+            font-weight: 800;
+            color: #0f172a;
+            font-family: 'Playfair Display', serif;
+        }
+
+        .section-heading p {
+            margin: 2px 0 0;
+            font-size: 12px;
+            color: #94a3b8;
+            font-weight: 600;
+        }
+
+        /* OVERVIEW CARD */
+        .overview-card {
+            background: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 16px;
+            padding: 28px;
+            margin-bottom: 48px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+        }
+
+        .overview-card p {
+            color: #475569;
+            font-size: 14px;
+            line-height: 1.8;
+        }
+
+        .overview-card strong {
+            color: #1a56db !important;
+        }
+
+        /* VISION/MISSION */
+        .vm-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 20px;
+            margin-bottom: 48px;
+        }
+
+        .vm-card {
+            background: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 16px;
+            padding: 28px;
+        }
+
+        .vm-card h3 {
+            font-size: 16px;
+            font-weight: 800;
+            color: #0f172a;
+            margin: 0 0 14px;
+        }
+
+        .vm-card p {
+            color: #64748b;
+            font-size: 14px;
+            line-height: 1.75;
+        }
+
+        .mission-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            margin-bottom: 14px;
+        }
+
+        .mission-tag {
+            min-width: 32px;
+            height: 28px;
+            border-radius: 8px;
+            background: #eff4ff;
+            border: 1px solid #c7d7fd;
+            color: #1a56db;
+            font-size: 11px;
+            font-weight: 800;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .card-grid {
+            display: grid;
+            gap: 20px;
+            margin-bottom: 48px;
+        }
+
+        .card-grid.col-3 {
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        }
+
+        .card-grid.col-2 {
+            grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
+        }
+
+        .info-card {
+            background: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 16px;
+            padding: 26px;
+            transition: 0.3s;
+        }
+
+        .info-card:hover {
+            border-color: #c7d7fd;
+            box-shadow: 0 8px 24px rgba(26, 86, 219, 0.08);
+            transform: translateY(-3px);
+        }
+
+        .card-icon {
+            font-size: 26px;
+            margin-bottom: 12px;
+        }
+
+        .info-card h3 {
+            margin: 0 0 10px;
+            font-size: 15px;
+            font-weight: 800;
+            color: #0f172a;
+        }
+
+        .info-card p,
+        .info-card li {
+            font-size: 13.5px;
+            color: #64748b;
+            line-height: 1.75;
+            margin: 0;
+        }
+
+        .info-card ul {
+            padding-left: 18px;
+            margin: 0;
+        }
+
+        .info-card li {
+            margin-bottom: 6px;
+        }
+
+        .table-card {
+            background: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 16px;
+            overflow-x: auto;
+            margin-bottom: 48px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+        }
+
+        .table-card table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .table-card th,
+        .table-card td {
+            padding: 13px 18px;
+            text-align: left;
+            border-bottom: 1px solid #f1f5f9;
+            font-size: 13.5px;
+        }
+
+        .table-card th {
+            background: #f8fafc;
+            color: #64748b;
+            font-size: 10px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 1.2px;
+        }
+
+        .table-card td {
+            color: #475569;
+        }
+
+        .table-card tr:last-child td {
+            border-bottom: none;
+        }
+
+        .table-card tr:hover td {
+            background: #fafbff;
+        }
+
+        .chip-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 48px;
+        }
+
+        .chip {
+            padding: 9px 16px;
+            background: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 50px;
+            font-size: 13px;
+            font-weight: 600;
+            color: #475569;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: 0.2s;
+        }
+
+        .chip:hover {
+            border-color: #c7d7fd;
+            color: #1a56db;
+            background: #eff4ff;
+        }
+
+        .hod-card {
+            background: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 20px;
+            padding: 44px;
+            display: flex;
+            gap: 44px;
+            align-items: flex-start;
+            margin-bottom: 48px;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+        }
+
+        .hod-card::before {
+            content: '\201C';
+            position: absolute;
+            top: -20px;
+            left: 30px;
+            font-size: 180px;
+            color: rgba(26, 86, 219, 0.05);
+            font-family: Georgia, serif;
+            line-height: 1;
+            pointer-events: none;
+        }
+
+        .hod-photo {
+            flex-shrink: 0;
+            width: 140px;
+            height: 140px;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 3px solid #c7d7fd;
+            box-shadow: 0 0 0 6px #eff4ff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #eff4ff;
+            font-size: 56px;
+        }
+
+        .hod-photo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .hod-body {
+            flex: 1;
+        }
+
+        .hod-body .hod-tag {
+            display: inline-block;
+            background: #eff4ff;
+            border: 1px solid #c7d7fd;
+            color: #1a56db;
+            font-size: 11px;
+            font-weight: 800;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            padding: 5px 14px;
+            border-radius: 50px;
+            margin-bottom: 18px;
+        }
+
+        .hod-body p {
+            color: #475569;
+            font-size: 14px;
+            line-height: 1.85;
+            margin-bottom: 14px;
+        }
+
+        .hod-highlight {
+            color: #0f172a !important;
+            font-style: italic;
+            font-size: 15px !important;
+            border-left: 3px solid #1a56db;
+            padding: 14px 20px !important;
+            margin: 20px 0 !important;
+            background: #eff4ff;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .hod-signature {
+            margin-top: 24px;
+            padding-top: 20px;
+            border-top: 1px solid #e2e8f0;
+        }
+
+        .hod-signature strong {
+            display: block;
+            color: #0f172a;
+            font-size: 16px;
+            font-weight: 800;
+        }
+
+        .hod-signature span {
+            color: #94a3b8;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .divider {
+            height: 1px;
+            background: linear-gradient(to right, transparent, #e2e8f0, transparent);
+            margin: 0 0 48px;
+        }
+
+        .syllabus-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 20px;
+            margin-bottom: 48px;
+        }
+
+        .syllabus-card {
+            background: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 16px;
+            padding: 28px;
+            position: relative;
+        }
+
+        .syllabus-badge {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: #eff4ff;
+            border: 1px solid #c7d7fd;
+            color: #1a56db;
+            font-size: 11px;
+            font-weight: 800;
+            padding: 4px 12px;
+            border-radius: 50px;
+        }
+
+        .syllabus-card h3 {
+            margin: 0 0 16px;
+            font-size: 16px;
+            font-weight: 800;
+            color: #0f172a;
+        }
+
+        .syllabus-card ul {
+            padding-left: 20px;
+            margin: 0;
+            color: #64748b;
+            font-size: 14px;
+            line-height: 1.8;
+        }
+
+        .syllabus-card li {
+            margin-bottom: 8px;
+        }
+
+        /* ══ FOOTER (100% Exact from Index) ══ */
+        .footer {
+            background: #0f172a;
+            position: relative;
+            overflow: hidden;
+            color: #94a3b8;
+            font-family: 'Inter', sans-serif;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            margin-top: auto;
+        }
+
+        .footer-glow {
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80%;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, #3b82f6, transparent);
+            box-shadow: 0 0 20px 2px rgba(59, 130, 246, 0.5);
+        }
+
+        .footer-inner {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 80px 32px 50px;
+            display: grid;
+            grid-template-columns: 1.8fr 1fr 1fr 1.2fr;
+            gap: 50px;
+        }
+
+        .footer-brand .logo-row {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+
+        .footer-brand .logo-row img {
+            width: 52px;
+            height: 52px;
+            object-fit: contain;
+            background: white;
+            padding: 4px;
+            border-radius: 12px;
+        }
+
+        .footer-brand .logo-row h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 24px;
+            font-weight: 800;
+            color: white;
+            letter-spacing: -0.5px;
+        }
+
+        .footer-brand p {
+            font-size: 14px;
+            line-height: 1.8;
+            margin-bottom: 30px;
+            max-width: 340px;
+        }
+
+        .footer-col h5 {
+            color: white;
+            font-size: 15px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            margin: 0 0 28px;
+            position: relative;
+            padding-bottom: 12px;
+        }
+
+        .footer-col h5::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 30px;
+            height: 3px;
+            background: #3b82f6;
+            border-radius: 3px;
+        }
+
+        .footer-links {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            padding: 0;
+            margin: 0;
+        }
+
+        .footer-links li a,
+        .footer-links li {
+            color: #94a3b8;
+            font-size: 14px;
+            font-weight: 500;
+            text-decoration: none;
+            transition: 0.3s;
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            line-height: 1.5;
+        }
+
+        .footer-links li a:hover {
+            color: #60a5fa;
+            transform: translateX(6px);
+        }
+
+        .footer-links li i {
+            margin-top: 2px;
+            font-style: normal;
+        }
+
+        .footer-bottom {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 30px 32px;
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 13.5px;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .footer-bottom-links {
+            display: flex;
+            gap: 24px;
+        }
+
+        .footer-bottom-links a {
+            color: #94a3b8;
+            text-decoration: none;
+            transition: 0.2s;
+            font-weight: 500;
+        }
+
+        .footer-bottom-links a:hover {
+            color: white;
+        }
+
+        .footer-dev {
+            color: #64748b;
+        }
+
+        .footer-dev a {
+            color: #3b82f6;
+            font-weight: 700;
+            text-decoration: none;
+            transition: 0.2s;
+        }
+
+        .footer-dev a:hover {
+            color: #60a5fa;
+        }
+
+        /* RESPONSIVE */
+        @media(max-width:1024px) {
+            .footer-inner {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media(max-width:768px) {
+            .header-content {
+                padding: 0 20px;
+            }
+
+            .nav-center {
+                display: none;
+                flex-wrap: wrap;
+            justify-content: center;
+        }
+
+            .hod-card {
+                flex-direction: column;
+                padding: 30px;
+                gap: 20px;
+                align-items: center;
+                text-align: center;
+            }
+
+            .footer-inner {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-bottom {
+                flex-direction: column;
+                gap: 16px;
+            }
+
+            .dept-hero {
+                padding: 50px 20px 40px;
+            }
+
+            .dept-hero h1 {
+                font-size: 40px;
+            }
+        }
+        @media (max-width: 768px) {
+            .hod-card {
+                flex-direction: column;
+                gap: 24px;
+                padding: 32px 20px;
+                align-items: center;
+                text-align: center;
+            }
+            .hod-card::before {
+                left: 10px;
+                top: -10px;
+            }
+            .hod-highlight {
+                border-left: none;
+                border-top: 3px solid #1a56db;
+                border-radius: 0 0 8px 8px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="mobile-overlay" id="mobileOverlay"></div>
+    <div class="mobile-menu" id="mobileMenu">
+        <div class="mobile-nav-group">
+            <span class="mobile-nav-title">Navigation</span>
+            <div class="mobile-nav-links">
+                <a href="/" class="mobile-nav-link">🏠 Home</a>
+                <a href="/notice" class="mobile-nav-link">📋 Notice Board</a>
+                <a href="/result" class="mobile-nav-link">📄 View Result</a>
+            </div>
+        </div>
+        <div class="mobile-nav-group">
+            <span class="mobile-nav-title">About Us</span>
+            <div class="mobile-nav-links">
+                <a href="/college-profile" class="mobile-nav-link">🏛️ College Profile</a>
+                <a href="/mission-vision" class="mobile-nav-link">🚀 Mission & Vision</a>
+                <a href="/faculty" class="mobile-nav-link">👨‍🏫 Our Faculty</a>
+                <a href="/virtual-tour" class="mobile-nav-link">🌐 Virtual Tour</a>
+                <a href="/gallery" class="mobile-nav-link">🖼️ Gallery</a>
+                <a href="/voice" class="mobile-nav-link">🎙️ Voice Assistant</a>
+            </div>
+        </div>
+        <div class="mobile-nav-group">
+            <span class="mobile-nav-title">Academics</span>
+            <div class="mobile-nav-links">
+                <a href="/mechanical" class="mobile-nav-link">⚙️ Mechanical Engg.</a>
+                <a href="/civil" class="mobile-nav-link">🏗️ Civil Engg.</a>
+                <a href="/electrical" class="mobile-nav-link">⚡ Electrical Engg.</a>
+                <a href="/electronics" class="mobile-nav-link">📡 Electronics & Telecom</a>
+                <a href="/cst" class="mobile-nav-link">💻 Computer Science</a>
+                <a href="/chemical" class="mobile-nav-link">⚗️ Chemical Engg.</a>
+                <a href="/pharmacy" class="mobile-nav-link">💊 Pharmacy</a>
+                <a href="/admission" class="mobile-nav-link">🎓 Admission Process</a>
+                <a href="/academic-calendar" class="mobile-nav-link">📅 Academic Calendar</a>
+                <a href="/academic-holiday" class="mobile-nav-link">🌴 Holiday List</a>
+            </div>
+        </div>
+        <div class="mobile-nav-group">
+            <span class="mobile-nav-title">Administration</span>
+            <div class="mobile-nav-links">
+                <a href="/principal" class="mobile-nav-link">👤 Principal's Desk</a>
+                <a href="/secretary" class="mobile-nav-link">🖋️ Secretary's Desk</a>
+                <a href="/vocational-nodal" class="mobile-nav-link">🛠️ Vocational Cell</a>
+                <a href="/exam-cell" class="mobile-nav-link">📝 Exam Cell</a>
+                <a href="/anti-ragging" class="mobile-nav-link">🛡️ Anti-Ragging</a>
+                <a href="/admission" class="mobile-nav-link">🎓 Admission</a>
+            </div>
+        </div>
+        <div class="mobile-nav-group">
+            <span class="mobile-nav-title">Placement</span>
+            <div class="mobile-nav-links">
+                <a href="/about-tp-cell" class="mobile-nav-link">ℹ️ About TP Cell</a>
+                <a href="/tpo-desk" class="mobile-nav-link">👤 T.P.O.'s Desk</a>
+                <a href="/tp-cell" class="mobile-nav-link">💼 Training & Placement Cell</a>
+                <a href="/industry-partnerships" class="mobile-nav-link">🤝 Industry Partnerships</a>
+            </div>
+        </div>
+        <div class="mobile-nav-group">
+            <span class="mobile-nav-title">Student Zone</span>
+            <div class="mobile-nav-links">
+                <a href="/scholarship" class="mobile-nav-link">🎓 Scholarship &amp; Study Aid</a>
+                <a href="https://drive.google.com/drive/folders/1TcJV6tJ5fi1rsPardHJaWjG1Cpl0JdbZ?usp=drive_link" target="_blank" class="mobile-nav-link">📄 Previous Question Papers</a>
+                <a href="/hostel" class="mobile-nav-link">🏠 Hostel</a>
+                <a href="/canteen" class="mobile-nav-link">🍽️ Canteen</a>
+            </div>
+        </div>
+        <div class="mobile-nav-group">
+            <span class="mobile-nav-title">Other Links</span>
+            <div class="mobile-nav-links">
+                <a href="https://www.aicte.gov.in/" target="_blank" class="mobile-nav-link">🔗 AICTE Feedback Link</a>
+                <a href="https://swayam.gov.in/" target="_blank" class="mobile-nav-link">📚 SWAYAM</a>
+                <a href="/aicte-documents" class="mobile-nav-link">📄 AICTE Related Documents</a>
+            </div>
+        </div>
+    
+        <div class="mobile-nav-group">
+            <span class="mobile-nav-title">Resources</span>
+            <div class="mobile-nav-links">
+                <a href="/library" class="mobile-nav-link">📚 Library</a>
+                <a href="/modern-labs" class="mobile-nav-link">🔬 Modern Labs</a>
+                <a href="/computer-labs" class="mobile-nav-link">🖥️ Computer Labs</a>
+                <a href="/workshop" class="mobile-nav-link">⚙️ Engineering Workshop</a>
+                <a href="/auditorium" class="mobile-nav-link">🏛️ Auditorium</a>
+                <a href="/wifi-campus" class="mobile-nav-link">📶 Wi-Fi Campus</a>
+            </div>
+        </div>
+        <a href="/grievance" class="mobile-nav-link" style="font-weight:600; padding:12px 20px; color:var(--navy); border-bottom:1px solid var(--border);">🚩 Grievance</a>
+        <a href="/admin" class="mobile-nav-link" style="font-weight:600; padding:12px 20px; color:var(--navy); border-bottom:1px solid var(--border);">⚙️ Admin</a>
+    </div>
+
+    <div class="header">
+        <div class="header-content">
+            <a href="/" class="logo-section">
+                <img src="{{ url_for('static', filename='logo.png') }}" alt="Logo" class="logo-img">
+                <h2>Contai <span>Poly</span>technic</h2>
+            </a>
+            <nav class="nav-center">
+                <a href="/" class="nav-link">Home</a>
+                <div class="dept-dropdown-wrap">
+                    <button class="dept-trigger">About Us
+                        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2.5">
+                            <polyline points="6 9 12 15 18 9" />
+                        </svg>
+                    </button>
+                    <div class="dept-dropdown">
+                        <div class="dept-dropdown-inner">
+                            <a href="/college-profile" class="dd-item"><span class="dd-icon"
+                                    style="background:rgba(16,185,129,0.12);border-color:rgba(16,185,129,0.25)">🏛️</span>
+                                <div><strong>College Profile</strong><small>History &amp; Infrastructure</small></div>
+                            </a>
+                            <a href="/mission-vision" class="dd-item"><span class="dd-icon"
+                                    style="background:rgba(245,158,11,0.12);border-color:rgba(245,158,11,0.25)">🚀</span>
+                                <div><strong>Mission &amp; Vision</strong><small>Our Goals &amp; Values</small></div>
+                            </a>
+                            <a href="/faculty" class="dd-item"><span class="dd-icon"
+                                    style="background:rgba(245,158,11,0.12);border-color:rgba(245,158,11,0.25)">👨‍🏫</span>
+                                <div><strong>Our Faculty</strong><small>Meet Our Teachers</small></div>
+                            </a>
+                            <a href="/virtual-tour" class="dd-item"><span class="dd-icon"
+                                    style="background:rgba(99,102,241,0.12);border-color:rgba(99,102,241,0.25)">🌐</span>
+                                <div><strong>Virtual Tour</strong><small>360° Campus View</small></div>
+                            </a>
+                            <a href="/gallery" class="dd-item"><span class="dd-icon"
+                                    style="background:rgba(236,72,153,0.12);border-color:rgba(236,72,153,0.25)">🖼️</span>
+                                <div><strong>Gallery</strong><small>Campus &amp; Event Photos</small></div>
+                            </a>
+                            <a href="/voice" class="dd-item"><span class="dd-icon"
+                                    style="background:rgba(16,185,129,0.12);border-color:rgba(16,185,129,0.25)">🎙️</span>
+                                <div><strong>Voice Assistant</strong><small>Talk to AI Helpdesk</small></div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="dept-dropdown-wrap">
+                    <button class="dept-trigger">Academics
+                        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2.5">
+                            <polyline points="6 9 12 15 18 9" />
+                        </svg>
+                    </button>
+                    <div class="dept-dropdown">
+                        <div class="dept-dropdown-inner">
+                            <a href="/mechanical" class="dd-item"><span class="dd-icon"
+                                    style="background:rgba(249,115,22,0.12);border-color:rgba(249,115,22,0.25)">⚙️</span>
+                                <div><strong>Mechanical</strong><small>Engineering</small></div>
+                            </a>
+                            <a href="/civil" class="dd-item"><span class="dd-icon"
+                                    style="background:rgba(251,146,60,0.12);border-color:rgba(251,146,60,0.25)">🏗️</span>
+                                <div><strong>Civil</strong><small>Engineering</small></div>
+                            </a>
+                            <a href="/electrical" class="dd-item"><span class="dd-icon"
+                                    style="background:rgba(250,204,21,0.12);border-color:rgba(250,204,21,0.25)">⚡</span>
+                                <div><strong>Electrical</strong><small>Engineering</small></div>
+                            </a>
+                            <a href="/electronics" class="dd-item"><span class="dd-icon"
+                                    style="background:rgba(34,211,238,0.12);border-color:rgba(34,211,238,0.25)">📡</span>
+                                <div><strong>Electronics</strong><small>&amp; Telecom</small></div>
+                            </a>
+                            <a href="/cst" class="dd-item"><span class="dd-icon"
+                                    style="background:rgba(59,130,246,0.12);border-color:rgba(59,130,246,0.25)">💻</span>
+                                <div><strong>CST</strong><small>Computer Sc. &amp; Tech</small></div>
+                            </a>
+                            <a href="/chemical" class="dd-item"><span class="dd-icon"
+                                    style="background:rgba(52,211,153,0.12);border-color:rgba(52,211,153,0.25)">⚗️</span>
+                                <div><strong>Chemical</strong><small>Engineering</small></div>
+                            </a>
+                            <a href="/pharmacy" class="dd-item"><span class="dd-icon"
+                                    style="background:rgba(167,139,250,0.12);border-color:rgba(167,139,250,0.25)">💊</span>
+                                <div><strong>Pharmacy</strong><small>D.Pharm (PCI)</small></div>
+                            </a>
+                            <a href="/academic-calendar" class="dd-item"><span class="dd-icon"
+                                    style="background:rgba(79,70,229,0.12);border-color:rgba(79,70,229,0.25)">📅</span>
+                                <div><strong>Academic Calendar</strong><small>Session 2024-25</small></div>
+                            </a>
+                            <a href="/academic-holiday" class="dd-item"><span class="dd-icon"
+                                    style="background:rgba(244,63,94,0.12);border-color:rgba(244,63,94,0.25)">🌴</span>
+                                <div><strong>Holiday List</strong><small>Academic Holidays</small></div>
+                            </a>
+                            <a href="/admission" class="dd-item"><span class="dd-icon"
+                                    style="background:rgba(59,130,246,0.12);border-color:rgba(59,130,246,0.25)">🎓</span>
+                                <div><strong>Admission</strong><small>Process &amp; Guidelines</small></div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="dept-dropdown-wrap">
+                    <button class="dept-trigger">Administration
+                        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2.5">
+                            <polyline points="6 9 12 15 18 9" />
+                        </svg>
+                    </button>
+                    <div class="dept-dropdown">
+                        <div class="dept-dropdown-inner">
+                            <a href="/principal" class="dd-item"><span class="dd-icon"
+                                    style="background:rgba(59,130,246,0.12);border-color:rgba(59,130,246,0.25)">👤</span>
+                                <div><strong>Principal's Desk</strong><small>Message from Principal</small></div>
+                            </a>
+                            <a href="/secretary" class="dd-item"><span class="dd-icon"
+                                    style="background:rgba(139,92,246,0.12);border-color:rgba(139,92,246,0.25)">🖋️</span>
+                                <div><strong>Secretary's Desk</strong><small>Academic Council</small></div>
+                            </a>
+                            <a href="/vocational-nodal" class="dd-item"><span class="dd-icon"
+                                    style="background:rgba(20,184,166,0.12);border-color:rgba(20,184,166,0.25)">🛠️</span>
+                                <div><strong>Vocational Cell</strong><small>Nodal Centre Details</small></div>
+                            </a>
+                            <a href="/exam-cell" class="dd-item"><span class="dd-icon"
+                                    style="background:rgba(239,68,68,0.12);border-color:rgba(239,68,68,0.25)">📝</span>
+                                <div><strong>Exam Cell</strong><small>Examinations &amp; Results</small></div>
+                            </a>
+                            <a href="/anti-ragging" class="dd-item"><span class="dd-icon"
+                                    style="background:rgba(220,38,38,0.12);border-color:rgba(220,38,38,0.25)">🛡️</span>
+                                <div><strong>Anti-Ragging</strong><small>Safe Campus Policy</small></div>
+                            </a>
+                            <a href="/admission" class="dd-item"><span class="dd-icon"
+                                    style="background:rgba(59,130,246,0.12);border-color:rgba(59,130,246,0.25)">🎓</span>
+                                <div><strong>Admission</strong><small>Process &amp; Guidelines</small></div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="dept-dropdown-wrap">
+                    <button class="dept-trigger">Placement
+                        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2.5">
+                            <polyline points="6 9 12 15 18 9" />
+                        </svg>
+                    </button>
+                    <div class="dept-dropdown">
+                        <div class="dept-dropdown-inner">
+                            <a href="/about-tp-cell" class="dd-item"><span class="dd-icon"
+                                    style="background:rgba(20,184,166,0.12);border-color:rgba(20,184,166,0.25)">ℹ️</span>
+                                <div><strong>About TP Cell</strong><small>Placement Cell Overview</small></div>
+                            </a>
+                            <a href="/tpo-desk" class="dd-item"><span class="dd-icon"
+                                    style="background:rgba(59,130,246,0.12);border-color:rgba(59,130,246,0.25)">👤</span>
+                                <div><strong>T.P.O.'s Desk</strong><small>Message from T.P.O.</small></div>
+                            </a>
+                            <a href="/tp-cell" class="dd-item"><span class="dd-icon"
+                                    style="background:rgba(16,185,129,0.12);border-color:rgba(16,185,129,0.25)">💼</span>
+                                <div><strong>Training &amp; Placement Cell</strong><small>Career Opportunities</small></div>
+                            </a>
+                            <a href="/industry-partnerships" class="dd-item"><span class="dd-icon"
+                                    style="background:rgba(245,158,11,0.12);border-color:rgba(245,158,11,0.25)">🤝</span>
+                                <div><strong>Industry Partnerships</strong><small>Our Industry Ties</small></div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <a href="/notice" class="nav-link">Notice</a>
+                <a href="/result" class="nav-link">Result</a>
+                <div style="flex-basis: 100%; height: 0;"></div>
+                <div class="dept-dropdown-wrap">
+                    <button class="dept-trigger">Student Zone
+                        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2.5">
+                            <polyline points="6 9 12 15 18 9" />
+                        </svg>
+                    </button>
+                    <div class="dept-dropdown">
+                        <div class="dept-dropdown-inner">
+                            <a href="/scholarship" class="dd-item"><span class="dd-icon"
+                                    style="background:rgba(236,72,153,0.12);border-color:rgba(236,72,153,0.25)">🎓</span>
+                                <div><strong>Scholarship &amp; Study Aid</strong><small>Financial Assistance</small></div>
+                            </a>
+                            <a href="https://drive.google.com/drive/folders/1TcJV6tJ5fi1rsPardHJaWjG1Cpl0JdbZ?usp=drive_link" target="_blank" class="dd-item"><span class="dd-icon"
+                                    style="background:rgba(59,130,246,0.12);border-color:rgba(59,130,246,0.25)">📄</span>
+                                <div><strong>Previous Years' Question Papers</strong><small>Exam Resources</small></div>
+                            </a>
+                            <a href="/hostel" class="dd-item"><span class="dd-icon"
+                                    style="background:rgba(16,185,129,0.12);border-color:rgba(16,185,129,0.25)">🏠</span>
+                                <div><strong>Hostel</strong><small>Boys &amp; Girls Hostel</small></div>
+                            </a>
+                            <a href="/canteen" class="dd-item"><span class="dd-icon"
+                                    style="background:rgba(245,158,11,0.12);border-color:rgba(245,158,11,0.25)">🍽️</span>
+                                <div><strong>Canteen</strong><small>College Canteen</small></div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="dept-dropdown-wrap">
+                    <button class="dept-trigger">Other Links
+                        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                            <polyline points="6 9 12 15 18 9" />
+                        </svg>
+                    </button>
+                    <div class="dept-dropdown">
+                        <div class="dept-dropdown-inner">
+                            <a href="https://www.aicte.gov.in/" target="_blank" class="dd-item"><span class="dd-icon" style="background:rgba(236,72,153,0.12);border-color:rgba(236,72,153,0.25)">🔗</span>
+                                <div><strong>AICTE Feedback Link</strong><small>Official Portal</small></div>
+                            </a>
+                            <a href="https://swayam.gov.in/" target="_blank" class="dd-item"><span class="dd-icon" style="background:rgba(59,130,246,0.12);border-color:rgba(59,130,246,0.25)">📚</span>
+                                <div><strong>SWAYAM</strong><small>Online Courses</small></div>
+                            </a>
+                            <a href="/aicte-documents" class="dd-item"><span class="dd-icon" style="background:rgba(16,185,129,0.12);border-color:rgba(16,185,129,0.25)">📄</span>
+                                <div><strong>AICTE Related Documents</strong><small>MOU with Industries</small></div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            
+                <div class="dept-dropdown-wrap">
+                    <button class="dept-trigger">Resources
+                        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                            <polyline points="6 9 12 15 18 9" />
+                        </svg>
+                    </button>
+                    <div class="dept-dropdown">
+                        <div class="dept-dropdown-inner">
+                            <a href="/library" class="dd-item"><span class="dd-icon" style="background:rgba(59,130,246,0.12);border-color:rgba(59,130,246,0.25)">📚</span>
+                                <div><strong>Library</strong><small>Physical & E-Library</small></div>
+                            </a>
+                            <a href="/modern-labs" class="dd-item"><span class="dd-icon" style="background:rgba(16,185,129,0.12);border-color:rgba(16,185,129,0.25)">🔬</span>
+                                <div><strong>Modern Labs</strong><small>Hands-on Learning</small></div>
+                            </a>
+                            <a href="/computer-labs" class="dd-item"><span class="dd-icon" style="background:rgba(245,158,11,0.12);border-color:rgba(245,158,11,0.25)">🖥️</span>
+                                <div><strong>Computer Labs</strong><small>High-Performance Computing</small></div>
+                            </a>
+                            <a href="/workshop" class="dd-item"><span class="dd-icon" style="background:rgba(99,102,241,0.12);border-color:rgba(99,102,241,0.25)">⚙️</span>
+                                <div><strong>Engineering Workshop</strong><small>Practical Training</small></div>
+                            </a>
+                            <a href="/auditorium" class="dd-item"><span class="dd-icon" style="background:rgba(236,72,153,0.12);border-color:rgba(236,72,153,0.25)">🏛️</span>
+                                <div><strong>Auditorium</strong><small>Events & Seminars</small></div>
+                            </a>
+                            <a href="/wifi-campus" class="dd-item"><span class="dd-icon" style="background:rgba(14,165,233,0.12);border-color:rgba(14,165,233,0.25)">📶</span>
+                                <div><strong>Wi-Fi Campus</strong><small>24/7 Connectivity</small></div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <a href="/grievance" class="nav-link">Grievance</a>
+                <a href="/admin" class="nav-link">Admin</a>
+            </nav>
+
+            <button class="mobile-toggle" id="mobileToggle" aria-label="Menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </div>
+    <div class="page-content-wrapper">
+        <div class="dept-hero">
+            <div class="hero-bg">
+                <img src="{{ url_for('static', filename='pharmacy_hero.jpg') }}" alt="Pharmacy Background">
+            </div>
+            <div class="hero-inner">
+                <div class="dept-tag">💊 Department</div>
+                <h1>Department of<br><span>Pharmacy</span></h1>
+                <p>Diploma in Pharmacy (D.Pharm) — PCI Approved · Est. 1997</p>
+                <div class="hero-stats">
+                    <div class="stat-item">
+                        <span class="stat-number">60</span>
+                        <span class="stat-label">Seats / Year</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">1997</span>
+                        <span class="stat-label">Est. Year</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">2</span>
+                        <span class="stat-label">Years (D.Pharm)</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">PCI</span>
+                        <span class="stat-label">Approved</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="page-wrapper">
+            <div class="section-heading" style="margin-top:60px;">
+                <div class="icon">🏛️</div>
+                <div>
+                    <h2>About the Department</h2>
+                    <p>Overview &amp; history of Pharmacy at Contai Polytechnic</p>
+                </div>
+            </div>
+            <div class="overview-card">
+                <p>The Pharmacy Department started its journey in the year <strong style="color:#a78bfa;">1997</strong>
+                    with an intake of <strong style="color:#a78bfa;">30 seats</strong> and received its first approval
+                    from the <strong style="color:#a78bfa;">Pharmacy Council of India (PCI)</strong> — one of only 6
+                    institutions under the Department of Technical Education &amp; Training, Govt. of West Bengal.</p>
+                <br>
+                <p>In the year <strong style="color:#a78bfa;">2004</strong>, the intake capacity was increased from
+                    <strong style="color:#a78bfa;">30 to 60</strong>. Every attempt is made by the Department to
+                    intermesh theoretical concepts with practical insights and present textual matter in an objective,
+                    thought-provoking manner.
+                </p>
+                <br>
+                <p>The department can provide <strong style="color:#a78bfa;">100% placement</strong> immediately after
+                    students pass out their courses. Assistance is also provided to those students who are interested in
+                    higher studies. <strong style="color:#a78bfa;">Industrial visits</strong> expose the reality of
+                    professional activities to students every year. This department is rich with standard reference
+                    books
+                    and highly qualified staff.</p>
+            </div>
+
+            <div class="divider"></div>
+
+            <div class="section-heading">
+                <div class="icon">🎯</div>
+                <div>
+                    <h2>Vision &amp; Mission</h2>
+                    <p>Our guiding principles</p>
+                </div>
+            </div>
+            <div class="vm-grid">
+                <div class="vm-card">
+                    <h3>🌟 Vision</h3>
+                    <p>Imparting quality technical education to individuals and creating ethical, morally responsible,
+                        and technically competent <strong style="color:#a78bfa;">Pharmacists</strong> who serve society
+                        with dedication and integrity.</p>
+                </div>
+                <div class="vm-card">
+                    <h3>🚀 Mission</h3>
+                    <div class="mission-item">
+                        <div class="mission-tag">M1</div>
+                        <p>Educate students to become highly competent
+                            <strong style="color:#a78bfa;">Pharmacists</strong>.
+                        </p>
+                    </div>
+                    <div class="mission-item">
+                        <div class="mission-tag">M2</div>
+                        <p>Dissemination of professional knowledge and ethics to students for providing <strong
+                                style="color:#a78bfa;">health care services</strong> to the society.</p>
+                    </div>
+                    <div class="mission-item">
+                        <div class="mission-tag">M3</div>
+                        <p>Imparting pharmacy knowledge, communication and managerial skills for getting
+                            <strong style="color:#a78bfa;">employment</strong> as well as becoming a successful
+                            <strong style="color:#a78bfa;">entrepreneur</strong>.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="divider"></div>
+
+            <div class="section-heading">
+                <div class="icon">👨‍🏫</div>
+                <div>
+                    <h2>Department Faculty</h2>
+                    <p>Our qualified teaching team</p>
+                </div>
+            </div>
+            <div class="table-card" style="margin-bottom:60px;">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Sl.</th>
+                            <th>Name</th>
+                            <th>Designation</th>
+                            <th>Qualification</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1.</td>
+                            <td>Dr. Amal Kumar Dhara</td>
+                            <td>Lecturer in Pharmacy</td>
+                            <td>B.Pharm, M.Pharm, Ph.D.</td>
+                        </tr>
+                        <tr>
+                            <td>2.</td>
+                            <td>Dr. Balaram Patra <span
+                                    style="color:#a78bfa; font-size:11px; font-weight:700;">(HOD)</span>
+                            </td>
+                            <td>H.O.D &amp; Lecturer in Pharmacy</td>
+                            <td>B.Pharm, M.Pharm, Ph.D.</td>
+                        </tr>
+                        <tr>
+                            <td>3.</td>
+                            <td>Shri Ranajit Pati</td>
+                            <td>Lecturer in Pharmacy</td>
+                            <td>B.Pharm</td>
+                        </tr>
+                        <tr>
+                            <td>4.</td>
+                            <td>Shri Subrata Bandyopadhyay</td>
+                            <td>Lecturer in Pharmacy</td>
+                            <td>B.Pharm</td>
+                        </tr>
+                        <tr>
+                            <td>5.</td>
+                            <td>Shri Tapan Kumar Paul</td>
+                            <td>Lecturer in Pharmacy</td>
+                            <td>B.Pharm</td>
+                        </tr>
+                        <tr>
+                            <td>6.</td>
+                            <td>Shri Akhil Chandra Saha</td>
+                            <td>Instructor in Pharmacy</td>
+                            <td>D.Pharm</td>
+                        </tr>
+                        <tr>
+                            <td>7.</td>
+                            <td>Shri Sankar Kumar Rana</td>
+                            <td>Instructor in Pharmacy</td>
+                            <td>D.Pharm</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="divider"></div>
+
+            <div class="section-heading">
+                <div class="icon">💬</div>
+                <div>
+                    <h2>HOD's Message</h2>
+                    <p>From the Head of Department</p>
+                </div>
+            </div>
+            <div class="hod-card">
+                <div class="hod-photo" style="background:#0a0f1e; padding:0;">
+                    <img src="{{ url_for('static', filename='hod_pharmacy.jpg') }}" alt="Dr. Balaram Patra"
+                        style="width:100%; height:100%; object-fit:cover; border-radius:14px;">
+                </div>
+                <div class="hod-body">
+                    <div class="hod-tag">HOD's Message</div>
+                    <p class="hod-highlight">
+                        "Creation, dissemination and protection of knowledge in educational institutions are important.
+                        Information technology has become the ultimate weapon in a competitive environment — knowledge
+                        management is perhaps going to be the most crucial armour for competitive success."
+                    </p>
+                    <p>
+                        Student competitiveness is greatly determined by their ability to respond within the time frame
+                        determined by employment opportunity. Students should prepare themselves in such a way that they
+                        meet the <strong style="color:#a78bfa;">current and future needs</strong> in the field of
+                        Pharmacy.
+                    </p>
+                    <p>
+                        Institutions constantly build a better track record on student activities. Those who are
+                        prepared
+                        are perceived as superior to their competitors and hence offer more value for money. Our aim is
+                        to produce pharmacists who are not just technically skilled, but also <strong
+                            style="color:#a78bfa;">ethical, responsible, and socially aware</strong>.
+                    </p>
+                    <div class="hod-signature">
+                        <strong>Dr. Balaram Patra</strong>
+                        <span>H.O.D. — Department of Pharmacy, Contai Polytechnic</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="divider"></div>
+
+            <div class="section-heading">
+                <div class="icon">📚</div>
+                <div>
+                    <h2>D.Pharm Curriculum</h2>
+                    <p>As per ER-2020 &amp; ER-1991</p>
+                </div>
+            </div>
+            <div class="syllabus-grid">
+                <div class="syllabus-card">
+                    <div class="syllabus-badge">ER-2020</div>
+                    <h3>D.Pharm Part-I <small style="color:#64748b; font-size:12px;">(w.e.f. 2021-22)</small></h3>
+                    <ul>
+                        <li>Pharmaceutics</li>
+                        <li>Pharmaceutical Chemistry</li>
+                        <li>Pharmacognosy</li>
+                        <li>Human Anatomy &amp; Physiology</li>
+                        <li>Social Pharmacy</li>
+                    </ul>
+                </div>
+                <div class="syllabus-card">
+                    <div class="syllabus-badge">ER-2020</div>
+                    <h3>D.Pharm Part-II <small style="color:#64748b; font-size:12px;">(w.e.f. 2022-23)</small></h3>
+                    <ul>
+                        <li>Pharmacology and Toxicology</li>
+                        <li>Bio-Chemistry &amp; Clinical Pathology</li>
+                        <li>Community Pharmacy &amp; Management</li>
+                        <li>Pharmacotherapeutics</li>
+                        <li>Hospital &amp; Clinical Pharmacy</li>
+                        <li>Pharmacy Law &amp; Ethics</li>
+                    </ul>
+                </div>
+                <div class="syllabus-card">
+                    <div class="syllabus-badge">ER-1991</div>
+                    <h3>D.Pharm Part-II <small style="color:#64748b; font-size:12px;">(Legacy)</small></h3>
+                    <ul>
+                        <li>Pharmaceutics-II</li>
+                        <li>Pharmaceutical Chemistry-II</li>
+                        <li>Pharmacology and Toxicology</li>
+                        <li>Hospital &amp; Clinical Pharmacy</li>
+                        <li>Pharmaceutical Jurisprudence</li>
+                        <li>Drug Store &amp; Business Management</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="divider"></div>
+
+            <div class="section-heading">
+                <div class="icon">🚀</div>
+                <div>
+                    <h2>Career Opportunities</h2>
+                    <p>Where our graduates work</p>
+                </div>
+            </div>
+            <div class="chip-group">
+                <div class="chip">🏥 Hospital Pharmacist</div>
+                <div class="chip">💊 Community Pharmacist</div>
+                <div class="chip">🏭 Pharmaceutical Industry</div>
+                <div class="chip">🔬 Drug Inspector (Govt.)</div>
+                <div class="chip">📦 Medical Representative</div>
+                <div class="chip">🧪 Quality Control Analyst</div>
+                <div class="chip">🏪 Drug Store Management</div>
+                <div class="chip">🎓 Lateral Entry B.Pharm</div>
+                <div class="chip">🌿 Pharmacognosy Research</div>
+                <div class="chip">🏛️ Clinical Trial Associate</div>
+                <div class="chip">📋 Regulatory Affairs</div>
+                <div class="chip">💡 Pharmacy Entrepreneur</div>
+            </div>
+
+            <div class="divider"></div>
+
+            <div class="section-heading">
+                <div class="icon">🎓</div>
+                <div>
+                    <h2>Higher Study Options</h2>
+                    <p>After completing D.Pharm</p>
+                </div>
+            </div>
+            <div class="card-grid col-3" style="margin-bottom:60px;">
+                <div class="info-card">
+                    <div class="card-icon">📝</div>
+                    <h3>B.Pharm (Lateral Entry)</h3>
+                    <p>Direct admission into 2nd year B.Pharm in West Bengal via WBJEEB counselling for
+                        D.Pharm pass-outs.</p>
+                </div>
+                <div class="info-card">
+                    <div class="card-icon">🏛️</div>
+                    <h3>Government Jobs</h3>
+                    <p>Drug Inspector, Govt. Hospital Pharmacist, ESI pharmacist, Railways pharmacist &amp;
+                        state health department posts.</p>
+                </div>
+                <div class="info-card">
+                    <div class="card-icon">🏆</div>
+                    <h3>Certifications</h3>
+                    <p>Retail Drug License, Regulatory Affairs, GMP (Good Manufacturing Practice), Clinical
+                        Research &amp; Pharmacovigilance certifications.</p>
+                </div>
+            </div>
+            <div class="divider"></div>
+            <div class="section-heading">
+                <div class="icon">📋</div>
+                <div>
+                    <h2>Admission Information</h2>
+                    <p>How to join the department</p>
+                </div>
+            </div>
+            <div class="card-grid col-2" style="margin-bottom:60px;">
+                <div class="info-card">
+                    <div class="card-icon">📌</div>
+                    <h3>Eligibility Criteria</h3>
+                    <ul>
+                        <li>Passed Class X (Madhyamik or equivalent)</li>
+                        <li>Minimum 45% marks in Science (Physics, Chemistry, Biology/Math)</li>
+                        <li>Admission via JEXPO merit rank</li>
+                        <li>Age: minimum 17 years at time of admission (PCI norm)</li>
+                    </ul>
+                </div>
+                <div class="info-card">
+                    <div class="card-icon">📅</div>
+                    <h3>Admission Process</h3>
+                    <ul>
+                        <li>Apply through JEXPO (conducted by WBSCTE)</li>
+                        <li>Counselling based on merit rank</li>
+                        <li>Documents: Madhyamik marksheet, certificate, Aadhaar, passport photo</li>
+                        <li>Intake: 60 students per year (PCI approved)</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="footer-glow"></div>
+        <div class="footer-inner">
+            <div class="footer-brand">
+                <div class="logo-row">
+                    <img src="{{ url_for('static', filename='logo.png') }}" alt="Contai Polytechnic Logo">
+                    <h2>Contai Polytechnic</h2>
+                </div>
+                <p>Leading excellence in technical education since 1991. We are committed to producing world-class
+                    diploma engineers and shaping the innovators of tomorrow.</p>
+            </div>
+
+            <div class="footer-col">
+                <h5>Quick Links</h5>
+                <ul class="footer-links">
+                    <li><a href="/college-profile"><i>🏛️</i> College Profile</a></li>
+                    <li><a href="/admission"><i>🎓</i> Admission 2024</a></li>
+                    <li><a href="/academic-calendar"><i>📅</i> Academic Calendar</a></li>
+                    <li><a href="/notice"><i>📋</i> Notice Board</a></li>
+                    <li><a href="/library"><i>📚</i> Digital Library</a></li>
+                    <li><a href="https://webscte.co.in/" target="_blank"><i>🔗</i> WBSCTE Portal</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-col">
+                <h5>Our Departments</h5>
+                <ul class="footer-links">
+                    <li><a href="/mechanical"><i>⚙️</i> Mechanical Engg.</a></li>
+                    <li><a href="/civil"><i>🏗️</i> Civil Engg.</a></li>
+                    <li><a href="/electrical"><i>⚡</i> Electrical Engg.</a></li>
+                    <li><a href="/electronics"><i>📡</i> Electronics &amp; Telecom</a></li>
+                    <li><a href="/cst"><i>💻</i> Computer Science</a></li>
+                    <li><a href="/chemical"><i>⚗️</i> Chemical Engg.</a></li>
+                    <li><a href="/pharmacy"><i>💊</i> Pharmacy (PCI)</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-col">
+                <h5>Contact Us</h5>
+                <ul class="footer-links">
+                    <li><i>📍</i> <span>Contai, Purba Medinipur,<br>West Bengal 721401</span></li>
+                    <li><i>📞</i> <span>(03220)-255462</span></li>
+                    <li><i>✉️</i> <a
+                            href="mailto:polytechnic_contai@rediffmail.com">polytechnic_contai@rediffmail.com</a></li>
+                    <li><i>🕐</i> <span>Mon–Sat: 10:00 AM – 5:00 PM</span></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <span>&copy; 2026 Contai Polytechnic. All rights reserved.</span>
+            <div class="footer-bottom-links">
+                <a href="/">Home</a>
+                <a href="/gallery">Gallery</a>
+                <a href="/login">Admin Login</a>
+            </div>
+            <div class="footer-dev">
+                Designed with ❤️ by <a href="https://www.instagram.com/swarupdey_07?igsh=NW9jc3NuZGVnODUw"
+                    target="_blank" rel="noopener">Swarup Dey</a>
+            </div>
+        </div>
+    </footer>
+    <script>
+        // Mobile Menu Toggle
+        const mobileToggle = document.getElementById('mobileToggle');
+        const mobileMenu = document.getElementById('mobileMenu');
+        const mobileOverlay = document.getElementById('mobileOverlay');
+
+        function toggleMenu() {
+            mobileToggle.classList.toggle('active');
+            mobileMenu.classList.toggle('active');
+            mobileOverlay.classList.toggle('active');
+            document.body.style.overflow = mobileMenu.classList.contains('active') ? 'hidden' : '';
+        }
+
+        mobileToggle.addEventListener('click', toggleMenu);
+        mobileOverlay.addEventListener('click', toggleMenu);
+
+        // Close menu on link click
+        document.querySelectorAll('.mobile-nav-link').forEach(link => {
+            link.addEventListener('click', () => {
+                if (mobileMenu.classList.contains('active')) toggleMenu();
+            });
+        });
+    </script>
+</body>
+
+</html>

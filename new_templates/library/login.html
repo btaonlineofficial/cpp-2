@@ -1,0 +1,751 @@
+<!DOCTYPE html>
+<html lang="bn">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <title>Library Login — Contai Polytechnic</title>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&family=Playfair+Display:wght@700&display=swap"
+    rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box
+    }
+
+    body {
+      font-family: 'Hind Siliguri', sans-serif;
+      height: 100vh;
+      display: flex;
+      background: #0d1b2a;
+      overflow: hidden;
+      align-items: stretch;
+      margin: 0;
+    }
+
+    .left-panel {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background: url("{{ url_for('static', filename='Library_background.jpeg') }}") center/cover no-repeat;
+      padding: 40px;
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    .left-panel::after {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; width: 100%; height: 100%;
+      background: rgba(0, 0, 0, 0.4);
+      backdrop-filter: blur(4px);
+      -webkit-backdrop-filter: blur(4px);
+      z-index: 1;
+    }
+
+    .left-panel::before {
+      content: '';
+      position: absolute;
+      width: 500px;
+      height: 500px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(46, 134, 222, 0.15), transparent 70%);
+      top: -100px;
+      left: -100px
+    }
+
+    .fb {
+      position: absolute;
+      font-size: 28px;
+      opacity: 0.06;
+      animation: floatBook 8s infinite
+    }
+
+    .fb:nth-child(1) {
+      top: 10%;
+      left: 5%
+    }
+
+    .fb:nth-child(2) {
+      top: 30%;
+      left: 85%;
+      animation-delay: 2s;
+      font-size: 36px
+    }
+
+    .fb:nth-child(3) {
+      top: 60%;
+      left: 10%;
+      animation-delay: 4s
+    }
+
+    .fb:nth-child(4) {
+      top: 80%;
+      left: 70%;
+      animation-delay: 1s;
+      font-size: 44px
+    }
+
+    .fb:nth-child(5) {
+      top: 50%;
+      left: 45%;
+      animation-delay: 3s
+    }
+
+    @keyframes floatBook {
+
+      0%,
+      100% {
+        transform: translateY(0)rotate(0)
+      }
+
+      50% {
+        transform: translateY(-20px)rotate(10deg)
+      }
+    }
+
+    .left-content {
+      position: relative;
+      z-index: 2;
+      text-align: center;
+      color: white
+    }
+
+    .clg-logo {
+      width: 120px;
+      height: 120px;
+      margin-bottom: 20px;
+      filter: drop-shadow(0 10px 20px rgba(0, 0, 0, .3));
+      object-fit: contain;
+    }
+
+    .clg-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 34px;
+      font-weight: 700;
+      background: linear-gradient(to right, #fff, #90caf9);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 8px
+    }
+
+    .clg-sub {
+      color: rgba(255, 255, 255, .6);
+      font-size: 14px;
+      margin-bottom: 40px
+    }
+
+    .feat {
+      list-style: none;
+      text-align: left
+    }
+
+    .feat li {
+      color: rgba(255, 255, 255, .8);
+      font-size: 15px;
+      margin-bottom: 14px;
+      display: flex;
+      align-items: center;
+      gap: 10px
+    }
+
+    .feat li span {
+      font-size: 20px
+    }
+
+    .right-panel {
+      width: 480px;
+      background: white;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      padding: 48px 44px 40px;
+      position: relative;
+      overflow-y: auto;
+      height: 100vh;
+      max-height: 100vh;
+    }
+
+    .right-panel::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      width: 4px;
+      background: linear-gradient(to bottom, #2e86de, #0abde3, #9b59b6)
+    }
+
+    .form-logo {
+      width: 64px;
+      height: 64px;
+      background: linear-gradient(135deg, #1a3a5c, #2e86de);
+      border-radius: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 28px;
+      margin-bottom: 16px;
+      box-shadow: 0 10px 30px rgba(46, 134, 222, .3)
+    }
+
+    .form-title {
+      font-size: 26px;
+      font-weight: 700;
+      color: #1a3a5c;
+      margin-bottom: 4px;
+      font-family: 'Playfair Display', serif
+    }
+
+    .form-sub {
+      font-size: 13px;
+      color: #718096;
+      margin-bottom: 28px
+    }
+
+    .tabs {
+      display: flex;
+      gap: 0;
+      margin-bottom: 24px;
+      background: #f0f4f8;
+      border-radius: 10px;
+      padding: 4px;
+      width: 100%
+    }
+
+    .tab-btn {
+      flex: 1;
+      padding: 9px;
+      border: none;
+      background: transparent;
+      border-radius: 7px;
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+      font-family: 'Hind Siliguri', sans-serif;
+      color: #718096;
+      transition: all .2s
+    }
+
+    .tab-btn.active {
+      background: white;
+      color: #1a3a5c;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, .1)
+    }
+
+    .form-panel {
+      display: none;
+      width: 100%
+    }
+
+    .form-panel.active {
+      display: block
+    }
+
+    .flash-container {
+      position: fixed;
+      top: 24px;
+      right: 24px;
+      z-index: 9999;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .flash {
+      padding: 16px 24px;
+      border-radius: 12px;
+      font-size: 14px;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+      animation: slideIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+    @keyframes slideIn {
+      from { transform: translateX(120%); opacity: 0; }
+      to { transform: translateX(0); opacity: 1; }
+    }
+
+    .flash-error {
+      background: #fff5f5;
+      border: 1px solid #fc8181;
+      color: #c53030
+    }
+
+    .flash-success {
+      background: #f0fff4;
+      border: 1px solid #68d391;
+      color: #276749
+    }
+
+    .field {
+      margin-bottom: 16px
+    }
+
+    .field label {
+      display: block;
+      font-size: 11px;
+      font-weight: 700;
+      color: #4a5568;
+      text-transform: uppercase;
+      letter-spacing: .5px;
+      margin-bottom: 6px
+    }
+
+    .inp-wrap {
+      position: relative
+    }
+
+    .ico {
+      position: absolute;
+      left: 14px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 15px
+    }
+
+    .field input,
+    .field select {
+      width: 100%;
+      padding: 12px 14px 12px 42px;
+      border: 2px solid #e2e8f0;
+      border-radius: 10px;
+      font-size: 14px;
+      font-family: 'Hind Siliguri', sans-serif;
+      color: #2d3748;
+      background: #f7fafc;
+      transition: all .2s
+    }
+
+    .field input:focus,
+    .field select:focus {
+      outline: none;
+      border-color: #2e86de;
+      background: white;
+      box-shadow: 0 0 0 4px rgba(46, 134, 222, .1)
+    }
+
+    .field-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px
+    }
+
+    .btn-main {
+      width: 100%;
+      padding: 13px;
+      background: linear-gradient(135deg, #1a3a5c, #2e86de);
+      color: white;
+      border: none;
+      border-radius: 10px;
+      font-size: 15px;
+      font-weight: 700;
+      font-family: 'Hind Siliguri', sans-serif;
+      cursor: pointer;
+      transition: all .3s;
+      box-shadow: 0 6px 20px rgba(46, 134, 222, .3);
+      letter-spacing: .3px
+    }
+
+    .btn-main:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 28px rgba(46, 134, 222, .4)
+    }
+
+    .hint {
+      margin-top: 18px;
+      padding: 12px 16px;
+      background: #f8faff;
+      border: 1px dashed #bee3f8;
+      border-radius: 8px;
+      text-align: center;
+      width: 100%
+    }
+
+    .hint p {
+      font-size: 12px;
+      color: #718096
+    }
+
+    .hint strong {
+      color: #2e86de
+    }
+    @media (max-width: 900px) {
+      body {
+        flex-direction: column;
+        overflow-y: auto;
+        height: auto;
+      }
+      .left-panel {
+        display: none;
+      }
+      .right-panel {
+        width: 100%;
+        height: auto;
+        padding: 40px 24px;
+        min-height: 100vh;
+      }
+      .field-row {
+        grid-template-columns: 1fr;
+      }
+    }
+    .strength-meter {
+      height: 6px;
+      background: #e2e8f0;
+      border-radius: 3px;
+      margin-top: 8px;
+      overflow: hidden;
+    }
+    .strength-bar {
+      height: 100%;
+      width: 0%;
+      transition: all 0.3s ease;
+    }
+    .strength-text {
+      font-size: 11px;
+      font-weight: 600;
+      margin-top: 4px;
+      text-align: right;
+    }
+  </style>
+    <link rel="icon" type="image/png" href="{{ url_for('static', filename='logo.png') }}">
+</head>
+
+<body>
+  <div class="left-panel">
+    <span class="fb">📚</span><span class="fb">📖</span><span class="fb">📝</span><span class="fb">🎓</span><span
+      class="fb">📕</span>
+    <div class="left-content">
+      <img src="{{ url_for('static', filename='logo.png') }}" alt="Logo" class="clg-logo">
+      <div class="clg-name">Contai Polytechnic</div>
+      <div class="clg-sub">WBSCTE & PCI Approved · Est. 1991</div>
+      <ul class="feat">
+        <li><span>📚</span> eBooks from All Departments</li>
+        <li><span>📖</span> Read PDFs directly in Browser</li>
+        <li><span>🔍</span> Search by Subject and Semester</li>
+        <li><span>📥</span> Download for Offline Reading</li>
+        <li><span>🔐</span> Login with your Registration Number</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="right-panel">
+    <div class="form-logo">📚</div>
+    <div class="form-title">Digital Library</div>
+    <div class="form-sub">Login to Access the Library</div>
+
+    {% with msgs = get_flashed_messages(with_categories=true) %}
+    {% if msgs %}
+    <div class="flash-container">
+      {% for cat,msg in msgs %}
+      <div class="flash flash-{{ cat }}">{{ msg }}</div>
+      {% endfor %}
+    </div>
+    {% endif %}
+    {% endwith %}
+
+    <div class="tabs">
+      <button class="tab-btn active" onclick="showTab('login',this)">🔑 Login</button>
+      <button class="tab-btn" onclick="showTab('reg',this)">📝 New Registration</button>
+    </div>
+
+    <div class="form-panel active" id="panel-login">
+      <form method="POST" action="/library/login">
+        <div class="field">
+          <label>User ID / Registration No.</label>
+          <div class="inp-wrap"><span class="ico">🪪</span>
+            <input type="text" name="user_id" placeholder="Enter your ID or Registration Number" required autofocus>
+          </div>
+        </div>
+        <div class="field">
+          <label>Password</label>
+          <div class="inp-wrap"><span class="ico">🔒</span>
+            <input type="password" name="password" placeholder="Your Password" required>
+          </div>
+        </div>
+        <div style="text-align: right; margin-bottom: 16px;">
+          <a href="javascript:void(0)" onclick="showTab('forgot', this)" style="font-size: 12px; font-weight: 600; color: #2e86de; text-decoration: none;">Forgot Password?</a>
+        </div>
+        <button type="submit" class="btn-main">📚 Enter Library</button>
+      </form>
+      <div class="hint">
+        <p>Students, Teachers & Admins — Login with your respective ID.</p>
+      </div>
+    </div>
+
+    <div class="form-panel" id="panel-reg">
+      <div id="reg-step-1">
+        <form id="form-reg-data">
+        <input type="hidden" name="role" id="role_select" value="student">
+        <div class="field">
+          <label>Full Name *</label>
+          <div class="inp-wrap"><span class="ico">👤</span>
+            <input type="text" name="name" placeholder="Enter your full name" required>
+          </div>
+        </div>
+        <div class="field">
+          <label id="id-label">Registration Number *</label>
+          <div class="inp-wrap"><span class="ico">🔢</span>
+            <input type="text" name="reg_no" id="reg_no" placeholder="e.g. 10234567890" required>
+          </div>
+        </div>
+        <div class="field">
+          <label>Department *</label>
+          <div class="inp-wrap"><span class="ico">🏛️</span>
+            <select name="dept" required>
+              <option value="">— Choose Department / Category —</option>
+              <optgroup label="DEPARTMENTS">
+                <option value="civil">🏗️ Civil Engineering</option>
+                <option value="pharmacy">💊 Pharmacy</option>
+                <option value="cst">💻 Computer Science & Technology</option>
+                <option value="etce">📡 Electronics & Tele-comm. Engineering</option>
+                <option value="chemical">⚗️ Chemical Engineering</option>
+                <option value="electrical">⚡ Electrical Engineering</option>
+                <option value="mechanical">⚙️ Mechanical Engineering</option>
+              </optgroup>
+            </select>
+          </div>
+        </div>
+        <div class="field-row">
+          <div class="field" style="margin-bottom:0">
+            <label>Mobile *</label>
+            <div class="inp-wrap"><span class="ico">📱</span>
+              <input type="text" name="phone" placeholder="10 digit number" required pattern="\d{10}" maxlength="10" title="Please enter exactly 10 digits">
+            </div>
+          </div>
+          <div class="field" style="margin-bottom:0">
+            <label>Email *</label>
+            <div class="inp-wrap"><span class="ico">📧</span>
+              <input type="email" name="email" placeholder="example@email.com" required>
+            </div>
+          </div>
+        </div>
+        <div class="field" style="margin-top:16px">
+          <label>Create Password *</label>
+          <div class="inp-wrap"><span class="ico">🔒</span>
+            <input type="password" name="password" placeholder="Minimum 6 characters" required minlength="6" oninput="checkPasswordStrength(this.value)">
+          </div>
+          <div class="strength-meter"><div class="strength-bar" id="strength-bar"></div></div>
+          <div class="strength-text" id="strength-text"></div>
+        </div>
+        <div class="field">
+          <label>Confirm Password *</label>
+          <div class="inp-wrap"><span class="ico">✅</span>
+            <input type="password" name="confirm_password" placeholder="Retype Password" required>
+          </div>
+        </div>
+          <button type="button" class="btn-main" onclick="requestRegOTP()" id="btn-req-reg">📲 Get OTP on WhatsApp</button>
+        </form>
+      </div>
+
+      <div id="reg-step-2" style="display: none;">
+        <p style="font-size: 13px; color: #27ae60; font-weight: bold; margin-bottom: 20px; text-align: center; background: #e8f8f5; padding: 10px; border-radius: 8px;">✅ OTP sent to your WhatsApp!</p>
+        <form method="POST" action="/library/register">
+          <div class="field">
+            <label>Enter 6-Digit OTP</label>
+            <div class="inp-wrap"><span class="ico">🔑</span>
+              <input type="text" name="otp" placeholder="e.g. 123456" required maxlength="6" pattern="\d{6}">
+            </div>
+          </div>
+          <button type="submit" class="btn-main">📝 Complete Registration</button>
+        </form>
+        <div style="text-align: center; margin-top: 16px;">
+          <a href="javascript:void(0)" onclick="backToRegStep1()" style="font-size: 12px; color: #718096; text-decoration: none;">← Back to Details</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Forgot Password Panel -->
+    <div class="form-panel" id="panel-forgot">
+      <div id="fp-step-1">
+        <p style="font-size: 13px; color: #718096; margin-bottom: 20px; text-align: center;">Enter your ID and Email to receive an OTP on your WhatsApp.</p>
+        <div class="field">
+          <label>User ID / Registration No.</label>
+          <div class="inp-wrap"><span class="ico">🪪</span>
+            <input type="text" id="fp_user_id" placeholder="Your Registration Number" required>
+          </div>
+        </div>
+        <div class="field">
+          <label>Registered Email</label>
+          <div class="inp-wrap"><span class="ico">📧</span>
+            <input type="email" id="fp_email" placeholder="Your Gmail / Email ID" required>
+          </div>
+        </div>
+        <button type="button" class="btn-main" onclick="requestOTP()" id="btn-req-otp">📲 Send OTP</button>
+        <div style="text-align: center; margin-top: 16px;">
+          <a href="javascript:void(0)" onclick="document.querySelector('.tab-btn').click()" style="font-size: 12px; color: #718096; text-decoration: none;">← Back to Login</a>
+        </div>
+      </div>
+
+      <div id="fp-step-2" style="display: none;">
+        <p style="font-size: 13px; color: #27ae60; font-weight: bold; margin-bottom: 20px; text-align: center; background: #e8f8f5; padding: 10px; border-radius: 8px;">✅ OTP sent to your WhatsApp!</p>
+        <form method="POST" action="/library/reset-password-otp">
+          <input type="hidden" name="user_id" id="fp_hidden_uid">
+          <div class="field">
+            <label>Enter 6-Digit OTP</label>
+            <div class="inp-wrap"><span class="ico">🔑</span>
+              <input type="text" name="otp" placeholder="e.g. 123456" required maxlength="6" pattern="\d{6}">
+            </div>
+          </div>
+          <div class="field">
+            <label>New Password</label>
+            <div class="inp-wrap"><span class="ico">🔒</span>
+              <input type="password" name="new_password" placeholder="Minimum 6 characters" required minlength="6">
+            </div>
+          </div>
+          <button type="submit" class="btn-main">✅ Reset Password</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    async function requestRegOTP() {
+      const form = document.getElementById('form-reg-data');
+      if (!form.checkValidity()) {
+        form.reportValidity();
+        return;
+      }
+      
+      const formData = new FormData(form);
+      const data = Object.fromEntries(formData.entries());
+      
+      const btn = document.getElementById('btn-req-reg');
+      btn.innerText = 'Sending...'; btn.disabled = true;
+
+      try {
+        const res = await fetch('/library/register-request-otp', {
+          method: 'POST',
+          headers: {'Content-Type': 'application/json'},
+          body: JSON.stringify(data)
+        });
+        const resData = await res.json();
+        if(resData.success) {
+          document.getElementById('reg-step-1').style.display = 'none';
+          document.getElementById('reg-step-2').style.display = 'block';
+        } else {
+          alert('Error: ' + resData.error);
+        }
+      } catch(e) {
+        alert("Server error!");
+      }
+      btn.innerText = '📲 Get OTP on WhatsApp'; btn.disabled = false;
+    }
+    
+    function backToRegStep1() {
+      document.getElementById('reg-step-2').style.display = 'none';
+      document.getElementById('reg-step-1').style.display = 'block';
+    }
+
+    async function requestOTP() {
+      const uid = document.getElementById('fp_user_id').value.trim();
+      const email = document.getElementById('fp_email').value.trim();
+      if(!uid || !email) { alert("Please enter both ID and Email!"); return; }
+      
+      const btn = document.getElementById('btn-req-otp');
+      btn.innerText = 'Sending...'; btn.disabled = true;
+
+      try {
+        const res = await fetch('/library/request-otp', {
+          method: 'POST',
+          headers: {'Content-Type': 'application/json'},
+          body: JSON.stringify({user_id: uid, email: email})
+        });
+        const data = await res.json();
+        if(data.success) {
+          document.getElementById('fp_hidden_uid').value = uid;
+          document.getElementById('fp-step-1').style.display = 'none';
+          document.getElementById('fp-step-2').style.display = 'block';
+        } else {
+          alert('Error: ' + data.error);
+          btn.innerText = '📲 Send OTP'; btn.disabled = false;
+        }
+      } catch(e) {
+        alert("Server error!");
+        btn.innerText = '📲 Send OTP'; btn.disabled = false;
+      }
+    }
+
+    function showTab(tab, btn) {
+      document.querySelectorAll('.form-panel').forEach(p => p.classList.remove('active'));
+      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+      document.getElementById('panel-' + tab).classList.add('active');
+      btn.classList.add('active');
+    }
+
+    function updateRoleUI() {
+      const role = document.getElementById('role_select').value;
+      const idLabel = document.getElementById('id-label');
+      const regNoInput = document.getElementById('reg_no');
+      
+      if (role === 'student') {
+        idLabel.textContent = 'Registration Number *';
+        regNoInput.placeholder = 'e.g. 10234567890';
+      } else if (role === 'teacher') {
+        idLabel.textContent = 'Teacher ID *';
+        regNoInput.placeholder = 'e.g. TCH-001';
+      } else if (role === 'admin') {
+        idLabel.textContent = 'Admin ID *';
+        regNoInput.placeholder = 'e.g. ADM-001';
+      }
+    }
+
+    // Auto-dismiss flash messages after 3 seconds
+    setTimeout(() => {
+      const flashContainer = document.querySelector('.flash-container');
+      if (flashContainer) {
+        flashContainer.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+        flashContainer.style.opacity = '0';
+        flashContainer.style.transform = 'translateY(-20px)';
+        setTimeout(() => flashContainer.remove(), 500);
+      }
+    }, 3000);
+
+    function checkPasswordStrength(password) {
+      const bar = document.getElementById('strength-bar');
+      const text = document.getElementById('strength-text');
+      
+      if (!password) {
+        bar.style.width = '0%';
+        text.textContent = '';
+        return;
+      }
+      
+      let strength = 0;
+      if (password.length >= 6) strength += 20;
+      if (password.length >= 8) strength += 20;
+      if (/[A-Z]/.test(password)) strength += 20;
+      if (/[0-9]/.test(password)) strength += 20;
+      if (/[^A-Za-z0-9]/.test(password)) strength += 20;
+      
+      bar.style.width = strength + '%';
+      
+      if (strength <= 40) {
+        bar.style.background = '#fc8181';
+        text.textContent = 'Weak';
+        text.style.color = '#c53030';
+      } else if (strength <= 80) {
+        bar.style.background = '#f6ad55';
+        text.textContent = 'Good';
+        text.style.color = '#c05621';
+      } else {
+        bar.style.background = '#68d391';
+        text.textContent = 'Strong';
+        text.style.color = '#276749';
+      }
+    }
+  </script>
+</body>
+
+</html>

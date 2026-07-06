@@ -1,0 +1,166 @@
+{% extends 'library/base.html' %}
+{% block title %}Search{% endblock %}
+{% block page_title %}🔍 Find Books{% endblock %}
+{% block content %}
+
+<!-- Filter Card -->
+<div class="card" style="margin-bottom:20px">
+  <form action="/library/search" method="GET">
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-bottom:12px">
+
+      <!-- Search Term -->
+      <div style="grid-column:1/-1">
+        <label style="font-size:11px;font-weight:700;color:var(--muted);display:block;margin-bottom:5px;text-transform:uppercase;letter-spacing:.5px">Search Term</label>
+        <input type="text" name="q" value="{{q}}" placeholder="Title, Author..."
+          style="width:100%;padding:10px 14px;border:2px solid var(--bd);border-radius:9px;font-size:14px;font-family:'Hind Siliguri',sans-serif;box-sizing:border-box">
+      </div>
+
+      <!-- Category -->
+      <div>
+        <label style="font-size:11px;font-weight:700;color:var(--muted);display:block;margin-bottom:5px;text-transform:uppercase;letter-spacing:.5px">Category</label>
+        <select name="dept" id="cat-filter" onchange="updateClassFilter(this.value)"
+          style="width:100%;padding:10px 12px;border:2px solid var(--bd);border-radius:9px;font-size:13px;font-family:'Hind Siliguri',sans-serif">
+          <option value="">— All Categories —</option>
+          {% for d in departments %}
+          <option value="{{d.id}}" {% if d.id==dept_filter %}selected{% endif %}>{{d.icon}} {{d.name}}</option>
+          {% endfor %}
+        </select>
+      </div>
+
+      <!-- Class / Subject -->
+      <div>
+        <label style="font-size:11px;font-weight:700;color:var(--muted);display:block;margin-bottom:5px;text-transform:uppercase;letter-spacing:.5px">Class</label>
+        <select name="subject" id="class-filter"
+          style="width:100%;padding:10px 12px;border:2px solid var(--bd);border-radius:9px;font-size:13px;font-family:'Hind Siliguri',sans-serif">
+          <option value="">— All Classes —</option>
+          {% for d in departments %}
+            {% if d.id == dept_filter %}
+              {% for s in d.subjects %}
+              <option value="{{s.name}}" {% if s.name==subj_filter %}selected{% endif %}>{{s.icon}} {{s.name}}</option>
+              {% endfor %}
+            {% endif %}
+          {% endfor %}
+        </select>
+      </div>
+
+      <!-- Semester -->
+      <div>
+        <label style="font-size:11px;font-weight:700;color:var(--muted);display:block;margin-bottom:5px;text-transform:uppercase;letter-spacing:.5px">Semester</label>
+        <select name="sem"
+          style="width:100%;padding:10px 12px;border:2px solid var(--bd);border-radius:9px;font-size:13px;font-family:'Hind Siliguri',sans-serif">
+          <option value="">— All —</option>
+          {% for s in ['1st','2nd','3rd','4th','5th','6th'] %}
+          <option {% if request.args.get('sem')==s %}selected{% endif %}>{{s}}</option>
+          {% endfor %}
+        </select>
+      </div>
+
+    </div>
+    <div style="display:flex;gap:10px;align-items:center">
+      <button type="submit" class="btn btn-pr" style="padding:10px 24px">🔍 Search</button>
+      {% if q or dept_filter or subj_filter %}
+      <a href="/library/search" style="padding:10px 16px;border-radius:9px;font-size:13px;font-weight:700;background:#fff5f5;color:#c53030;text-decoration:none">✕ Clear Filters</a>
+      {% endif %}
+      {% if q or dept_filter or subj_filter %}
+      <span style="margin-left:auto;font-size:13px;color:var(--muted);font-weight:600">Found <strong>{{books|length}}</strong> books</span>
+      {% endif %}
+    </div>
+  </form>
+</div>
+
+<!-- Quick Class Filter Buttons (shown when category selected) -->
+{% if dept_filter %}
+{% for d in departments %}{% if d.id==dept_filter %}
+<div style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:20px">
+  <a href="/library/search?dept={{dept_filter}}&q={{q}}"
+    style="padding:6px 16px;border-radius:20px;font-size:12px;font-weight:700;text-decoration:none;{% if not subj_filter %}background:var(--pr);color:white{% else %}background:#f1f5f9;color:#64748b{% endif %}">
+    All Classes
+  </a>
+  {% for s in d.subjects %}
+  <a href="/library/search?dept={{dept_filter}}&subject={{s.name|urlencode}}&q={{q}}"
+    style="padding:6px 16px;border-radius:20px;font-size:12px;font-weight:700;text-decoration:none;{% if subj_filter==s.name %}background:{{s.color}};color:white{% else %}background:#f1f5f9;color:#1e3a5c{% endif %}">
+    {{s.icon}} {{s.name}}
+  </a>
+  {% endfor %}
+</div>
+{% endif %}{% endfor %}
+{% endif %}
+
+<!-- Results -->
+{% if q or dept_filter or subj_filter %}
+<div class="sec-title">
+  📚 Results
+  {% if q %} for "<em>{{q}}</em>"{% endif %}
+  {% if subj_filter %} · <span style="color:var(--pr)">{{subj_filter}}</span>{% endif %}
+</div>
+{% if books %}
+<div class="books-grid">
+  {% for b in books %}
+  {% set ext=b['filetype']|upper if b['filetype'] else 'PDF' %}
+  <div class="book-card">
+    <div class="bico" style="background:linear-gradient(135deg,#1a3a5c,#2e86de)">📄</div>
+    <div class="btit" style="margin-bottom:2px">{{b['title']}}</div>
+    {% if b['book_subject'] %}
+    <div style="font-size:12px;color:var(--teal);margin-bottom:6px;font-weight:600">{{b['book_subject']}}</div>
+    {% else %}
+    <div style="margin-bottom:6px;"></div>
+    {% endif %}
+    <div class="bauth">{% if b['author'] %}by {{b['author']}}{% else %}—{% endif %}</div>
+    <div class="bmeta">
+      <span class="badge badge-blue">{{b['dept']|upper}}</span>
+      <a href="/library/search?dept={{b['dept']}}&subject={{b['subject']|urlencode}}"
+        class="badge badge-green" style="text-decoration:none;cursor:pointer" title="Filter by this class">{{b['subject']}}</a>
+      {% if b['semester'] %}<span class="badge badge-gold">Sem {{b['semester']}}</span>{% endif %}
+      <span class="badge badge-purple">{{ext}}</span>
+    </div>
+
+    <div class="book-btns">
+      {% if b['filetype']=='pdf' %}<a href="/library/read/{{b['id']}}" class="btn-read">📖 Read</a>
+      {% else %}
+      {% if user.role != 'student' %}<a href="/library/download/{{b['id']}}" class="btn-read">📥 Download</a>{% endif %}
+      {% endif %}
+      {% if user.role != 'student' %}
+      <a href="/library/download/{{b['id']}}" class="btn-dl" title="Download">📥</a>
+      {% endif %}
+    </div>
+  </div>
+  {% endfor %}
+</div>
+{% else %}
+<div class="empty">
+  <div class="ei">🔍</div>
+  <p>No books found{% if q %} for "{{q}}"{% endif %}{% if subj_filter %} in class "{{subj_filter}}"{% endif %}.</p>
+</div>
+{% endif %}
+{% else %}
+<div class="empty">
+  <div class="ei">🔍</div>
+  <p>Use the filters above to search for books, or select a <strong>Category</strong> and <strong>Class</strong> to browse.</p>
+</div>
+{% endif %}
+
+<script>
+  // Build class map from Jinja data
+  const deptClasses = {
+    {% for d in departments %}
+    "{{ d.id }}": [{% for s in d.subjects %}["{{ s.name }}", "{{ s.icon }}"],{% endfor %}],
+    {% endfor %}
+  };
+
+  function updateClassFilter(deptId) {
+    const sel = document.getElementById('class-filter');
+    sel.innerHTML = '<option value="">— All Classes —</option>';
+    const classes = deptClasses[deptId] || [];
+    classes.forEach(([name, icon]) => {
+      const opt = document.createElement('option');
+      opt.value = name;
+      opt.textContent = (icon || '📄') + ' ' + name;
+      sel.appendChild(opt);
+    });
+  }
+
+  // Auto-init if category already selected
+  const cat = document.getElementById('cat-filter');
+  if (cat && cat.value) updateClassFilter(cat.value);
+</script>
+{% endblock %}

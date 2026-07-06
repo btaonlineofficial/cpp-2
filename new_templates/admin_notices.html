@@ -1,0 +1,671 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manage Notices — Admin</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
+    <style>
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #020510;
+            color: #cbd5e1;
+            min-height: 100vh;
+            overflow-x: hidden;
+            width: 100%;
+            max-width: 100vw;
+        }
+
+        .header {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: rgba(2, 5, 16, 0.88);
+            backdrop-filter: blur(16px);
+            border-bottom: 1px solid rgba(239, 68, 68, 0.12);
+            padding: 0 40px;
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            height: 68px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .logo-section {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .logo-img {
+            width: 42px;
+            height: 42px;
+            object-fit: contain;
+        }
+
+        .logo-section h2 {
+            font-size: 17px;
+            font-weight: 900;
+            color: white;
+            white-space: nowrap;
+        }
+
+        .nav-buttons {
+            display: flex;
+            gap: 10px;
+        }
+
+        .btn-ghost {
+            padding: 8px 18px;
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            border-radius: 50px;
+            color: #94a3b8;
+            font-size: 13px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.2s;
+        }
+
+        .btn-ghost:hover {
+            border-color: rgba(255, 255, 255, 0.3);
+            color: white;
+            background: rgba(255, 255, 255, 0.06);
+        }
+
+        .page-wrapper {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 40px 24px 80px;
+        }
+
+        .page-title {
+            margin-bottom: 32px;
+        }
+
+        .page-title h1 {
+            font-size: 28px;
+            font-weight: 900;
+            color: white;
+            margin-bottom: 6px;
+        }
+
+        .page-title p {
+            color: #64748b;
+            font-size: 14px;
+        }
+
+        /* FLASH */
+        .flash {
+            padding: 14px 20px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .flash.success {
+            background: rgba(52, 211, 153, 0.1);
+            border: 1px solid rgba(52, 211, 153, 0.25);
+            color: #34d399;
+        }
+
+        .flash.error {
+            background: rgba(239, 68, 68, 0.1);
+            border: 1px solid rgba(239, 68, 68, 0.25);
+            color: #f87171;
+        }
+
+        /* ADD FORM */
+        .add-form-card {
+            background: #0a0f1e;
+            border: 1px solid #1e293b;
+            border-radius: 20px;
+            padding: 36px;
+            margin-bottom: 40px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .add-form-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(to right, transparent, #ef4444, transparent);
+        }
+
+        .add-form-card h2 {
+            font-size: 17px;
+            font-weight: 800;
+            color: white;
+            margin-bottom: 24px;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .form-group.full {
+            grid-column: 1 / -1;
+        }
+
+        .form-group label {
+            font-size: 12px;
+            font-weight: 700;
+            color: #64748b;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            padding: 12px 16px;
+            border-radius: 10px;
+            background: #0f172a;
+            border: 1px solid #1e293b;
+            color: white;
+            font-size: 14px;
+            font-family: inherit;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            border-color: rgba(239, 68, 68, 0.5);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 90px;
+        }
+
+        .btn-submit {
+            margin-top: 20px;
+            padding: 13px 32px;
+            background: linear-gradient(135deg, #dc2626, #b91c1c);
+            border: none;
+            border-radius: 10px;
+            color: white;
+            font-size: 14px;
+            font-weight: 800;
+            cursor: pointer;
+            transition: opacity 0.2s, transform 0.2s;
+        }
+
+        .btn-submit:hover {
+            opacity: 0.85;
+            transform: translateY(-1px);
+        }
+
+        /* NOTICE TABLE */
+        .table-section h2 {
+            font-size: 17px;
+            font-weight: 800;
+            color: white;
+            margin-bottom: 18px;
+        }
+
+        .table-card {
+            background: #0a0f1e;
+            border: 1px solid #1e293b;
+            border-radius: 20px;
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th {
+            background: #0f172a;
+            color: #f87171;
+            font-size: 11px;
+            font-weight: 800;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            padding: 14px 20px;
+            text-align: left;
+            border-bottom: 1px solid #1e293b;
+        }
+
+        td {
+            padding: 14px 20px;
+            font-size: 13px;
+            border-bottom: 1px solid rgba(30, 41, 59, 0.5);
+            vertical-align: top;
+        }
+
+        tr:last-child td {
+            border-bottom: none;
+        }
+
+        tr:hover td {
+            background: rgba(239, 68, 68, 0.03);
+        }
+
+        .empty-row td {
+            text-align: center;
+            color: #475569;
+            padding: 40px;
+        }
+
+        .cat-badge {
+            font-size: 10px;
+            font-weight: 800;
+            padding: 3px 9px;
+            border-radius: 50px;
+            white-space: nowrap;
+        }
+
+        .cat-Exam {
+            background: rgba(251, 191, 36, 0.10);
+            border: 1px solid rgba(251, 191, 36, 0.2);
+            color: #fbbf24;
+        }
+
+        .cat-General {
+            background: rgba(59, 130, 246, 0.10);
+            border: 1px solid rgba(59, 130, 246, 0.2);
+            color: #60a5fa;
+        }
+
+        .cat-Result {
+            background: rgba(52, 211, 153, 0.10);
+            border: 1px solid rgba(52, 211, 153, 0.2);
+            color: #34d399;
+        }
+
+        .cat-Tender {
+            background: rgba(244, 114, 182, 0.10);
+            border: 1px solid rgba(244, 114, 182, 0.2);
+            color: #f472b6;
+        }
+
+        .cat-Holiday {
+            background: rgba(167, 139, 250, 0.10);
+            border: 1px solid rgba(167, 139, 250, 0.2);
+            color: #a78bfa;
+        }
+
+        .cat-Admission {
+            background: rgba(249, 115, 22, 0.10);
+            border: 1px solid rgba(249, 115, 22, 0.2);
+            color: #fb923c;
+        }
+
+        .btn-del {
+            padding: 6px 14px;
+            border-radius: 8px;
+            background: rgba(239, 68, 68, 0.10);
+            border: 1px solid rgba(239, 68, 68, 0.25);
+            color: #f87171;
+            font-size: 12px;
+            font-weight: 700;
+            cursor: pointer;
+            text-decoration: none;
+            transition: all 0.2s;
+            white-space: nowrap;
+        }
+
+        .btn-del:hover {
+            background: rgba(239, 68, 68, 0.2);
+            border-color: rgba(239, 68, 68, 0.5);
+        }
+
+        .view-link {
+            color: #60a5fa;
+            font-size: 12px;
+            font-weight: 700;
+            text-decoration: none;
+        }
+
+        .view-link:hover {
+            text-decoration: underline;
+        }
+
+        /* ══ MOBILE MENU ══ */
+        .mobile-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(2, 5, 16, 0.6);
+            backdrop-filter: blur(8px);
+            z-index: 1500;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.4s;
+        }
+
+        .mobile-overlay.active {
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        .mobile-menu {
+            position: fixed;
+            top: 0;
+            right: -300px;
+            width: 300px; max-width: 85vw;
+            height: 100vh;
+            background: #0f172a;
+            z-index: 2000;
+            box-shadow: -10px 0 40px rgba(0, 0, 0, 0.4);
+            transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            padding: 80px 24px 40px;
+            border-left: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .mobile-menu.active {
+            transform: translateX(-300px);
+        }
+
+        .mobile-nav-group {
+            margin-bottom: 32px;
+        }
+
+        .mobile-nav-title {
+            display: block;
+            font-size: 11px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: #64748b;
+            margin-bottom: 16px;
+            padding-left: 4px;
+        }
+
+        .mobile-nav-links {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .mobile-nav-link {
+            padding: 14px 18px;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 12px;
+            text-decoration: none;
+            color: #cbd5e1;
+            font-weight: 600;
+            font-size: 14px;
+            transition: all 0.2s;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .mobile-nav-link:active {
+            background: rgba(239, 68, 68, 0.1);
+            border-color: rgba(239, 68, 68, 0.3);
+            color: white;
+        }
+
+        .mobile-toggle {
+            display: none;
+            flex-direction: column;
+            justify-content: center;
+            gap: 5px;
+            width: 42px;
+            height: 42px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            cursor: pointer;
+            z-index: 2500;
+            padding: 12px;
+            transition: all 0.2s;
+        }
+
+        .mobile-toggle span {
+            width: 100%;
+            height: 2px;
+            background: white;
+            border-radius: 4px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .mobile-toggle.active span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+        .mobile-toggle.active span:nth-child(2) { opacity: 0; }
+        .mobile-toggle.active span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+        @media (max-width: 900px) {
+            .header { padding: 0 20px; }
+            .nav-buttons { display: none; }
+            .mobile-toggle { display: flex; }
+        }
+
+        @media (max-width: 768px) {
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+            .logo-section h2 { font-size: 15px;     white-space: nowrap;
+        }
+            .page-wrapper { padding: 32px 16px 80px; }
+            .page-title h1 { font-size: 24px; }
+            .table-card {
+                overflow-x: auto;
+                -webkit-overflow-scrolling: touch;
+            }
+            table { min-width: 750px; }
+        }
+    </style>
+    <link rel="icon" type="image/png" href="{{ url_for('static', filename='logo.png') }}">
+</head>
+
+<body>
+    <div class="mobile-overlay" id="mobileOverlay"></div>
+    <div class="mobile-menu" id="mobileMenu">
+        <div class="mobile-nav-group">
+            <span class="mobile-nav-title">Navigation</span>
+            <div class="mobile-nav-links">
+                <a href="/admin" class="mobile-nav-link">⚙️ Q&A Admin</a>
+                <a href="/notice" class="mobile-nav-link">📋 Notice Board</a>
+                <a href="/" class="mobile-nav-link">🏠 Public Home</a>
+            </div>
+        </div>
+        <div class="mobile-nav-group">
+            <span class="mobile-nav-title">Account</span>
+            <div class="mobile-nav-links">
+                <a href="/logout" class="mobile-nav-link" style="color:#f87171">🚪 Logout</a>
+            </div>
+        </div>
+    
+        <div class="mobile-nav-group">
+            <span class="mobile-nav-title">Resources</span>
+            <div class="mobile-nav-links">
+                <a href="/library" class="mobile-nav-link">📚 Library</a>
+                <a href="/modern-labs" class="mobile-nav-link">🔬 Modern Labs</a>
+                <a href="/computer-labs" class="mobile-nav-link">🖥️ Computer Labs</a>
+                <a href="/workshop" class="mobile-nav-link">⚙️ Engineering Workshop</a>
+                <a href="/auditorium" class="mobile-nav-link">🏛️ Auditorium</a>
+                <a href="/wifi-campus" class="mobile-nav-link">📶 Wi-Fi Campus</a>
+            </div>
+        </div>
+        <a href="/grievance" class="mobile-nav-link" style="font-weight:600; padding:12px 20px; color:var(--navy); border-bottom:1px solid var(--border);">🚩 Grievance</a>
+        <a href="/admin" class="mobile-nav-link" style="font-weight:600; padding:12px 20px; color:var(--navy); border-bottom:1px solid var(--border);">⚙️ Admin</a>
+    </div>
+
+    <div class="header">
+        <div class="header-content">
+            <a href="/" class="logo-section">
+                <img src="{{ url_for('static', filename='logo.png') }}" alt="Logo" class="logo-img">
+                <h2>Contai Polytechnic — Admin</h2>
+            </a>
+            <div class="nav-buttons">
+                <a href="/admin" class="btn-ghost">⚙️ Q&amp;A Admin</a>
+                <a href="/notice" class="btn-ghost">📋 Notice Board</a>
+                <a href="/logout" class="btn-ghost">Logout</a>
+            </div>
+            <button class="mobile-toggle" id="mobileToggle" aria-label="Menu">
+                <span></span><span></span><span></span>
+            </button>
+        </div>
+    </div>
+
+    <div class="page-wrapper">
+        <div class="page-title">
+            <h1>📋 Manage Notice Board</h1>
+            <p>Post new notices or delete existing ones from the college notice board.</p>
+        </div>
+
+        {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+        {% for category, message in messages %}
+        <div class="flash {{ category }}">{{ message }}</div>
+        {% endfor %}
+        {% endif %}
+        {% endwith %}
+
+        <!-- ADD NOTICE FORM -->
+        <div class="add-form-card">
+            <h2>➕ Post New Notice</h2>
+            <form method="POST" action="/admin/notice/add">
+                <div class="form-grid">
+                    <div class="form-group full">
+                        <label>Notice Title *</label>
+                        <input type="text" name="title" placeholder="e.g. 3rd Semester Examination Schedule 2026"
+                            required>
+                    </div>
+                    <div class="form-group full">
+                        <label>Details / Description</label>
+                        <textarea name="body" placeholder="Additional details about the notice..."></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>Category</label>
+                        <select name="category">
+                            <option value="General">📢 General</option>
+                            <option value="Exam">📝 Exam</option>
+                            <option value="Result">🏆 Result</option>
+                            <option value="Admission">🎓 Admission</option>
+                            <option value="Holiday">🗓️ Holiday</option>
+                            <option value="Tender">📄 Tender</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Department / Issuing Authority</label>
+                        <select name="department">
+                            <option value="General">General / All Departments</option>
+                            <option value="Mechanical">Mechanical Engineering</option>
+                            <option value="Civil">Civil Engineering</option>
+                            <option value="Electrical">Electrical Engineering</option>
+                            <option value="Electronics">Electronics &amp; Telecom</option>
+                            <option value="CST">Computer Sc. &amp; Technology</option>
+                            <option value="Chemical">Chemical Engineering</option>
+                            <option value="Pharmacy">Pharmacy</option>
+                            <option value="Principal Office">Principal Office</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Notice Date</label>
+                        <input type="date" name="date" value="{{ now }}">
+                    </div>
+                    <div class="form-group">
+                        <label>PDF / Download Link (optional)</label>
+                        <input type="url" name="link" placeholder="https://...">
+                    </div>
+                </div>
+                <button type="submit" class="btn-submit">📤 Post Notice</button>
+            </form>
+        </div>
+
+        <!-- EXISTING NOTICES TABLE -->
+        <div class="table-section">
+            <h2>📌 All Posted Notices ({{ notices|length }})</h2>
+            <div class="table-card">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Title</th>
+                            <th>Category</th>
+                            <th>Department</th>
+                            <th>Date</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% if notices %}
+                        {% for n in notices %}
+                        <tr>
+                            <td style="color:#475569;">{{ loop.index }}</td>
+                            <td>
+                                <strong style="color:white; font-size:13px;">{{ n[1] }}</strong>
+                                {% if n[2] %}<br><span style="color:#475569; font-size:12px;">{{ n[2][:80] }}{% if
+                                    n[2]|length > 80 %}...{% endif %}</span>{% endif %}
+                                {% if n[6] %}<br><a href="{{ n[6] }}" target="_blank" class="view-link">🔗
+                                    Attachment</a>{% endif %}
+                            </td>
+                            <td><span class="cat-badge cat-{{ n[3] }}">{{ n[3] }}</span></td>
+                            <td style="color:#94a3b8;">{{ n[4] }}</td>
+                            <td style="color:#64748b;">{{ n[5] or '—' }}</td>
+                            <td>
+                                <a href="/admin/notice/delete/{{ n[0] }}" class="btn-del"
+                                    onclick="return confirm('Delete this notice?')">🗑️ Delete</a>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                        {% else %}
+                        <tr class="empty-row">
+                            <td colspan="6">No notices yet. Post your first notice above ↑</td>
+                        </tr>
+                        {% endif %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const mobileToggle = document.getElementById('mobileToggle');
+        const mobileMenu = document.getElementById('mobileMenu');
+        const mobileOverlay = document.getElementById('mobileOverlay');
+
+        function toggleMenu() {
+            mobileToggle.classList.toggle('active');
+            mobileMenu.classList.toggle('active');
+            mobileOverlay.classList.toggle('active');
+            document.body.style.overflow = mobileMenu.classList.contains('active') ? 'hidden' : '';
+        }
+
+        mobileToggle.addEventListener('click', toggleMenu);
+        mobileOverlay.addEventListener('click', toggleMenu);
+
+        // Close menu on link click
+        document.querySelectorAll('.mobile-nav-link').forEach(link => {
+            link.addEventListener('click', () => {
+                if (mobileMenu.classList.contains('active')) toggleMenu();
+            });
+        });
+    </script>
+</body>
+
+</html>

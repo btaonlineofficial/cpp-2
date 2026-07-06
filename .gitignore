@@ -1,0 +1,16 @@
+.env
+*.env
+__pycache__/
+*.pyc
+wa_bot/node_modules/
+wa_bot/node_modules
+wa_bot/wa_session/
+wa_bot/.wwebjs_cache/
+wa_bot/.wwebjs_auth/
+chroma_db/
+*.log
+scratch/
+*.err.log
+*.out.log
+out.txt
+.gemini/

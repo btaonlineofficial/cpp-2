@@ -1,0 +1,751 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>College Web Portal Management & Digital Library System (AI Powered)</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Reveal.js core CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.3.1/reset.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.3.1/reveal.min.css">
+    <!-- Use white theme as base for light design -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.3.1/theme/white.min.css" id="theme">
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Inter:wght@300;400;600&display=swap"
+        rel="stylesheet">
+
+    <!-- Corporate Green Polygon Theme Custom Styling -->
+    <style>
+        :root {
+            --primary-green: #5ca943;
+            --secondary-green: #8bc34a;
+            --dark-green: #388e3c;
+            --text-main: #2d3748;
+            --text-muted: #4a5568;
+            --card-bg: rgba(255, 255, 255, 0.9);
+            --border-light: rgba(0, 0, 0, 0.08);
+        }
+
+        /* Geometric Green Overlapping Background */
+        body {
+            background-color: #f7f9fc;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1000 1000' preserveAspectRatio='none'%3E%3Cpolygon points='0,0 400,0 200,1000 0,1000' fill='%238bc34a' opacity='0.3'/%3E%3Cpolygon points='600,0 1000,0 1000,1000 400,1000' fill='%23cddc39' opacity='0.2'/%3E%3Cpolygon points='250,0 750,0 550,1000 -50,1000' fill='%234caf50' opacity='0.4'/%3E%3Cpolygon points='0,600 1000,-100 1000,1000 0,1000' fill='%23388e3c' opacity='0.3'/%3E%3Cpolygon points='-200,1000 1200,400 1200,1000' fill='%23689f38' opacity='0.5'/%3E%3C/svg%3E");
+            background-size: cover;
+            background-attachment: fixed;
+            font-family: 'Inter', sans-serif;
+        }
+
+        /* Typography */
+        .reveal h1,
+        .reveal h2,
+        .reveal h3,
+        .reveal h4 {
+            text-transform: none;
+            font-family: 'Outfit', sans-serif;
+            font-weight: 800;
+            color: var(--text-main);
+            letter-spacing: -0.5px;
+            margin: 0 0 10px 0;
+        }
+
+        .reveal h1 {
+            font-size: 1.8em;
+            color: var(--dark-green);
+            margin-bottom: 5px;
+            text-shadow: 2px 2px 0px rgba(255, 255, 255, 0.8);
+        }
+
+        .reveal h2 {
+            font-size: 1.4em;
+            position: relative;
+            display: inline-block;
+            margin-bottom: 20px;
+        }
+
+        .reveal h2::after {
+            content: '';
+            position: absolute;
+            width: 50%;
+            height: 3px;
+            bottom: -5px;
+            left: 25%;
+            background: var(--primary-green);
+            border-radius: 2px;
+        }
+
+        .reveal h3 {
+            color: var(--primary-green);
+            font-size: 1.1em;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+
+        .reveal p {
+            font-family: 'Inter', sans-serif;
+            color: var(--text-muted);
+            font-size: 0.7em;
+            line-height: 1.3;
+            margin: 0 0 10px 0;
+        }
+
+        /* Light Glassmorphism Cards */
+        .glass-container {
+            background: var(--card-bg);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            border: 1px solid var(--border-light);
+            border-radius: 12px;
+            padding: 15px 25px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+            width: 95%;
+            margin: auto;
+        }
+
+        /* Lists */
+        .reveal ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+            display: block;
+        }
+
+        .reveal ul li {
+            margin-bottom: 8px;
+            font-size: 0.65em;
+            line-height: 1.2;
+            position: relative;
+            padding-left: 30px;
+            text-align: left;
+            color: var(--text-main);
+        }
+
+        .reveal ul li i {
+            position: absolute;
+            left: 0;
+            top: 2px;
+            color: var(--primary-green);
+            font-size: 1.1em;
+        }
+
+        /* Highlights & Badges */
+        .highlight {
+            color: var(--dark-green);
+            font-weight: 700;
+        }
+
+        .badge {
+            background: #fff;
+            border: 1px solid var(--primary-green);
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 0.5em;
+            display: inline-block;
+            margin: 4px;
+            color: var(--text-main);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+            font-weight: 600;
+        }
+
+        /* Grid Layouts */
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-top: 10px;
+        }
+
+        .feature-card {
+            background: #fff;
+            border: 1px solid var(--border-light);
+            border-radius: 10px;
+            padding: 12px;
+            text-align: left;
+            position: relative;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.03);
+        }
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background: var(--primary-green);
+            border-top-left-radius: 10px;
+            border-bottom-left-radius: 10px;
+        }
+
+        .icon-wrapper {
+            width: 35px;
+            height: 35px;
+            background: rgba(92, 169, 67, 0.1);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 8px;
+            color: var(--primary-green);
+            font-size: 1.1em;
+        }
+
+        .feature-card h4 {
+            color: var(--text-main);
+            margin: 0 0 5px 0;
+            font-size: 0.8em;
+            font-weight: 700;
+        }
+
+        .feature-card p {
+            font-size: 0.55em;
+            margin: 0;
+            color: var(--text-muted);
+            line-height: 1.3;
+        }
+
+        /* Custom Reveal Styles */
+        .reveal .controls {
+            color: var(--primary-green);
+        }
+
+        .reveal .progress {
+            height: 6px;
+        }
+
+        .reveal .progress span {
+            background: var(--primary-green);
+        }
+
+        /* Specific Slide Tweaks */
+        .title-meta {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 15px;
+            text-align: left;
+            border-top: 1px solid var(--border-light);
+            padding-top: 10px;
+        }
+
+        .meta-box p {
+            margin: 0;
+            font-size: 0.7em;
+        }
+
+        .meta-label {
+            color: var(--primary-green);
+            font-size: 0.55em !important;
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            margin-bottom: 2px !important;
+            display: block;
+        }
+
+        .meta-value {
+            color: var(--text-main);
+            font-size: 0.65em !important;
+            font-weight: 600;
+            line-height: 1.2;
+            display: block;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="reveal">
+        <div class="slides">
+
+            <!-- Slide 1: Title Slide -->
+            <section data-transition="slide">
+                <div class="glass-container">
+                    <div style="margin-bottom: 10px;">
+                        <i class="fa-solid fa-graduation-cap"
+                            style="font-size: 2.2em; color: var(--primary-green);"></i>
+                    </div>
+                    <h1 style="font-size: 1.6em; line-height: 1.2; margin-bottom: 15px;">College Web Portal Management
+                        &<br>Digital Library System <span style="color: var(--primary-green);">(AI Powered)</span></h1>
+                    <p
+                        style="font-size: 0.65em; margin-top: 10px; color: var(--text-muted); max-width: 90%; margin-inline: auto;">
+                        Next-Generation Academic Portal featuring AI RAG Chatbots, Dynamic E-Libraries, Voice Assistants
+                        & Automated WhatsApp Integration.
+                    </p>
+                </div>
+            </section>
+
+            <!-- Slide 1.1: Group Members -->
+            <section data-transition="slide">
+                <div class="glass-container" style="padding: 20px;">
+                    <h2 style="margin-bottom: 20px; text-transform: uppercase;">Group Members</h2>
+                    <div
+                        style="font-size: 0.65em; color: var(--text-main); line-height: 1.6; max-width: 85%; margin: auto;">
+                        <ul style="list-style-type: none; padding: 0; margin-bottom: 25px;">
+                            <li style="display: flex; justify-content: space-between; margin-bottom: 8px;"><span><i
+                                        class="fa-solid fa-user"
+                                        style="color: var(--primary-green); margin-right: 10px;"></i><strong>SWARUP
+                                        DEY</strong></span> <span>REG-NO:-D242533471</span></li>
+                        </ul>
+
+                        <div style="text-align: center; margin-top: 15px; font-weight: 600;">
+                            <span
+                                style="font-size: 0.85em; color: var(--text-muted); display: block; margin-bottom: 5px; text-transform: uppercase;">Supervised
+                                By</span>
+                            <span style="font-size: 1.3em; color: var(--dark-green); display: block;">GITANJALI
+                                MANDAL</span>
+                            <span style="font-size: 0.85em; display: block; font-weight: 500;">HOD & LECTURER,
+                                DEPARTMENT OF COMPUTER SCIENCE & TECHNOLOGY</span>
+                            <span style="font-size: 0.85em; display: block; font-weight: 500;">CONTAI POLYTECHNIC</span>
+                            <span
+                                style="font-size: 0.85em; display: block; margin-top: 5px; color: var(--text-muted);">2025-2026</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Slide 1.2: Outline -->
+            <section data-transition="slide">
+                <div class="glass-container">
+                    <h2>Presentation Outline</h2>
+                    <ul style="max-width: 60%; margin: auto; padding-left: 20px;">
+                        <li class="fragment"><i class="fa-solid fa-caret-right"></i> <strong
+                                style="font-size: 1.1em;">Introduction</strong></li>
+                        <li class="fragment"><i class="fa-solid fa-caret-right"></i> <strong
+                                style="font-size: 1.1em;">Problem Statement</strong></li>
+                        <li class="fragment"><i class="fa-solid fa-caret-right"></i> <strong
+                                style="font-size: 1.1em;">The Intelligent Solution</strong></li>
+                        <li class="fragment"><i class="fa-solid fa-caret-right"></i> <strong
+                                style="font-size: 1.1em;">System Architecture</strong></li>
+                        <li class="fragment"><i class="fa-solid fa-caret-right"></i> <strong
+                                style="font-size: 1.1em;">Data Flow Diagram (DFD)</strong></li>
+                        <li class="fragment"><i class="fa-solid fa-caret-right"></i> <strong
+                                style="font-size: 1.1em;">Technology Stack</strong></li>
+                        <li class="fragment"><i class="fa-solid fa-caret-right"></i> <strong
+                                style="font-size: 1.1em;">Website Use & Features</strong></li>
+                        <li class="fragment"><i class="fa-solid fa-caret-right"></i> <strong
+                                style="font-size: 1.1em;">Future Scope</strong></li>
+                        <li class="fragment"><i class="fa-solid fa-caret-right"></i> <strong
+                                style="font-size: 1.1em;">Advantages & Disadvantages</strong></li>
+                        <li class="fragment"><i class="fa-solid fa-caret-right"></i> <strong
+                                style="font-size: 1.1em;">Conclusion & References</strong></li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Slide 1.5: Introduction -->
+            <section data-transition="slide">
+                <div class="glass-container">
+                    <h2>Introduction</h2>
+                    <div style="text-align: left; margin-top: 5px;">
+                        <p style="font-size: 0.7em; color: var(--text-main); margin-bottom: 10px; line-height: 1.5;">
+                            Welcome to the <strong style="color: var(--dark-green);">Contai Nova College</strong> Smart
+                            Management Ecosystem. This project aims to digitize and automate the traditional academic
+                            and administrative workflows of modern educational institutes.
+                        </p>
+                        <p style="font-size: 0.7em; color: var(--text-main); margin-bottom: 10px; line-height: 1.5;">
+                            By integrating advanced technologies like <strong
+                                style="color: var(--dark-green);">Artificial Intelligence (AI), Vector Databases, and
+                                real-time Voice APIs</strong>, we are building a seamless bridge between students,
+                            teachers, and college administration.
+                        </p>
+                        <ul style="max-width: 95%; margin-top: 15px; font-size: 0.8em; line-height: 1.6;">
+                            <li class="fragment"><i class="fa-solid fa-bullseye"></i> <strong>Core Objective:</strong>
+                                Provide 24/7 omnichannel support, secure digital learning (OTP authenticated), and
+                                comprehensive academic info (covering CST, Civil, Mechanical, etc.).</li>
+                            <li class="fragment"><i class="fa-solid fa-microchip"></i> <strong>Technological
+                                    Edge:</strong> Combines local machine learning (TF-IDF) for fast QA caching with
+                                Cloud AI (Gemini) and real-time WebRTC voice (LiveKit).</li>
+                            <li class="fragment"><i class="fa-solid fa-people-group"></i> <strong>Target
+                                    Audience:</strong> Students (Library & Chat), Faculty, and Admin (Moderation & Log
+                                Approval).</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Slide 2: Problem Statement -->
+            <section data-transition="slide">
+                <div class="glass-container">
+                    <h2>Problem Statement</h2>
+                    <p style="text-align: center; margin-bottom: 15px;">Why do we need a system upgrade?</p>
+                    <ul style="max-width: 95%; margin: auto; font-size: 0.85em; line-height: 1.5;">
+                        <li class="fragment" data-fragment-index="1"><i class="fa-solid fa-clock-rotate-left"></i>
+                            <strong>Manual Query Bottlenecks:</strong> Staff spend hours answering repetitive queries.
+                            Students lack instant answers regarding specific departments, exams, and routines.</li>
+                        <li class="fragment" data-fragment-index="2"><i class="fa-solid fa-user-lock"></i>
+                            <strong>Insecure & Fragmented Study Materials:</strong> PDFs and Ebooks are shared via
+                            WhatsApp without proper role-based access control, read-history tracking, or secure
+                            authentication.</li>
+                        <li class="fragment" data-fragment-index="3"><i class="fa-solid fa-ear-deaf"></i> <strong>Lack
+                                of Accessibility:</strong> Visually impaired or differently-abled students cannot
+                            interact efficiently due to a lack of voice-assisted (Text-to-Speech) AI tools.</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Slide 3: Proposed Solution -->
+            <section data-transition="slide">
+                <div class="glass-container">
+                    <h2>The Intelligent Solution</h2>
+                    <div class="grid-2">
+                        <div class="feature-card fragment">
+                            <div class="icon-wrapper"><i class="fa-solid fa-brain"></i></div>
+                            <h4>Hybrid AI Chatbot Engine</h4>
+                            <p>Uses a two-tier system: <strong style="color: var(--dark-green);">TF-IDF</strong> for
+                                instant local caching and <strong style="color: var(--primary-green);">Gemini API /
+                                    ChromaDB</strong> for deep semantic RAG retrieval.</p>
+                        </div>
+                        <div class="feature-card fragment" data-fragment-index="1">
+                            <div class="icon-wrapper"><i class="fa-solid fa-book-open-reader"></i></div>
+                            <h4>Secure E-Library Portal</h4>
+                            <p>Features <strong style="color: var(--dark-green);">OTP-based registration</strong>,
+                                department-wise book filtering, direct PDF serving (`/library/read`), and user reading
+                                history tracking.</p>
+                        </div>
+                        <div class="feature-card fragment" data-fragment-index="2">
+                            <div class="icon-wrapper"><i class="fa-brands fa-whatsapp"></i></div>
+                            <h4>WhatsApp Bot Automation</h4>
+                            <p>An isolated Node.js daemon (wa-web.js) that integrates with the Flask chatbot endpoint to
+                                deliver AI answers directly to WhatsApp.</p>
+                        </div>
+                        <div class="feature-card fragment" data-fragment-index="3">
+                            <div class="icon-wrapper"><i class="fa-solid fa-microphone-lines"></i></div>
+                            <h4>LiveKit Voice Integration</h4>
+                            <p>Provides <strong style="color: var(--dark-green);">Real-time Text-to-Speech
+                                    (TTS)</strong> audio streams securely via LiveKit tokens, enabling dynamic
+                                voice-assisted communication.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Slide 4: System Architecture -->
+            <section data-transition="fade">
+                <div class="glass-container">
+                    <h2>System Architecture</h2>
+                    <p style="text-align: center; margin-bottom: 5px;">A robust, scalable, and API-driven ecosystem.</p>
+
+                    <!-- CSS drawn architecture flow -->
+                    <div style="display: flex; justify-content: center; align-items: center; gap: 8px; margin: 10px 0;">
+
+                        <div style="text-align: center;">
+                            <div
+                                style="background: #fff; padding: 8px; border-radius: 8px; border: 1px solid var(--border-light); box-shadow: 0 2px 4px rgba(0,0,0,0.05);">
+                                <i class="fa-solid fa-users" style="font-size: 1.2em; color: var(--text-main);"></i><br>
+                                <span style="font-size: 0.45em; margin-top:2px; display:block; font-weight: 600;">Users
+                                    / WA</span>
+                            </div>
+                        </div>
+
+                        <div><i class="fa-solid fa-arrow-right-arrow-left"
+                                style="color: var(--primary-green); font-size: 0.8em;"></i></div>
+
+                        <div style="text-align: center;">
+                            <div
+                                style="background: rgba(92, 169, 67, 0.1); padding: 10px; border-radius: 8px; border: 2px solid var(--primary-green);">
+                                <i class="fa-brands fa-python"
+                                    style="font-size: 1.5em; color: var(--dark-green);"></i><br>
+                                <span
+                                    style="font-size: 0.5em; font-weight:bold; margin-top:2px; display:block; color: var(--dark-green);">Flask
+                                    Backend Core</span>
+                            </div>
+                        </div>
+
+                        <div><i class="fa-solid fa-arrow-right-arrow-left"
+                                style="color: var(--primary-green); font-size: 0.8em;"></i></div>
+
+                        <div style="display: flex; flex-direction: column; gap: 4px;">
+                            <div
+                                style="background: #fff; padding: 4px 10px; border-radius: 4px; border: 1px solid var(--border-light); font-size: 0.45em; font-weight: 600;">
+                                <i class="fa-solid fa-database" style="color: var(--primary-green);"></i> SQLite
+                            </div>
+                            <div
+                                style="background: #fff; padding: 4px 10px; border-radius: 4px; border: 1px solid var(--border-light); font-size: 0.45em; font-weight: 600;">
+                                <i class="fa-solid fa-vector-square" style="color: var(--primary-green);"></i> ChromaDB
+                            </div>
+                            <div
+                                style="background: #fff; padding: 4px 10px; border-radius: 4px; border: 1px solid var(--border-light); font-size: 0.45em; font-weight: 600;">
+                                <i class="fa-solid fa-cloud" style="color: var(--primary-green);"></i> External APIs
+                            </div>
+                        </div>
+                    </div>
+
+                    <ul style="max-width: 95%; margin: auto; font-size: 0.7em; line-height: 1.5; text-align: left; padding-left: 20px;">
+                        <li><i class="fa-solid fa-check" style="color: var(--primary-green);"></i> <span class="highlight">Frontend Engine:</span> Uses server-side rendering with Jinja2 macros, combined with HTML5 Canvas and CSS3 Glassmorphism for a fluid, responsive UI.</li>
+                        <li><i class="fa-solid fa-check" style="color: var(--primary-green);"></i> <span class="highlight">Microservices & Concurrency:</span> Runs an isolated Node.js daemon (using puppeteer) for WhatsApp automation to prevent blocking the main Python Gunicorn server.</li>
+                        <li><i class="fa-solid fa-check" style="color: var(--primary-green);"></i> <span class="highlight">Data Flow & Security:</span> Webhook-driven bidirectional data routing. Passwords and OTPs are hashed using Werkzeug Security. API keys are isolated in .env.</li>
+                        <li><i class="fa-solid fa-check" style="color: var(--primary-green);"></i> <span class="highlight">AI Orchestration:</span> RAG engine fetches local vector data from ChromaDB, compiles the prompt, and sends it to the Gemini REST API. Fallback uses Python's `scikit-learn` TF-IDF.</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Slide 4.5: DFD -->
+            <section data-transition="slide">
+                <div class="glass-container" style="padding: 10px; height: 95%;">
+                    <h2 style="margin-bottom: 5px;">Data Flow Diagram (DFD)</h2>
+                    <iframe src="System_DFD.html"
+                        style="width: 100%; height: 600px; border: none; border-radius: 12px; background: rgba(255,255,255,0.8);"></iframe>
+                </div>
+            </section>
+
+            <!-- Slide 5: Tech Stack Badges -->
+            <section data-transition="slide">
+                <div class="glass-container">
+                    <h2>Technology Stack</h2>
+                    <div style="text-align: left; margin-top: 5px; max-width: 900px; margin-inline: auto;">
+                        <div style="margin-bottom: 8px;">
+                            <strong style="display:block; font-size: 0.7em; color:var(--dark-green); margin-bottom: 2px; text-transform: uppercase;">1. Backend & Server</strong>
+                            <ul style="font-size: 0.55em; color: var(--text-muted); padding-left: 20px; margin-bottom: 2px;">
+                                <li><strong><i class="fa-brands fa-python" style="color:var(--primary-green);"></i> Python 3.11 & <i class="fa-solid fa-pepper-hot" style="color:var(--primary-green);"></i> Flask:</strong> Serves as the core backend framework, handling all REST APIs, dynamic Jinja2 templating, and WebSocket connections.</li>
+                                <li><strong><i class="fa-brands fa-node-js" style="color:var(--primary-green);"></i> Node.js (v18+):</strong> A standalone daemon running `whatsapp-web.js` for automating WhatsApp messages via puppeteer headless browser.</li>
+                                <li><strong><i class="fa-solid fa-server" style="color:var(--primary-green);"></i> Gunicorn:</strong> Production-grade WSGI HTTP Server used for load balancing and concurrent request handling.</li>
+                            </ul>
+                        </div>
+                        <div style="margin-bottom: 8px;">
+                            <strong style="display:block; font-size: 0.7em; color:var(--dark-green); margin-bottom: 2px; text-transform: uppercase;">2. Database & Storage</strong>
+                            <ul style="font-size: 0.55em; color: var(--text-muted); padding-left: 20px; margin-bottom: 2px;">
+                                <li><strong><i class="fa-solid fa-database" style="color:var(--primary-green);"></i> SQLite3:</strong> A lightweight SQL database for user authentication, library metadata, notices, and chat-logs (`database.db`).</li>
+                                <li><strong><i class="fa-solid fa-cubes" style="color:var(--primary-green);"></i> ChromaDB:</strong> An open-source vector database used to store high-dimensional embeddings of college documents for semantic search.</li>
+                            </ul>
+                        </div>
+                        <div style="margin-bottom: 8px;">
+                            <strong style="display:block; font-size: 0.7em; color:var(--dark-green); margin-bottom: 2px; text-transform: uppercase;">3. AI & External Integrations</strong>
+                            <ul style="font-size: 0.55em; color: var(--text-muted); padding-left: 20px; margin-bottom: 2px;">
+                                <li><strong><i class="fa-solid fa-sparkles" style="color:var(--primary-green);"></i> Google Gemini 1.5 API:</strong> Acts as the primary Large Language Model (LLM) to parse context and generate human-like answers.</li>
+                                <li><strong><i class="fa-solid fa-brain" style="color:var(--primary-green);"></i> Scikit-Learn (TF-IDF):</strong> A local Machine Learning algorithm used as a fast fallback caching layer to answer repetitive queries instantly.</li>
+                                <li><strong><i class="fa-solid fa-tower-broadcast" style="color:var(--primary-green);"></i> LiveKit Cloud APIs:</strong> Provides WebRTC tokens for ultra-low latency real-time voice synthesis (Text-to-Speech).</li>
+                            </ul>
+                        </div>
+                        <div style="margin-bottom: 5px;">
+                            <strong style="display:block; font-size: 0.7em; color:var(--dark-green); margin-bottom: 2px; text-transform: uppercase;">4. Frontend Frameworks</strong>
+                            <span class="badge"><i class="fa-brands fa-html5"></i> HTML5/CSS3</span>
+                            <span class="badge"><i class="fa-brands fa-js"></i> Vanilla JS (ES6)</span>
+                            <span class="badge"><i class="fa-solid fa-desktop"></i> Reveal.js</span>
+                            <span class="badge"><i class="fa-solid fa-code"></i> Jinja2 Macros</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Slide 5.5: Website Use -->
+            <section data-transition="slide">
+                <div class="glass-container">
+                    <h2>Website Use & Features</h2>
+                    <div class="grid-2" style="margin-top: 5px;">
+                        <div class="feature-card fragment">
+                            <div class="icon-wrapper" style="margin-bottom: 2px;"><i class="fa-solid fa-user-tie" style="font-size: 0.9em;"></i></div>
+                            <h4 style="margin-bottom: 2px;">Admin Dashboard & Analytics</h4>
+                            <ul style="font-size: 0.6em; text-align: left; padding-left: 20px; color: var(--text-muted); margin-top: 2px;">
+                                <li><strong>Access Control:</strong> Secure login at `/admin` for authorized personnel.</li>
+                                <li><strong>Chat Log Auditing:</strong> View all student questions via `/admin/chat-log`. Approve or delete unknown queries to train the TF-IDF model.</li>
+                                <li><strong>Library Management:</strong> Upload PDFs via `/library/admin/upload`, categorize by departments, and manage users.</li>
+                                <li><strong>Notice Board:</strong> Instantly publish and delete notices across all departmental pages.</li>
+                            </ul>
+                        </div>
+                        <div class="feature-card fragment">
+                            <div class="icon-wrapper" style="margin-bottom: 2px;"><i class="fa-solid fa-comments" style="font-size: 0.9em;"></i></div>
+                            <h4 style="margin-bottom: 2px;">AI Support (Web & Voice)</h4>
+                            <ul style="font-size: 0.6em; text-align: left; padding-left: 20px; color: var(--text-muted); margin-top: 2px;">
+                                <li><strong>Web UI Chatbot:</strong> A floating chat widget available on all routes, utilizing a `/chat` POST endpoint.</li>
+                                <li><strong>RAG Pipeline:</strong> Converts queries to vectors (ChromaDB) and feeds context into Gemini API to prevent hallucinations.</li>
+                                <li><strong>Voice Assistant:</strong> Leverages LiveKit WebRTC for Audio streaming (`/tts/livekit`) and Speech-to-Text.</li>
+                                <li><strong>Multi-platform:</strong> The exact same AI brain powers the integrated WhatsApp bot.</li>
+                            </ul>
+                        </div>
+                        <div class="feature-card fragment">
+                            <div class="icon-wrapper" style="margin-bottom: 2px;"><i class="fa-solid fa-book-bookmark" style="font-size: 0.9em;"></i></div>
+                            <h4 style="margin-bottom: 2px;">Secure Digital E-Library</h4>
+                            <ul style="font-size: 0.6em; text-align: left; padding-left: 20px; color: var(--text-muted); margin-top: 2px;">
+                                <li><strong>OTP Auth:</strong> Prevents unauthorized access. Registration requires email verification (`/library/request-otp`).</li>
+                                <li><strong>Dept Filters:</strong> Students access books of CST, Electrical, Civil, etc. via `/library/dept/<id>`.</li>
+                                <li><strong>In-Browser Reader:</strong> Read books securely without downloading using the `/library/read/<id>` endpoint.</li>
+                                <li><strong>Personalized History:</strong> Dashboard tracks read status and allows profile password changes.</li>
+                            </ul>
+                        </div>
+                        <div class="feature-card fragment">
+                            <div class="icon-wrapper" style="margin-bottom: 2px;"><i class="fa-solid fa-bell" style="font-size: 0.9em;"></i></div>
+                            <h4 style="margin-bottom: 2px;">Dynamic Departmental Portals</h4>
+                            <ul style="font-size: 0.6em; text-align: left; padding-left: 20px; color: var(--text-muted); margin-top: 2px;">
+                                <li><strong>Dynamic Rendering:</strong> Reusable HTML templates serve contents for 15+ sections including Admission, Exam Cell.</li>
+                                <li><strong>Specialized Cells:</strong> Interactive portals for Anti-Ragging, Placement, Nodal Vocational, etc.</li>
+                                <li><strong>Real-Time Updates:</strong> Tied securely to SQLite. Admin updates reflect live globally without server restarts.</li>
+                                <li><strong>Virtual Tour:</strong> Provides a digital walkthrough of the campus via the `/virtual-tour` route.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Slide 6: Future Enhancements -->
+            <section data-transition="slide">
+                <div class="glass-container" style="padding: 10px 20px;">
+                    <h2 style="margin-bottom: 5px;">Future Scope</h2>
+                    <div class="grid-2" style="font-size: 0.5em; text-align: left; gap: 8px; margin-top: 0;">
+                        <div class="fragment" style="background: rgba(255,255,255,0.6); padding: 8px; border-radius: 8px; border-left: 4px solid var(--primary-green);">
+                            <strong style="color:var(--dark-green); font-size: 1.1em;">1. Full Digital Campus (Smart College)</strong><br>
+                            <span style="color: var(--text-main);">Complete online management of academics and administration. Paperless system for all college activities, including automated ID card generation and hostel management.</span>
+                        </div>
+                        <div class="fragment" style="background: rgba(255,255,255,0.6); padding: 8px; border-radius: 8px; border-left: 4px solid var(--primary-green);">
+                            <strong style="color:var(--dark-green); font-size: 1.1em;">2. Mobile App Integration</strong><br>
+                            <span style="color: var(--text-main);">Dedicated Android/iOS app for students and staff using React Native. Push notifications for results, library due dates, and urgent administrative notices.</span>
+                        </div>
+                        <div class="fragment" style="background: rgba(255,255,255,0.6); padding: 8px; border-radius: 8px; border-left: 4px solid var(--primary-green);">
+                            <strong style="color:var(--dark-green); font-size: 1.1em;">3. AI-Based Support System</strong><br>
+                            <span style="color: var(--text-main);">Integrating advanced AI models for proactive career guidance, resume building, and personalized course or project suggestions based on student history.</span>
+                        </div>
+                        <div class="fragment" style="background: rgba(255,255,255,0.6); padding: 8px; border-radius: 8px; border-left: 4px solid var(--primary-green);">
+                            <strong style="color:var(--dark-green); font-size: 1.1em;">4. Online Learning Platform</strong><br>
+                            <span style="color: var(--text-main);">Uploading video lectures, study materials, and code snippets. Integration with WebRTC for live virtual classrooms and recorded interactive sessions.</span>
+                        </div>
+                        <div class="fragment" style="background: rgba(255,255,255,0.6); padding: 8px; border-radius: 8px; border-left: 4px solid var(--primary-green);">
+                            <strong style="color:var(--dark-green); font-size: 1.1em;">5. Advanced Student Management</strong><br>
+                            <span style="color: var(--text-main);">Real-time attendance tracking using IoT biometrics/RFID synced with SQLite. Automated result generation, grading logic, and graphical performance analysis charts.</span>
+                        </div>
+                        <div class="fragment" style="background: rgba(255,255,255,0.6); padding: 8px; border-radius: 8px; border-left: 4px solid var(--primary-green);">
+                            <strong style="color:var(--dark-green); font-size: 1.1em;">6. Online Examination System</strong><br>
+                            <span style="color: var(--text-main);">Secure online examination portal with proctoring via webcams. Automated evaluation of MCQ questions and instant result processing with PDF certificates.</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Slide 6.5: Advantages & Disadvantages -->
+            <section data-transition="slide">
+                <div class="glass-container">
+                    <h2>Advantages & Disadvantages</h2>
+                    <div class="grid-2" style="margin-top: 10px; align-items: start; gap: 15px;">
+                        <!-- Advantages -->
+                        <div
+                            style="background: rgba(255,255,255,0.7); padding: 15px; border-radius: 12px; border-left: 5px solid var(--primary-green); text-align: left;">
+                            <h4 style="color: var(--dark-green); margin-bottom: 10px; font-size: 1.1em;"><i
+                                    class="fa-solid fa-thumbs-up"></i> Advantages</h4>
+                            <ul
+                                style="font-size: 0.65em; padding-left: 15px; margin: 0; color: var(--text-main); line-height: 1.5;">
+                                <li style="margin-bottom: 8px;"><strong>24/7 Availability:</strong> Instant AI responses save time. The TF-IDF model works even if the cloud API is down.</li>
+                                <li style="margin-bottom: 8px;"><strong>Centralized Data Vault:</strong> All Ebooks, notices, and department info in one secure SQL/ChromaDB unified platform.</li>
+                                <li style="margin-bottom: 8px;"><strong>Omnichannel Accessibility:</strong> Seamless support across Web Chat, LiveKit Voice TTS, and automated WhatsApp bot interfaces.</li>
+                                <li style="margin-bottom: 8px;"><strong>Scalable Architecture:</strong> The decoupled Flask + Node.js architecture allows easy feature additions.</li>
+                                <li><strong>Cost & Time Effective:</strong> Drastically reduces manual administrative workload and printing costs.</li>
+                            </ul>
+                        </div>
+
+                        <!-- Disadvantages -->
+                        <div
+                            style="background: rgba(255,255,255,0.7); padding: 15px; border-radius: 12px; border-left: 5px solid #d32f2f; text-align: left;">
+                            <h4 style="color: #d32f2f; margin-bottom: 10px; font-size: 1.1em;"><i
+                                    class="fa-solid fa-thumbs-down"></i> Disadvantages</h4>
+                            <ul
+                                style="font-size: 0.65em; padding-left: 15px; margin: 0; color: var(--text-main); line-height: 1.5;">
+                                <li style="margin-bottom: 8px;"><strong>Internet Dependency:</strong> WebRTC Voice and Gemini LLM require high-speed internet connections to function without latency.</li>
+                                <li style="margin-bottom: 8px;"><strong>AI Hallucination Risks:</strong> Though minimized by RAG, the AI may occasionally struggle or hallucinate with complex logic not present in the Vector DB.</li>
+                                <li style="margin-bottom: 8px;"><strong>Storage Constraints:</strong> Storing high volumes of PDF files and ChromaDB vectors requires sufficient server disk space and RAM.</li>
+                                <li style="margin-bottom: 8px;"><strong>Initial Setup Time:</strong> Requires significant manual effort from admins to digitize legacy data and train the AI initially.</li>
+                                <li><strong>Tech Familiarity:</strong> Faculty and staff may require training to use the Admin dashboard and manage chat-logs effectively.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Slide 7: Conclusion -->
+            <section data-transition="slide">
+                <div class="glass-container">
+                    <h2>Conclusion</h2>
+                    <div style="text-align: left; margin-top: 5px;">
+                        <p style="font-size: 0.7em; color: var(--text-main); margin-bottom: 15px; line-height: 1.5;">
+                            The <strong style="color: var(--dark-green);">Smart College Management Ecosystem</strong> is
+                            a significant step towards creating a more accessible, efficient, and intelligent
+                            educational environment.
+                        </p>
+                        <ul style="max-width: 95%; margin-top: 10px; font-size: 0.85em; line-height: 1.6;">
+                            <li class="fragment"><i class="fa-solid fa-lightbulb" style="color: var(--primary-green);"></i> <strong>Unmatched Efficiency:</strong> Replaces fragmented manual workflows with an automated, AI-driven backend, drastically reducing administrative bottlenecks for staff.</li>
+                            <li class="fragment"><i class="fa-solid fa-universal-access" style="color: var(--primary-green);"></i> <strong>Omnichannel Accessibility:</strong> Breaks barriers by ensuring 24/7 availability of OTP-secured study materials and Voice/WhatsApp support for differently-abled students.</li>
+                            <li class="fragment"><i class="fa-solid fa-shield-halved" style="color: var(--primary-green);"></i> <strong>Data Security & Control:</strong> The integrated admin dashboard ensures the college retains full moderation control over E-Library assets and Chatbot learning logs.</li>
+                            <li class="fragment"><i class="fa-solid fa-rocket" style="color: var(--primary-green);"></i> <strong>Future-Ready Scalability:</strong> The decoupled architecture (Flask API + Node.js) forms a robust foundation for expanding into a fully smart campus in the coming years.</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Slide 7.5: References -->
+            <section data-transition="slide">
+                <div class="glass-container">
+                    <h2>References</h2>
+                    <div style="font-size: 0.6em; text-align: left; line-height: 1.4; color: var(--text-main);">
+                        <ol style="margin-left: 20px; padding-left: 10px;">
+                            <li class="fragment" style="margin-bottom: 8px;">Ian Sommerville, <em>Software
+                                    Engineering</em>, 10th Edition, Pearson Education.</li>
+                            <li class="fragment" style="margin-bottom: 8px;">Roger S. Pressman, <em>Software
+                                    Engineering: A Practitioner's Approach</em>, McGraw-Hill Education.</li>
+                            <li class="fragment" style="margin-bottom: 8px;">Paul Deitel and Harvey Deitel, <em>Internet
+                                    and World Wide Web: How to Program</em>, Pearson Education.</li>
+                            <li class="fragment" style="margin-bottom: 8px;">Python Official Documentation. Available
+                                at: <a href="https://docs.python.org/3/"
+                                    style="color: var(--primary-green);">https://docs.python.org/3/</a></li>
+                            <li class="fragment" style="margin-bottom: 8px;">SQLite Official Documentation. Available
+                                at: <a href="https://www.sqlite.org/docs.html"
+                                    style="color: var(--primary-green);">https://www.sqlite.org/docs.html</a></li>
+                            <li class="fragment" style="margin-bottom: 8px;">W3Schools Web Development Tutorials.
+                                Available at: <a href="https://www.w3schools.com"
+                                    style="color: var(--primary-green);">https://www.w3schools.com</a></li>
+                            <li class="fragment" style="margin-bottom: 8px;">Mozilla Developer Network (MDN) Web Docs.
+                                Available at: <a href="https://developer.mozilla.org"
+                                    style="color: var(--primary-green);">https://developer.mozilla.org</a></li>
+                            <li class="fragment" style="margin-bottom: 8px;">AICTE Official Website. Available at: <a
+                                    href="https://www.aicte-india.org"
+                                    style="color: var(--primary-green);">https://www.aicte-india.org</a></li>
+                        </ol>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Slide 8: Thank You -->
+            <section data-transition="zoom">
+                <div class="glass-container">
+                    <i class="fa-solid fa-check-circle"
+                        style="font-size: 2.5em; color: var(--primary-green); margin-bottom: 10px;"></i>
+                    <h1 style="font-size: 2em; margin-bottom: 5px; color: var(--text-main); text-shadow: none;">Thank
+                        You!</h1>
+                    <p style="font-size: 0.9em; color: var(--text-muted);">Any Questions?</p>
+                    <div
+                        style="margin-top: 20px; padding: 10px 20px; background: #fff; border-radius: 50px; border: 1px solid var(--border-light); display: inline-block; box-shadow: 0 5px 15px rgba(0,0,0,0.05);">
+                        <p style="margin: 0; font-size: 0.6em; color: var(--dark-green); font-weight: 600;">
+                            <i class="fa-solid fa-laptop-code" style="margin-right: 8px;"></i> System live demonstration
+                            is ready at: <a href="https://www.deybabu.in" target="_blank"
+                                style="color: var(--primary-green); text-decoration: underline;">www.deybabu.in</a>
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+        </div>
+    </div>
+
+    <!-- Reveal.js Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.3.1/reveal.min.js"></script>
+    <script>
+        Reveal.initialize({
+            controls: true,
+            progress: true,
+            center: true,
+            hash: true,
+            transition: 'slide',
+            backgroundTransition: 'fade',
+            slideNumber: 'c/t',
+
+            // Fixed dimensions to ensure it scales perfectly down on ANY screen
+            width: 1024,
+            height: 768,
+
+            // Minimal margin around the scaled presentation
+            margin: 0.02,
+            minScale: 0.2,
+            maxScale: 2.0
+        });
+    </script>
+</body>
+
+</html>

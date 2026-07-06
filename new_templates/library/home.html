@@ -1,0 +1,187 @@
+{% extends 'library/base.html' %}
+{% block title %}Home{% endblock %}
+{% block page_title %}📚 Digital Library{% endblock %}
+{% block content %}
+
+{% if user.role in ('admin', 'teacher') %}
+<div class="stats-grid">
+  <div class="stat-card">
+    <div class="stico" style="background:#ebf8ff">📖</div>
+    <div>
+      <div class="stval">{{stats.books}}</div>
+      <div class="stlbl">Total eBooks</div>
+    </div>
+  </div>
+  <div class="stat-card">
+    <div class="stico" style="background:#f0fff4">👨‍🎓</div>
+    <div>
+      <div class="stval">{{stats.students}}</div>
+      <div class="stlbl">Student Members</div>
+    </div>
+  </div>
+  <div class="stat-card">
+    <div class="stico" style="background:#fffaf0">👁️</div>
+    <div>
+      <div class="stval">{{stats.reads}}</div>
+      <div class="stlbl">Total Reads</div>
+    </div>
+  </div>
+  <div class="stat-card">
+    <div class="stico" style="background:#fef3f2">📥</div>
+    <div>
+      <div class="stval">{{stats.downloads}}</div>
+      <div class="stlbl">Total Downloads</div>
+    </div>
+  </div>
+</div>
+{% endif %}
+
+<div class="welcome-banner"
+  style="background: white; border-radius: 16px; padding: 24px 32px; margin-bottom: 32px; display: flex; align-items: center; justify-content: space-between; box-shadow: 0 4px 12px rgba(0,0,0,0.02); position: relative; overflow: hidden; border: 1px solid var(--glass-border);">
+
+  <div style="position:relative; z-index:1; flex: 1;">
+    <h2 style="font-family:'Lora',serif; font-size: 24px; font-weight: 800; color: var(--text); margin-bottom: 8px;">
+      Hello, {{ user.name.split(' ')[0] if user.name else 'Student' }}! <span style="animation: float 2s ease-in-out infinite; display: inline-block;">👋</span>
+    </h2>
+    <p style="color: var(--muted); font-size: 14px; max-width: 600px;">
+      What will we study today? Notes, PPT, Video — everything is right here!
+    </p>
+  </div>
+  
+  <div style="position:relative; z-index:1;">
+    <a href="/library/profile" style="background: linear-gradient(135deg, #0ea5e9, #38bdf8); color: white; padding: 12px 32px; border-radius: 8px; font-weight: 700; text-decoration: none; display: inline-flex; align-items: center; gap: 8px; font-size: 14px; box-shadow: 0 4px 14px rgba(14, 165, 233, 0.3); transition: all 0.2s;">
+      My Dashboard <span>→</span>
+    </a>
+  </div>
+</div>
+
+<style>
+  @keyframes float {
+    0% {
+      transform: translateY(0px);
+    }
+
+    50% {
+      transform: translateY(-10px);
+    }
+
+    100% {
+      transform: translateY(0px);
+    }
+  }
+</style>
+
+<!-- Categories with Subjects as cards -->
+<div style="margin-bottom: 32px;">
+  <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 16px;">
+    <div style="font-size: 20px; color: var(--ac);">📖</div>
+    <h3 style="font-family: 'Lora', serif; font-size: 20px; font-weight: 800; color: var(--pr); margin: 0;">Your Subjects</h3>
+  </div>
+
+  <!-- Subjects Grid -->
+  <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 16px;">
+    {% for grp in grouped_departments %}
+      {% for d in grp.depts %}
+        {% if d.subjects %}
+          {% for s in d.subjects %}
+            {% set scolor = s.color if s.color else d.color %}
+            <a href="/library/dept/{{d.id}}?subject={{s.name|urlencode}}"
+              style="background: white; border-radius: 16px; padding: 24px 16px; text-decoration: none; display: flex; flex-direction: column; align-items: center; gap: 12px; text-align: center; transition: all 0.2s; box-shadow: 0 4px 12px rgba(0,0,0,0.03); border-top: 4px solid {{ scolor }}; position: relative; overflow: hidden;"
+              onmouseover="this.style.transform='translateY(-4px)'; this.style.boxShadow='0 12px 24px rgba(0,0,0,0.08)';"
+              onmouseout="this.style.transform=''; this.style.boxShadow='0 4px 12px rgba(0,0,0,0.03)';">
+              <div style="font-size: 32px; color: {{ scolor }}; margin-bottom: 4px;">{{ s.icon if s.icon else '📄' }}</div>
+              <div style="font-size: 15px; font-weight: 800; color: var(--text); line-height: 1.2;">{{ s.name }}</div>
+              <div style="font-size: 11px; color: var(--muted); font-weight: 600;">{{ subj_counts.get(d.id ~ '_' ~ s.name, 0) }} Books</div>
+            </a>
+          {% endfor %}
+        {% else %}
+          <a href="/library/dept/{{d.id}}"
+            style="background: white; border-radius: 16px; padding: 24px 16px; text-decoration: none; display: flex; flex-direction: column; align-items: center; gap: 12px; text-align: center; transition: all 0.2s; box-shadow: 0 4px 12px rgba(0,0,0,0.03); border-top: 4px solid {{ d.color }}; position: relative; overflow: hidden;"
+            onmouseover="this.style.transform='translateY(-4px)'; this.style.boxShadow='0 12px 24px rgba(0,0,0,0.08)';"
+            onmouseout="this.style.transform=''; this.style.boxShadow='0 4px 12px rgba(0,0,0,0.03)';">
+            <div style="font-size: 32px; color: {{ d.color }}; margin-bottom: 4px;">{{ d.icon if d.icon else '📚' }}</div>
+            <div style="font-size: 15px; font-weight: 800; color: var(--text); line-height: 1.2;">{{ d.name }}</div>
+            <div style="font-size: 11px; color: var(--muted); font-weight: 600;">{{ dept_counts.get(d.id,0) }} Books</div>
+          </a>
+        {% endif %}
+      {% endfor %}
+    {% endfor %}
+  </div>
+</div>
+{% if not grouped_departments %}
+<div class="empty">
+  <div class="ei">📂</div>
+  <p>No categories created yet.</p>
+  {% if user.role in ('admin','teacher') %}
+  <a href="/library/admin/categories"
+    style="display:inline-block;margin-top:12px;padding:9px 20px;background:var(--ac);color:white;border-radius:8px;text-decoration:none;font-weight:700">📂
+    Create Categories</a>
+  {% endif %}
+</div>
+{% endif %}
+
+<!-- Recently Added -->
+<div style="display: flex; align-items: center; gap: 10px; margin-bottom: 16px; margin-top: 32px;">
+  <div style="font-size: 20px; color: #0ea5e9;">📺</div>
+  <h3 style="font-family: 'Lora', serif; font-size: 20px; font-weight: 800; color: var(--pr); margin: 0;">Recently Added</h3>
+</div>
+{% if recent %}
+<div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px;">
+  {% for b in recent %}
+  {% set ext=b['filetype']|upper if b['filetype'] else 'PDF' %}
+  {% set ctype = 'NOTES' if loop.index0 % 3 == 0 else ('VIDEO' if loop.index0 % 3 == 1 else 'PPT SLIDES') %}
+  <div style="background: white; border-radius: 16px; padding: 20px; display: flex; flex-direction: column; box-shadow: 0 4px 12px rgba(0,0,0,0.03); border: 1px solid rgba(0,0,0,0.02);">
+    
+    <!-- Top badge -->
+    <div style="margin-bottom: 12px;">
+      <span style="background: #eff6ff; color: #3b82f6; font-size: 10px; font-weight: 700; padding: 4px 10px; border-radius: 20px; display: inline-flex; align-items: center; gap: 4px;">
+        📝 {{ ctype }}
+      </span>
+    </div>
+
+    <!-- Title and Subtitle -->
+    <div style="font-size: 15px; font-weight: 800; color: var(--text); line-height: 1.4; margin-bottom: 8px;">
+      {{ b['title'] }}
+    </div>
+    {% if b['book_subject'] %}
+    <div style="font-size: 11px; color: var(--muted); margin-bottom: 12px; display: flex; align-items: center; gap: 4px;">
+      🔍 UNIT ({{ b['book_subject'] }})
+    </div>
+    {% endif %}
+
+    <!-- Badges Row -->
+    <div style="display: flex; gap: 8px; margin-bottom: 20px;">
+      <span style="background: #f0fdf4; color: #166534; font-size: 10px; padding: 4px 8px; border-radius: 6px; border: 1px solid #bbf7d0;">🌿 Life Science</span>
+      <span style="background: #eff6ff; color: #1e3a8a; font-size: 10px; padding: 4px 8px; border-radius: 6px; border: 1px solid #bfdbfe;">{{ ext }}</span>
+    </div>
+
+    <!-- Bottom actions -->
+    <div style="margin-top: auto;">
+
+      
+      {% if b['filetype']=='pdf' %}
+      <a href="/library/read/{{b['id']}}" style="display: flex; justify-content: center; align-items: center; gap: 8px; background: #10b981; color: white; padding: 12px; border-radius: 10px; text-decoration: none; font-size: 13px; font-weight: 700; transition: background 0.2s;">
+        ▷ View Content
+      </a>
+      {% else %}
+      <a href="/library/download/{{b['id']}}" style="display: flex; justify-content: center; align-items: center; gap: 8px; background: #10b981; color: white; padding: 12px; border-radius: 10px; text-decoration: none; font-size: 13px; font-weight: 700; transition: background 0.2s;">
+        ▷ View Content
+      </a>
+      {% endif %}
+    </div>
+  </div>
+  {% endfor %}
+</div>
+{% else %}
+<div class="empty">
+  <div class="ei">📭</div>
+  <p>No eBooks uploaded yet.</p>
+  {% if user.role in ('admin','teacher') %}
+  <a href="/library/admin/books"
+    style="display:inline-block;margin-top:12px;padding:9px 20px;background:var(--ac);color:white;border-radius:8px;text-decoration:none;font-weight:700">📤
+    Upload First Book</a>
+  {% endif %}
+</div>
+{% endif %}
+
+{% endblock %}

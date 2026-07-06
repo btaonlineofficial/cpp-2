@@ -1,0 +1,62 @@
+
+    // ── Scene definitions ──
+    const SCENES = [
+      { id: 'campus', name: 'Campus 360°', icon: '🏫', sub: 'Real Campus View', photo: true },
+      { id: 'lab', name: 'Computer Lab', icon: '💻', sub: 'CST Department', photo: false, color: '#0ea5e9', thumb: '💻' },
+      { id: 'library', name: 'Library', icon: '📚', sub: 'Central Library', photo: false, color: '#f59e0b', thumb: '📚' },
+      { id: 'workshop', name: 'Workshop', icon: '⚙️', sub: 'Mechanical Dept', photo: false, color: '#10b981', thumb: '⚙️' },
+      { id: 'garden', name: 'Campus Garden', icon: '🌿', sub: 'Green Zone', photo: false, color: '#22c55e', thumb: '🌿' },
+      { id: 'audi', name: 'Auditorium', icon: '🎭', sub: 'Main Audi', photo: false, color: '#e11d48', thumb: '🎭' },
+    ];
+
+    let viewer = null;
+    let currentIdx = 0;
+
+    // ── Initialise Pannellum ──
+    function initViewer(src) {
+      if (viewer) { viewer.destroy(); viewer = null; }
+      viewer = pannellum.viewer('panorama', {
+        type: 'equirectangular',
+        panorama: src,
+        autoLoad: true,
+        autoRotate: -2,
+        autoRotateInactivityDelay: 2000,
+        compass: true,
+        showControls: true,
+        mouseZoom: true,
+        hfov: 100,
+        minHfov: 40,
+        maxHfov: 120,
+        strings: { loadButtonLabel: 'Click to Load 360° View' }
+      });
+    }
+
+    // ── Thumbnails ──
+    function makePlaceholder(sc) {
+      const c = document.createElement('canvas');
+      c.width = 320; c.height = 180;
+      const ctx = c.getContext('2d');
+      const g = ctx.createLinearGradient(0, 0, 0, 180);
+      const col = sc.color || '#4f46e5';
+      g.addColorStop(0, col + '40'); g.addColorStop(1, '#030712');
+      ctx.fillStyle = g; ctx.fillRect(0, 0, 320, 180);
+      ctx.font = '52px serif'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+      ctx.fillText(sc.icon || sc.thumb, 160, 90);
+      return c.toDataURL();
+    }
+
+    function buildThumbs() {
+      const strip = document.getElementById('scenes-strip');
+      strip.innerHTML = '';
+      SCENES.forEach((sc, i) => {
+        const el = document.createElement('div');
+        el.className = 'scene-thumb' + (i === 0 ? ' active' : '');
+        const imgSrc = sc.photo
+          ? CAMPUS_PHOTO.substring(0, 100).length > 10
+            ? (() => {
+              const c = document.createElement('canvas'); c.width = 160; c.height = 90;
+              const ctx = c.getContext('2d');
+              const img = new Image();
+              img.onload = () => { ctx.drawImage(img, 0, 0, 160, 90); el.querySelector('.thumb-img').src = c.toDataURL() };
+              img.src = CAMPUS_PHOTO; return makePlaceholder(sc);
+            })()

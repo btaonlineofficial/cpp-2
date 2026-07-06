@@ -1,0 +1,667 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project Report - College Web Portal</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Merriweather:wght@300;400;700&family=Open+Sans:wght@400;600&display=swap');
+        
+        body {
+            font-family: 'Open Sans', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f9f9f9;
+        }
+
+        .page {
+            background-color: #fff;
+            padding: 50px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            border-radius: 8px;
+        }
+
+        h1, h2, h3 {
+            font-family: 'Merriweather', serif;
+            color: #2c3e50;
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 2em;
+            margin-bottom: 10px;
+            color: #1a252f;
+        }
+        
+        .sub-title {
+            text-align: center;
+            font-size: 1.2em;
+            font-weight: bold;
+            margin-bottom: 50px;
+            color: #7f8c8d;
+        }
+
+        h2 {
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 5px;
+            margin-top: 40px;
+        }
+
+        .cover-page {
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            min-height: 800px;
+        }
+
+        .cover-page h2 {
+            border: none;
+            margin: 10px 0;
+        }
+
+        .details-box {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 80px;
+            text-align: left;
+            font-size: 1.1em;
+        }
+
+        .details-col {
+            width: 45%;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: #fff;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #3498db;
+            color: white;
+        }
+        
+        tr:nth-child(even) {
+            background-color: #f2f9ff;
+        }
+
+        .signature-section {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 100px;
+        }
+
+        .signature-box {
+            text-align: center;
+            width: 40%;
+            border-top: 1px solid #333;
+            padding-top: 10px;
+        }
+        
+        .image-placeholder {
+            width: 100%;
+            height: 300px;
+            background-color: #ecf0f1;
+            border: 2px dashed #bdc3c7;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #7f8c8d;
+            margin-bottom: 20px;
+            font-style: italic;
+        }
+
+        .architecture-box {
+            background-color: #fdfefe;
+            border-left: 4px solid #3498db;
+            padding: 15px;
+            margin: 15px 0;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+
+        .architecture-box h3 {
+            margin-top: 0;
+            color: #2980b9;
+        }
+
+        pre {
+            background: #2c3e50;
+            color: #ecf0f1;
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+        }
+
+        @media print {
+            body {
+                background: none;
+                margin: 0;
+                padding: 0;
+            }
+            .page {
+                box-shadow: none;
+                border-radius: 0;
+                padding: 0;
+                margin: 0;
+                page-break-after: always;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Cover Page -->
+    <div class="page cover-page">
+        <h1>College Web Portal Management &<br>Digital Library System (AI Powered)</h1>
+        <div class="sub-title">Project Report</div>
+        
+        <div style="margin-top: 40px;">
+            <h2>Submitted To</h2>
+            <p style="font-size: 1.2em; font-weight: 600;">Contai Polytechnic</p>
+            <p>Department of Computer Science & Technology</p>
+        </div>
+
+        <div class="details-box">
+            <div class="details-col">
+                <h3>Submitted By</h3>
+                <p><strong>Name:</strong> Swarup Dey<br>
+                <strong>Roll:</strong> DCONCSTS4<br>
+                <strong>No:</strong> 100033521<br>
+                <strong>Reg No:</strong> D242533471<br>
+                <strong>SEM:</strong> 4th | <strong>YEAR:</strong> 2026<br>
+                <strong>Session:</strong> 2025-2026</p>
+            </div>
+            <div class="details-col">
+                <h3>Guided By</h3>
+                <p><strong>Guide Name:</strong> Gitanjali Mandal Ma’am<br>
+                <strong>Academic Year:</strong> 2025–2026</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Declaration -->
+    <div class="page">
+        <h2 style="text-decoration: underline;">DECLARATION</h2>
+        <br>
+        <p>I hereby declare that this project entitled <strong>College Web Portal Management & Digital Library System (AI Powered)</strong> is an original work carried out by me under the guidance of <strong>Gitanjali Mandal Ma’am</strong>, Lecturer, Department of Computer Science & Technology, Contai Polytechnic.</p>
+        <p>I further declare that this project has not been submitted previously, in whole or in part, to any other university or institution for the award of any degree, diploma or certification. All the information and data presented in this project are based on my own work, except where due acknowledgements have been made. This project is the result of my sincere efforts and is a true representation of my learning and development during the course.</p>
+        
+        <div style="margin-top: 120px; padding-left: 20px;">
+            <div style="width: 250px; border-top: 1px solid #000; padding-top: 8px; text-align: center; font-weight: 500;">
+                Swarup Dey
+            </div>
+        </div>
+    </div>
+
+    <!-- Certificate -->
+    <div class="page">
+        <h2>CERTIFICATE</h2>
+        <p>This is to formally certify that the project report entitled <strong>“College Web Portal Management & Digital Library System (AI Powered)”</strong> is a bonafide and genuine record of the practical software development work successfully carried out by <strong>Swarup Dey</strong> (Roll: DCONCSTS4, Registration No: D242533471), a 4th-semester student of the Department of Computer Science & Technology at <strong>Contai Polytechnic</strong>.</p>
+        <p>This project was executed and completed under my direct supervision and guidance during the academic session 2025–2026. The candidate has rigorously followed the technical methodologies and fulfilled all the necessary academic guidelines prescribed for the successful completion of the diploma curriculum.</p>
+        <p>I am highly satisfied with the student's performance, dedication, and the technical quality of the software application developed. I further certify that the work presented in this comprehensive report is original and has not been submitted elsewhere for the award of any other diploma or degree.</p>
+        
+        <div class="signature-section" style="margin-top: 100px;">
+            <div class="signature-box">Project Guide Signature</div>
+            <div class="signature-box">Head of Department Signature</div>
+        </div>
+        <div style="display: flex; justify-content: space-between;">
+            <div style="width: 40%; text-align: center;"><strong>Gitanjali Mandal Ma’am</strong><br><em>(Project Guide)</em></div>
+            <div style="width: 40%; text-align: center;"><strong>HOD Name / Signature</strong><br><em>(Head of the Department, CST)</em></div>
+        </div>
+    </div>
+
+    <!-- Acknowledgement -->
+    <div class="page">
+        <h2>ACKNOWLEDGEMENT</h2>
+        <p>The successful completion of any complex project requires not only personal dedication but also the guidance, support, and encouragement of many individuals. I take this opportunity to express my profound gratitude to everyone who contributed to the realization of this project.</p>
+        
+        <p>First and foremost, I would like to express my deepest sense of gratitude to our respected Principal and the Head of the Department of Computer Science & Technology, Contai Polytechnic. Their visionary leadership and commitment to fostering a technically enriched environment provided me with the necessary facilities, infrastructure, and an invaluable opportunity to undertake this endeavor.</p>
+        
+        <p>I am highly indebted to my esteemed project guide, <strong>Gitanjali Mandal Ma’am</strong>, for her unwavering support, continuous mentorship, and constructive feedback throughout the entire development lifecycle of the <strong>“College Web Portal Management & Digital Library System (AI Powered)”</strong>. Her profound technical insights, patience in addressing my queries, and motivation were instrumental in helping me overcome technical hurdles and optimizing the system's architecture.</p>
+        
+        <p>I would also like to extend my heartfelt thanks to all the faculty members of the Computer Science & Technology Department for imparting the foundational knowledge and programming concepts that formed the bedrock of this application.</p>
+        
+        <p>My sincere appreciation goes out to my friends and classmates who engaged in brainstorming sessions, offered direct and indirect assistance during the extensive testing phases, and provided valuable user-perspective feedback that greatly improved the system's interface.</p>
+        
+        <p>Last but certainly not least, I am eternally grateful to my parents and family members for their unconditional love, moral support, and constant encouragement, without which this achievement would not have been possible.</p>
+    </div>
+
+    <!-- Abstract -->
+    <div class="page">
+        <h2>ABSTRACT</h2>
+        <p>In the contemporary era of digitalization, educational institutions are increasingly transitioning from traditional, manual administrative processes to sophisticated, automated digital ecosystems. The <strong>“College Web Portal Management & Digital Library System (AI Powered)”</strong> is a comprehensive, state-of-the-art web application engineered to bridge the gap between students, educators, and the college administration by centralizing academic resources and streamlining campus communication.</p>
+        
+        <p>This project introduces a highly robust and integrated platform designed to handle multifaceted institutional activities. At its core, the system features an advanced <strong>Digital Library</strong> that eliminates the constraints of physical libraries. It empowers students and faculty to seamlessly search for literature by department, preview high-quality PDF textbooks directly within the browser, and download study materials around the clock, thereby democratizing access to education.</p>
+
+        <p>Setting itself apart from conventional portals, this system pioneers the integration of cutting-edge Artificial Intelligence. Utilizing the <strong>Google Gemini API</strong> integrated with a <strong>Retrieval-Augmented Generation (RAG)</strong> architecture and a <strong>Chroma Vector Database</strong>, the portal offers an intelligent Helpdesk. This AI module is capable of understanding natural language queries and instantly retrieving precise, context-aware information regarding college notices, academic schedules, and administrative protocols. Furthermore, a <strong>Node.js-powered WhatsApp Automation</strong> service acts as an automated notification and query-resolution bridge, instantly delivering crucial updates to the students' mobile devices.</p>
+
+        <p>From an administrative standpoint, a highly secure, role-based dashboard allows authorized personnel to intuitively manage user credentials, moderate library content, broadcast urgent notices, and oversee the AI's knowledge base. The integration of <strong>LiveKit for Voice Text-to-Speech (TTS)</strong> and an immersive <strong>Virtual Campus Tour</strong> further elevates the platform's accessibility and interactivity.</p>
+
+        <p>Developed utilizing a modern technology stack—including <strong>Python (Flask)</strong> for the robust backend, <strong>SQLite</strong> for relational data management, and <strong>HTML5, CSS3, and JavaScript</strong> for a highly responsive, cross-platform user interface—this project successfully demonstrates the practical implementation of scalable web technologies. Ultimately, the system provides a smart, efficient, and highly scalable digital solution that drastically reduces manual workload, enhances institutional connectivity, and revolutionizes the modern learning environment.</p>
+    </div>
+
+    <!-- Index -->
+    <div class="page">
+        <h2>INDEX</h2>
+        <table>
+            <tr><th style="width: 20%;">Sr. No</th><th>Content</th></tr>
+            <tr><td>-</td><td>Declaration</td></tr>
+            <tr><td>-</td><td>Certificate</td></tr>
+            <tr><td>-</td><td>Acknowledgement</td></tr>
+            <tr><td>-</td><td>Abstract</td></tr>
+            <tr><td>-</td><td>List of Figures</td></tr>
+            <tr><td>1</td><td>Introduction</td></tr>
+            <tr><td>2</td><td>Objective of the Project</td></tr>
+            <tr><td>3</td><td>Existing System</td></tr>
+            <tr><td>4</td><td>Proposed System</td></tr>
+            <tr><td>5</td><td>Feasibility Study</td></tr>
+            <tr><td>6</td><td>Software & Hardware Requirements</td></tr>
+            <tr><td>7</td><td>System Architecture</td></tr>
+            <tr><td>8</td><td>Data Flow Diagram (DFD)</td></tr>
+            <tr><td>9</td><td>Database Design & ER Diagram</td></tr>
+            <tr><td>10</td><td>Modules Description</td></tr>
+            <tr><td>11</td><td>Working Procedure</td></tr>
+            <tr><td>12</td><td>AI & WhatsApp Integration</td></tr>
+            <tr><td>13</td><td>Advantages</td></tr>
+            <tr><td>14</td><td>Limitations</td></tr>
+            <tr><td>15</td><td>Future Scope</td></tr>
+            <tr><td>16</td><td>Testing</td></tr>
+            <tr><td>17</td><td>Conclusion</td></tr>
+            <tr><td>18</td><td>Bibliography</td></tr>
+            <tr><td>19</td><td>Appendix (Screenshots)</td></tr>
+        </table>
+    </div>
+
+    <!-- List of Figures -->
+    <div class="page">
+        <h2>LIST OF FIGURES</h2>
+        <table>
+            <tr><th style="width: 20%;">Figure No.</th><th>Description</th></tr>
+            <tr><td>Fig 8.1</td><td>System Architecture Data Flow Diagram (DFD)</td></tr>
+            <tr><td>Fig 9.1</td><td>Database Entity Relationship (ER) Diagram</td></tr>
+            <tr><td>Fig 19.1</td><td>Home Page View</td></tr>
+            <tr><td>Fig 19.2</td><td>Digital Library Dashboard</td></tr>
+            <tr><td>Fig 19.3</td><td>AI Helpdesk Chat Interface</td></tr>
+            <tr><td>Fig 19.4</td><td>Admin Control Panel</td></tr>
+        </table>
+    </div>
+
+    <!-- Chapter 1 -->
+    <div class="page">
+        <h2>CHAPTER 1: INTRODUCTION</h2>
+        <p>In the rapidly evolving landscape of the 21st century, technology has become an indispensable pillar of modern educational paradigms. Educational institutions globally are undergoing a massive digital transformation, shifting away from conventional, paper-based manual systems towards sophisticated digital platforms. This paradigm shift is primarily driven by the urgent need to enhance operational efficiency, streamline communication, ensure 24/7 accessibility, and optimize overall academic management. Traditional manual systems are inherently fraught with inefficiencies; they consume excessive administrative time, demand voluminous paperwork, and create substantial bottlenecks in the effective management and distribution of academic resources.</p>
+        
+        <p>Addressing these critical challenges, the <strong>“College Web Portal Management & Digital Library System (AI Powered)”</strong> has been conceptualized and developed as a comprehensive, centralized online ecosystem tailored specifically for students, educators, and administrators. This state-of-the-art platform is engineered to dissolve the physical boundaries of a traditional campus by bringing crucial academic and administrative activities directly to the users' screens.</p>
+        
+        <p>This project is not merely a website, but a highly integrated digital solution that amalgamates several advanced modules. It features a robust <strong>Digital Library Management System</strong> that allows students to seamlessly browse, read, and download study materials online. To redefine user support, it incorporates an <strong>AI-powered Helpdesk</strong> utilizing the highly advanced <strong>Google Gemini API</strong> and Retrieval-Augmented Generation (RAG) architecture, ensuring instant and accurate responses to student queries. Furthermore, it bridges the communication gap through a <strong>Node.js-based WhatsApp Automation</strong> service that delivers real-time notifications directly to students' mobile devices.</p>
+        
+        <p>Coupled with an immersive Virtual Campus Tour and a highly secure, role-based Admin Dashboard, this system encapsulates the true essence of a "Smart College." Ultimately, this project demonstrates a forward-thinking approach to education technology, aiming to significantly reduce administrative overhead while immensely enriching the digital learning experience for the student community.</p>
+    </div>
+
+    <!-- Chapter 2 -->
+    <div class="page">
+        <h2>CHAPTER 2: OBJECTIVE OF THE PROJECT</h2>
+        <p>The primary objective of this project is to architect a highly efficient, automated, and intelligent digital infrastructure that caters to the modern needs of an educational institution. By leveraging cutting-edge web technologies and Artificial Intelligence, the system aims to solve the inherent flaws of manual administration. The core objectives are categorized as follows:</p>
+        
+        <h3>1. Academic & Learning Objectives</h3>
+        <ul>
+            <li><strong>Digital Library System:</strong> To develop a comprehensive digital library that provides students and faculty with uninterrupted, round-the-clock online access to eBooks, previous year question papers, and study materials.</li>
+            <li><strong>Enhanced Accessibility:</strong> To foster a culture of digital learning by ensuring that educational resources are easily accessible from any geographical location using an integrated online PDF reader.</li>
+            <li><strong>Interactive Campus Experience:</strong> To provide prospective and current students with an immersive 3D Virtual Campus Tour, enhancing the overall appeal and transparency of the institution's infrastructure.</li>
+        </ul>
+
+        <h3>2. Technological & AI Objectives</h3>
+        <ul>
+            <li><strong>Intelligent Query Resolution:</strong> To integrate an AI Helpdesk (powered by Google Gemini RAG) capable of understanding natural language and providing smart, context-aware information support without human intervention.</li>
+            <li><strong>Automated Communication:</strong> To deploy a Node.js-powered WhatsApp Bot that automates the distribution of crucial institutional notifications, alerts, and personalized messages directly to the students.</li>
+            <li><strong>Modern Web Standards:</strong> To implement a highly responsive, modern, and aesthetically pleasing user interface (UI) that adapts flawlessly across desktops, tablets, and mobile devices.</li>
+        </ul>
+
+        <h3>3. Administrative & Management Objectives</h3>
+        <ul>
+            <li><strong>Centralized Administration:</strong> To create a powerful and secure admin dashboard that acts as a single point of control for managing users, moderating library uploads, and broadcasting notices.</li>
+            <li><strong>Reduction of Manual Labor:</strong> To drastically minimize the time, effort, and paperwork traditionally required in managing academic resources, student records, and query handling.</li>
+            <li><strong>Security and Reliability:</strong> To provide robust role-based authentication mechanisms ensuring that sensitive institutional data remains protected against unauthorized access.</li>
+        </ul>
+    </div>
+
+    <!-- Chapter 3 -->
+    <div class="page">
+        <h2>CHAPTER 3: EXISTING SYSTEM</h2>
+        <p>In the majority of traditional educational institutions, administrative tasks, academic resource distribution, and student communication are predominantly handled through manual processes. These legacy systems heavily rely on physical paperwork, localized human intervention, and fragmented digital records, resulting in numerous systemic bottlenecks.</p>
+        
+        <h3>Core Limitations of the Existing System</h3>
+        <ul>
+            <li><strong>Manual Library Operations:</strong> Physical libraries require students to be present on-campus during restricted working hours. The manual cataloging of books and maintaining physical issue/return registers is extremely time-consuming and prone to human error, such as misplaced records or lost inventory.</li>
+            <li><strong>Inefficient Information Retrieval:</strong> Searching for specific academic materials, previous year question papers, or syllabus updates in a physical or poorly structured digital environment demands extensive manual effort and often results in students receiving outdated information.</li>
+            <li><strong>Delayed Communication Channels:</strong> Traditional communication heavily depends on physical notice boards or delayed email chains. In urgent scenarios, transmitting critical institutional updates to the entire student body simultaneously is highly inefficient.</li>
+            <li><strong>Data Redundancy and Loss:</strong> Maintaining massive volumes of student data across physical files or disjointed Excel spreadsheets increases the risk of data redundancy, inconsistency, and permanent loss due to physical damage.</li>
+            <li><strong>High Administrative Overhead:</strong> Faculty and administrative staff are burdened with repetitive queries from students regarding fees, schedules, and exams. This manual query resolution detracts from productive academic responsibilities and decreases overall institutional efficiency.</li>
+        </ul>
+        <p>The accumulation of these disadvantages clearly highlights the absolute necessity for a sophisticated, automated, and unified digital platform that can mitigate human errors and streamline the educational ecosystem.</p>
+    </div>
+
+    <!-- Chapter 4 -->
+    <div class="page">
+        <h2>CHAPTER 4: PROPOSED SYSTEM</h2>
+        <p>The proposed <strong>“College Web Portal Management & Digital Library System (AI Powered)”</strong> is conceptualized to completely revolutionize the traditional academic framework by offering a highly cohesive, smart, and fully automated web application. It transitions the institution from a localized physical entity into a globally accessible digital campus.</p>
+        
+        <h3>Key Features of the Proposed System</h3>
+        <p><strong>1. Centralized Digital Library:</strong> The system features a powerful online repository where academic literature is meticulously categorized by department and semester. It completely bypasses physical boundaries, allowing students to access, preview (via an integrated online PDF reader), and download study materials seamlessly from anywhere, at any time.</p>
+        
+        <p><strong>2. Artificial Intelligence Integration:</strong> To combat repetitive administrative queries, the system introduces a highly intelligent AI Helpdesk powered by the Google Gemini API. Using a Retrieval-Augmented Generation (RAG) approach, the AI actively fetches data from internal college documents to provide highly accurate, immediate, and context-aware responses to students.</p>
+        
+        <p><strong>3. WhatsApp Automation & Instant Notifications:</strong> Recognizing the omnipresence of mobile messaging, the system integrates a robust Node.js backend to automate WhatsApp communications. This ensures that urgent notices, library updates, and administrative alerts are instantly broadcasted to the students' smartphones, eliminating communication delays.</p>
+        
+        <p><strong>4. Secure Administrative Dashboard:</strong> A comprehensive, role-based control panel empowers the college administration to dynamically manage the entire digital ecosystem. Administrators can securely upload new literature, monitor user activity, generate data-driven reports, and effortlessly manage the AI's knowledge base.</p>
+        
+        <p>By synergizing these advanced modules, the proposed system not only solves the existing manual bottlenecks but also establishes a highly scalable, future-ready infrastructure for modern education.</p>
+    </div>
+
+    <!-- Chapter 5 -->
+    <div class="page">
+        <h2>CHAPTER 5: FEASIBILITY STUDY</h2>
+        <p>A feasibility study is a critical evaluation conducted to determine the viability, practicality, and potential success of the proposed system before widespread deployment. The analysis of this project confirms its absolute viability across three major domains:</p>
+        
+        <h3>1. Technical Feasibility</h3>
+        <p>The system is architected upon highly stable, widely adopted, and robust open-source technologies. The backend relies on <strong>Python (Flask)</strong> and <strong>Node.js</strong>, while the database utilizes <strong>SQLite</strong> for relational mapping and <strong>ChromaDB</strong> for high-speed vector retrieval. The integration of established APIs like <strong>Google Gemini</strong> and <strong>LiveKit</strong> ensures that the system possesses immense computational power without requiring complex localized hardware. The existing technical stack guarantees smooth deployment, straightforward maintenance, and high scalability, making the project exceptionally technically feasible.</p>
+        
+        <h3>2. Operational Feasibility</h3>
+        <p>Operational feasibility assesses how well the proposed system solves the problems of the users. The web portal features a highly intuitive, modern, and responsive user interface (UI) designed according to strict UX principles. Students, faculty, and administrators do not require any specialized technical training to navigate the dashboard or interact with the AI chatbot. Furthermore, the automated WhatsApp notifications and AI query resolution drastically reduce the daily operational burden on the administrative staff. The seamless transition from manual to automated processes confirms high operational viability.</p>
+        
+        <h3>3. Economic Feasibility</h3>
+        <p>Financial practicality is paramount for educational institutions. Since the entire platform leverages free, open-source frameworks and standard cloud APIs with generous free tiers, the initial development and subsequent deployment costs are incredibly minimal. The project does not require purchasing expensive proprietary software licenses or deploying heavy on-premise servers. In the long run, the system will save substantial financial resources previously wasted on physical paperwork, manual data entry, and traditional notice dissemination. Therefore, the project provides an exceptional Return on Investment (ROI) and is highly economically feasible.</p>
+    </div>
+
+    <!-- Chapter 6 -->
+    <div class="page">
+        <h2>CHAPTER 6: SOFTWARE & HARDWARE REQUIREMENTS</h2>
+        <h3>Software Requirements</h3>
+        <table>
+            <tr><th>Software</th><th>Purpose</th></tr>
+            <tr><td>Python 3.x & Flask</td><td>Backend Development & Web Framework</td></tr>
+            <tr><td>HTML5, CSS3, JS</td><td>Frontend Structure & Dynamic Functionality</td></tr>
+            <tr><td>SQLite & Chroma DB</td><td>Database Management (Relational & Vector)</td></tr>
+            <tr><td>Node.js</td><td>WhatsApp Bot Integration</td></tr>
+            <tr><td>Google Gemini API</td><td>AI RAG Engine</td></tr>
+            <tr><td>LiveKit API</td><td>Voice TTS Integration</td></tr>
+            <tr><td>VS Code & Git</td><td>Code Editor & Version Control</td></tr>
+        </table>
+
+        <h3>Hardware Requirements</h3>
+        <table>
+            <tr><th>Hardware</th><th>Specification</th></tr>
+            <tr><td>Processor</td><td>Intel i3 / AMD Ryzen 3 or above</td></tr>
+            <tr><td>RAM</td><td>Minimum 4GB (8GB recommended)</td></tr>
+            <tr><td>Storage</td><td>20GB Free Space</td></tr>
+            <tr><td>Internet</td><td>Required for AI, Voice, and WhatsApp features</td></tr>
+            <tr><td>Operating System</td><td>Windows / Linux / macOS</td></tr>
+        </table>
+    </div>
+
+    <!-- Chapter 7: SYSTEM ARCHITECTURE -->
+    <div class="page">
+        <h2>CHAPTER 7: SYSTEM ARCHITECTURE</h2>
+        <p>The project follows a robust, modular, client-server architecture separating the frontend, backend, database, and AI engine to ensure high performance and easy maintenance.</p>
+        
+        <div class="architecture-box">
+            <h3>1. Frontend Layer</h3>
+            <p>Developed using HTML5, CSS3, and JavaScript. It provides a responsive and intuitive user interface designed with modern web principles. It securely communicates with the backend via AJAX/Fetch API for dynamic content loading.</p>
+        </div>
+
+        <div class="architecture-box">
+            <h3>2. Backend Layer (Flask Framework)</h3>
+            <p>The core application logic is powered by Python and Flask. This layer handles HTTP requests, authentication, session management, file uploads (Digital Library), and routes queries to the database and AI engines.</p>
+        </div>
+
+        <div class="architecture-box">
+            <h3>3. Database Layer</h3>
+            <p><strong>SQLite:</strong> Handles relational and transactional data such as user credentials, notices, ebook metadata, and chat history.<br>
+            <strong>ChromaDB:</strong> A vector database responsible for storing textual embeddings used in semantic search by the AI.</p>
+        </div>
+
+        <div class="architecture-box">
+            <h3>4. AI & NLP Engine</h3>
+            <p>Integrates the <strong>Google Gemini API</strong> as a Retrieval-Augmented Generation (RAG) engine. Local documents are searched, and context is fed to Gemini to answer specific student queries accurately without hallucination.</p>
+        </div>
+
+        <div class="architecture-box">
+            <h3>5. WhatsApp Automation Service</h3>
+            <p>A background service built in <strong>Node.js</strong> running <code>whatsapp-web.js</code>. It maintains a WebSocket connection with WhatsApp, listening for incoming messages and querying the Flask API for AI responses.</p>
+        </div>
+
+        <h3>Project Directory Structure</h3>
+        <pre>
+college_html/
+ ├── app.py (Main Flask Application)
+ ├── database.db (SQLite Database)
+ ├── rag_engine.py (AI Integration Logic)
+ ├── chroma_db/ (Vector Store)
+ ├── static/ (CSS, JS, Images)
+ ├── new_templates/ (HTML Views)
+ ├── wa_bot/ (Node.js WhatsApp Server)
+ └── virtual_tour/ (3D Campus Assets)
+        </pre>
+    </div>
+
+    <!-- Chapter 8: DFD -->
+    <div class="page">
+        <h2>CHAPTER 8: DATA FLOW DIAGRAM (DFD)</h2>
+        <p>The Data Flow Diagram illustrates how information flows through the system, from external entities (Users, Admins, WhatsApp) into the Flask core, out to the databases, and up to third-party APIs (Gemini, LiveKit).</p>
+        
+        <p><strong>Key Data Flows:</strong></p>
+        <ul>
+            <li>Users interact with the UI, which fetches dynamic data from the SQLite Database.</li>
+            <li>Chatbot queries trigger the RAG engine to pull vectors from ChromaDB and formulate prompts for Gemini API.</li>
+            <li>The Node.js WhatsApp Bot intercepts mobile messages, passes them to the internal <code>/chat</code> API, and forwards the generated response back to the user.</li>
+        </ul>
+        <br>
+        <div class="image-placeholder">[Place System Architecture Diagram / DFD Image Here]</div>
+        <p style="text-align: center; font-style: italic;">Fig 8.1: System Architecture Data Flow Diagram (DFD)</p>
+    </div>
+
+    <!-- Chapter 9 -->
+    <div class="page">
+        <h2>CHAPTER 9: DATABASE DESIGN & ER DIAGRAM</h2>
+        <p>The system uses an <strong>SQLite database</strong> for transactional data and <strong>ChromaDB</strong> for semantic vectors. Key relational entities include:</p>
+        <ul>
+            <li><strong>USERS / ADMIN:</strong> For authentication and authorization rules.</li>
+            <li><strong>EBOOKS:</strong> Storing metadata (title, author, filepath, downloads) of all uploaded materials.</li>
+            <li><strong>NOTICES & GALLERY:</strong> Managing dynamic content for the homepage.</li>
+            <li><strong>QA & CHAT_LOGS:</strong> Storing system responses and tracking chatbot interactions.</li>
+            <li><strong>DEPARTMENTS & SUBJECTS:</strong> Categorizing library data cleanly.</li>
+        </ul>
+        <br>
+        <div class="image-placeholder">[Place Entity Relationship (ER) Diagram Image Here]</div>
+        <p style="text-align: center; font-style: italic;">Fig 9.1: Database Entity Relationship (ER) Diagram</p>
+    </div>
+
+    <!-- Chapter 10 -->
+    <div class="page">
+        <h2>CHAPTER 10: MODULES DESCRIPTION</h2>
+        <p>The architecture of the <strong>College Web Portal</strong> is highly modular, ensuring distinct separation of concerns, scalability, and ease of maintenance. The system is logically divided into several interconnected modules:</p>
+        
+        <h3>1. Authentication & Role-Based Access Module</h3>
+        <p>This module acts as the primary security gatekeeper. It securely handles user registration and login by verifying credentials against the SQLite database. Employing strict Role-Based Access Control (RBAC), it ensures that students and administrators are routed to their respective dashboards, preventing unauthorized access to sensitive administrative controls.</p>
+
+        <h3>2. Advanced Digital Library Module</h3>
+        <p>The digital library is the academic core of the platform. It provides an intuitive interface for students to search and filter literature based on department, semester, and specific subjects. It features a built-in browser-based PDF reader for immediate previewing, significantly reducing the necessity of downloading files to local storage, while still providing secure download options for offline study.</p>
+
+        <h3>3. AI Helpdesk & RAG Module</h3>
+        <p>This module revolutionizes student support by integrating the <strong>Google Gemini API</strong> within a Retrieval-Augmented Generation (RAG) framework. When a user asks a question, this module queries the local vector database (ChromaDB) to fetch context-specific college data before passing it to the AI. This ensures the responses are highly accurate, institutional-specific, and immune to internet hallucinations.</p>
+
+        <h3>4. Node.js WhatsApp Automation Module</h3>
+        <p>Running as an independent background service, this Node.js module utilizes the <code>whatsapp-web.js</code> library to maintain a persistent connection with a dedicated WhatsApp number. It automates the dissemination of critical college notices to students and intelligently responds to routine queries directly via WhatsApp, bridging the gap between the web portal and mobile platforms.</p>
+
+        <h3>5. Administrative Control Panel Module</h3>
+        <p>A comprehensive command center designed exclusively for administrators. It provides robust tools for managing the user database, monitoring overall system activity, uploading new literature to the digital library, updating homepage notices, and injecting custom Q&A datasets into the AI's knowledge base to continually train the chatbot.</p>
+        
+        <h3>6. Interactive Virtual Campus Tour Module</h3>
+        <p>A unique addition that provides a digital walkthrough or 3D overview of the college campus. This module is particularly beneficial for prospective students and visitors, allowing them to visually explore the institution's infrastructure, laboratories, and library facilities from the comfort of their homes.</p>
+    </div>
+
+    <!-- Chapter 11 -->
+    <div class="page">
+        <h2>CHAPTER 11: WORKING PROCEDURE</h2>
+        <p>The system operates through a synchronized workflow that seamlessly connects the user interface with backend services and external APIs. The step-by-step operational procedure is detailed below:</p>
+        
+        <h3>1. Initial Access & Secure Authentication</h3>
+        <p>The workflow initiates when a user accesses the web application via a standard browser. The user submits their credentials through the login interface. The Flask backend intercepts this request, hashes the password, and validates it against the SQLite database. Upon successful validation, a secure session is established, and the user is redirected to their specific role-based dashboard.</p>
+        
+        <h3>2. Digital Library Operations</h3>
+        <p>Within the student dashboard, users navigate to the Digital Library section. They can execute complex queries filtering books by "Department" or "Semester". The Flask backend fetches the corresponding metadata from the database and renders the results. Users can click to read the document utilizing the integrated PDF viewer, or trigger a secure file download directly from the server's static repository.</p>
+        
+        <h3>3. AI Helpdesk Execution</h3>
+        <p>When a user types a query into the Helpdesk interface, the request is sent asynchronously to the <code>rag_engine.py</code> module. The engine converts the query into a vector embedding and performs a semantic search against the <code>ChromaDB</code> vector store. The retrieved local context, combined with the user's prompt, is sent to the <strong>Google Gemini API</strong>, which generates a natural, highly accurate response that is instantly rendered on the user's screen.</p>
+        
+        <h3>4. WhatsApp Bot Background Processing</h3>
+        <p>Concurrently, the Node.js WhatsApp bot runs as a background child process, authenticated via a QR code. It actively listens for incoming messages on the designated WhatsApp number. Upon receiving a message, the Node.js server forwards the text to the Flask API. Flask processes it through the AI engine, generates a response, and sends it back to Node.js, which then automatically replies to the sender on WhatsApp.</p>
+        
+        <h3>5. Administrative Management</h3>
+        <p>Administrators log into a protected backend environment. From the dashboard, they can upload new PDF materials (which the system automatically parses and adds to the database), update scrolling notices, and monitor system health. Any changes made by the admin are instantaneously reflected on the frontend for all active users.</p>
+    </div>
+
+    <!-- Chapter 12 -->
+    <div class="page">
+        <h2>CHAPTER 12: AI & WHATSAPP INTEGRATION</h2>
+        <p>The integration of advanced Artificial Intelligence and automated messaging represents the core technological innovation of this project, distinguishing it from conventional management systems.</p>
+        
+        <h3>1. Advanced AI Integration (Google Gemini & RAG)</h3>
+        <p>Standard AI chatbots often suffer from "hallucination," providing generic or incorrect answers because they lack specific local context. To resolve this, the project implements a <strong>Retrieval-Augmented Generation (RAG)</strong> pipeline. When the administrator uploads college documents, policies, or Q&A datasets, the system parses the text and converts it into mathematical vectors, storing them in <strong>ChromaDB</strong>.</p>
+        
+        <p>When a student asks a question, the system does not query the AI directly. Instead, it performs a high-speed semantic search in ChromaDB to retrieve the most relevant local documents. This highly specific "context" is then injected into the prompt sent to the <strong>Google Gemini API</strong>. Consequently, the AI acts purely as a reasoning engine, formulating its answers strictly based on the college's verified data. Furthermore, the system incorporates <strong>LiveKit</strong> to enable Voice Text-to-Speech (TTS), allowing visually impaired users or those preferring audio to listen to the AI's responses interactively.</p>
+        
+        <h3>2. WhatsApp Automation (Node.js & Flask Interoperability)</h3>
+        <p>To ensure students receive information where they are most active, a dedicated WhatsApp automation service is integrated using the <strong>Node.js</strong> runtime and the <code>whatsapp-web.js</code> library. This service operates independently but maintains constant HTTP communication with the Python/Flask backend.</p>
+        
+        <p>The integration features robust error handling; if the Node.js process crashes, the Flask backend (via the <code>_start_wa_bot()</code> subroutine) can detect the failure and securely restart the child process. This dual-language architecture (Python for heavy backend logic/AI and Node.js for asynchronous WebSocket communication with WhatsApp) guarantees high performance. It allows the institution to broadcast urgent notices, exam schedules, and holiday alerts directly to students' mobile phones, completely automating routine administrative communication.</p>
+    </div>
+
+    <!-- Chapter 13 -->
+    <div class="page">
+        <h2>CHAPTER 13: ADVANTAGES</h2>
+        <p>The implementation of the <strong>College Web Portal Management & Digital Library System</strong> introduces a multitude of benefits that drastically elevate the operational efficiency of the educational institution. The primary advantages include:</p>
+        
+        <ul>
+            <li><strong>Unrestricted Academic Access:</strong> By digitizing the college library, the system provides students with 24/7 access to crucial study materials, research papers, and eBooks. This eliminates geographic and temporal boundaries, facilitating continuous learning.</li>
+            <li><strong>Drastic Reduction in Administrative Workload:</strong> The automation of routine tasks—such as library cataloging, user registration, and notice dissemination—significantly reduces the dependency on physical paperwork and manual data entry, saving countless hours for the administrative staff.</li>
+            <li><strong>Intelligent & Instant Query Resolution:</strong> The integration of the Google Gemini-powered AI Helpdesk ensures that students receive immediate, highly accurate answers to their queries. This prevents the administrative office from being overwhelmed by repetitive questions regarding schedules or syllabi.</li>
+            <li><strong>Seamless and Proactive Communication:</strong> Unlike traditional notice boards, the Node.js WhatsApp automation proactively pushes urgent alerts and academic updates directly to students' mobile devices, ensuring critical information is never missed.</li>
+            <li><strong>Enhanced Security & Data Integrity:</strong> Utilizing modern cryptographic techniques for password hashing and role-based access control, the system ensures that sensitive institutional data is heavily protected against unauthorized breaches.</li>
+            <li><strong>Cost-Effective Scalability:</strong> Built on open-source technologies (Python, Node.js, SQLite), the platform requires zero licensing fees. Its modular architecture ensures that the system can be scaled up easily to accommodate a growing student population without heavy infrastructural investments.</li>
+        </ul>
+    </div>
+
+    <!-- Chapter 14 -->
+    <div class="page">
+        <h2>CHAPTER 14: LIMITATIONS</h2>
+        <p>Despite the implementation of advanced technologies and robust architectural patterns, the current iteration of the system possesses certain limitations that must be acknowledged:</p>
+        <ul>
+            <li><strong>Local Storage Dependency:</strong> The Digital Library module currently stores all uploaded PDF textbooks directly on the local server's file system. As the repository grows over the years, this will necessitate continuous hardware storage upgrades, unlike scalable cloud-bucket storage solutions (e.g., AWS S3).</li>
+            <li><strong>Continuous Internet Requirement:</strong> While basic static pages can be cached, the core intelligent features of the system—specifically the Google Gemini AI responses and the Node.js WhatsApp automation—require a continuous, stable, and high-speed internet connection to function. Network outages will temporarily disable these critical features.</li>
+            <li><strong>Database Concurrency Constraints:</strong> The system utilizes SQLite, which is a file-based database. While it performs exceptionally well for small to medium workloads, it inherently locks the entire database file during write operations. If scaled to thousands of simultaneous users attempting to write data concurrently, it may experience performance bottlenecks.</li>
+            <li><strong>WhatsApp Session Volatility:</strong> The WhatsApp automation relies on a WebSocket session maintained via a QR code scan. If the host mobile device loses internet connectivity for an extended period or forces a remote logout, the session breaks, requiring manual administrative intervention to re-scan the QR code and restart the service.</li>
+        </ul>
+    </div>
+
+    <!-- Chapter 15 -->
+    <div class="page">
+        <h2>CHAPTER 15: FUTURE SCOPE</h2>
+        <p>While the current iteration of the system effectively modernizes core college operations, its highly modular architecture provides a robust foundation for significant future enhancements. Prospective upgrades to the system include:</p>
+        
+        <ul>
+            <li><strong>Online Admission & Fee Gateway Integration:</strong> Expanding the portal to handle the entire admission lifecycle, including secure online document verification and the integration of payment gateways (like Razorpay or Stripe) for seamless digital fee collection.</li>
+            <li><strong>Automated Biometric Attendance System:</strong> Linking the portal's database with physical IoT biometric or Face Recognition devices on campus to automate student attendance tracking and generate real-time absenteeism reports.</li>
+            <li><strong>Cloud Migration & High-Availability Architecture:</strong> Transitioning the local SQLite database to a robust cloud-based relational database (like PostgreSQL) and deploying the application on highly scalable cloud infrastructure (AWS or Heroku) to handle concurrent traffic spikes during exam results.</li>
+            <li><strong>Advanced Predictive Analytics:</strong> Integrating Machine Learning models within the admin dashboard to analyze student engagement data and predict academic performance trends, allowing educators to proactively identify and assist struggling students.</li>
+            <li><strong>Dedicated Cross-Platform Mobile Application:</strong> Wrapping the existing responsive web application into dedicated native mobile applications (Android and iOS) using frameworks like React Native or Flutter, providing a richer, app-native experience with push notifications.</li>
+            <li><strong>Online Examination & Quiz Engine:</strong> Adding a sophisticated module for conducting secure online assessments, complete with automated grading, timed quizzes, and AI-driven anti-cheat proctoring functionalities.</li>
+        </ul>
+    </div>
+
+    <!-- Chapter 16 -->
+    <div class="page">
+        <h2>CHAPTER 16: TESTING</h2>
+        <p>To ensure the highest standards of reliability, performance, and security, the system was subjected to a rigorous testing lifecycle before deployment. The testing methodologies employed include:</p>
+        
+        <ul>
+            <li><strong>Unit Testing:</strong> Individual, isolated components of the codebase were tested to verify their logical correctness. Specifically, the RAG engine's ability to successfully embed text into ChromaDB and the Flask routing functions were heavily scrutinized using Python's <code>unittest</code> framework.</li>
+            <li><strong>Integration Testing:</strong> This phase verified the seamless interoperability between distinctly different technological stacks. Critical tests included validating the asynchronous WebSocket communication between the Python (Flask) backend and the Node.js WhatsApp automation service to ensure messages were routed without data loss.</li>
+            <li><strong>UI/UX & Cross-Browser Testing:</strong> The frontend was rigorously tested across multiple viewports (desktops, tablets, and mobile devices) and across leading browsers (Google Chrome, Mozilla Firefox, Safari) to guarantee a consistent, responsive, and visually unbroken user experience.</li>
+            <li><strong>Database Integrity Testing:</strong> Comprehensive CRUD (Create, Read, Update, Delete) operations were executed to ensure SQLite maintained strict ACID (Atomicity, Consistency, Isolation, Durability) properties, preventing data corruption during concurrent library uploads.</li>
+            <li><strong>Security & Penetration Testing:</strong> The authentication modules were subjected to simulated attacks (such as SQL Injection and Cross-Site Scripting) to verify that input sanitization and password hashing (using Bcrypt/SHA256) effectively protected the system's core data.</li>
+        </ul>
+    </div>
+
+    <!-- Chapter 17 -->
+    <div class="page">
+        <h2>CHAPTER 17: CONCLUSION</h2>
+        <p>The conceptualization and successful deployment of the <strong>“College Web Portal Management & Digital Library System (AI Powered)”</strong> mark a significant technological leap in how educational institutions can manage academic resources and communicate with their student body. This project successfully accomplishes its primary objective: bridging the gap between outdated manual administrative processes and a highly efficient, automated digital ecosystem.</p>
+        
+        <p>By synergizing a diverse array of modern software technologies—ranging from the highly stable Python (Flask) backend and Node.js for asynchronous communication, to the advanced Google Gemini AI API—the system provides a unified, powerful platform. The implementation of the <strong>Retrieval-Augmented Generation (RAG)</strong> architecture proves exceptionally valuable, demonstrating how artificial intelligence can be safely and accurately deployed within an academic environment to provide instant, hallucination-free support to students.</p>
+        
+        <p>Furthermore, the integration of automated WhatsApp messaging ensures that crucial institutional updates reach the students immediately, breaking down traditional communication barriers. The Digital Library liberates academic resources from physical confines, democratizing access to education around the clock.</p>
+        
+        <p>In conclusion, this project is not merely an academic exercise, but a robust, scalable, and highly practical software solution. It completely redefines the institutional workflow, drastically reducing the administrative burden on faculty and staff while offering students a premium, intuitive, and highly interactive digital learning environment. As educational paradigms continue to evolve, this intelligent web portal stands as a highly adaptable foundation ready to accommodate the future of smart campus management.</p>
+    </div>
+
+    <!-- Chapter 18 -->
+    <div class="page">
+        <h2>CHAPTER 18: BIBLIOGRAPHY</h2>
+        <p>The successful research, conceptualization, and development of this project heavily relied on the extensive documentation and literature provided by the open-source community. The following resources were instrumental:</p>
+
+        <h3>Official Documentation & Web Resources</h3>
+        <ul>
+            <li><strong>Flask Official Documentation:</strong> Extensive reference for Python web routing, session management, and WSGI configuration. <br><em>URL: <a href="https://flask.palletsprojects.com/" target="_blank">https://flask.palletsprojects.com/</a></em></li>
+            <li><strong>Google Gemini AI API Documentation:</strong> Guidelines for implementing generative AI, handling prompt engineering, and utilizing the Retrieval-Augmented Generation (RAG) architecture. <br><em>URL: <a href="https://ai.google.dev/docs" target="_blank">https://ai.google.dev/docs</a></em></li>
+            <li><strong>Node.js & whatsapp-web.js:</strong> Resources detailing asynchronous JavaScript runtimes and the specific library used for reverse-engineering the WhatsApp Web protocol. <br><em>URL: <a href="https://nodejs.org/en/docs/" target="_blank">https://nodejs.org/en/docs/</a></em></li>
+            <li><strong>SQLite Architecture Guide:</strong> Insights into managing lightweight, serverless relational database schemas effectively. <br><em>URL: <a href="https://www.sqlite.org/docs.html" target="_blank">https://www.sqlite.org/docs.html</a></em></li>
+            <li><strong>Mozilla Developer Network (MDN):</strong> The primary reference for modern HTML5 semantic structures, CSS3 styling paradigms, and core JavaScript APIs. <br><em>URL: <a href="https://developer.mozilla.org/" target="_blank">https://developer.mozilla.org/</a></em></li>
+        </ul>
+
+        <h3>Reference Books & Academic Literature</h3>
+        <ul>
+            <li>Grinberg, M. (2018). <em>Flask Web Development: Developing Web Applications with Python</em>. O'Reilly Media.</li>
+            <li>Silberschatz, A., Korth, H. F., & Sudarshan, S. (2010). <em>Database System Concepts</em>. McGraw-Hill Education.</li>
+            <li>Duckett, J. (2011). <em>HTML and CSS: Design and Build Websites</em>. John Wiley & Sons.</li>
+            <li>Duckett, J. (2014). <em>JavaScript and JQuery: Interactive Front-End Web Development</em>. John Wiley & Sons.</li>
+            <li>Jurafsky, D., & Martin, J. H. (2023). <em>Speech and Language Processing (An Introduction to Natural Language Processing, Computational Linguistics, and Speech Recognition)</em>.</li>
+        </ul>
+    </div>
+    
+    <!-- Appendix: Screenshots -->
+    <div class="page">
+        <h2>CHAPTER 19: APPENDIX (SCREENSHOTS)</h2>
+        <p>The following are the screenshots demonstrating the actual working interface of the system:</p>
+        
+        <div class="image-placeholder">[Insert Home Page Screenshot Here]</div>
+        <p style="text-align: center; font-style: italic;">Fig 19.1: Home Page View</p>
+        <br><br>
+        
+        <div class="image-placeholder">[Insert Digital Library Dashboard Screenshot Here]</div>
+        <p style="text-align: center; font-style: italic;">Fig 19.2: Digital Library Dashboard</p>
+        <br><br>
+        
+        <div class="image-placeholder">[Insert AI Helpdesk Interface Screenshot Here]</div>
+        <p style="text-align: center; font-style: italic;">Fig 19.3: AI Helpdesk Chat Interface</p>
+        <br><br>
+        
+        <div class="image-placeholder">[Insert Admin Control Panel Screenshot Here]</div>
+        <p style="text-align: center; font-style: italic;">Fig 19.4: Admin Control Panel</p>
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,1730 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meet Our Principal — Contai Polytechnic</title>
+    <meta name="description"
+        content="Meet Dr. Subrata Kumar Mandal, Principal-in-Charge of Contai Polytechnic, Purba Medinipur, West Bengal.">
+    <link rel="icon" type="image/png" href="{{ url_for('static', filename='logo.png') }}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;0,800;0,900;1,700&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;0,9..40,800;1,9..40,400&display=swap');
+
+        :root {
+            --white: #ffffff;
+            --bg: #f8fafc;
+            --bg2: #f1f5f9;
+            --border: #e2e8f0;
+            --border2: #cbd5e1;
+            --text: #0f172a;
+            --text2: #334155;
+            --text3: #64748b;
+            --navy: #1e3a5f;
+            --blue: #2563eb;
+            --blue-light: #dbeafe;
+            --blue-mid: #bfdbfe;
+            --accent: #0ea5e9;
+            --shadow: 0 1px 3px rgba(0, 0, 0, .08), 0 4px 16px rgba(0, 0, 0, .06);
+            --shadow-md: 0 4px 24px rgba(0, 0, 0, .10);
+            --shadow-lg: 0 10px 40px rgba(0, 0, 0, .12);
+            --radius: 14px;
+            --radius-lg: 22px;
+        }
+
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            overflow-x: hidden;
+            width: 100%;
+            max-width: 100vw;
+        }
+
+        body {
+            font-family: 'DM Sans', sans-serif;
+            background: var(--white);
+            color: var(--text);
+            min-height: 100vh;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+            display: flex;
+            flex-direction: column;
+        }
+
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--bg);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #94a3b8;
+            border-radius: 3px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #64748b;
+        }
+
+        /* ══ HEADER (100% Exact from Index) ══ */
+        .header {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background: rgba(255, 255, 255, .92);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border);
+            box-shadow: 0 1px 12px rgba(0, 0, 0, .06);
+        }
+
+        .header-content {
+            max-width: 1280px;
+            margin: 0 auto;
+            min-height: 74px;
+            padding: 12px 32px; /* updated */
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 12px 32px;
+        }
+
+        .logo-section {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+        }
+
+        .logo-img {
+            width: 52px;
+            height: 52px;
+            object-fit: contain;
+        }
+
+        .logo-section h2,
+        .header h2 {
+            margin: 0;
+            font-family: 'Playfair Display', serif;
+            font-size: 20px;
+            font-weight: 800;
+            color: var(--navy);
+            letter-spacing: .3px;
+            white-space: nowrap;
+        }
+
+        .logo-section span {
+            color: var(--blue);
+        }
+
+        .nav-center {
+            display: flex;
+            align-items: center;
+            row-gap: 2px;
+            column-gap: 12px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .nav-link {
+            padding: 8px 18px;
+            border-radius: 8px;
+            color: var(--text2);
+            font-size: 13.5px;
+            font-weight: 600;
+            text-decoration: none;
+            background: var(--white);
+            border: 1px solid var(--border);
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+            transition: all .2s;
+            white-space: nowrap;
+        }
+
+        .nav-link:hover {
+            color: var(--blue);
+            background: var(--blue-light);
+            border-color: var(--blue-mid);
+            transform: translateY(-1px);
+            box-shadow: 0 3px 8px rgba(37, 99, 235, 0.12);
+        }
+
+        /* ══ MOBILE MENU ══ */
+        .mobile-toggle {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 5px;
+            z-index: 1100;
+        }
+
+        .mobile-toggle span {
+            width: 24px;
+            height: 2.5px;
+            background: var(--navy);
+            border-radius: 2px;
+            transition: all 0.3s;
+        }
+
+        .mobile-menu {
+            position: fixed;
+            top: 0;
+            right: 0;
+            transform: translateX(100%);
+            width: 85%;
+            height: 100vh;
+            background: var(--white);
+            z-index: 1050;
+            padding: 90px 24px 40px;
+            box-shadow: -10px 0 30px rgba(0, 0, 0, 0.1);
+            transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            overflow-y: auto;
+        }
+
+        .mobile-menu.active {
+            transform: translateX(0);
+        }
+
+        .mobile-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(15, 23, 42, 0.5);
+            backdrop-filter: blur(4px);
+            z-index: 1040;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s;
+        }
+
+        .mobile-overlay.active {
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        .mobile-nav-group {
+            margin-bottom: 32px;
+        }
+
+        .mobile-nav-title {
+            font-size: 11px;
+            font-weight: 800;
+            color: var(--text3);
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            margin-bottom: 16px;
+            display: block;
+        }
+
+        .mobile-nav-links {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .mobile-nav-link {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 16px;
+            background: #f8fafc;
+            border-radius: 12px;
+            text-decoration: none;
+            color: var(--text2);
+            font-weight: 600;
+            font-size: 14px;
+            transition: all 0.2s;
+            border: 1px solid var(--border);
+        }
+
+        .mobile-nav-link:active {
+            background: var(--blue-light);
+            border-color: var(--blue-mid);
+            color: var(--blue);
+        }
+
+        /* Hamburger Animation */
+        .mobile-toggle.active span:nth-child(1) {
+            transform: translateY(7.5px) rotate(45deg);
+        }
+
+        .mobile-toggle.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .mobile-toggle.active span:nth-child(3) {
+            transform: translateY(-7.5px) rotate(-45deg);
+        }
+
+        @media(max-width:1024px) {
+            .footer-inner {
+                grid-template-columns: 1fr 1fr
+            }
+        }
+
+        @media(max-width:768px) {
+            .header-content {
+                padding: 0 20px;
+                height: 64px;
+            }
+
+            .nav-center {
+                display: none;
+            }
+
+            .mobile-toggle {
+                display: flex;
+            }
+
+            .header-right {
+                display: none;
+            }
+
+            .logo-section h2 {
+                font-size: 16px;
+                white-space: nowrap;
+        }
+
+            .logo-img {
+                width: 40px;
+                height: 40px;
+            }
+
+            .page-hero {
+                padding: 60px 20px 40px;
+            }
+
+            .stat-cell {
+                min-width: 50%;
+                border-right: none;
+                border-bottom: 1px solid var(--border);
+            }
+
+            .stat-cell:nth-child(even) {
+                border-left: 1px solid var(--border);
+            }
+
+            .card-layout {
+                grid-template-columns: 1fr;
+            }
+
+            .msg-col {
+                padding: 30px 20px;
+            }
+
+            .footer-inner {
+                grid-template-columns: 1fr;
+                padding-top: 60px;
+                gap: 40px;
+            }
+
+            .footer-bottom {
+                flex-direction: column;
+                gap: 16px;
+                text-align: center;
+            }
+        }
+
+        .dept-dropdown-wrap {
+            position: relative;
+        }
+
+        .dept-trigger {
+            padding: 8px 18px;
+            border-radius: 8px;
+            color: var(--text2);
+            font-size: 13.5px;
+            font-weight: 600;
+            background: var(--white);
+            border: 1px solid var(--border);
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+            cursor: pointer;
+            font-family: inherit;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            transition: all .2s;
+            white-space: nowrap;
+        }
+
+        .dept-trigger:hover {
+            color: var(--blue);
+            background: var(--blue-light);
+            border-color: var(--blue-mid);
+            transform: translateY(-1px);
+            box-shadow: 0 3px 8px rgba(37, 99, 235, 0.12);
+        }
+
+        .dept-trigger svg {
+            transition: transform .22s;
+        }
+
+        .dept-dropdown-wrap:hover .dept-trigger svg {
+            transform: rotate(180deg);
+        }
+
+        .dept-dropdown {
+            position: absolute;
+            top: calc(100% + 8px);
+            left: 50%;
+            transform: translateX(-50%) translateY(-6px);
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity .2s, transform .2s;
+            z-index: 999;
+            min-width: 220px;
+        }
+
+        .dept-dropdown-wrap:hover .dept-dropdown {
+            opacity: 1;
+            pointer-events: all;
+            transform: translateX(-50%) translateY(0);
+        }
+
+        .dept-dropdown-inner {
+            background: var(--white);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 8px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, .14);
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+            position: relative;
+        }
+
+        .dept-dropdown-inner::before {
+            content: '';
+            position: absolute;
+            top: -5px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 10px;
+            height: 10px;
+            background: var(--white);
+            border-left: 1px solid var(--border);
+            border-top: 1px solid var(--border);
+            rotate: 45deg;
+        }
+
+        .dd-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 9px 12px;
+            border-radius: 10px;
+            text-decoration: none;
+            color: var(--text2);
+            transition: all .15s;
+        }
+
+        .dd-item:hover {
+            background: var(--bg);
+            color: var(--navy);
+        }
+
+        .dd-icon {
+            width: 30px;
+            height: 30px;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 15px;
+            background: var(--bg);
+        }
+
+        .dd-item strong {
+            display: block;
+            font-size: 12px;
+            font-weight: 700;
+            color: var(--text);
+        }
+
+        .dd-item small {
+            display: block;
+            font-size: 10px;
+            color: var(--text3);
+        }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .btn-result {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 20px;
+            border-radius: 50px;
+            border: 1.5px solid #ef4444;
+            color: #ef4444;
+            font-size: 0.85rem;
+            font-weight: 700;
+            text-decoration: none;
+            transition: all 0.3s;
+            background: transparent;
+        }
+
+        .btn-result:hover {
+            background: #ef4444;
+            color: #fff;
+            box-shadow: 0 4px 12px rgba(239, 68, 68, 0.2);
+        }
+
+        .btn-notice {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 20px;
+            border-radius: 50px;
+            border: 1.5px solid #334155;
+            color: #334155;
+            font-size: 0.85rem;
+            font-weight: 700;
+            text-decoration: none;
+            transition: all 0.3s;
+            background: transparent;
+        }
+
+        .btn-notice:hover {
+            background: #334155;
+            color: #fff;
+            box-shadow: 0 4px 12px rgba(51, 65, 85, 0.25);
+        }
+
+        /* ══ PAGE CONTENT STYLES ══ */
+        .page-content-wrapper {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .page-hero {
+            position: relative;
+            background: linear-gradient(135deg, #0f172a 0%, #1e3a5f 50%, #1e40af 100%);
+            padding: 80px 24px 60px;
+            text-align: center;
+            overflow: hidden;
+        }
+
+        .orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(60px);
+            opacity: 0.25;
+            pointer-events: none;
+        }
+
+        .orb-1 {
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, #3b82f6, transparent);
+            top: -100px;
+            left: -100px;
+        }
+
+        .orb-2 {
+            width: 300px; max-width: 85vw;
+            height: 300px;
+            background: radial-gradient(circle, #0ea5e9, transparent);
+            bottom: -80px;
+            right: -80px;
+        }
+
+        .orb-3 {
+            width: 250px;
+            height: 250px;
+            background: radial-gradient(circle, #6366f1, transparent);
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .page-hero .hero-inner {
+            position: relative;
+            z-index: 2;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .page-hero .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(255, 255, 255, 0.12);
+            border: 1px solid rgba(255, 255, 255, 0.25);
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            padding: 6px 18px;
+            border-radius: 50px;
+            margin-bottom: 24px;
+            backdrop-filter: blur(8px);
+        }
+
+        .pulse-dot {
+            width: 7px;
+            height: 7px;
+            background: #38bdf8;
+            border-radius: 50%;
+            box-shadow: 0 0 8px #38bdf8;
+            animation: pulse-dot 1.8s ease-in-out infinite;
+            flex-shrink: 0;
+        }
+
+        .page-hero h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(36px, 6vw, 72px);
+            font-weight: 900;
+            color: white;
+            letter-spacing: -1px;
+            line-height: 1;
+            margin-bottom: 16px;
+            text-shadow: 0 2px 20px rgba(0, 0, 0, 0.4);
+        }
+
+        .page-hero h1 em {
+            font-style: italic;
+            color: transparent;
+            background: linear-gradient(135deg, #93c5fd, #67e8f9);
+            -webkit-background-clip: text;
+            background-clip: text;
+        }
+
+        .page-hero .sub {
+            font-size: 15px;
+            color: rgba(255, 255, 255, 0.75);
+            line-height: 1.7;
+            max-width: 520px;
+            margin: 0 auto;
+        }
+
+        .stats-strip {
+            display: flex;
+            justify-content: center;
+            gap: 0;
+            background: var(--white);
+            border-bottom: 1px solid var(--border);
+            flex-wrap: wrap;
+        }
+
+        .stat-cell {
+            flex: 1;
+            min-width: 140px;
+            text-align: center;
+            padding: 24px 20px;
+            border-right: 1px solid var(--border);
+        }
+
+        .stat-cell:last-child {
+            border-right: none;
+        }
+
+        .stat-cell .num {
+            font-family: 'Playfair Display', serif;
+            font-size: 28px;
+            font-weight: 800;
+            color: var(--blue);
+            letter-spacing: -1px;
+        }
+
+        .stat-cell .lbl {
+            font-size: 11px;
+            font-weight: 700;
+            color: var(--text3);
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            margin-top: 4px;
+        }
+
+        .page-wrapper {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px 80px;
+            width: 100%;
+        }
+
+        .principal-card {
+            max-width: 1100px;
+            margin: 40px auto;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: var(--shadow-lg);
+            border: 1.5px solid var(--border);
+            background: var(--white);
+        }
+
+        .card-layout {
+            display: grid;
+            grid-template-columns: 300px 1fr;
+            min-height: 600px;
+        }
+
+        .photo-col {
+            background: linear-gradient(160deg, #1e3a5f 0%, #1e40af 60%, #0369a1 100%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 48px 32px;
+            gap: 24px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .photo-col::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(ellipse at 50% 0%, rgba(147, 197, 253, 0.15) 0%, transparent 70%);
+        }
+
+        .photo-frame {
+            position: relative;
+            z-index: 1;
+        }
+
+        .photo-inner {
+            width: 160px;
+            height: 160px;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 4px solid rgba(255, 255, 255, 0.3);
+            box-shadow: 0 0 0 8px rgba(255, 255, 255, 0.08), 0 20px 60px rgba(0, 0, 0, 0.4);
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .photo-inner img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .name-plate {
+            position: relative;
+            z-index: 1;
+            text-align: center;
+        }
+
+        .role-badge {
+            display: inline-block;
+            background: rgba(147, 197, 253, 0.2);
+            border: 1px solid rgba(147, 197, 253, 0.35);
+            color: #93c5fd;
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            padding: 4px 14px;
+            border-radius: 50px;
+            margin-bottom: 12px;
+        }
+
+        .name-plate strong {
+            display: block;
+            font-family: 'Playfair Display', serif;
+            font-size: 18px;
+            font-weight: 800;
+            color: white;
+            margin-bottom: 6px;
+        }
+
+        .name-plate .inst {
+            font-size: 12px;
+            color: rgba(255, 255, 255, 0.6);
+            line-height: 1.5;
+        }
+
+        .msg-col {
+            padding: 48px;
+            background: linear-gradient(160deg, #0f172a 0%, #1a2744 100%);
+            color: rgba(255, 255, 255, 0.85);
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+            overflow-y: auto;
+        }
+
+        .salutation {
+            font-family: 'Playfair Display', serif;
+            font-size: 16px;
+            font-weight: 600;
+            font-style: italic;
+            color: #93c5fd;
+            border-left: 3px solid #3b82f6;
+            padding-left: 16px;
+        }
+
+        .msg-col p {
+            font-size: 14.5px;
+            line-height: 1.85;
+            color: rgba(255, 255, 255, 0.8);
+            margin: 0;
+        }
+
+        .highlight-quote {
+            font-family: 'Playfair Display', serif;
+            font-size: 16px !important;
+            font-style: italic;
+            color: white !important;
+            background: rgba(59, 130, 246, 0.12);
+            border-left: 3px solid #3b82f6;
+            padding: 16px 20px !important;
+            border-radius: 0 10px 10px 0;
+            line-height: 1.7 !important;
+        }
+
+        .commitments-section {
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 12px;
+            padding: 20px 24px;
+        }
+
+        .commitments-section h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 15px;
+            font-weight: 700;
+            color: #93c5fd;
+            margin-bottom: 14px;
+        }
+
+        .commit-list {
+            list-style: none;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .commit-list li {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            font-size: 13.5px;
+            color: rgba(255, 255, 255, 0.75);
+            line-height: 1.65;
+        }
+
+        .commit-icon {
+            flex-shrink: 0;
+            font-size: 18px;
+            margin-top: 1px;
+        }
+
+        .signature {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-top: auto;
+        }
+
+        .sig-left strong {
+            display: block;
+            font-family: 'Playfair Display', serif;
+            font-size: 16px;
+            font-weight: 800;
+            color: white;
+        }
+
+        .sig-left span {
+            font-size: 12px;
+            color: rgba(255, 255, 255, 0.55);
+        }
+
+        .warm-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: rgba(99, 102, 241, 0.15);
+            border: 1px solid rgba(99, 102, 241, 0.3);
+            color: #a5b4fc;
+            font-size: 12px;
+            font-weight: 600;
+            padding: 6px 14px;
+            border-radius: 50px;
+        }
+
+        .vision-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            max-width: 1100px;
+            margin: 40px auto 60px;
+        }
+
+        .vision-card {
+            background: var(--white);
+            border: 1.5px solid var(--border);
+            border-radius: var(--radius-lg);
+            padding: 28px;
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s;
+        }
+
+        .vision-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: var(--accent, linear-gradient(135deg, var(--blue), #0ea5e9));
+        }
+
+        .vision-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-md);
+            border-color: rgba(99, 102, 241, 0.25);
+        }
+
+        .vc-icon {
+            font-size: 32px;
+            margin-bottom: 16px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 56px;
+            height: 56px;
+            background: var(--accent-bg, rgba(37, 99, 235, 0.08));
+            border: 1px solid var(--accent-border, rgba(37, 99, 235, 0.2));
+            border-radius: 14px;
+        }
+
+        .vision-card h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 17px;
+            font-weight: 700;
+            color: var(--navy);
+            margin-bottom: 10px;
+        }
+
+        .vision-card p {
+            font-size: 13.5px;
+            color: var(--text3);
+            line-height: 1.7;
+            margin: 0;
+        }
+
+        /* ══ FOOTER (100% Exact from Index) ══ */
+        .footer {
+            background: #0f172a;
+            position: relative;
+            overflow: hidden;
+            color: #94a3b8;
+            font-family: 'Inter', sans-serif;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            margin-top: auto;
+        }
+
+        .footer-glow {
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80%;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, #3b82f6, transparent);
+            box-shadow: 0 0 20px 2px rgba(59, 130, 246, 0.5);
+        }
+
+        .footer-inner {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 80px 32px 50px;
+            display: grid;
+            grid-template-columns: 1.8fr 1fr 1fr 1.2fr;
+            gap: 50px;
+        }
+
+        .footer-brand .logo-row {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+
+        .footer-brand .logo-row img {
+            width: 52px;
+            height: 52px;
+            object-fit: contain;
+            background: white;
+            padding: 4px;
+            border-radius: 12px;
+        }
+
+        .footer-brand .logo-row h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 24px;
+            font-weight: 800;
+            color: white;
+            letter-spacing: -0.5px;
+        }
+
+        .footer-brand p {
+            font-size: 14px;
+            line-height: 1.8;
+            margin-bottom: 30px;
+            max-width: 340px;
+        }
+
+        .footer-col h5 {
+            color: white;
+            font-size: 15px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            margin: 0 0 28px;
+            position: relative;
+            padding-bottom: 12px;
+        }
+
+        .footer-col h5::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 30px;
+            height: 3px;
+            background: #3b82f6;
+            border-radius: 3px;
+        }
+
+        .footer-links {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            padding: 0;
+            margin: 0;
+        }
+
+        .footer-links li a,
+        .footer-links li {
+            color: #94a3b8;
+            font-size: 14px;
+            font-weight: 500;
+            text-decoration: none;
+            transition: 0.3s;
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            line-height: 1.5;
+        }
+
+        .footer-links li a:hover {
+            color: #60a5fa;
+            transform: translateX(6px);
+        }
+
+        .footer-links li i {
+            margin-top: 2px;
+            font-style: normal;
+        }
+
+        .footer-bottom {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 30px 32px;
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 13.5px;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .footer-bottom-links {
+            display: flex;
+            gap: 24px;
+        }
+
+        .footer-bottom-links a {
+            color: #94a3b8;
+            text-decoration: none;
+            transition: 0.2s;
+            font-weight: 500;
+        }
+
+        .footer-bottom-links a:hover {
+            color: white;
+        }
+
+        .footer-dev {
+            color: #64748b;
+        }
+
+        .footer-dev a {
+            color: #3b82f6;
+            font-weight: 700;
+            text-decoration: none;
+            transition: 0.2s;
+        }
+
+        .footer-dev a:hover {
+            color: #60a5fa;
+        }
+
+        @media (max-width: 1024px) {
+            .footer-inner {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header-content {
+                padding: 0 20px;
+            }
+
+            .nav-center {
+                display: none;
+                flex-wrap: wrap;
+            justify-content: center;
+        }
+
+            .card-layout {
+                grid-template-columns: 1fr;
+            }
+
+            .photo-col {
+                padding: 36px 24px;
+            }
+
+            .msg-col {
+                padding: 28px 20px;
+            }
+
+            .stat-cell {
+                min-width: 50%;
+            }
+
+            .footer-inner {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-bottom {
+                flex-direction: column;
+                gap: 16px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="mobile-overlay" id="mobileOverlay"></div>
+    <div class="mobile-menu" id="mobileMenu">
+        <div class="mobile-nav-group">
+            <span class="mobile-nav-title">Navigation</span>
+            <div class="mobile-nav-links">
+                <a href="/" class="mobile-nav-link">🏠 Home</a>
+                <a href="/notice" class="mobile-nav-link">📋 Notice Board</a>
+                <a href="/result" class="mobile-nav-link">📄 View Result</a>
+            </div>
+        </div>
+        <div class="mobile-nav-group">
+            <span class="mobile-nav-title">About Us</span>
+            <div class="mobile-nav-links">
+                <a href="/college-profile" class="mobile-nav-link">🏛️ College Profile</a>
+                <a href="/mission-vision" class="mobile-nav-link">🚀 Mission & Vision</a>
+                <a href="/faculty" class="mobile-nav-link">👨‍🏫 Our Faculty</a>
+                <a href="/virtual-tour" class="mobile-nav-link">🌐 Virtual Tour</a>
+                <a href="/gallery" class="mobile-nav-link">🖼️ Gallery</a>
+                <a href="/voice" class="mobile-nav-link">🎙️ Voice Assistant</a>
+            </div>
+        </div>
+        <div class="mobile-nav-group">
+            <span class="mobile-nav-title">Academics</span>
+            <div class="mobile-nav-links">
+                <a href="/mechanical" class="mobile-nav-link">⚙️ Mechanical Engg.</a>
+                <a href="/civil" class="mobile-nav-link">🏗️ Civil Engg.</a>
+                <a href="/electrical" class="mobile-nav-link">⚡ Electrical Engg.</a>
+                <a href="/electronics" class="mobile-nav-link">📡 Electronics & Telecom</a>
+                <a href="/cst" class="mobile-nav-link">💻 Computer Science</a>
+                <a href="/chemical" class="mobile-nav-link">⚗️ Chemical Engg.</a>
+                <a href="/pharmacy" class="mobile-nav-link">💊 Pharmacy</a>
+                <a href="/admission" class="mobile-nav-link">🎓 Admission Process</a>
+                <a href="/academic-calendar" class="mobile-nav-link">📅 Academic Calendar</a>
+                <a href="/academic-holiday" class="mobile-nav-link">🌴 Holiday List</a>
+            </div>
+        </div>
+        <div class="mobile-nav-group">
+            <span class="mobile-nav-title">Administration</span>
+            <div class="mobile-nav-links">
+                <a href="/principal" class="mobile-nav-link">👤 Principal's Desk</a>
+                <a href="/secretary" class="mobile-nav-link">🖋️ Secretary's Desk</a>
+                <a href="/vocational-nodal" class="mobile-nav-link">🛠️ Vocational Cell</a>
+                <a href="/exam-cell" class="mobile-nav-link">📝 Exam Cell</a>
+                <a href="/anti-ragging" class="mobile-nav-link">🛡️ Anti-Ragging</a>
+                <a href="/admission" class="mobile-nav-link">🎓 Admission</a>
+            </div>
+        </div>
+        <div class="mobile-nav-group">
+            <span class="mobile-nav-title">Placement</span>
+            <div class="mobile-nav-links">
+                <a href="/about-tp-cell" class="mobile-nav-link">ℹ️ About TP Cell</a>
+                <a href="/tpo-desk" class="mobile-nav-link">👤 T.P.O.'s Desk</a>
+                <a href="/tp-cell" class="mobile-nav-link">💼 Training & Placement Cell</a>
+                <a href="/industry-partnerships" class="mobile-nav-link">🤝 Industry Partnerships</a>
+            </div>
+        </div>
+        <div class="mobile-nav-group">
+            <span class="mobile-nav-title">Student Zone</span>
+            <div class="mobile-nav-links">
+                <a href="/scholarship" class="mobile-nav-link">🎓 Scholarship &amp; Study Aid</a>
+                <a href="https://drive.google.com/drive/folders/1TcJV6tJ5fi1rsPardHJaWjG1Cpl0JdbZ?usp=drive_link" target="_blank" class="mobile-nav-link">📄 Previous Question Papers</a>
+                <a href="/hostel" class="mobile-nav-link">🏠 Hostel</a>
+                <a href="/canteen" class="mobile-nav-link">🍽️ Canteen</a>
+            </div>
+        </div>
+        <div class="mobile-nav-group">
+            <span class="mobile-nav-title">Other Links</span>
+            <div class="mobile-nav-links">
+                <a href="https://www.aicte.gov.in/" target="_blank" class="mobile-nav-link">🔗 AICTE Feedback Link</a>
+                <a href="https://swayam.gov.in/" target="_blank" class="mobile-nav-link">📚 SWAYAM</a>
+                <a href="/aicte-documents" class="mobile-nav-link">📄 AICTE Related Documents</a>
+            </div>
+        </div>
+    
+        <div class="mobile-nav-group">
+            <span class="mobile-nav-title">Resources</span>
+            <div class="mobile-nav-links">
+                <a href="/library" class="mobile-nav-link">📚 Library</a>
+                <a href="/modern-labs" class="mobile-nav-link">🔬 Modern Labs</a>
+                <a href="/computer-labs" class="mobile-nav-link">🖥️ Computer Labs</a>
+                <a href="/workshop" class="mobile-nav-link">⚙️ Engineering Workshop</a>
+                <a href="/auditorium" class="mobile-nav-link">🏛️ Auditorium</a>
+                <a href="/wifi-campus" class="mobile-nav-link">📶 Wi-Fi Campus</a>
+            </div>
+        </div>
+        <a href="/grievance" class="mobile-nav-link" style="font-weight:600; padding:12px 20px; color:var(--navy); border-bottom:1px solid var(--border);">🚩 Grievance</a>
+        <a href="/admin" class="mobile-nav-link" style="font-weight:600; padding:12px 20px; color:var(--navy); border-bottom:1px solid var(--border);">⚙️ Admin</a>
+    </div>
+    <div class="header">
+        <div class="header-content">
+            <a href="/" class="logo-section">
+                <img src="{{ url_for('static', filename='logo.png') }}" alt="Logo" class="logo-img">
+                <h2>Contai <span>Poly</span>technic</h2>
+            </a>
+            <nav class="nav-center">
+                <a href="/" class="nav-link">Home</a>
+                <div class="dept-dropdown-wrap">
+                    <button class="dept-trigger">About Us
+                        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2.5">
+                            <polyline points="6 9 12 15 18 9" />
+                        </svg>
+                    </button>
+                    <div class="dept-dropdown">
+                        <div class="dept-dropdown-inner">
+                            <a href="/college-profile" class="dd-item"><span class="dd-icon"
+                                    style="background:rgba(16,185,129,0.12);border-color:rgba(16,185,129,0.25)">🏛️</span>
+                                <div><strong>College Profile</strong><small>History &amp; Infrastructure</small></div>
+                            </a>
+                            <a href="/mission-vision" class="dd-item"><span class="dd-icon"
+                                    style="background:rgba(245,158,11,0.12);border-color:rgba(245,158,11,0.25)">🚀</span>
+                                <div><strong>Mission &amp; Vision</strong><small>Our Goals &amp; Values</small></div>
+                            </a>
+                            <a href="/faculty" class="dd-item"><span class="dd-icon"
+                                    style="background:rgba(245,158,11,0.12);border-color:rgba(245,158,11,0.25)">👨‍🏫</span>
+                                <div><strong>Our Faculty</strong><small>Meet Our Teachers</small></div>
+                            </a>
+                            <a href="/virtual-tour" class="dd-item"><span class="dd-icon"
+                                    style="background:rgba(99,102,241,0.12);border-color:rgba(99,102,241,0.25)">🌐</span>
+                                <div><strong>Virtual Tour</strong><small>360° Campus View</small></div>
+                            </a>
+                            <a href="/gallery" class="dd-item"><span class="dd-icon"
+                                    style="background:rgba(236,72,153,0.12);border-color:rgba(236,72,153,0.25)">🖼️</span>
+                                <div><strong>Gallery</strong><small>Campus &amp; Event Photos</small></div>
+                            </a>
+                            <a href="/voice" class="dd-item"><span class="dd-icon"
+                                    style="background:rgba(16,185,129,0.12);border-color:rgba(16,185,129,0.25)">🎙️</span>
+                                <div><strong>Voice Assistant</strong><small>Talk to AI Helpdesk</small></div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="dept-dropdown-wrap">
+                    <button class="dept-trigger">Academics
+                        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2.5">
+                            <polyline points="6 9 12 15 18 9" />
+                        </svg>
+                    </button>
+                    <div class="dept-dropdown">
+                        <div class="dept-dropdown-inner">
+                            <a href="/mechanical" class="dd-item"><span class="dd-icon"
+                                    style="background:rgba(249,115,22,0.12);border-color:rgba(249,115,22,0.25)">⚙️</span>
+                                <div><strong>Mechanical</strong><small>Engineering</small></div>
+                            </a>
+                            <a href="/civil" class="dd-item"><span class="dd-icon"
+                                    style="background:rgba(251,146,60,0.12);border-color:rgba(251,146,60,0.25)">🏗️</span>
+                                <div><strong>Civil</strong><small>Engineering</small></div>
+                            </a>
+                            <a href="/electrical" class="dd-item"><span class="dd-icon"
+                                    style="background:rgba(250,204,21,0.12);border-color:rgba(250,204,21,0.25)">⚡</span>
+                                <div><strong>Electrical</strong><small>Engineering</small></div>
+                            </a>
+                            <a href="/electronics" class="dd-item"><span class="dd-icon"
+                                    style="background:rgba(34,211,238,0.12);border-color:rgba(34,211,238,0.25)">📡</span>
+                                <div><strong>Electronics</strong><small>&amp; Telecom</small></div>
+                            </a>
+                            <a href="/cst" class="dd-item"><span class="dd-icon"
+                                    style="background:rgba(59,130,246,0.12);border-color:rgba(59,130,246,0.25)">💻</span>
+                                <div><strong>CST</strong><small>Computer Sc. &amp; Tech</small></div>
+                            </a>
+                            <a href="/chemical" class="dd-item"><span class="dd-icon"
+                                    style="background:rgba(52,211,153,0.12);border-color:rgba(52,211,153,0.25)">⚗️</span>
+                                <div><strong>Chemical</strong><small>Engineering</small></div>
+                            </a>
+                            <a href="/pharmacy" class="dd-item"><span class="dd-icon"
+                                    style="background:rgba(167,139,250,0.12);border-color:rgba(167,139,250,0.25)">💊</span>
+                                <div><strong>Pharmacy</strong><small>D.Pharm (PCI)</small></div>
+                            </a>
+                            <a href="/academic-calendar" class="dd-item"><span class="dd-icon"
+                                    style="background:rgba(79,70,229,0.12);border-color:rgba(79,70,229,0.25)">📅</span>
+                                <div><strong>Academic Calendar</strong><small>Session 2024-25</small></div>
+                            </a>
+                            <a href="/academic-holiday" class="dd-item"><span class="dd-icon"
+                                    style="background:rgba(244,63,94,0.12);border-color:rgba(244,63,94,0.25)">🌴</span>
+                                <div><strong>Holiday List</strong><small>Academic Holidays</small></div>
+                            </a>
+                            <a href="/admission" class="dd-item"><span class="dd-icon"
+                                    style="background:rgba(59,130,246,0.12);border-color:rgba(59,130,246,0.25)">🎓</span>
+                                <div><strong>Admission</strong><small>Process &amp; Guidelines</small></div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="dept-dropdown-wrap">
+                    <button class="dept-trigger">Administration
+                        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2.5">
+                            <polyline points="6 9 12 15 18 9" />
+                        </svg>
+                    </button>
+                    <div class="dept-dropdown">
+                        <div class="dept-dropdown-inner">
+                            <a href="/principal" class="dd-item"><span class="dd-icon"
+                                    style="background:rgba(59,130,246,0.12);border-color:rgba(59,130,246,0.25)">👤</span>
+                                <div><strong>Principal's Desk</strong><small>Message from Principal</small></div>
+                            </a>
+                            <a href="/secretary" class="dd-item"><span class="dd-icon"
+                                    style="background:rgba(139,92,246,0.12);border-color:rgba(139,92,246,0.25)">🖋️</span>
+                                <div><strong>Secretary's Desk</strong><small>Academic Council</small></div>
+                            </a>
+                            <a href="/vocational-nodal" class="dd-item"><span class="dd-icon"
+                                    style="background:rgba(20,184,166,0.12);border-color:rgba(20,184,166,0.25)">🛠️</span>
+                                <div><strong>Vocational Cell</strong><small>Nodal Centre Details</small></div>
+                            </a>
+                            <a href="/exam-cell" class="dd-item"><span class="dd-icon"
+                                    style="background:rgba(239,68,68,0.12);border-color:rgba(239,68,68,0.25)">📝</span>
+                                <div><strong>Exam Cell</strong><small>Examinations &amp; Results</small></div>
+                            </a>
+                            <a href="/anti-ragging" class="dd-item"><span class="dd-icon"
+                                    style="background:rgba(220,38,38,0.12);border-color:rgba(220,38,38,0.25)">🛡️</span>
+                                <div><strong>Anti-Ragging</strong><small>Safe Campus Policy</small></div>
+                            </a>
+                            <a href="/admission" class="dd-item"><span class="dd-icon"
+                                    style="background:rgba(59,130,246,0.12);border-color:rgba(59,130,246,0.25)">🎓</span>
+                                <div><strong>Admission</strong><small>Process &amp; Guidelines</small></div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="dept-dropdown-wrap">
+                    <button class="dept-trigger">Placement
+                        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2.5">
+                            <polyline points="6 9 12 15 18 9" />
+                        </svg>
+                    </button>
+                    <div class="dept-dropdown">
+                        <div class="dept-dropdown-inner">
+                            <a href="/about-tp-cell" class="dd-item"><span class="dd-icon"
+                                    style="background:rgba(20,184,166,0.12);border-color:rgba(20,184,166,0.25)">ℹ️</span>
+                                <div><strong>About TP Cell</strong><small>Placement Cell Overview</small></div>
+                            </a>
+                            <a href="/tpo-desk" class="dd-item"><span class="dd-icon"
+                                    style="background:rgba(59,130,246,0.12);border-color:rgba(59,130,246,0.25)">👤</span>
+                                <div><strong>T.P.O.'s Desk</strong><small>Message from T.P.O.</small></div>
+                            </a>
+                            <a href="/tp-cell" class="dd-item"><span class="dd-icon"
+                                    style="background:rgba(16,185,129,0.12);border-color:rgba(16,185,129,0.25)">💼</span>
+                                <div><strong>Training &amp; Placement Cell</strong><small>Career Opportunities</small></div>
+                            </a>
+                            <a href="/industry-partnerships" class="dd-item"><span class="dd-icon"
+                                    style="background:rgba(245,158,11,0.12);border-color:rgba(245,158,11,0.25)">🤝</span>
+                                <div><strong>Industry Partnerships</strong><small>Our Industry Ties</small></div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <a href="/notice" class="nav-link">Notice</a>
+                <a href="/result" class="nav-link">Result</a>
+                <div style="flex-basis: 100%; height: 0;"></div>
+                <div class="dept-dropdown-wrap">
+                    <button class="dept-trigger">Student Zone
+                        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2.5">
+                            <polyline points="6 9 12 15 18 9" />
+                        </svg>
+                    </button>
+                    <div class="dept-dropdown">
+                        <div class="dept-dropdown-inner">
+                            <a href="/scholarship" class="dd-item"><span class="dd-icon"
+                                    style="background:rgba(236,72,153,0.12);border-color:rgba(236,72,153,0.25)">🎓</span>
+                                <div><strong>Scholarship &amp; Study Aid</strong><small>Financial Assistance</small></div>
+                            </a>
+                            <a href="https://drive.google.com/drive/folders/1TcJV6tJ5fi1rsPardHJaWjG1Cpl0JdbZ?usp=drive_link" target="_blank" class="dd-item"><span class="dd-icon"
+                                    style="background:rgba(59,130,246,0.12);border-color:rgba(59,130,246,0.25)">📄</span>
+                                <div><strong>Previous Years' Question Papers</strong><small>Exam Resources</small></div>
+                            </a>
+                            <a href="/hostel" class="dd-item"><span class="dd-icon"
+                                    style="background:rgba(16,185,129,0.12);border-color:rgba(16,185,129,0.25)">🏠</span>
+                                <div><strong>Hostel</strong><small>Boys &amp; Girls Hostel</small></div>
+                            </a>
+                            <a href="/canteen" class="dd-item"><span class="dd-icon"
+                                    style="background:rgba(245,158,11,0.12);border-color:rgba(245,158,11,0.25)">🍽️</span>
+                                <div><strong>Canteen</strong><small>College Canteen</small></div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="dept-dropdown-wrap">
+                    <button class="dept-trigger">Other Links
+                        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                            <polyline points="6 9 12 15 18 9" />
+                        </svg>
+                    </button>
+                    <div class="dept-dropdown">
+                        <div class="dept-dropdown-inner">
+                            <a href="https://www.aicte.gov.in/" target="_blank" class="dd-item"><span class="dd-icon" style="background:rgba(236,72,153,0.12);border-color:rgba(236,72,153,0.25)">🔗</span>
+                                <div><strong>AICTE Feedback Link</strong><small>Official Portal</small></div>
+                            </a>
+                            <a href="https://swayam.gov.in/" target="_blank" class="dd-item"><span class="dd-icon" style="background:rgba(59,130,246,0.12);border-color:rgba(59,130,246,0.25)">📚</span>
+                                <div><strong>SWAYAM</strong><small>Online Courses</small></div>
+                            </a>
+                            <a href="/aicte-documents" class="dd-item"><span class="dd-icon" style="background:rgba(16,185,129,0.12);border-color:rgba(16,185,129,0.25)">📄</span>
+                                <div><strong>AICTE Related Documents</strong><small>MOU with Industries</small></div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            
+                <div class="dept-dropdown-wrap">
+                    <button class="dept-trigger">Resources
+                        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                            <polyline points="6 9 12 15 18 9" />
+                        </svg>
+                    </button>
+                    <div class="dept-dropdown">
+                        <div class="dept-dropdown-inner">
+                            <a href="/library" class="dd-item"><span class="dd-icon" style="background:rgba(59,130,246,0.12);border-color:rgba(59,130,246,0.25)">📚</span>
+                                <div><strong>Library</strong><small>Physical & E-Library</small></div>
+                            </a>
+                            <a href="/modern-labs" class="dd-item"><span class="dd-icon" style="background:rgba(16,185,129,0.12);border-color:rgba(16,185,129,0.25)">🔬</span>
+                                <div><strong>Modern Labs</strong><small>Hands-on Learning</small></div>
+                            </a>
+                            <a href="/computer-labs" class="dd-item"><span class="dd-icon" style="background:rgba(245,158,11,0.12);border-color:rgba(245,158,11,0.25)">🖥️</span>
+                                <div><strong>Computer Labs</strong><small>High-Performance Computing</small></div>
+                            </a>
+                            <a href="/workshop" class="dd-item"><span class="dd-icon" style="background:rgba(99,102,241,0.12);border-color:rgba(99,102,241,0.25)">⚙️</span>
+                                <div><strong>Engineering Workshop</strong><small>Practical Training</small></div>
+                            </a>
+                            <a href="/auditorium" class="dd-item"><span class="dd-icon" style="background:rgba(236,72,153,0.12);border-color:rgba(236,72,153,0.25)">🏛️</span>
+                                <div><strong>Auditorium</strong><small>Events & Seminars</small></div>
+                            </a>
+                            <a href="/wifi-campus" class="dd-item"><span class="dd-icon" style="background:rgba(14,165,233,0.12);border-color:rgba(14,165,233,0.25)">📶</span>
+                                <div><strong>Wi-Fi Campus</strong><small>24/7 Connectivity</small></div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <a href="/grievance" class="nav-link">Grievance</a>
+                <a href="/admin" class="nav-link">Admin</a>
+            </nav>
+
+            <button class="mobile-toggle" id="mobileToggle" aria-label="Menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </div>
+    <div class="page-content-wrapper">
+        <section class="page-hero">
+            <div class="orb orb-1"></div>
+            <div class="orb orb-2"></div>
+            <div class="orb orb-3"></div>
+            <div class="hero-inner">
+                <div class="hero-badge">
+                    <span class="pulse-dot"></span>
+                    Principal's Message
+                </div>
+                <h1>Meet Our <em>Principal</em></h1>
+                <p class="sub">A message of vision, commitment, and inspiration from the leadership of Contai
+                    Polytechnic.</p>
+            </div>
+        </section>
+
+        <main class="page-wrapper">
+            <div class="stats-strip">
+                <div class="stat-cell">
+                    <div class="num">1990</div>
+                    <div class="lbl">Established</div>
+                </div>
+                <div class="stat-cell">
+                    <div class="num">12K+</div>
+                    <div class="lbl">Library Volumes</div>
+                </div>
+                <div class="stat-cell">
+                    <div class="num">7</div>
+                    <div class="lbl">Departments</div>
+                </div>
+                <div class="stat-cell">
+                    <div class="num">100%</div>
+                    <div class="lbl">Placement Drive</div>
+                </div>
+            </div>
+
+            <div class="principal-card">
+                <div class="card-layout">
+                    <div class="photo-col">
+                        <div class="photo-frame">
+                            <div class="photo-inner">
+                                <img src="{{ url_for('static', filename='picc.jpg') }}" alt="Dr. Subrata Kumar Mandal">
+                            </div>
+                        </div>
+                        <div class="name-plate">
+                            <div class="role-badge">Principal‑in‑Charge</div>
+                            <strong>Dr. Subrata Kumar Mandal</strong>
+                            <p class="inst">Contai Polytechnic<br>Purba Medinipur, West Bengal</p>
+                        </div>
+                    </div>
+
+                    <div class="msg-col">
+                        <div class="salutation">
+                            Dear Students, Faculty, Staff and Stakeholders of Contai Polytechnic,
+                        </div>
+
+                        <p>
+                            It is with great pride and immense gratitude that I welcome you to
+                            <strong style="color:#e2e8f0;">Contai Polytechnic</strong> — an institution that has grown
+                            in
+                            stature and excellence since its establishment in <strong
+                                style="color:#e2e8f0;">1990</strong>.
+                            Over the past decades, our polytechnic has not only expanded in infrastructure and intake
+                            but
+                            also in its commitment to quality technical education.
+                        </p>
+
+                        <p class="highlight-quote">
+                            "We remain steadfast in our mission to empower students from diverse backgrounds and enable
+                            them
+                            to contribute meaningfully to industry, community, and nation-building."
+                        </p>
+
+                        <p>
+                            Our well-equipped laboratories, modern classrooms, a library housing over
+                            <strong style="color:#e2e8f0;">12,000 volumes</strong>, and a rigorous academic environment
+                            collectively foster both intellectual and professional growth.
+                        </p>
+
+                        <div class="commitments-section">
+                            <h3>As Principal‑in‑Charge, I am dedicated to:</h3>
+                            <ul class="commit-list">
+                                <li>
+                                    <span class="commit-icon">🤝</span>
+                                    Providing a supportive and inclusive atmosphere where students and faculty can excel
+                                    academically and creatively.
+                                </li>
+                                <li>
+                                    <span class="commit-icon">📚</span>
+                                    Encouraging lifelong learning, professional training, and research — our faculty
+                                    have
+                                    published actively, pursued PhDs, and participated in refresher courses through
+                                    <strong style="color:#e2e8f0;">NITTTR, NIT Durgapur, IIT Guwahati,</strong> and
+                                    <strong style="color:#e2e8f0;">British Council</strong>.
+                                </li>
+                                <li>
+                                    <span class="commit-icon">🏭</span>
+                                    Strengthening industry partnerships and placement opportunities, preparing students
+                                    for
+                                    the evolving needs of engineering and technology sectors.
+                                </li>
+                            </ul>
+                        </div>
+
+                        <p>
+                            I urge each student to dream big, strive for excellence, and uphold high standards of
+                            integrity,
+                            compassion, and civic responsibility. At Contai Polytechnic, we strive to create not just
+                            engineers and technicians, but also
+                            <strong style="color:#e2e8f0;">socially conscious citizens</strong> capable of leading
+                            positive change.
+                        </p>
+
+                        <p>
+                            Thank you to every member of our community — students, teachers, administrative staff,
+                            parents,
+                            alumni, and industry partners — for your unwavering support and commitment. Together, let us
+                            shape an even brighter future for Contai Polytechnic and the region it serves.
+                        </p>
+
+                        <div class="signature">
+                            <div class="sig-left">
+                                <strong>Dr. Subrata Kumar Mandal</strong>
+                                <span>Principal‑in‑Charge, Contai Polytechnic</span>
+                            </div>
+                            <div class="sig-right">
+                                <span class="warm-badge">✉️ Warm Regards</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="vision-grid">
+                <div class="vision-card"
+                    style="--accent: linear-gradient(135deg,#6366f1,#818cf8); --accent-bg: rgba(99,102,241,0.1); --accent-border: rgba(99,102,241,0.25);">
+                    <div class="vc-icon">🎓</div>
+                    <h3>Academic Excellence</h3>
+                    <p>A rigorous curriculum backed by well-equipped labs, modern classrooms, and a library of 12,000+
+                        volumes nurturing intellectual growth.</p>
+                </div>
+                <div class="vision-card"
+                    style="--accent: linear-gradient(135deg,#0ea5e9,#38bdf8); --accent-bg: rgba(14,165,233,0.1); --accent-border: rgba(14,165,233,0.25);">
+                    <div class="vc-icon">🔬</div>
+                    <h3>Research & Learning</h3>
+                    <p>Faculty actively engaged in research, PhD pursuits, and professional development through premier
+                        institutions like IIT Guwahati and NIT Durgapur.</p>
+                </div>
+                <div class="vision-card"
+                    style="--accent: linear-gradient(135deg,#10b981,#34d399); --accent-bg: rgba(16,185,129,0.1); --accent-border: rgba(16,185,129,0.25);">
+                    <div class="vc-icon">🏗️</div>
+                    <h3>Industry Connect</h3>
+                    <p>Strong industry partnerships providing students with real-world exposure, internships, and robust
+                        placement opportunities in engineering and technology.</p>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <footer class="footer">
+        <div class="footer-glow"></div>
+        <div class="footer-inner">
+            <div class="footer-brand">
+                <div class="logo-row">
+                    <img src="{{ url_for('static', filename='logo.png') }}" alt="Contai Polytechnic Logo">
+                    <h2>Contai Polytechnic</h2>
+                </div>
+                <p>Leading excellence in technical education since 1991. We are committed to producing world-class
+                    diploma engineers and shaping the innovators of tomorrow.</p>
+            </div>
+
+            <div class="footer-col">
+                <h5>Quick Links</h5>
+                <ul class="footer-links">
+                    <li><a href="/college-profile"><i>🏛️</i> College Profile</a></li>
+                    <li><a href="/admission"><i>🎓</i> Admission 2024</a></li>
+                    <li><a href="/academic-calendar"><i>📅</i> Academic Calendar</a></li>
+                    <li><a href="/notice"><i>📋</i> Notice Board</a></li>
+                    <li><a href="/library"><i>📚</i> Digital Library</a></li>
+                    <li><a href="https://webscte.co.in/" target="_blank"><i>🔗</i> WBSCTE Portal</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-col">
+                <h5>Our Departments</h5>
+                <ul class="footer-links">
+                    <li><a href="/mechanical"><i>⚙️</i> Mechanical Engg.</a></li>
+                    <li><a href="/civil"><i>🏗️</i> Civil Engg.</a></li>
+                    <li><a href="/electrical"><i>⚡</i> Electrical Engg.</a></li>
+                    <li><a href="/electronics"><i>📡</i> Electronics &amp; Telecom</a></li>
+                    <li><a href="/cst"><i>💻</i> Computer Science</a></li>
+                    <li><a href="/chemical"><i>⚗️</i> Chemical Engg.</a></li>
+                    <li><a href="/pharmacy"><i>💊</i> Pharmacy (PCI)</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-col">
+                <h5>Contact Us</h5>
+                <ul class="footer-links">
+                    <li><i>📍</i> <span>Contai, Purba Medinipur,<br>West Bengal 721401</span></li>
+                    <li><i>📞</i> <span>(03220)-255462</span></li>
+                    <li><i>✉️</i> <a
+                            href="mailto:polytechnic_contai@rediffmail.com">polytechnic_contai@rediffmail.com</a></li>
+                    <li><i>🕐</i> <span>Mon–Sat: 10:00 AM – 5:00 PM</span></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <span>&copy; 2026 Contai Polytechnic. All rights reserved.</span>
+            <div class="footer-bottom-links">
+                <a href="/">Home</a>
+                <a href="/gallery">Gallery</a>
+                <a href="/login">Admin Login</a>
+            </div>
+            <div class="footer-dev">
+                Designed with ❤️ by <a href="https://www.instagram.com/swarupdey_07?igsh=NW9jc3NuZGVnODUw"
+                    target="_blank" rel="noopener">Swarup Dey</a>
+            </div>
+        </div>
+    </footer>
+    <script>
+        // Mobile Menu Toggle
+        const mobileToggle = document.getElementById('mobileToggle');
+        const mobileMenu = document.getElementById('mobileMenu');
+        const mobileOverlay = document.getElementById('mobileOverlay');
+
+        function toggleMenu() {
+            mobileToggle.classList.toggle('active');
+            mobileMenu.classList.toggle('active');
+            mobileOverlay.classList.toggle('active');
+            document.body.style.overflow = mobileMenu.classList.contains('active') ? 'hidden' : '';
+        }
+
+        mobileToggle.addEventListener('click', toggleMenu);
+        mobileOverlay.addEventListener('click', toggleMenu);
+
+        // Close menu on link click
+        document.querySelectorAll('.mobile-nav-link').forEach(link => {
+            link.addEventListener('click', () => {
+                if (mobileMenu.classList.contains('active')) toggleMenu();
+            });
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,2576 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard — Contai Polytechnic</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+    <style>
+        /* ═══════════════════════════════════════════
+           ROOT & RESET
+        ═══════════════════════════════════════════ */
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        :root {
+            --primary:       #1a56db;
+            --primary-light: #eff4ff;
+            --primary-mid:   #c7d7fd;
+            --accent:        #7c3aed;
+            --accent-light:  #f5f3ff;
+            --success:       #0e9f6e;
+            --success-light: #ecfdf5;
+            --warning:       #d97706;
+            --warning-light: #fffbeb;
+            --danger:        #e02424;
+            --danger-light:  #fef2f2;
+            --pink:          #db2777;
+            --pink-light:    #fdf2f8;
+
+            --bg:            #f1f5f9;
+            --surface:       #ffffff;
+            --surface-2:     #f8fafc;
+            --border:        #e2e8f0;
+            --border-dark:   #cbd5e1;
+
+            --text-primary:  #0f172a;
+            --text-secondary:#475569;
+            --text-muted:    #94a3b8;
+
+            --sidebar-w:     260px;
+            --header-h:      68px;
+            --radius-lg:     16px;
+            --radius-md:     12px;
+            --radius-sm:     8px;
+
+            --shadow-sm:  0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
+            --shadow-md:  0 4px 16px rgba(0,0,0,0.08), 0 2px 6px rgba(0,0,0,0.05);
+            --shadow-lg:  0 10px 40px rgba(0,0,0,0.10), 0 4px 12px rgba(0,0,0,0.06);
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg);
+            color: var(--text-primary);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow-x: hidden;
+            width: 100%;
+            max-width: 100vw;
+        }
+
+        /* ═══════════════════════════════════════════
+           TOP HEADER BAR
+        ═══════════════════════════════════════════ */
+        .top-header {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            height: var(--header-h);
+            background: var(--surface);
+            border-bottom: 1px solid var(--border);
+            box-shadow: var(--shadow-sm);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            padding: 0 28px;
+            gap: 15px;
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            flex-direction: column;
+            justify-content: center;
+            gap: 4px;
+            width: 38px;
+            height: 38px;
+            border: 1px solid var(--border);
+            background: var(--surface-2);
+            border-radius: 10px;
+            cursor: pointer;
+            padding: 9px;
+            z-index: 1100;
+            transition: all 0.2s;
+        }
+
+        .mobile-menu-btn span {
+            display: block;
+            width: 100%;
+            height: 2.2px;
+            background: var(--text-primary);
+            border-radius: 4px;
+            transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .mobile-menu-btn.active span:nth-child(1) { transform: translateY(6.2px) rotate(45deg); }
+        .mobile-menu-btn.active span:nth-child(2) { opacity: 0; }
+        .mobile-menu-btn.active span:nth-child(3) { transform: translateY(-6.2px) rotate(-45deg); }
+
+        .header-logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+            min-width: calc(var(--sidebar-w) - 45px);
+            flex-shrink: 0;
+        }
+
+        .header-logo img {
+            width: 40px;
+            height: 40px;
+            object-fit: contain;
+        }
+
+        .header-logo-text {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .header-logo-text strong {
+            font-size: 15px;
+            font-weight: 800;
+            color: var(--text-primary);
+            line-height: 1.2;
+        }
+
+        .header-logo-text span {
+            font-size: 10px;
+            font-weight: 600;
+            color: var(--primary);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .header-divider {
+            width: 1px;
+            height: 36px;
+            background: var(--border);
+        }
+
+        .header-breadcrumb {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 13px;
+            color: var(--text-secondary);
+        }
+
+        .header-breadcrumb .crumb-active {
+            color: var(--text-primary);
+            font-weight: 600;
+        }
+
+        .header-right {
+            margin-left: auto;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        /* Status chip */
+        .status-chip {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 5px 12px;
+            border-radius: 50px;
+            background: var(--success-light);
+            border: 1px solid #a7f3d0;
+            font-size: 11px;
+            font-weight: 700;
+            color: var(--success);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50%       { opacity: 0.4; }
+        }
+
+        .status-dot {
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            background: var(--success);
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        /* Admin avatar */
+        .admin-avatar-btn {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 6px 12px 6px 6px;
+            border-radius: var(--radius-md);
+            border: 1px solid var(--border);
+            background: var(--surface-2);
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .admin-avatar-btn:hover {
+            border-color: var(--primary-mid);
+            background: var(--primary-light);
+        }
+
+        .avatar-circle {
+            width: 34px;
+            height: 34px;
+            border-radius: 10px;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+            flex-shrink: 0;
+        }
+
+        .avatar-info strong {
+            display: block;
+            font-size: 12px;
+            font-weight: 700;
+            color: var(--text-primary);
+            line-height: 1.3;
+        }
+
+        .avatar-info small {
+            font-size: 10px;
+            color: var(--text-muted);
+            font-weight: 500;
+        }
+
+        /* Logout button */
+        .btn-logout {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            padding: 8px 16px;
+            border-radius: var(--radius-sm);
+            border: 1px solid #fecaca;
+            background: var(--danger-light);
+            color: var(--danger);
+            font-size: 12px;
+            font-weight: 700;
+            text-decoration: none;
+            transition: all 0.2s;
+        }
+
+        .btn-logout:hover {
+            background: var(--danger);
+            color: white;
+            border-color: var(--danger);
+            box-shadow: 0 4px 12px rgba(224,36,36,0.25);
+        }
+
+        /* ═══════════════════════════════════════════
+           MAIN LAYOUT : SIDEBAR + CONTENT
+        ═══════════════════════════════════════════ */
+        .admin-layout {
+            display: flex;
+            padding-top: var(--header-h);
+            flex: 1;
+            min-height: 100vh;
+        }
+
+        /* ── SIDEBAR ── */
+        .admin-sidebar {
+            position: fixed;
+            top: var(--header-h);
+            left: 0;
+            bottom: 0;
+            width: var(--sidebar-w);
+            background: var(--surface);
+            border-right: 1px solid var(--border);
+            display: flex;
+            flex-direction: column;
+            overflow-y: auto;
+            z-index: 1050;
+            transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .sidebar-inner {
+            padding: 20px 14px;
+            flex: 1;
+        }
+
+        .sidebar-section-label {
+            font-size: 9px;
+            font-weight: 800;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            padding: 0 10px;
+            margin: 18px 0 6px;
+        }
+
+        .sidebar-section-label:first-child {
+            margin-top: 0;
+        }
+
+        .sidebar-link {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 9px 12px;
+            border-radius: var(--radius-sm);
+            border: 1px solid transparent;
+            text-decoration: none;
+            color: var(--text-secondary);
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.18s;
+            background: none;
+            width: 100%;
+            text-align: left;
+            font-family: inherit;
+            margin-bottom: 2px;
+        }
+
+        .sidebar-link:hover {
+            color: var(--text-primary);
+            background: var(--surface-2);
+            border-color: var(--border);
+        }
+
+        .sidebar-link.active {
+            color: var(--primary);
+            background: var(--primary-light);
+            border-color: var(--primary-mid);
+            font-weight: 700;
+        }
+
+        .s-icon {
+            width: 30px;
+            height: 30px;
+            border-radius: var(--radius-sm);
+            background: var(--surface-2);
+            border: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            flex-shrink: 0;
+            transition: all 0.18s;
+        }
+
+        .sidebar-link.active .s-icon {
+            background: var(--primary-light);
+            border-color: var(--primary-mid);
+        }
+
+        .sidebar-link.danger { color: var(--danger); }
+        .sidebar-link.danger:hover { background: var(--danger-light); border-color: #fecaca; }
+
+        .badge-pill {
+            margin-left: auto;
+            background: var(--primary-light);
+            color: var(--primary);
+            border: 1px solid var(--primary-mid);
+            font-size: 10px;
+            font-weight: 800;
+            padding: 2px 8px;
+            border-radius: 50px;
+            line-height: 1.5;
+        }
+
+        .sidebar-divider {
+            height: 1px;
+            background: var(--border);
+            margin: 10px 0;
+        }
+
+        /* Sidebar footer (college info) */
+        .sidebar-footer {
+            padding: 14px 16px;
+            border-top: 1px solid var(--border);
+            background: var(--surface-2);
+        }
+
+        .sidebar-footer p {
+            font-size: 10px;
+            color: var(--text-muted);
+            line-height: 1.6;
+            font-weight: 500;
+        }
+
+        .sidebar-footer strong {
+            display: block;
+            font-size: 11px;
+            font-weight: 700;
+            color: var(--text-secondary);
+            margin-bottom: 4px;
+        }
+
+        /* ── CONTENT ── */
+        .admin-content {
+            margin-left: var(--sidebar-w);
+            padding: 32px 36px 60px;
+            min-width: 0;
+            transition: opacity 0.3s;
+        }
+
+        /* ── MOBILE OVERLAY ── */
+        .sidebar-overlay {
+            position: fixed;
+            top: var(--header-h);
+            left: 0; right: 0; bottom: 0;
+            background: rgba(15, 23, 42, 0.4);
+            backdrop-filter: blur(4px);
+            z-index: 1040;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s;
+        }
+
+        .sidebar-overlay.active {
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        /* ══ RESPONSIVE QUERIES ══ */
+        @media (max-width: 1024px) {
+            .admin-sidebar {
+                transform: translateX(-100%);
+                width: 280px;
+            }
+            .admin-sidebar.active {
+                transform: translateX(0);
+                box-shadow: 20px 0 50px rgba(0,0,0,0.15);
+            }
+            .admin-content, .admin-footer {
+                margin-left: 0;
+                padding: 24px 20px;
+            }
+            .mobile-menu-btn {
+                display: flex;
+            }
+            .header-logo {
+                min-width: auto;
+            }
+            .header-divider, .header-breadcrumb {
+                display: none;
+            }
+            .stats-grid, .quick-actions-grid {
+                grid-template-columns: 1fr;
+                gap: 16px;
+            }
+            .section-card {
+                padding: 20px;
+            }
+            .btn-logout span {
+                display: none;
+            }
+            .btn-logout {
+                padding: 10px;
+                border-radius: 50%;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+            .page-heading-actions {
+                width: 100%;
+            }
+            .page-heading-actions .btn-ghost {
+                flex: 1;
+                justify-content: center;
+                padding: 12px;
+            }
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+            .top-header {
+                padding: 0 16px;
+                gap: 12px;
+            }
+            .header-logo-text {
+                display: none;
+            }
+            .status-chip {
+                display: none;
+            }
+            .admin-avatar-btn {
+                padding: 6px;
+                border-radius: 50%;
+            }
+            .avatar-info {
+                display: none;
+            }
+            .page-heading {
+                flex-direction: column;
+                align-items: stretch;
+                gap: 16px;
+            }
+            .page-heading-actions {
+                flex-wrap: wrap;
+            }
+            .stat-value {
+                font-size: 32px;
+            }
+        }
+
+        /* Page heading */
+        .page-heading {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            margin-bottom: 28px;
+            gap: 20px;
+        }
+
+        .page-heading h1 {
+            font-size: 24px;
+            font-weight: 800;
+            color: var(--text-primary);
+            line-height: 1.2;
+        }
+
+        .page-heading p {
+            margin-top: 4px;
+            font-size: 13px;
+            color: var(--text-secondary);
+        }
+
+        .page-heading-actions {
+            display: flex;
+            gap: 10px;
+            flex-shrink: 0;
+        }
+
+        /* ── STAT CARDS ── */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+            margin-bottom: 28px;
+        }
+
+        .stat-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            padding: 20px 22px;
+            position: relative;
+            overflow: hidden;
+            box-shadow: var(--shadow-sm);
+            transition: box-shadow 0.2s, transform 0.2s;
+        }
+
+        .stat-card:hover {
+            box-shadow: var(--shadow-md);
+            transform: translateY(-2px);
+        }
+
+        .stat-card-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 14px;
+        }
+
+        .stat-icon {
+            width: 42px;
+            height: 42px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+        }
+
+        .stat-icon.blue   { background: var(--primary-light); }
+        .stat-icon.purple { background: var(--accent-light); }
+        .stat-icon.green  { background: var(--success-light); }
+        .stat-icon.pink   { background: var(--pink-light); }
+        .stat-icon.gold   { background: var(--warning-light); }
+
+        .stat-change {
+            font-size: 11px;
+            font-weight: 700;
+            padding: 3px 8px;
+            border-radius: 50px;
+        }
+
+        .stat-change.up   { background: var(--success-light); color: var(--success); }
+        .stat-change.live { background: var(--success-light); color: var(--success); }
+
+        .stat-value {
+            font-size: 36px;
+            font-weight: 900;
+            color: var(--text-primary);
+            letter-spacing: -1.5px;
+            line-height: 1;
+            margin-bottom: 4px;
+        }
+
+        .stat-label {
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--text-muted);
+        }
+
+        .stat-card-accent {
+            position: absolute;
+            bottom: 0; left: 0; right: 0;
+            height: 3px;
+        }
+
+        .stat-card-accent.blue   { background: linear-gradient(90deg, var(--primary), #60a5fa); }
+        .stat-card-accent.purple { background: linear-gradient(90deg, var(--accent), #a78bfa); }
+        .stat-card-accent.green  { background: linear-gradient(90deg, var(--success), #34d399); }
+
+        /* ── PANELS ── */
+        .admin-panel {
+            display: none;
+        }
+
+        .admin-panel.visible {
+            display: block;
+        }
+
+        /* Section card */
+        .section-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            padding: 28px 30px;
+            margin-bottom: 20px;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .section-card-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 22px;
+            padding-bottom: 16px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .section-card-title {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .section-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            flex-shrink: 0;
+        }
+
+        .section-icon.blue   { background: var(--primary-light); border: 1px solid var(--primary-mid); }
+        .section-icon.pink   { background: var(--pink-light); border: 1px solid #fbcfe8; }
+        .section-icon.gold   { background: var(--warning-light); border: 1px solid #fde68a; }
+        .section-icon.purple { background: var(--accent-light); border: 1px solid #ddd6fe; }
+
+        .section-card-title h2 {
+            font-size: 16px;
+            font-weight: 800;
+            color: var(--text-primary);
+        }
+
+        .section-card-title p {
+            font-size: 11px;
+            color: var(--text-muted);
+            margin-top: 2px;
+        }
+
+        /* Quick action cards */
+        .quick-actions-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+            gap: 14px;
+        }
+
+        .quick-action-card {
+            background: var(--surface-2);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-md);
+            padding: 20px 18px;
+            cursor: pointer;
+            text-decoration: none;
+            color: inherit;
+            display: block;
+            transition: all 0.2s;
+        }
+
+        .quick-action-card:hover {
+            border-color: var(--primary-mid);
+            background: var(--primary-light);
+            box-shadow: var(--shadow-md);
+            transform: translateY(-2px);
+        }
+
+        .qa-icon {
+            width: 44px;
+            height: 44px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
+            margin-bottom: 12px;
+        }
+
+        .quick-action-card:hover .qa-icon {
+            transform: scale(1.08);
+            transition: transform 0.2s;
+        }
+
+        .quick-action-card strong {
+            display: block;
+            font-size: 13px;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+
+        .quick-action-card span {
+            font-size: 11px;
+            color: var(--text-muted);
+            margin-top: 3px;
+            display: block;
+        }
+
+        /* ── FORMS ── */
+        .form-label {
+            display: block;
+            font-size: 12px;
+            font-weight: 700;
+            color: var(--text-secondary);
+            margin-bottom: 6px;
+            letter-spacing: 0.3px;
+        }
+
+        .form-group {
+            margin-bottom: 16px;
+        }
+
+        input[type="text"],
+        input[type="date"],
+        input[type="url"],
+        textarea,
+        select {
+            width: 100%;
+            padding: 11px 15px;
+            background: var(--surface-2);
+            border: 1px solid var(--border-dark);
+            border-radius: var(--radius-sm);
+            color: var(--text-primary);
+            font-size: 13.5px;
+            font-family: 'Inter', sans-serif;
+            outline: none;
+            transition: all 0.2s;
+            box-sizing: border-box;
+        }
+
+        input:focus,
+        textarea:focus,
+        select:focus {
+            border-color: var(--primary);
+            background: white;
+            box-shadow: 0 0 0 3px rgba(26,86,219,0.10);
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 14px;
+        }
+
+        /* Buttons */
+        .btn-primary {
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+            padding: 10px 22px;
+            border: none;
+            border-radius: var(--radius-sm);
+            background: var(--primary);
+            color: white;
+            font-size: 13px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-family: inherit;
+            text-decoration: none;
+        }
+
+        .btn-primary:hover {
+            background: #1447b3;
+            box-shadow: 0 4px 14px rgba(26,86,219,0.35);
+            transform: translateY(-1px);
+        }
+
+        .btn-secondary {
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+            padding: 9px 18px;
+            border: 1px solid var(--border-dark);
+            border-radius: var(--radius-sm);
+            background: var(--surface);
+            color: var(--text-secondary);
+            font-size: 12px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-family: inherit;
+            text-decoration: none;
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--primary-mid);
+            color: var(--primary);
+            background: var(--primary-light);
+        }
+
+        .btn-pink {
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+            padding: 10px 22px;
+            border: none;
+            border-radius: var(--radius-sm);
+            background: linear-gradient(135deg, var(--pink), #9333ea);
+            color: white;
+            font-size: 13px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-family: inherit;
+        }
+
+        .btn-pink:hover {
+            box-shadow: 0 4px 14px rgba(219,39,119,0.35);
+            transform: translateY(-1px);
+        }
+
+        .btn-gold {
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+            padding: 10px 22px;
+            border: none;
+            border-radius: var(--radius-sm);
+            background: linear-gradient(135deg, #d97706, #f59e0b);
+            color: white;
+            font-size: 13px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-family: inherit;
+        }
+
+        .btn-gold:hover {
+            box-shadow: 0 4px 14px rgba(217,119,6,0.35);
+            transform: translateY(-1px);
+        }
+
+        /* Gallery upload area */
+        .gallery-upload-area {
+            border: 2px dashed var(--primary-mid);
+            border-radius: var(--radius-md);
+            padding: 40px 24px;
+            text-align: center;
+            background: var(--primary-light);
+            cursor: pointer;
+            transition: all 0.25s;
+            position: relative;
+            margin-bottom: 16px;
+        }
+
+        .gallery-upload-area:hover {
+            border-color: var(--primary);
+            background: #dbeafe;
+        }
+
+        .gallery-upload-area input[type="file"] {
+            position: absolute;
+            inset: 0;
+            opacity: 0;
+            cursor: pointer;
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            border: none;
+            background: none;
+        }
+
+        .upload-icon { font-size: 38px; margin-bottom: 10px; }
+
+        .upload-text {
+            color: var(--text-secondary);
+            font-size: 13px;
+            line-height: 1.7;
+        }
+
+        .upload-text strong { color: var(--primary); }
+
+        /* Gallery grid */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(155px, 1fr));
+            gap: 12px;
+            margin-top: 18px;
+        }
+
+        .gallery-item {
+            position: relative;
+            border-radius: var(--radius-md);
+            overflow: hidden;
+            border: 1px solid var(--border);
+            aspect-ratio: 1;
+            background: var(--surface-2);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .gallery-item img {
+            width: 100%; height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .gallery-item-overlay {
+            position: absolute;
+            inset: 0;
+            background: rgba(15,23,42,0.65);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            opacity: 0;
+            transition: 0.22s;
+        }
+
+        .gallery-item:hover .gallery-item-overlay { opacity: 1; }
+
+        .gallery-item-caption {
+            color: white;
+            font-size: 11px;
+            font-weight: 600;
+            text-align: center;
+            padding: 0 8px;
+            word-break: break-word;
+        }
+
+        .gallery-del-btn {
+            padding: 5px 14px;
+            border-radius: 6px;
+            border: none;
+            background: var(--danger);
+            color: white;
+            font-size: 11px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .gallery-del-btn:hover { background: #b91c1c; }
+
+        .gallery-empty {
+            text-align: center;
+            padding: 36px;
+            color: var(--text-muted);
+            font-size: 13px;
+            border: 2px dashed var(--border);
+            border-radius: var(--radius-md);
+            margin-top: 16px;
+            background: var(--surface-2);
+        }
+
+        /* Flash messages */
+        .flash {
+            padding: 13px 18px;
+            border-radius: var(--radius-sm);
+            margin-bottom: 20px;
+            font-size: 13px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .flash.success {
+            background: var(--success-light);
+            border: 1px solid #a7f3d0;
+            color: #065f46;
+        }
+
+        .flash.error {
+            background: var(--danger-light);
+            border: 1px solid #fecaca;
+            color: #991b1b;
+        }
+
+        /* Notice manage link */
+        .manage-link {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            padding: 18px 22px;
+            border: 1px solid var(--border);
+            border-radius: var(--radius-md);
+            text-decoration: none;
+            color: var(--text-primary);
+            background: var(--surface-2);
+            transition: all 0.2s;
+            margin-top: 16px;
+        }
+
+        .manage-link:hover {
+            border-color: var(--primary-mid);
+            background: var(--primary-light);
+            box-shadow: var(--shadow-md);
+        }
+
+        .manage-link-icon {
+            width: 44px; height: 44px;
+            border-radius: 12px;
+            background: var(--warning-light);
+            border: 1px solid #fde68a;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
+            flex-shrink: 0;
+        }
+
+        .manage-link strong {
+            display: block;
+            font-size: 14px;
+            font-weight: 700;
+        }
+
+        .manage-link small {
+            font-size: 12px;
+            color: var(--text-muted);
+        }
+
+        .manage-link .arrow {
+            margin-left: auto;
+            color: var(--text-muted);
+            font-size: 18px;
+        }
+
+        /* Sub-section heading */
+        .sub-heading {
+            font-size: 13px;
+            font-weight: 700;
+            color: var(--text-secondary);
+            margin: 0 0 14px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .sub-heading::before {
+            content: '';
+            display: block;
+            width: 3px;
+            height: 14px;
+            background: var(--primary);
+            border-radius: 2px;
+        }
+
+        .sub-divider {
+            height: 1px;
+            background: var(--border);
+            margin: 24px 0;
+        }
+
+        /* ── FOOTER ── */
+
+
+
+    
+        /* Data Tables */
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+        .data-table th, .data-table td {
+            padding: 16px;
+            text-align: left;
+            border-bottom: 1px solid var(--border);
+        }
+        .data-table th {
+            font-size: 13px;
+            font-weight: 700;
+            color: var(--text3);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            background: var(--bg);
+        }
+        .data-table td {
+            font-size: 14px;
+            color: var(--text2);
+            vertical-align: middle;
+        }
+        .data-table tr:hover td {
+            background: #f8fafc;
+        }
+
+        /* Filter Tabs */
+        .filter-tabs {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+        .filter-btn {
+            padding: 8px 16px;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+            background: var(--white);
+            color: var(--text2);
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .filter-btn:hover {
+            border-color: var(--blue-mid);
+            color: var(--blue);
+        }
+        .filter-btn.active {
+            background: var(--blue);
+            color: var(--white);
+            border-color: var(--blue);
+        }
+
+
+        /* Grievance Modal Styles */
+        .g-modal-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.5); z-index: 1000;
+            display: none; justify-content: center; align-items: center;
+        }
+        .g-modal {
+            background: #fff; width: 90%; max-width: 500px;
+            border-radius: 12px; padding: 24px; box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+        .g-modal-header {
+            display: flex; justify-content: space-between; align-items: center;
+            border-bottom: 1px solid var(--border); padding-bottom: 12px; margin-bottom: 16px;
+        }
+        .g-modal-title { font-size: 18px; font-weight: 700; color: var(--text1); }
+        .g-modal-close { background: none; border: none; font-size: 24px; cursor: pointer; color: var(--text3); }
+        .g-modal-close:hover { color: var(--text1); }
+        .g-modal-body p { margin-bottom: 10px; font-size: 14px; color: var(--text2); }
+        .g-modal-body strong { color: var(--text1); }
+        .g-modal-explanation {
+            background: var(--bg); padding: 12px; border-radius: 8px;
+            margin-top: 10px; white-space: pre-wrap; font-size: 14px; color: var(--text1); max-height: 200px; overflow-y: auto;
+        }
+
+</style>
+    <link rel="icon" type="image/png" href="{{ url_for('static', filename='logo.png') }}">
+</head>
+
+<body>
+
+    <!-- ══════════════════════ TOP HEADER ══════════════════════ -->
+    <header class="top-header">
+        <button class="mobile-menu-btn" id="mobileToggle" aria-label="Menu">
+            <span></span><span></span><span></span>
+        </button>
+        <a href="/" class="header-logo">
+            <img src="{{ url_for('static', filename='logo.png') }}" alt="Logo">
+            <div class="header-logo-text">
+                <strong>Contai Polytechnic</strong>
+                <span>Web Portal</span>
+            </div>
+        </a>
+
+        <div class="header-divider"></div>
+
+        <div class="header-breadcrumb">
+            <span>Portal</span>
+            <span style="color:var(--text-muted)">›</span>
+            <span class="crumb-active">Admin Dashboard</span>
+        </div>
+
+        <div class="header-right">
+            <div class="status-chip">
+                <span class="status-dot"></span>
+                System Online
+            </div>
+
+            <div class="admin-avatar-btn">
+                <div class="avatar-circle">⚙️</div>
+                <div class="avatar-info">
+                    <strong>Administrator</strong>
+                    <small>Super User</small>
+                </div>
+            </div>
+
+            <a href="/logout" class="btn-logout">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+                <span>Logout</span>
+            </a>
+        </div>
+    </header>
+
+    <div class="admin-layout">
+        <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+        <!-- ══════════════════════ SIDEBAR ══════════════════════ -->
+        <aside class="admin-sidebar" id="adminSidebar">
+            <div class="sidebar-inner">
+                <div class="sidebar-section-label">Main Menu</div>
+
+                <button class="sidebar-link" id="sb-overview" onclick="showPanel('overview', this)">
+                    <span class="s-icon">🏠</span> Overview
+                </button>
+                <button class="sidebar-link" id="sb-chatbot" onclick="showPanel('chatbot', this)">
+                    <span class="s-icon">🤖</span> Chatbot Q&amp;A
+                    <span class="badge-pill">{{ qa_list|length }}</span>
+                </button>
+                <button class="sidebar-link" id="sb-gallery" onclick="showPanel('gallery', this)">
+                    <span class="s-icon">🖼️</span> Gallery
+                    <span class="badge-pill">{% if gallery_images %}{{ gallery_images|length }}{% else %}0{% endif %}</span>
+                </button>
+                <button class="sidebar-link" id="sb-notices" onclick="showPanel('notices', this)">
+                    <span class="s-icon">📋</span> Notices
+                </button>
+
+                <button class="sidebar-link" id="sb-new-event" onclick="showPanel('new-event', this)">
+                    <span class="s-icon">📅</span> New Event
+                </button>
+                <button class="sidebar-link" id="sb-faculty-highlight" onclick="showPanel('faculty-highlight', this)">
+                    <span class="s-icon">👨‍🏫</span> Faculty Highlight
+                </button>
+                <button class="sidebar-link" id="sb-placement" onclick="showPanel('placement', this)">
+                    <span class="s-icon">💼</span> Placement
+                </button>
+                <button class="sidebar-link" id="sb-result" onclick="showPanel('result', this)">
+                    <span class="s-icon">📝</span> Publish Results
+                </button>
+                <button class="sidebar-link" id="sb-grievances" onclick="showPanel('grievances', this)">
+                    <span class="s-icon">🚩</span> Grievances
+                    <span class="badge-pill">{% if grievances %}{{ grievances|length }}{% else %}0{% endif %}</span>
+                </button>
+                <button class="sidebar-link" id="sb-admissions" onclick="showPanel('admissions', this)">
+                    <span class="s-icon">🎓</span> Admissions
+                    <span class="badge-pill">{% if admissions %}{{ admissions|length }}{% else %}0{% endif %}</span>
+                </button>
+                <div class="sidebar-divider"></div>
+                <div class="sidebar-section-label">Website</div>
+
+                <a href="/" class="sidebar-link">
+                    <span class="s-icon">🌐</span> View Website
+                </a>
+
+                <div class="sidebar-divider"></div>
+                <div class="sidebar-section-label">Account</div>
+
+                <a href="/logout" class="sidebar-link danger">
+                    <span class="s-icon">⎋</span> Logout
+                </a>
+            </div>
+
+            <div class="sidebar-footer">
+                <strong>Contai Polytechnic</strong>
+                <p>📍 Contai, Purba Medinipur, WB — 721401<br>📞 03220-255462</p>
+            </div>
+        </aside>
+
+        <!-- ══════════════════════ CONTENT ══════════════════════ -->
+        <main class="admin-content">
+
+            {% with messages = get_flashed_messages(with_categories=true) %}
+            {% for category, message in messages %}
+            <div class="flash {{ category }}">
+                {% if category == 'success' %}✅{% else %}⚠️{% endif %}
+                {{ message }}
+            </div>
+            {% endfor %}
+            {% endwith %}
+
+            <!-- ══ OVERVIEW PANEL ══ -->
+            <div id="panel-overview" class="admin-panel visible">
+
+                <div class="page-heading">
+                    <div>
+                        <h1>👋 Welcome, Administrator</h1>
+                        <p>Contai Polytechnic · Admin Dashboard · All systems are running normally.</p>
+                    </div>
+                    <div class="page-heading-actions">
+                        <a href="/view_all" target="_blank" class="btn-secondary">🗄️ View All Data</a>
+                        <a href="/notice" target="_blank" class="btn-secondary">📋 Public Notices</a>
+                    </div>
+                </div>
+
+                <!-- Stat Cards -->
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-card-header">
+                            <div class="stat-icon blue">🤖</div>
+                            <span class="stat-change up">Active</span>
+                        </div>
+                        <div class="stat-value">{{ qa_list|length }}</div>
+                        <div class="stat-label">Chatbot Q&amp;A Entries</div>
+                        <div class="stat-card-accent blue"></div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-card-header">
+                            <div class="stat-icon pink">📸</div>
+                            <span class="stat-change up">Uploaded</span>
+                        </div>
+                        <div class="stat-value">{% if gallery_images %}{{ gallery_images|length }}{% else %}0{% endif %}</div>
+                        <div class="stat-label">Gallery Photos</div>
+                        <div class="stat-card-accent purple"></div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-card-header">
+                            <div class="stat-icon green">🟢</div>
+                            <span class="stat-change live">🟢 Live</span>
+                        </div>
+                        <div class="stat-value" style="font-size:20px;margin-top:6px;letter-spacing:0;">All Online</div>
+                        <div class="stat-label">System Status</div>
+                        <div class="stat-card-accent green"></div>
+                    </div>
+                </div>
+
+                <!-- Quick Actions -->
+                <div class="section-card">
+                    <div class="section-card-header">
+                        <div class="section-card-title">
+                            <div class="section-icon blue">⚡</div>
+                            <div>
+                                <h2>Quick Actions</h2>
+                                <p>Jump directly into common tasks</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="quick-actions-grid">
+                        <button onclick="showPanel('chatbot', document.getElementById('sb-chatbot'))" class="quick-action-card" style="border:none;">
+                            <div class="qa-icon" style="background:var(--primary-light);">🤖</div>
+                            <strong>Add Q&amp;A</strong>
+                            <span>Train the chatbot</span>
+                        </button>
+                        <button onclick="showPanel('gallery', document.getElementById('sb-gallery'))" class="quick-action-card" style="border:none;">
+                            <div class="qa-icon" style="background:var(--pink-light);">🖼️</div>
+                            <strong>Upload Photo</strong>
+                            <span>Manage gallery</span>
+                        </button>
+                        <button onclick="showPanel('notices', document.getElementById('sb-notices'))" class="quick-action-card" style="border:none;">
+                            <div class="qa-icon" style="background:var(--warning-light);">📋</div>
+                            <strong>Post Notice</strong>
+                            <span>Notice board</span>
+                        </button>
+                        <a href="/view_all" target="_blank" class="quick-action-card">
+                            <div class="qa-icon" style="background:var(--accent-light);">🗄️</div>
+                            <strong>View All Data</strong>
+                            <span>Full Q&amp;A repository</span>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Info / About -->
+                <div class="section-card" style="background:linear-gradient(135deg,#eff4ff 0%,#f5f3ff 100%);border-color:var(--primary-mid);">
+                    <div style="display:flex;align-items:flex-start;gap:18px;">
+                        <div style="font-size:40px;flex-shrink:0;">🎓</div>
+                        <div>
+                            <h2 style="font-size:16px;font-weight:800;color:var(--primary);margin-bottom:6px;">Contai Polytechnic — Admin Portal</h2>
+                            <p style="font-size:13px;color:var(--text-secondary);line-height:1.7;">
+                                Manage the entire college web portal from this dashboard. Add chatbot questions &amp; answers,
+                                upload gallery photos, post official notices, and monitor all site content in one place.
+                                All changes reflect <strong>live on the website instantly</strong>.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+            </div><!-- end overview panel -->
+
+
+            <!-- ══ CHATBOT Q&A PANEL ══ -->
+            <div id="panel-chatbot" class="admin-panel">
+
+                <div class="page-heading">
+                    <div>
+                        <h1>🤖 Chatbot Q&amp;A</h1>
+                        <p>Add questions and answers to train the AI chatbot assistant.</p>
+                    </div>
+                    <div class="page-heading-actions">
+                        <a href="/view_all" target="_blank" class="btn-secondary">🗄️ View All</a>
+                    </div>
+                </div>
+
+                <div class="section-card">
+                    <div class="section-card-header">
+                        <div class="section-card-title">
+                            <div class="section-icon blue">➕</div>
+                            <div>
+                                <h2>Add New Q&amp;A Entry</h2>
+                                <p>New entries are used immediately by the chatbot</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <form method="POST" action="/admin">
+                        <div class="form-group">
+                            <label class="form-label">Question</label>
+                            <input type="text" name="question" placeholder="e.g. What is the admission procedure?" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Answer</label>
+                            <textarea name="answer" placeholder="Write a clear, detailed answer here…" required></textarea>
+                        </div>
+                        <button type="submit" class="btn-primary">➕ Add to Chatbot</button>
+                    </form>
+                </div>
+
+                <div class="section-card">
+                    <div class="section-card-header">
+                        <div class="section-card-title">
+                            <div class="section-icon purple">📋</div>
+                            <div>
+                                <h2>Existing Data Repository
+                                    <span style="background:var(--primary-light);color:var(--primary);border:1px solid var(--primary-mid);font-size:11px;padding:2px 10px;border-radius:50px;font-weight:700;margin-left:8px;vertical-align:middle;">{{ qa_list|length }} entries</span>
+                                </h2>
+                                <p>All Q&amp;A training data for the chatbot</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div style="background:var(--surface-2);border:1px solid var(--border);border-radius:var(--radius-sm);padding:20px 22px;text-align:center;color:var(--text-muted);font-size:13px;line-height:1.7;">
+                        🔒 Data is hidden for privacy. Click <strong style="color:var(--primary);">View All</strong> to manage, print, or export the full Q&amp;A repository in a secure window.
+                        <div style="margin-top:14px;">
+                            <a href="/view_all" target="_blank" class="btn-primary">🗄️ Open Full Repository</a>
+                        </div>
+                    </div>
+                </div>
+
+            </div><!-- end chatbot panel -->
+
+
+            <!-- ══ GALLERY PANEL ══ -->
+            <div id="panel-gallery" class="admin-panel">
+
+                <div class="page-heading">
+                    <div>
+                        <h1>🖼️ Gallery Management</h1>
+                        <p>Upload new photos and manage the existing gallery collection.</p>
+                    </div>
+                    <div class="page-heading-actions">
+                        <a href="/gallery" target="_blank" class="btn-secondary">👁️ Public Gallery</a>
+                    </div>
+                </div>
+
+                <div class="section-card">
+                    <div class="section-card-header">
+                        <div class="section-card-title">
+                            <div class="section-icon pink">📤</div>
+                            <div>
+                                <h2>Upload New Photo
+                                    <span style="background:var(--pink-light);color:var(--pink);border:1px solid #fbcfe8;font-size:11px;padding:2px 10px;border-radius:50px;font-weight:700;margin-left:8px;vertical-align:middle;">
+                                        {% if gallery_images %}{{ gallery_images|length }}{% else %}0{% endif %} Photos
+                                    </span>
+                                </h2>
+                                <p>JPG, PNG, WEBP · Max 5MB</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- AJAX upload message -->
+                    <div id="galleryUploadMsg" style="display:none; padding:12px 18px; border-radius:10px; margin-bottom:16px; font-size:13px; font-weight:600;"></div>
+
+                    <form id="adminGalleryForm" enctype="multipart/form-data">
+                        <div class="gallery-upload-area" id="adminDropZone">
+                            <input type="file" name="photo" accept="image/*" required id="adminFileInput">
+                            <div class="upload-icon" id="adminDropIcon">📁</div>
+                            <div class="upload-text">
+                                <strong>Click to choose a photo</strong> or drag &amp; drop here<br>
+                                <span style="font-size:11px;color:var(--text-muted);">Supported: JPG, PNG, WEBP · Maximum 5 MB</span>
+                            </div>
+                        </div>
+
+                        <!-- Image preview -->
+                        <div id="adminPreviewWrap" style="display:none; margin:12px 0; border-radius:12px; overflow:hidden; max-height:180px; border:1px solid var(--border);">
+                            <img id="adminPreviewImg" src="" alt="preview" style="width:100%; max-height:180px; object-fit:cover; display:block;">
+                            <div id="adminPreviewName" style="padding:6px 12px; font-size:11px; color:var(--text-muted); font-weight:600;"></div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label class="form-label">Photo Title</label>
+                                <input type="text" name="title" placeholder="e.g. Annual Function 2024" required id="adminTitleInput">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Category</label>
+                                <select name="category" id="adminCategoryInput">
+                                    <option value="campus">🏫 Campus</option>
+                                    <option value="events">🎉 Events</option>
+                                    <option value="labs">🔬 Labs</option>
+                                    <option value="sports">⚽ Sports</option>
+                                    <option value="cultural">🎭 Cultural</option>
+                                    <option value="workshop">🔧 Workshop</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <button type="submit" class="btn-pink" id="adminUploadBtn">📤 Upload Photo</button>
+                    </form>
+                </div>
+
+                <div class="section-card">
+                    <div class="section-card-header">
+                        <div class="section-card-title">
+                            <div class="section-icon pink">📸</div>
+                            <div>
+                                <h2>Uploaded Photos</h2>
+                                <p>Hover over a photo to delete it</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    {% if gallery_images %}
+                    <div class="gallery-grid">
+                        {% for img in gallery_images %}
+                        <div class="gallery-item">
+                            <img src="{{ url_for('static', filename='gallery/' + img.filename) }}" alt="{{ img.caption }}">
+                            <div class="gallery-item-overlay">
+                                <div class="gallery-item-caption">{{ img.caption or img.filename }}</div>
+                                <a href="/admin/gallery/delete/{{ img.id }}?from=admin"
+                                    onclick="return confirm('Delete this photo?')"
+                                    class="gallery-del-btn"
+                                    style="text-decoration:none;">🗑️ Delete</a>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                    {% else %}
+                    <div class="gallery-empty">
+                        <div style="font-size:36px;margin-bottom:10px;">📷</div>
+                        No photos uploaded yet.<br>Upload your first photo above!
+                    </div>
+                    {% endif %}
+                </div>
+
+            </div><!-- end gallery panel -->
+
+
+            <!-- ══ NOTICES PANEL ══ -->
+            <div id="panel-notices" class="admin-panel">
+
+                <div class="page-heading">
+                    <div>
+                        <h1>📋 Notice Board</h1>
+                        <p>Post and manage official college notices published on the public site.</p>
+                    </div>
+                    <div class="page-heading-actions">
+                        <a href="/notice" target="_blank" class="btn-secondary">📋 Public Notices</a>
+                    </div>
+                </div>
+
+                <div class="section-card">
+                    <div class="section-card-header">
+                        <div class="section-card-title">
+                            <div class="section-icon gold">➕</div>
+                            <div>
+                                <h2>Post New Notice</h2>
+                                <p>Notices are published live immediately</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <form method="POST" action="/admin/notice/add">
+                        <input type="hidden" name="redirect_to" value="admin">
+
+                        <div class="form-group">
+                            <label class="form-label">Notice Title *</label>
+                            <input type="text" name="title" placeholder="e.g. Schedule for Semester Examination 2025" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Notice Details (optional)</label>
+                            <textarea name="body" placeholder="Write notice details here…" style="min-height:90px;"></textarea>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label class="form-label">Category</label>
+                                <select name="category">
+                                    <option value="General">📢 General</option>
+                                    <option value="Exam">📝 Exam</option>
+                                    <option value="Result">📊 Result</option>
+                                    <option value="Tender">📄 Tender</option>
+                                    <option value="Holiday">🎉 Holiday</option>
+                                    <option value="Admission">🎓 Admission</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Date</label>
+                                <input type="date" name="date">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Link URL (optional)</label>
+                            <input type="text" name="link" placeholder="https://…">
+                        </div>
+
+                        <button type="submit" class="btn-gold">📋 Post Notice</button>
+                    </form>
+                </div>
+
+                <!-- Posted Notices List -->
+                <div class="section-card">
+                    <div class="section-card-header">
+                        <div class="section-card-title">
+                            <div class="section-icon gold">📋</div>
+                            <div>
+                                <h2>Posted Notices
+                                    <span style="background:var(--warning-light);color:#b45309;border:1px solid #fde68a;font-size:11px;padding:2px 10px;border-radius:50px;font-weight:700;margin-left:8px;vertical-align:middle;">
+                                        {% if notices %}{{ notices|length }}{% else %}0{% endif %}
+                                    </span>
+                                </h2>
+                                <p>All notices currently published on the website</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    {% if notices %}
+                    <div style="display:flex; flex-direction:column; gap:10px;">
+                        {% for n in notices %}
+                        <div style="display:flex; align-items:flex-start; justify-content:space-between; padding:14px 18px; background:var(--surface-2); border:1px solid var(--border); border-radius:var(--radius-sm); gap:14px;">
+                            <div style="flex:1; min-width:0;">
+                                <div style="display:flex; align-items:center; gap:8px; flex-wrap:wrap; margin-bottom:4px;">
+                                    <strong style="color:var(--text-primary); font-size:14px;">{{ n[1] }}</strong>
+                                    <span style="font-size:10px; font-weight:700; padding:2px 8px; border-radius:50px; background:var(--primary-light); color:var(--primary); border:1px solid var(--primary-mid);">{{ n[3] }}</span>
+                                </div>
+                                {% if n[2] %}
+                                <div style="font-size:12px; color:var(--text-muted); margin-top:4px; line-height:1.5; overflow:hidden; text-overflow:ellipsis; display:-webkit-box; -webkit-line-clamp:2; line-clamp:2; -webkit-box-orient:vertical;">{{ n[2] }}</div>
+                                {% endif %}
+                                <div style="font-size:11px; color:var(--text-muted); margin-top:6px; display:flex; gap:12px; flex-wrap:wrap;">
+                                    {% if n[5] %}<span>📅 {{ n[5] }}</span>{% endif %}
+                                    {% if n[4] %}<span>🏛️ {{ n[4] }}</span>{% endif %}
+                                    {% if n[6] %}<a href="{{ n[6] }}" target="_blank" style="color:var(--primary); text-decoration:none;">🔗 Link</a>{% endif %}
+                                </div>
+                            </div>
+                            <a href="/admin/notice/delete/{{ n[0] }}?from=admin" 
+                               onclick="return confirm('Delete this notice?')" 
+                               style="color:var(--danger); text-decoration:none; font-size:12px; font-weight:700; white-space:nowrap; padding:6px 12px; border-radius:8px; border:1px solid rgba(239,68,68,0.2); background:rgba(239,68,68,0.05); transition:all 0.2s;">🗑️ Delete</a>
+                        </div>
+                        {% endfor %}
+                    </div>
+                    {% else %}
+                    <div style="text-align:center; padding:40px 20px; color:var(--text-muted); font-size:13px;">
+                        <div style="font-size:36px; margin-bottom:10px;">📭</div>
+                        No notices posted yet.<br>Post your first notice above!
+                    </div>
+                    {% endif %}
+                </div>
+
+            </div><!-- end notices panel -->
+
+
+            <!-- ══ NEW EVENT PANEL ══ -->
+            <div id="panel-new-event" class="admin-panel">
+                <div class="page-heading">
+                    <div>
+                        <h1>📅 Manage Upcoming Events</h1>
+                        <p>Add and remove events shown on the homepage schedule.</p>
+                    </div>
+                    <div class="page-heading-actions">
+                        <a href="/events" target="_blank" class="btn-secondary">👁️ Full Calendar</a>
+                    </div>
+                </div>
+
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px;">
+                    <!-- Form Side -->
+                    <div class="section-card">
+                        <div class="section-card-header">
+                            <div class="section-card-title">
+                                <div class="section-icon blue">📅</div>
+                                <div>
+                                    <h2>Upcoming Events</h2>
+                                    <p>Manage events shown on the homepage schedule</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <form method="POST" action="/admin/hp/event/add">
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label class="form-label">Day (e.g. 15)</label>
+                                    <input type="text" name="day" required>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">Month (e.g. Jun)</label>
+                                    <input type="text" name="month" required>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Title</label>
+                                <input type="text" name="title" required>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Description (Optional)</label>
+                                <input type="text" name="description">
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label class="form-label">Location</label>
+                                    <input type="text" name="location">
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">Tag Type</label>
+                                    <select name="tag_color">
+                                        <option value="exam">Exam (Red)</option>
+                                        <option value="fest">Fest (Gold)</option>
+                                        <option value="sports">Sports (Green)</option>
+                                        <option value="seminar">Seminar (Blue)</option>
+                                        <option value="cultural">Cultural (Purple)</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Tag Label (e.g. EXAM)</label>
+                                <input type="text" name="tag" value="Event">
+                            </div>
+                            <button type="submit" class="btn-primary">➕ Add Event</button>
+                        </form>
+                    </div>
+
+                    <!-- History Side -->
+                    <div class="section-card">
+                        <div class="section-card-header">
+                            <div class="section-card-title">
+                                <div class="section-icon purple">🕒</div>
+                                <div>
+                                    <h2>Events History</h2>
+                                    <p>Previously added events</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        {% if hp_events %}
+                        <div style="display:flex;flex-direction:column;gap:10px;margin-top:16px;">
+                            {% for ev in hp_events %}
+                            <div style="display:flex;align-items:center;justify-content:space-between;padding:12px 16px;background:var(--surface-2);border:1px solid var(--border);border-radius:var(--radius-sm);">
+                                <div>
+                                    <strong style="color:var(--text-primary);font-size:14px;">{{ ev.title }}</strong>
+                                    <div style="font-size:12px;color:var(--text-muted);margin-top:4px;">📅 {{ ev.day }} {{ ev.month }} | 📍 {{ ev.location }}</div>
+                                </div>
+                                <a href="/admin/hp/event/delete/{{ ev.id }}" onclick="return confirm('Delete event?')" style="color:var(--danger);text-decoration:none;font-size:12px;font-weight:700;">🗑️ Delete</a>
+                            </div>
+                            {% endfor %}
+                        </div>
+                        {% else %}
+                        <div style="text-align:center; padding:40px 20px; color:var(--text-muted);">
+                            <div style="font-size:32px; margin-bottom:12px;">📭</div>
+                            <p>No events added yet.</p>
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div><!-- end new event panel -->
+
+
+            <!-- ══ FACULTY HIGHLIGHT PANEL ══ -->
+            <div id="panel-faculty-highlight" class="admin-panel">
+                <div class="page-heading">
+                    <div>
+                        <h1>👨‍🏫 Faculty Highlights</h1>
+                        <p>Manage featured faculty members on the homepage.</p>
+                    </div>
+                    <div class="page-heading-actions">
+                        <a href="/faculty" target="_blank" class="btn-secondary">👁️ All Faculty Page</a>
+                    </div>
+                </div>
+
+                <div class="section-card">
+                    <div class="section-card-header">
+                        <div class="section-card-title">
+                            <div class="section-icon purple">👨‍🏫</div>
+                            <div>
+                                <h2>Faculty Highlights</h2>
+                                <p>Manage featured faculty members on the homepage</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <form method="POST" action="/admin/hp/faculty/add" enctype="multipart/form-data">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label class="form-label">Name</label>
+                                <input type="text" name="name" required placeholder="Dr. S. K. Das">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Photo Upload</label>
+                                <input type="file" name="photo" required accept="image/*">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label class="form-label">Department</label>
+                                <input type="text" name="department" placeholder="Mechanical Engineering">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Designation</label>
+                                <input type="text" name="designation" placeholder="HOD">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Qualification</label>
+                            <input type="text" name="qualification" placeholder="M.Tech (IIT KGP), Ph.D">
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label class="form-label">Years of Exp</label>
+                                <input type="text" name="years_exp" placeholder="15+ Years">
+                            </div>
+                        </div>
+                        <button type="submit" class="btn-primary" style="background:var(--accent);">➕ Add Faculty</button>
+                    </form>
+
+                    {% if hp_faculty %}
+                    <div class="sub-divider"></div>
+                    <div class="sub-heading">Featured Faculty</div>
+                    <div style="display:flex;flex-direction:column;gap:10px;">
+                        {% for fac in hp_faculty %}
+                        <div style="display:flex;align-items:center;justify-content:space-between;padding:12px 16px;background:var(--surface-2);border:1px solid var(--border);border-radius:var(--radius-sm);">
+                            <div>
+                                <strong style="color:var(--text-primary);font-size:14px;">{{ fac.name }}</strong>
+                                <div style="font-size:12px;color:var(--text-muted);margin-top:4px;">{{ fac.designation }} | {{ fac.department }}</div>
+                            </div>
+                            <div style="display:flex; gap:12px; align-items:center;">
+                                <a href="javascript:void(0)" data-id="{{ fac.id }}" data-name="{{ fac.name }}" data-dept="{{ fac.department }}" data-desig="{{ fac.designation }}" data-qual="{{ fac.qualification }}" data-exp="{{ fac.years_exp }}" onclick="openFacultyEditModal(this.dataset.id, this.dataset.name, this.dataset.dept, this.dataset.desig, this.dataset.qual, this.dataset.exp)" style="color:var(--blue);text-decoration:none;font-size:12px;font-weight:700;">✏️ Edit</a>
+                                <a href="/admin/hp/faculty/delete/{{ fac.id }}" onclick="return confirm('Delete faculty highlight?')" style="color:var(--danger);text-decoration:none;font-size:12px;font-weight:700;">🗑️ Delete</a>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                    {% endif %}
+                </div>
+            </div><!-- end faculty highlight panel -->
+
+
+            <!-- ══ PLACEMENT PANEL ══ -->
+            <div id="panel-placement" class="admin-panel">
+                <div class="page-heading">
+                    <div>
+                        <h1>💼 Placement & Alumni</h1>
+                        <p>Manage placement statistics, recruiting companies, and alumni success stories.</p>
+                    </div>
+                    <div class="page-heading-actions">
+                        <a href="/#placement" target="_blank" class="btn-secondary">👁️ View Live</a>
+                    </div>
+                </div>
+
+                <div class="section-card">
+                    <div class="section-card-header">
+                        <div class="section-card-title">
+                            <div class="section-icon gold">💼</div>
+                            <div>
+                                <h2>Placement & Alumni</h2>
+                                <p>Manage stats, top companies, and success stories</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="sub-heading">A. Overall Statistics</div>
+                    <form method="POST" action="/admin/hp/placement/save" style="margin-bottom:30px;">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label class="form-label">Placement Rate (e.g. 85%)</label>
+                                <input type="text" name="placement_rate" value="{{ hp_pstats.get('placement_rate', '') }}">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Avg Package (e.g. 2.4 LPA)</label>
+                                <input type="text" name="avg_package" value="{{ hp_pstats.get('avg_package', '') }}">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Companies (e.g. 40+)</label>
+                                <input type="text" name="companies_count" value="{{ hp_pstats.get('companies_count', '') }}">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Alumni Network (e.g. 5,000+)</label>
+                                <input type="text" name="alumni_count" value="{{ hp_pstats.get('alumni_count', '') }}">
+                            </div>
+                        </div>
+                        <button type="submit" class="btn-secondary">💾 Save Stats</button>
+                    </form>
+                    
+                    <div class="sub-heading">B. Top Recruiting Companies</div>
+                    <form method="POST" action="/admin/hp/company/add" enctype="multipart/form-data" style="margin-bottom:30px;">
+                        <div class="form-row" style="align-items:flex-end;gap:12px;">
+                            <div class="form-group" style="margin-bottom:0;flex:1;">
+                                <label class="form-label">Company Name</label>
+                                <input type="text" name="name" required placeholder="e.g. TATA Motors">
+                            </div>
+                            <div class="form-group" style="margin-bottom:0;">
+                                <label class="form-label">Company Logo</label>
+                                <label for="companyLogoInput" style="display:flex;align-items:center;gap:10px;cursor:pointer;padding:8px 14px;border:1.5px dashed var(--border);border-radius:10px;background:var(--surface-2);transition:border-color 0.2s;min-width:160px;" onmouseover="this.style.borderColor='var(--primary)'" onmouseout="this.style.borderColor='var(--border)'">
+                                    <img id="logoPreview" src="" alt="" style="width:36px;height:36px;object-fit:contain;border-radius:6px;display:none;border:1px solid var(--border);">
+                                    <span id="logoPlaceholder" style="font-size:22px;">🏢</span>
+                                    <div>
+                                        <div style="font-size:12px;font-weight:700;color:var(--text-primary);">Upload Logo</div>
+                                        <div style="font-size:10px;color:var(--text-muted);">PNG, JPG, SVG · Max 2MB</div>
+                                    </div>
+                                </label>
+                                <input type="file" id="companyLogoInput" name="logo" accept="image/*" style="display:none;" onchange="previewLogo(this)">
+                            </div>
+                            <button type="submit" class="btn-primary" style="margin-bottom:0;">➕ Add</button>
+                        </div>
+                    </form>
+                    
+                    {% if hp_companies %}
+                    <div style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:30px;">
+                        {% for comp in hp_companies %}
+                        <span style="display:inline-flex;align-items:center;gap:8px;padding:6px 12px;background:var(--surface-2);border:1px solid var(--border);border-radius:50px;font-size:12px;font-weight:600;">
+                            {% if comp.logo %}
+                            <img src="{{ url_for('static', filename='company_logos/' + comp.logo) }}" alt="{{ comp.name }}" style="width:22px;height:22px;object-fit:contain;border-radius:4px;">
+                            {% else %}
+                            <span style="font-size:16px;">{{ comp.emoji }}</span>
+                            {% endif %}
+                            {{ comp.name }}
+                            <a href="/admin/hp/company/delete/{{ comp.id }}" onclick="return confirm('Delete {{ comp.name }}?')" style="color:var(--danger);text-decoration:none;margin-left:2px;font-size:14px;font-weight:700;">×</a>
+                        </span>
+                        {% endfor %}
+                    </div>
+                    {% endif %}
+
+                    <div class="sub-heading">C. Alumni Success Stories</div>
+                    <form method="POST" action="/admin/hp/alumni/add">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label class="form-label">Name</label>
+                                <input type="text" name="name" required placeholder="A. Chatterjee">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Initials</label>
+                                <input type="text" name="initials" required placeholder="AC" maxlength="2">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Testimonial Quote</label>
+                            <textarea name="quote" required placeholder="Contai Polytechnic gave me the practical foundation..."></textarea>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label class="form-label">Current Role/Company</label>
+                                <input type="text" name="role" placeholder="Junior Engineer, L&T">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Batch/Department</label>
+                                <input type="text" name="batch" placeholder="Civil '18">
+                            </div>
+                        </div>
+                        <button type="submit" class="btn-gold">➕ Add Story</button>
+                    </form>
+
+                    {% if hp_alumni %}
+                    <div class="sub-divider"></div>
+                    <div style="display:flex;flex-direction:column;gap:10px;">
+                        {% for al in hp_alumni %}
+                        <div style="display:flex;align-items:center;justify-content:space-between;padding:12px 16px;background:var(--surface-2);border:1px solid var(--border);border-radius:var(--radius-sm);">
+                            <div>
+                                <strong style="color:var(--text-primary);font-size:14px;">{{ al.name }}</strong>
+                                <div style="font-size:12px;color:var(--text-muted);margin-top:4px;">{{ al.role }} ({{ al.batch }})</div>
+                            </div>
+                            <a href="/admin/hp/alumni/delete/{{ al.id }}" onclick="return confirm('Delete story?')" style="color:var(--danger);text-decoration:none;font-size:12px;font-weight:700;">🗑️ Delete</a>
+                        </div>
+                        {% endfor %}
+                    </div>
+                    {% endif %}
+                </div>
+            </div><!-- end placement panel -->
+
+
+            <!-- ══ RESULT PANEL ══ -->
+            <div id="panel-result" class="admin-panel">
+                <div class="page-heading">
+                    <div>
+                        <h1>📄 Student Results</h1>
+                        <p>Manage and publish student examination results.</p>
+                    </div>
+                </div>
+
+                <div class="section-card">
+                    <div class="section-card-header">
+                        <div class="section-card-title">
+                            <div class="section-icon purple">🎓</div>
+                            <div>
+                                <h2>Enter Student Marks</h2>
+                                <p>Publish detailed subject-wise marks for students</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <form method="POST" action="/admin/result/add">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label class="form-label">Student Name</label>
+                                <input type="text" name="student_name" required placeholder="John Doe">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Registration No.</label>
+                                <input type="text" name="reg_no" required placeholder="D2024001">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label class="form-label">Department</label>
+                                <input type="text" name="department" required placeholder="CST">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Semester</label>
+                                <input type="text" name="semester" required placeholder="1st Sem">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Examination Name</label>
+                            <input type="text" name="exam_name" required placeholder="Odd Semester Examination 2024">
+                        </div>
+
+                        <div class="sub-divider"></div>
+                        <div class="sub-heading">Subject Wise Marks</div>
+                        
+                        <div id="subject-rows">
+                            <div class="form-row subject-row" style="margin-bottom: 10px; align-items: flex-end;">
+                                <div class="form-group" style="flex: 2; margin-bottom:0;">
+                                    <label class="form-label">Subject Name</label>
+                                    <input type="text" name="subject[]" required placeholder="Mathematics-I">
+                                </div>
+                                <div class="form-group" style="flex: 1; margin-bottom:0;">
+                                    <label class="form-label">Marks Obtained</label>
+                                    <input type="number" name="marks[]" required placeholder="85">
+                                </div>
+                                <div class="form-group" style="flex: 1; margin-bottom:0;">
+                                    <label class="form-label">Full Marks</label>
+                                    <input type="number" name="full_marks[]" required value="100">
+                                </div>
+                                <button type="button" class="btn-danger" style="padding: 10px; margin-bottom: 0;" onclick="this.parentElement.remove()">🗑️</button>
+                            </div>
+                        </div>
+
+                        <div style="margin: 20px 0;">
+                            <button type="button" class="btn-secondary" onclick="addSubjectRow()">➕ Add Another Subject</button>
+                        </div>
+
+                        <button type="submit" class="btn-primary" style="width: 100%; padding: 15px; font-size: 16px;">🚀 Publish Result</button>
+                    </form>
+                </div>
+
+                <script>
+                    function addSubjectRow() {
+                        const container = document.getElementById('subject-rows');
+                        const row = document.createElement('div');
+                        row.className = 'form-row subject-row';
+                        row.style.marginBottom = '10px';
+                        row.style.alignItems = 'flex-end';
+                        row.innerHTML = `
+                            <div class="form-group" style="flex: 2; margin-bottom:0;">
+                                <input type="text" name="subject[]" required placeholder="Subject Name">
+                            </div>
+                            <div class="form-group" style="flex: 1; margin-bottom:0;">
+                                <input type="number" name="marks[]" required placeholder="Marks">
+                            </div>
+                            <div class="form-group" style="flex: 1; margin-bottom:0;">
+                                <input type="number" name="full_marks[]" required value="100">
+                            </div>
+                            <button type="button" class="btn-danger" style="padding: 10px; margin-bottom: 0;" onclick="this.parentElement.remove()">🗑️</button>
+                        `;
+                        container.appendChild(row);
+                    }
+                </script>
+        </div><!-- end result panel -->
+
+        <!-- ══ GRIEVANCES PANEL ══ -->
+        <div id="panel-grievances" class="admin-panel">
+            <div class="panel-header" style="flex-direction: column; align-items: flex-start; gap: 16px;">
+                <div class="panel-title-area">
+                    <h1>🚩 Grievances</h1>
+                    <p>View and manage submitted grievances from Students, Parents, and Staff.</p>
+                </div>
+                <div class="filter-tabs">
+                    <button class="filter-btn active" onclick="filterGrievances('All', this)">All</button>
+                    <button class="filter-btn" onclick="filterGrievances('Student', this)">Student</button>
+                    <button class="filter-btn" onclick="filterGrievances('Parent', this)">Parent</button>
+                    <button class="filter-btn" onclick="filterGrievances('Staff', this)">Staff</button>
+                </div>
+            </div>
+
+            <div class="data-card">
+                <div style="overflow-x: auto;">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Type</th>
+                                <th>Name</th>
+                                <th>Contact</th>
+                                <th>Department</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for g in grievances %}
+                            <tr class="grievance-row" data-type="{{ g.type }}">
+                                <td>#{{ g.id }}</td>
+                                <td><span class="badge {% if g.type == 'Student' %}blue{% elif g.type == 'Parent' %}green{% else %}purple{% endif %}">{{ g.type }}</span></td>
+                                <td>
+                                    <strong>{{ g.name }}</strong><br>
+                                    <small>{{ g.gender }}</small>
+                                </td>
+                                <td>
+                                    {{ g.phone }}<br>
+                                    <small>{{ g.email }}</small>
+                                </td>
+                                <td>
+                                    {{ g.department }}<br>
+                                    {% if g.semester %}<small>{{ g.semester }}</small>{% endif %}
+                                </td>
+                                <td>
+                                    <span class="badge {% if g.status == 'Resolved' %}green{% else %}red{% endif %}">{{ g.status }}</span>
+                                </td>
+                                <td>
+                                    <div style="display: flex; gap: 8px;">
+                                        <button class="btn-secondary btn-sm" onclick="viewGrievanceModal({{ g.name|tojson|forceescape }}, {{ g.phone|tojson|forceescape }}, {{ g.email|tojson|forceescape }}, {{ g.department|tojson|forceescape }}, {{ g.semester|tojson|forceescape }}, {{ g.explanation|tojson|forceescape }})">View</button>
+                                        <button class="btn-primary btn-sm" onclick="toggleGrievanceStatus({{ g.id }}, '{{ g.status }}')">Toggle</button>
+                                        <button class="btn-danger btn-sm" onclick="deleteGrievance({{ g.id }})">Delete</button>
+                                    </div>
+                                </td>
+                            </tr>
+                            {% else %}
+                            <tr id="empty-grievances">
+                                <td colspan="7" style="text-align: center; padding: 30px; color: var(--text3);">No grievances found.</td>
+                            </tr>
+                            {% endfor %}
+                            <tr id="empty-grievances-filter" style="display: none;">
+                                <td colspan="7" style="text-align: center; padding: 30px; color: var(--text3);">No grievances match this category.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            
+            <script>
+                function toggleGrievanceStatus(id, currentStatus) {
+                    let newStatus = currentStatus === 'Resolved' ? 'Pending' : 'Resolved';
+                    if (confirm('Change status to ' + newStatus + '?')) {
+                        let formData = new FormData();
+                        formData.append('status', newStatus);
+                        fetch('/api/admin/grievances/' + id + '/status', {
+                            method: 'POST',
+                            body: formData
+                        })
+                        .then(r => r.json())
+                        .then(data => {
+                            if(data.success) {
+                                location.reload();
+                            } else {
+                                alert('Error updating status');
+                            }
+                        });
+                    }
+                }
+            </script>
+        </div><!-- end grievances panel -->
+
+        <!-- ══ ADMISSIONS PANEL ══ -->
+        <div id="panel-admissions" class="admin-panel">
+            <div class="panel-header">
+                <div>
+                    <h1>🎓 Admissions 2026-27</h1>
+                    <p>View all admission applications from prospective students.</p>
+                </div>
+            </div>
+            
+            <div class="data-table-wrap">
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Date</th>
+                            <th>Name & Contact</th>
+                            <th>Level & Discipline</th>
+                            <th>Course</th>
+                            <th>Program</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% if admissions %}
+                            {% for a in admissions %}
+                            <tr>
+                                <td>#{{ a.id }}</td>
+                                <td>{{ a.date_submitted }}</td>
+                                <td>
+                                    <strong>{{ a.name }}</strong><br>
+                                    <small>{{ a.email }}</small><br>
+                                    <small>{{ a.mobile }}</small>
+                                </td>
+                                <td>
+                                    <span class="badge-pill">{{ a.level }}</span>
+                                    <span class="badge-pill">{{ a.discipline }}</span>
+                                </td>
+                                <td>{{ a.course }}</td>
+                                <td>{{ a.program }}</td>
+                            </tr>
+                            {% endfor %}
+                        {% else %}
+                            <tr>
+                                <td colspan="6" style="text-align: center; padding: 30px; color: var(--text3);">No admission applications found.</td>
+                            </tr>
+                        {% endif %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+
+
+
+        </main>
+    </div><!-- end admin-layout -->
+
+
+
+    <script>
+        const TEACHER_MODE = "{{ 'true' if teacher_mode else 'false' }}" === "true";
+
+        const adminSidebar = document.getElementById('adminSidebar');
+        const mobileToggle = document.getElementById('mobileToggle');
+        const sidebarOverlay = document.getElementById('sidebarOverlay');
+
+        function toggleSidebar() {
+            if (!adminSidebar || !mobileToggle || !sidebarOverlay) return;
+            adminSidebar.classList.toggle('active');
+            mobileToggle.classList.toggle('active');
+            sidebarOverlay.classList.toggle('active');
+            document.body.style.overflow = adminSidebar.classList.contains('active') ? 'hidden' : '';
+        }
+
+        if (mobileToggle) mobileToggle.addEventListener('click', toggleSidebar);
+        if (sidebarOverlay) sidebarOverlay.addEventListener('click', toggleSidebar);
+
+        // Close sidebar on link click (mobile)
+        document.querySelectorAll('.sidebar-link').forEach(link => {
+            link.addEventListener('click', () => {
+                if (window.innerWidth <= 1024 && adminSidebar && adminSidebar.classList.contains('active')) {
+                    toggleSidebar();
+                }
+            });
+        });
+
+        function showPanel(name, clickedBtn) {
+            document.querySelectorAll('.admin-panel').forEach(p => p.classList.remove('visible'));
+            document.querySelectorAll('.sidebar-link').forEach(l => l.classList.remove('active'));
+            const panel = document.getElementById('panel-' + name);
+            if (panel) panel.classList.add('visible');
+            if (clickedBtn) clickedBtn.classList.add('active');
+            location.hash = name;
+        }
+
+        window.addEventListener('DOMContentLoaded', () => {
+            if (TEACHER_MODE) {
+                // Teacher এর জন্য: শুধু Result panel দেখাও
+                document.querySelectorAll('.admin-sidebar .sidebar-link:not(#sb-result)').forEach(btn => {
+                    if (!btn.closest('a[href="/"]') && !btn.closest('a[href="/logout"]')) {
+                        btn.style.display = 'none';
+                    }
+                });
+                // Sidebar admin-only buttons hide
+                ['sb-overview','sb-chatbot','sb-gallery','sb-notices','sb-new-event','sb-faculty-highlight','sb-placement', 'sb-grievances', 'sb-admissions'].forEach(id => {
+                    const el = document.getElementById(id);
+                    if (el) el.style.display = 'none';
+                });
+                showPanel('result', document.getElementById('sb-result'));
+                return;
+            }
+            const hash = location.hash.replace('#', '');
+            if (hash && document.getElementById('panel-' + hash)) {
+                const btn = document.getElementById('sb-' + hash);
+                showPanel(hash, btn);
+            } else {
+                document.getElementById('sb-overview').classList.add('active');
+            }
+        });
+
+        function openFacultyEditModal(id, name, dept, desig, qual, exp) {
+            document.getElementById('edit_fid').value = id;
+            document.getElementById('edit_name').value = name;
+            document.getElementById('edit_department').value = dept;
+            document.getElementById('edit_designation').value = desig;
+            document.getElementById('edit_qualification').value = qual;
+            document.getElementById('edit_years_exp').value = exp;
+            
+            document.getElementById('facultyEditForm').action = "/admin/hp/faculty/edit/" + id;
+            document.getElementById('facultyEditModal').style.display = 'flex';
+        }
+
+        function closeFacultyEditModal() {
+            document.getElementById('facultyEditModal').style.display = 'none';
+        }
+
+        // Company Logo Preview
+        function previewLogo(input) {
+            const preview = document.getElementById('logoPreview');
+            const placeholder = document.getElementById('logoPlaceholder');
+            if (input.files && input.files[0]) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    preview.src = e.target.result;
+                    preview.style.display = 'block';
+                    placeholder.style.display = 'none';
+                };
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+
+        // ── ADMIN GALLERY AJAX UPLOAD ──
+        (function() {
+            const form       = document.getElementById('adminGalleryForm');
+            const fileInput  = document.getElementById('adminFileInput');
+            const dropZone   = document.getElementById('adminDropZone');
+            const dropIcon   = document.getElementById('adminDropIcon');
+            const uploadBtn  = document.getElementById('adminUploadBtn');
+            const msgEl      = document.getElementById('galleryUploadMsg');
+            const prevWrap   = document.getElementById('adminPreviewWrap');
+            const prevImg    = document.getElementById('adminPreviewImg');
+            const prevName   = document.getElementById('adminPreviewName');
+
+            if (!form) return;
+
+            // File preview
+            fileInput.addEventListener('change', function() {
+                if (this.files[0]) showAdminPreview(this.files[0]);
+            });
+
+            function showAdminPreview(file) {
+                if (!file || !file.type.startsWith('image/')) return;
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    prevImg.src = e.target.result;
+                    prevName.textContent = '📎 ' + file.name + ' (' + (file.size/1024).toFixed(0) + ' KB)';
+                    prevWrap.style.display = 'block';
+                    dropIcon.textContent = '✅';
+                };
+                reader.readAsDataURL(file);
+            }
+
+            function showGalleryMsg(text, isOk) {
+                msgEl.textContent = text;
+                msgEl.style.display = 'block';
+                msgEl.style.background = isOk ? 'rgba(52,211,153,0.1)' : 'rgba(239,68,68,0.1)';
+                msgEl.style.border    = isOk ? '1px solid rgba(52,211,153,0.25)' : '1px solid rgba(239,68,68,0.25)';
+                msgEl.style.color     = isOk ? '#059669' : '#dc2626';
+                setTimeout(function() { msgEl.style.display = 'none'; }, 4000);
+            }
+
+            function addPhotoToGrid(p) {
+                let grid = document.querySelector('.gallery-grid');
+                const emptyEl = document.querySelector('.gallery-empty');
+                if (emptyEl) emptyEl.remove();
+                if (!grid) {
+                    // Create gallery-grid if it doesn't exist yet
+                    const sectionCard = document.querySelectorAll('#panel-gallery .section-card')[1];
+                    if (sectionCard) {
+                        grid = document.createElement('div');
+                        grid.className = 'gallery-grid';
+                        sectionCard.appendChild(grid);
+                    }
+                }
+                if (!grid) return;
+
+                const item = document.createElement('div');
+                item.className = 'gallery-item';
+                item.innerHTML = `
+                    <img src="/static/gallery/${p.filename}" alt="${p.title}">
+                    <div class="gallery-item-overlay">
+                        <div class="gallery-item-caption">${p.title}</div>
+                        <a href="/admin/gallery/delete/${p.id}?from=admin"
+                           onclick="return confirm('Delete this photo?')"
+                           class="gallery-del-btn"
+                           style="text-decoration:none;">🗑️ Delete</a>
+                    </div>
+                `;
+                grid.insertBefore(item, grid.firstChild);
+            }
+
+            form.addEventListener('submit', async function(e) {
+                e.preventDefault();
+
+                const formData = new FormData(form);
+                uploadBtn.disabled = true;
+                uploadBtn.textContent = '⏳ Uploading...';
+
+                try {
+                    const res = await fetch('/admin/gallery/upload', {
+                        method: 'POST',
+                        headers: { 'X-Requested-With': 'XMLHttpRequest' },
+                        body: formData
+                    });
+                    const data = await res.json();
+
+                    showGalleryMsg(data.msg, data.ok);
+
+                    if (data.ok) {
+                        addPhotoToGrid(data.photo);
+                        // Reset form
+                        form.reset();
+                        prevWrap.style.display = 'none';
+                        prevImg.src = '';
+                        dropIcon.textContent = '📁';
+                    }
+                } catch(err) {
+                    showGalleryMsg('❌ Network error. Please try again.', false);
+                } finally {
+                    uploadBtn.disabled = false;
+                    uploadBtn.textContent = '📤 Upload Photo';
+                }
+            });
+        })();
+    </script>
+
+    <!-- Faculty Edit Modal -->
+    <div id="facultyEditModal" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.6); z-index:9999; align-items:center; justify-content:center; backdrop-filter: blur(4px);">
+        <div style="background:#fff; padding:24px; border-radius:12px; width:100%; max-width:600px; max-height: 90vh; overflow-y: auto; box-shadow: 0 20px 40px rgba(0,0,0,0.2);">
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;">
+                <h2 style="margin:0; font-size:18px; color:var(--navy);">✏️ Edit Faculty Profile</h2>
+                <button type="button" onclick="closeFacultyEditModal()" style="background:none;border:none;font-size:24px;cursor:pointer;color:var(--text-muted);">&times;</button>
+            </div>
+            <form id="facultyEditForm" method="POST" action="" enctype="multipart/form-data">
+                <input type="hidden" name="fid" id="edit_fid">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="form-label">Name</label>
+                        <input type="text" name="name" id="edit_name" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">New Photo (Leave blank to keep current)</label>
+                        <input type="file" name="photo" accept="image/*">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="form-label">Department</label>
+                        <input type="text" name="department" id="edit_department">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Designation</label>
+                        <input type="text" name="designation" id="edit_designation">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Qualification</label>
+                    <input type="text" name="qualification" id="edit_qualification">
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="form-label">Years of Exp</label>
+                        <input type="text" name="years_exp" id="edit_years_exp">
+                    </div>
+                </div>
+                <div style="display:flex; justify-content:flex-end; gap:12px; margin-top:20px;">
+                    <button type="button" class="btn-secondary" onclick="closeFacultyEditModal()">Cancel</button>
+                    <button type="submit" class="btn-primary" style="background:var(--blue);">💾 Save Changes</button>
+                </div>
+            </form>
+        </div>
+    </div>
+<script>
+        function filterGrievances(type, btn) {
+            // Update active button
+            const buttons = btn.parentElement.querySelectorAll('.filter-btn');
+            buttons.forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+
+            // Filter rows
+            const rows = document.querySelectorAll('.grievance-row');
+            let visibleCount = 0;
+            rows.forEach(row => {
+                if (type === 'All' || row.dataset.type === type) {
+                    row.style.display = '';
+                    visibleCount++;
+                } else {
+                    row.style.display = 'none';
+                }
+            });
+            
+            const emptyFilter = document.getElementById('empty-grievances-filter');
+            const emptyOriginal = document.getElementById('empty-grievances');
+            
+            if (emptyOriginal) {
+                emptyOriginal.style.display = 'none'; // Always hide the original empty state when filtering
+            }
+            
+            if (emptyFilter) {
+                if (visibleCount === 0) {
+                    emptyFilter.style.display = '';
+                } else {
+                    emptyFilter.style.display = 'none';
+                }
+            }
+        }
+
+        function deleteGrievance(id) {
+            if(confirm("Are you sure you want to delete this grievance? This action cannot be undone.")) {
+                fetch(`/api/admin/grievances/${id}`, {
+                    method: 'DELETE'
+                }).then(res => res.json())
+                .then(data => {
+                    if(data.success) {
+                        location.reload();
+                    } else {
+                        alert("Error: " + data.message);
+                    }
+                });
+            }
+        }
+        function viewGrievanceModal(name, phone, email, dept, semester, explanation) {
+            document.getElementById('g-modal-name').textContent = name;
+            document.getElementById('g-modal-contact').textContent = phone + " | " + email;
+            document.getElementById('g-modal-dept').textContent = dept + (semester ? (" - " + semester) : "");
+            document.getElementById('g-modal-exp').textContent = explanation;
+            document.getElementById('grievance-modal').style.display = 'flex';
+        }
+
+        function closeGrievanceModal() {
+            document.getElementById('grievance-modal').style.display = 'none';
+        }
+</script>
+
+    <!-- Grievance View Modal -->
+    <div id="grievance-modal" class="g-modal-overlay">
+        <div class="g-modal">
+            <div class="g-modal-header">
+                <div class="g-modal-title">Grievance Details</div>
+                <button class="g-modal-close" onclick="closeGrievanceModal()">&times;</button>
+            </div>
+            <div class="g-modal-body">
+                <p><strong>Name:</strong> <span id="g-modal-name"></span></p>
+                <p><strong>Contact:</strong> <span id="g-modal-contact"></span></p>
+                <p><strong>Department:</strong> <span id="g-modal-dept"></span></p>
+                <div style="margin-top: 16px;"><strong>Explanation:</strong></div>
+                <div class="g-modal-explanation" id="g-modal-exp"></div>
+            </div>
+            <div style="margin-top: 20px; text-align: right;">
+                <button class="btn-primary" onclick="closeGrievanceModal()">Close</button>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,4197 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contai Polytechnic</title>
+    <meta name="description"
+        content="Official portal of Contai Polytechnic — AI helpdesk, department pages, notice board and more.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;0,800;0,900;1,700&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;0,9..40,800;1,9..40,400&display=swap');
+
+        :root {
+            --white: #ffffff;
+            --bg: #f8fafc;
+            --bg2: #f1f5f9;
+            --border: #e2e8f0;
+            --border2: #cbd5e1;
+            --text: #0f172a;
+            --text2: #334155;
+            --text3: #64748b;
+            --navy: #1e3a5f;
+            --blue: #2563eb;
+            --blue-light: #dbeafe;
+            --blue-mid: #bfdbfe;
+            --accent: #0ea5e9;
+            --shadow: 0 1px 3px rgba(0, 0, 0, .08), 0 4px 16px rgba(0, 0, 0, .06);
+            --shadow-md: 0 4px 24px rgba(0, 0, 0, .10);
+            --shadow-lg: 0 10px 40px rgba(0, 0, 0, .12);
+            --radius: 14px;
+            --radius-lg: 22px;
+        }
+
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0
+        }
+
+        html {
+            scroll-behavior: smooth
+            overflow-x: hidden;
+            width: 100%;
+            max-width: 100vw;
+        }
+
+        body {
+            font-family: 'DM Sans', sans-serif;
+            background: var(--white);
+            color: var(--text);
+            min-height: 100vh;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        ::-webkit-scrollbar {
+            width: 6px
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--bg)
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #94a3b8;
+            border-radius: 3px
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #64748b
+        }
+
+        /* ══ HEADER ══ */
+        .header {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background: rgba(255, 255, 255, .92);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border);
+            box-shadow: 0 1px 12px rgba(0, 0, 0, .06);
+        }
+
+        .header-content {
+            max-width: 1280px;
+            margin: 0 auto;
+            min-height: 74px;
+            padding: 12px 32px; /* updated */
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 12px 32px;
+        }
+
+        .logo-section {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none
+        }
+
+        .logo-img {
+            width: 52px;
+            height: 52px;
+            object-fit: contain
+        }
+
+        .logo-section h2,
+        .header h2 {
+            margin: 0;
+            font-family: 'Playfair Display', serif;
+            font-size: 20px;
+            font-weight: 800;
+            color: var(--navy);
+            letter-spacing: .3px;
+            white-space: nowrap;
+        }
+
+        .logo-section span {
+            color: var(--blue)
+        }
+
+        .nav-center {
+            display: flex;
+            align-items: center;
+            row-gap: 2px;
+            column-gap: 12px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .nav-link {
+            padding: 8px 18px;
+            border-radius: 8px;
+            color: var(--text2);
+            font-size: 13.5px;
+            font-weight: 600;
+            text-decoration: none;
+            background: var(--white);
+            border: 1px solid var(--border);
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+            transition: all .2s;
+            white-space: nowrap;
+        }
+
+        .nav-link:hover {
+            color: var(--blue);
+            background: var(--blue-light);
+            border-color: var(--blue-mid);
+            transform: translateY(-1px);
+            box-shadow: 0 3px 8px rgba(37, 99, 235, 0.12);
+        }
+
+        .dept-dropdown-wrap {
+            position: relative
+        }
+
+        .dept-trigger {
+            padding: 8px 18px;
+            border-radius: 8px;
+            color: var(--text2);
+            font-size: 13.5px;
+            font-weight: 600;
+            background: var(--white);
+            border: 1px solid var(--border);
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+            cursor: pointer;
+            font-family: inherit;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            transition: all .2s;
+            white-space: nowrap;
+        }
+
+        .dept-trigger:hover {
+            color: var(--blue);
+            background: var(--blue-light);
+            border-color: var(--blue-mid);
+            transform: translateY(-1px);
+            box-shadow: 0 3px 8px rgba(37, 99, 235, 0.12);
+        }
+
+        .dept-trigger svg {
+            transition: transform .22s
+        }
+
+        .dept-dropdown-wrap:hover .dept-trigger svg {
+            transform: rotate(180deg)
+        }
+
+        .dept-dropdown {
+            position: absolute;
+            top: calc(100% + 8px);
+            left: 50%;
+            transform: translateX(-50%) translateY(-6px);
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity .2s, transform .2s;
+            z-index: 999;
+            min-width: 220px;
+        }
+
+        .dept-dropdown-wrap:hover .dept-dropdown {
+            opacity: 1;
+            pointer-events: all;
+            transform: translateX(-50%) translateY(0);
+        }
+
+        .dept-dropdown-inner {
+            background: var(--white);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 8px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, .14);
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+            position: relative;
+        }
+
+        .dept-dropdown-inner::before {
+            content: '';
+            position: absolute;
+            top: -5px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 10px;
+            height: 10px;
+            background: var(--white);
+            border-left: 1px solid var(--border);
+            border-top: 1px solid var(--border);
+            rotate: 45deg;
+        }
+
+        .dd-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 9px 12px;
+            border-radius: 10px;
+            text-decoration: none;
+            color: var(--text2);
+            transition: all .15s;
+        }
+
+        .dd-item:hover {
+            background: var(--bg);
+            color: var(--navy)
+        }
+
+        .dd-icon {
+            width: 30px;
+            height: 30px;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 15px;
+            background: var(--bg);
+        }
+
+        .dd-item strong {
+            display: block;
+            font-size: 12px;
+            font-weight: 700;
+            color: var(--text)
+        }
+
+        .dd-item small {
+            display: block;
+            font-size: 10px;
+            color: var(--text3)
+        }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 10px
+        }
+
+        .btn-outline {
+            padding: 8px 20px;
+            border-radius: 10px;
+            border: 1.5px solid var(--blue);
+            background: transparent;
+            color: var(--blue);
+            font-size: 13px;
+            font-weight: 700;
+            text-decoration: none;
+            transition: all .2s;
+        }
+
+        .btn-outline:hover {
+            background: var(--blue);
+            color: white;
+            box-shadow: 0 4px 20px rgba(37, 99, 235, .35);
+            transform: translateY(-1px);
+        }
+
+        .btn-outline.green-outline {
+            border-color: #059669;
+            color: #059669
+        }
+
+        .btn-outline.green-outline:hover {
+            background: #059669;
+            color: white;
+            box-shadow: 0 4px 20px rgba(5, 150, 105, .3);
+        }
+
+        /* ══ HERO ══ */
+        .hero {
+            position: relative;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 100px 24px 60px;
+            overflow: hidden;
+        }
+
+        .hero-slides {
+            position: absolute;
+            inset: 0;
+            z-index: 0
+        }
+
+        .hero-slide {
+            position: absolute;
+            inset: 0;
+            background-size: cover;
+            background-position: center;
+            opacity: 0;
+            transition: opacity 1.2s ease-in-out;
+        }
+
+        .hero-slide.active {
+            opacity: 1
+        }
+
+        .hero-slide::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle at 20% 50%, rgba(15, 23, 42, 0.35) 0%, rgba(15, 23, 42, 0.85) 100%);
+        }
+
+        .slide-dots {
+            position: absolute;
+            bottom: 28px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 8px;
+            z-index: 2;
+        }
+
+        .slide-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, .4);
+            cursor: pointer;
+            transition: background .3s, transform .3s;
+        }
+
+        .slide-dot.active {
+            background: white;
+            transform: scale(1.4)
+        }
+
+        .hero-content-wrapper {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+            max-width: 1280px;
+            z-index: 1;
+            position: relative;
+            gap: 40px;
+            transform: translateY(-60px);
+        }
+        .hero-inner {
+            text-align: left;
+            max-width: 600px;
+        }
+        .apply-btn-wrapper {
+            flex-shrink: 0;
+            text-align: center;
+            margin-right: 4%;
+        }
+        .apply-now-btn {
+            background: linear-gradient(135deg, var(--blue), var(--accent));
+            color: white;
+            padding: 18px 44px;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.15rem;
+            font-weight: 800;
+            letter-spacing: 1px;
+            cursor: pointer;
+            box-shadow: 0 0 0 0 rgba(37, 99, 235, 0.5);
+            transition: transform 0.3s, box-shadow 0.3s, background 0.3s;
+            text-decoration: none;
+            display: inline-block;
+            animation: pulse-glow 2s infinite;
+        }
+        .apply-now-btn:hover {
+            transform: translateY(-4px) scale(1.02);
+            box-shadow: 0 20px 40px rgba(14, 165, 233, 0.45);
+            background: linear-gradient(135deg, #1d4ed8, #0ea5e9);
+        }
+        @keyframes pulse-glow {
+            0% {
+                box-shadow: 0 0 0 0 rgba(37, 99, 235, 0.5);
+            }
+            70% {
+                box-shadow: 0 0 0 15px rgba(37, 99, 235, 0);
+            }
+            100% {
+                box-shadow: 0 0 0 0 rgba(37, 99, 235, 0);
+            }
+        }
+        @media (max-width: 768px) {
+            .hero-content-wrapper {
+                flex-direction: column;
+                text-align: center;
+            }
+            .hero-inner {
+                text-align: center;
+            }
+        }
+
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(99, 102, 241, 0.10);
+            border: 1px solid rgba(99, 102, 241, 0.25);
+            color: #818cf8;
+            font-size: 11px;
+            font-weight: 800;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            padding: 6px 18px;
+            border-radius: 50px;
+            margin-bottom: 28px;
+        }
+
+        .hero-badge .dot {
+            width: 7px;
+            height: 7px;
+            background: #6366f1;
+            border-radius: 50%;
+            box-shadow: 0 0 8px #6366f1;
+            animation: pulse-dot 1.8s ease-in-out infinite;
+        }
+
+        @keyframes pulse-dot {
+
+            0%,
+            100% {
+                opacity: 1;
+                transform: scale(1)
+            }
+
+            50% {
+                opacity: .5;
+                transform: scale(.8)
+            }
+        }
+
+        .hero h1 {
+            font-family: 'Inter', sans-serif;
+            font-size: clamp(42px, 7vw, 88px);
+            font-weight: 900;
+            color: white;
+            letter-spacing: -2.5px;
+            line-height: 0.95;
+            margin-bottom: 24px;
+        }
+
+        .hero h1 em {
+            font-style: normal;
+            color: transparent;
+            background: linear-gradient(135deg, #818cf8, #a78bfa, #38bdf8);
+            -webkit-background-clip: text;
+            background-clip: text;
+        }
+
+        .hero-desc {
+            font-size: 17px;
+            color: #cbd5e1;
+            line-height: 1.75;
+            max-width: 580px;
+            margin: 0 0 40px 0;
+            text-shadow: 0 1px 8px rgba(0, 0, 0, 0.6);
+        }
+
+        .stats-bar {
+            display: flex;
+            gap: 0;
+            justify-content: space-between;
+            margin-top: 48px;
+            flex-wrap: wrap;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            border-radius: 16px;
+            padding: 20px;
+            max-width: 600px;
+            margin-left: 0;
+            margin-right: 0;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
+        }
+
+        .stat-item {
+            text-align: center;
+            flex: 1;
+            padding: 0 24px;
+        }
+
+        .stat-item .n {
+            font-family: 'Inter', sans-serif;
+            font-size: 30px;
+            font-weight: 900;
+            color: white;
+            letter-spacing: -1px;
+        }
+
+        .stat-item .l {
+            font-size: 10px;
+            color: rgba(255, 255, 255, 0.52);
+            font-weight: 600;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            margin-top: 6px;
+        }
+
+        .stat-divider {
+            width: 1px;
+            background: rgba(255, 255, 255, 0.12);
+            align-self: stretch;
+            margin: 4px 0;
+        }
+
+        /* ══ SECTIONS ══ */
+        .section-label {
+            text-align: center;
+            margin-bottom: 48px
+        }
+
+        .section-label .badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: var(--blue-light);
+            border: 1px solid var(--blue-mid);
+            color: var(--blue);
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            padding: 5px 16px;
+            border-radius: 50px;
+            margin-bottom: 14px;
+        }
+
+        .section-label h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(26px, 4vw, 42px);
+            font-weight: 800;
+            color: var(--navy);
+            letter-spacing: -.5px;
+            margin-bottom: 10px;
+        }
+
+        .section-label p {
+            color: var(--text3);
+            font-size: 14px
+        }
+
+        /* ══ DEPARTMENTS ══ */
+        .depts-section {
+            padding: 80px 24px;
+            background: var(--white)
+        }
+
+        .depts-grid {
+            max-width: 1060px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+        }
+
+        .dept-card {
+            background: var(--white);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            padding: 32px 28px;
+            text-decoration: none;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            position: relative;
+            overflow: hidden;
+            transition: transform .3s cubic-bezier(0.4, 0, 0.2, 1), border-color .3s, box-shadow .3s;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.02);
+        }
+
+        .dept-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--accent-color, var(--blue));
+            opacity: 0.8;
+            transition: height 0.3s, opacity 0.3s;
+        }
+
+        .dept-card:hover {
+            transform: translateY(-8px);
+            border-color: var(--border-hover, var(--blue-mid));
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
+        }
+        
+        .dept-card:hover::before {
+            height: 6px;
+            opacity: 1;
+        }
+
+        .dept-emoji-box {
+            width: 54px;
+            height: 54px;
+            border-radius: 16px;
+            background: var(--icon-bg, var(--blue-light));
+            border: 1px solid var(--icon-border, var(--blue-mid));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.03);
+        }
+
+        .dept-card h3 {
+            color: var(--navy);
+            font-size: 1.25rem;
+            font-weight: 800;
+            line-height: 1.3;
+            font-family: 'Playfair Display', serif;
+        }
+
+        .dept-card p {
+            color: var(--text);
+            font-size: 14px;
+            line-height: 1.6;
+            flex: 1;
+        }
+
+        .dept-pills {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .d-pill {
+            font-size: 11px;
+            font-weight: 800;
+            padding: 6px 12px;
+            border-radius: 50px;
+            background: var(--icon-bg, var(--blue-light));
+            border: 1px solid var(--icon-border, var(--blue-mid));
+            color: var(--pill-color, var(--blue));
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .dept-arrow {
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--pill-color, var(--blue));
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            transition: gap .3s;
+            margin-top: 8px;
+        }
+
+        .dept-card:hover .dept-arrow {
+            gap: 10px
+        }
+
+        /* ══ NOTICES ══ */
+        .notices-section {
+            padding: 80px 24px;
+            background: var(--bg)
+        }
+
+        .notices-wrap {
+            max-width: 960px;
+            margin: 0 auto
+        }
+
+        .notices-hdr {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            margin-bottom: 36px;
+            flex-wrap: wrap;
+            gap: 16px;
+        }
+
+        .notices-hdr .badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: #fee2e2;
+            border: 1px solid #fecaca;
+            color: #dc2626;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            padding: 4px 14px;
+            border-radius: 50px;
+            margin-bottom: 10px;
+        }
+
+        .notices-hdr h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(22px, 3.5vw, 36px);
+            font-weight: 800;
+            color: var(--navy);
+            letter-spacing: -.5px;
+        }
+
+        .notices-hdr h2 span {
+            color: #dc2626
+        }
+
+        .notices-hdr p {
+            color: var(--text3);
+            font-size: 13px;
+            margin-top: 6px
+        }
+
+        .btn-viewall {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 22px;
+            border-radius: 50px;
+            border: 1.5px solid #dc2626;
+            color: #dc2626;
+            font-size: 13px;
+            font-weight: 700;
+            text-decoration: none;
+            transition: all .2s;
+        }
+
+        .btn-viewall:hover {
+            background: #dc2626;
+            color: white
+        }
+
+        .notices-grid {
+            display: flex;
+            flex-direction: column;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.06);
+            border: 1px solid var(--border);
+            overflow: hidden;
+        }
+
+        .nc {
+            background: transparent;
+            border: none;
+            border-bottom: 1px solid var(--border);
+            border-radius: 0;
+            padding: 16px 24px;
+            display: flex;
+            gap: 20px;
+            align-items: center;
+            position: relative;
+            transition: background 0.2s;
+            text-decoration: none;
+        }
+        
+        .nc:last-child {
+            border-bottom: none;
+        }
+        
+        .nc:nth-child(even) {
+            background: #f8fafc;
+        }
+
+        .btn-view-notice {
+            background: rgba(37, 99, 235, 0.08);
+            color: var(--blue);
+            border: 1px solid rgba(37, 99, 235, 0.2);
+            padding: 8px 20px;
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 700;
+            white-space: nowrap;
+            transition: all 0.2s;
+        }
+        
+        .nc:hover .btn-view-notice {
+            background: var(--blue);
+            color: white;
+        }
+
+        .nc::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+            background: transparent;
+            transition: background 0.2s;
+        }
+
+        .nc:hover::before {
+            background: #ef4444;
+        }
+
+        .nc:hover {
+            background: rgba(0,0,0,0.02);
+        }
+
+
+
+        .nc-date {
+            flex-shrink: 0;
+            width: 48px;
+            text-align: center;
+            background: #fff5f5;
+            border: 1.5px solid #fecaca;
+            border-radius: 12px;
+            padding: 8px 5px;
+        }
+
+        .nc-date .d {
+            font-size: 20px;
+            font-weight: 900;
+            color: #dc2626;
+            line-height: 1
+        }
+
+        .nc-date .m {
+            font-size: 9px;
+            color: var(--text3);
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            margin-top: 2px
+        }
+
+        .nc-body {
+            flex: 1
+        }
+
+        .nc-cat {
+            font-size: 9px;
+            font-weight: 800;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            padding: 2px 8px;
+            border-radius: 50px;
+            margin-bottom: 6px;
+            display: inline-block;
+        }
+
+        .nc-cat.Exam {
+            background: #fef3c7;
+            border: 1px solid #fde68a;
+            color: #d97706
+        }
+
+        .nc-cat.General {
+            background: #dbeafe;
+            border: 1px solid #bfdbfe;
+            color: #2563eb
+        }
+
+        .nc-cat.Result {
+            background: #d1fae5;
+            border: 1px solid #a7f3d0;
+            color: #059669
+        }
+
+        .nc-cat.Tender {
+            background: #fce7f3;
+            border: 1px solid #fbcfe8;
+            color: #db2777
+        }
+
+        .nc-cat.Holiday {
+            background: #ede9fe;
+            border: 1px solid #ddd6fe;
+            color: #7c3aed
+        }
+
+        .nc-cat.Admission {
+            background: #ffedd5;
+            border: 1px solid #fed7aa;
+            color: #ea580c
+        }
+
+        .nc-body h4 {
+            font-size: 13px;
+            font-weight: 700;
+            color: var(--navy);
+            line-height: 1.4;
+            margin-bottom: 3px
+        }
+
+        .nc-body p {
+            font-size: 11.5px;
+            color: var(--text3);
+            line-height: 1.5
+        }
+
+        .nc-dept {
+            font-size: 10px;
+            color: var(--text3);
+            margin-top: 7px
+        }
+
+        .nc-empty {
+            grid-column: 1/-1;
+            text-align: center;
+            padding: 48px;
+            background: var(--bg);
+            border: 2px dashed var(--border);
+            border-radius: 16px;
+            color: var(--text3);
+        }
+
+        .nc-empty a {
+            color: var(--blue);
+            text-decoration: none;
+            font-weight: 700
+        }
+
+        /* ══ EVENTS ══ */
+        .events-section {
+            padding: 50px 24px;
+            background: var(--bg);
+        }
+
+        .events-section .section-label {
+            text-align: center;
+            margin-bottom: 28px;
+        }
+
+        .events-grid {
+            display: flex;
+            flex-direction: column;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.06);
+            border: 1px solid var(--border);
+            overflow: hidden;
+            max-width: 960px;
+            margin: 0 auto;
+        }
+
+        .event-card {
+            background: transparent;
+            border: none;
+            border-bottom: 1px solid var(--border);
+            border-radius: 0;
+            padding: 16px 24px;
+            display: flex;
+            gap: 24px;
+            align-items: center;
+            position: relative;
+            transition: background 0.2s;
+            text-decoration: none;
+        }
+        
+        .event-card:last-child {
+            border-bottom: none;
+        }
+
+        .event-card:nth-child(even) {
+            background: #f8fafc;
+        }
+
+        .event-card:hover {
+            background: rgba(0,0,0,0.02);
+        }
+
+        .event-date-box {
+            display: inline-flex;
+            flex-direction: column;
+            align-items: center;
+            background: linear-gradient(to bottom, #ffffff, #f8fafc);
+            border-radius: 12px;
+            padding: 10px 18px;
+            min-width: 70px;
+            border: 1px solid var(--border);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.03);
+            flex-shrink: 0;
+        }
+
+        .event-date-box .day {
+            font-size: 2rem;
+            font-weight: 900;
+            line-height: 1;
+            font-family: 'Inter', sans-serif;
+            color: var(--navy);
+        }
+
+        .event-date-box .month {
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            color: var(--blue);
+            margin-top: 4px;
+        }
+        
+        .event-body {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .event-card h3 {
+            font-size: 1.15rem;
+            font-weight: 700;
+            color: var(--navy);
+            margin-bottom: 6px;
+            font-family: 'Playfair Display', serif;
+        }
+        
+        .event-loc {
+            font-size: 0.85rem;
+            color: var(--text3);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: 600;
+        }
+        
+        .event-action {
+            width: 120px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-shrink: 0;
+        }
+
+        .event-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 14px;
+            border-radius: 50px;
+            font-size: 0.7rem;
+            font-weight: 800;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+
+        .tag-exam {
+            background: rgba(239, 68, 68, 0.1);
+            color: #ef4444;
+            border: 1px solid rgba(239, 68, 68, 0.2);
+        }
+
+        .tag-fest {
+            background: rgba(245, 158, 11, 0.1);
+            color: #d97706;
+            border: 1px solid rgba(245, 158, 11, 0.2);
+        }
+
+        .tag-seminar {
+            background: rgba(59, 130, 246, 0.1);
+            color: #2563eb;
+            border: 1px solid rgba(59, 130, 246, 0.2);
+        }
+
+        .tag-sports {
+            background: rgba(16, 185, 129, 0.1);
+            color: #059669;
+            border: 1px solid rgba(16, 185, 129, 0.2);
+        }
+
+        .tag-workshop {
+            background: rgba(139, 92, 246, 0.1);
+            color: #7c3aed;
+            border: 1px solid rgba(139, 92, 246, 0.2);
+        }
+
+        .event-card h3 {
+            font-size: 1rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+            color: var(--navy);
+        }
+
+        .event-card p {
+            font-size: 0.85rem;
+            color: var(--text3);
+            line-height: 1.6;
+        }
+
+        .event-loc {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            margin-top: 14px;
+            font-size: 0.78rem;
+            color: var(--text2);
+            font-weight: 500;
+        }
+
+        .events-cta {
+            text-align: center;
+            margin-top: 40px;
+        }
+
+        /* ══ CHATBOT ══ */
+        .chat-section {
+            padding: 80px 24px;
+            background: var(--white)
+        }
+
+        .chat-card {
+            max-width: 860px;
+            margin: 0 auto;
+            background: var(--white);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            box-shadow: var(--shadow-lg);
+            position: relative;
+        }
+
+        .chat-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, #1e40af, #2563eb, #0ea5e9, #0891b2);
+            background-size: 200% 100%;
+            animation: shimmer-bar 3s linear infinite;
+            z-index: 2;
+        }
+
+        @keyframes shimmer-bar {
+            0% {
+                background-position: 0% 0%
+            }
+
+            100% {
+                background-position: 200% 0%
+            }
+        }
+
+        .chat-hdr {
+            padding: 18px 24px;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: linear-gradient(135deg, #eff6ff, #f8fafc);
+        }
+
+        .chat-hdr-left {
+            display: flex;
+            align-items: center;
+            gap: 14px
+        }
+
+        .ai-avatar {
+            width: 44px;
+            height: 44px;
+            border-radius: 14px;
+            background: linear-gradient(135deg, #1d4ed8, #0ea5e9);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            box-shadow: 0 4px 14px rgba(37, 99, 235, .3);
+        }
+
+        .chat-hdr-left h3 {
+            font-size: 15px;
+            font-weight: 700;
+            color: var(--navy)
+        }
+
+        .online-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            background: #dcfce7;
+            border: 1px solid #bbf7d0;
+            color: #15803d;
+            font-size: 10px;
+            font-weight: 700;
+            padding: 2px 9px;
+            border-radius: 50px;
+            margin-top: 3px;
+        }
+
+        .online-pill::before {
+            content: '';
+            width: 6px;
+            height: 6px;
+            background: #16a34a;
+            border-radius: 50%;
+            box-shadow: 0 0 6px #16a34a;
+            animation: pulse-dot 1.8s ease-in-out infinite;
+        }
+
+        .three-dots {
+            display: flex;
+            gap: 6px
+        }
+
+        .three-dots span {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%
+        }
+
+        .three-dots span:nth-child(1) {
+            background: #ef4444
+        }
+
+        .three-dots span:nth-child(2) {
+            background: #f59e0b
+        }
+
+        .three-dots span:nth-child(3) {
+            background: #22c55e
+        }
+
+        .chat-body {
+            height: 480px;
+            overflow-y: auto;
+            padding: 28px 24px;
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+            background: #fafcff;
+        }
+
+        .chat-body::-webkit-scrollbar {
+            width: 4px
+        }
+
+        .chat-body::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 2px
+        }
+
+        @keyframes msgIn {
+            from {
+                opacity: 0;
+                transform: translateY(12px) scale(.96)
+            }
+
+            to {
+                opacity: 1;
+                transform: none
+            }
+        }
+
+        @keyframes dot-bounce {
+
+            0%,
+            80%,
+            100% {
+                transform: translateY(0);
+                opacity: 0.5
+            }
+
+            40% {
+                transform: translateY(-6px);
+                opacity: 1
+            }
+        }
+
+        .msg {
+            display: flex;
+            gap: 10px;
+            align-items: flex-end;
+            animation: msgIn .35s cubic-bezier(.34, 1.56, .64, 1)
+        }
+
+        .msg.user {
+            flex-direction: row-reverse
+        }
+
+        .msg-av {
+            width: 32px;
+            height: 32px;
+            border-radius: 10px;
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+        }
+
+        .msg-av.bot {
+            background: linear-gradient(135deg, #1d4ed8, #0ea5e9);
+            box-shadow: 0 2px 8px rgba(37, 99, 235, .3)
+        }
+
+        .msg-av.user {
+            background: #e2e8f0
+        }
+
+        .msg > div:not(.msg-av) {
+            display: flex;
+            flex-direction: column;
+            max-width: 82%;
+        }
+
+        .msg.bot > div:not(.msg-av) {
+            align-items: flex-start;
+        }
+
+        .msg.user > div:not(.msg-av) {
+            align-items: flex-end;
+        }
+
+        .msg-bubble {
+            padding: 13px 18px;
+            border-radius: 20px;
+            font-size: 13.5px;
+            line-height: 1.65;
+            font-weight: 500
+        }
+
+        .msg.bot .msg-bubble {
+            background: var(--white);
+            color: var(--text);
+            border-radius: 4px 20px 20px 20px;
+            border: 1px solid var(--border);
+            box-shadow: var(--shadow);
+        }
+
+        .msg.user .msg-bubble {
+            background: linear-gradient(135deg, #1d4ed8, #2563eb);
+            color: white;
+            border-radius: 20px 4px 20px 20px;
+            box-shadow: 0 4px 20px rgba(37, 99, 235, .35);
+        }
+
+        .msg-time {
+            font-size: 10px;
+            color: var(--text3);
+            margin-top: 5px;
+            align-self: flex-end;
+            padding: 0 4px;
+        }
+
+        .chat-foot {
+            padding: 16px 20px;
+            border-top: 1px solid var(--border);
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            background: var(--white);
+        }
+
+        .chat-input {
+            flex: 1;
+            background: var(--bg);
+            border: 1.5px solid var(--border);
+            border-radius: 12px;
+            padding: 12px 18px;
+            color: var(--text);
+            font-size: 13.5px;
+            font-family: inherit;
+            outline: none;
+            transition: border-color .25s, box-shadow .25s;
+        }
+
+        .chat-input:focus {
+            border-color: var(--blue);
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, .12)
+        }
+
+        .chat-input::placeholder {
+            color: var(--text3)
+        }
+
+        .chat-send {
+            width: 46px;
+            height: 46px;
+            border-radius: 12px;
+            border: none;
+            background: linear-gradient(135deg, #1d4ed8, #2563eb);
+            color: white;
+            cursor: pointer;
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all .2s;
+            box-shadow: 0 4px 14px rgba(37, 99, 235, .4);
+        }
+
+        .chat-send:hover {
+            transform: scale(1.08);
+            box-shadow: 0 6px 20px rgba(37, 99, 235, .55)
+        }
+
+        .chat-send:active {
+            transform: scale(.96)
+        }
+
+        /* ══ GALLERY ══ */
+        .gallery-section {
+            padding: 80px 24px;
+            background: var(--bg);
+        }
+
+        .gallery-carousel-wrap {
+            max-width: 1060px;
+            margin: 0 auto;
+            position: relative;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.06);
+            border: 1px solid var(--border);
+            background: #0f172a;
+        }
+
+        .gallery-carousel {
+            position: relative;
+            width: 100%;
+            aspect-ratio: 16/8;
+            overflow: hidden;
+        }
+
+        .gallery-slide {
+            position: absolute;
+            inset: 0;
+            opacity: 0;
+            transition: opacity 0.8s ease-in-out;
+        }
+
+        .gallery-slide.active {
+            opacity: 1;
+            z-index: 1;
+        }
+
+        .gallery-slide img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .gallery-slide-overlay {
+            position: absolute;
+            inset: 0;
+            z-index: 2;
+            background: linear-gradient(to top, rgba(15, 23, 42, 0.82) 0%, rgba(15, 23, 42, 0.15) 40%, transparent 70%);
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: 32px 40px;
+        }
+
+        .gallery-slide-cat {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: rgba(37, 99, 235, 0.25);
+            border: 1px solid rgba(37, 99, 235, 0.35);
+            backdrop-filter: blur(8px);
+            color: #93c5fd;
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            padding: 4px 14px;
+            border-radius: 50px;
+            margin-bottom: 10px;
+            width: fit-content;
+        }
+
+        .gallery-slide-title {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(20px, 3vw, 32px);
+            font-weight: 800;
+            color: #fff;
+            margin-bottom: 6px;
+            text-shadow: 0 2px 12px rgba(0, 0, 0, 0.5);
+        }
+
+        .gallery-slide-counter {
+            font-size: 12px;
+            color: rgba(255, 255, 255, 0.5);
+            font-weight: 600;
+        }
+
+        .gallery-arrow {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 5;
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.12);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: #fff;
+            font-size: 18px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.25s;
+        }
+
+        .gallery-arrow:hover {
+            background: rgba(255, 255, 255, 0.25);
+            transform: translateY(-50%) scale(1.08);
+        }
+
+        .gallery-arrow.prev {
+            left: 16px;
+        }
+
+        .gallery-arrow.next {
+            right: 16px;
+        }
+
+        .gallery-dots {
+            position: absolute;
+            bottom: 16px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 5;
+            display: flex;
+            gap: 8px;
+        }
+
+        .gallery-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.35);
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .gallery-dot.active {
+            background: #fff;
+            transform: scale(1.4);
+            box-shadow: 0 0 8px rgba(255, 255, 255, 0.6);
+        }
+
+        .gallery-progress {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            height: 3px;
+            background: linear-gradient(90deg, #2563eb, #0ea5e9);
+            z-index: 6;
+            transition: width 0.3s;
+        }
+
+        .gallery-thumbs {
+            display: flex;
+            gap: 4px;
+            padding: 10px 12px;
+            background: rgba(15, 23, 42, 0.95);
+            overflow-x: auto;
+            scroll-behavior: smooth;
+        }
+
+        .gallery-thumbs::-webkit-scrollbar {
+            height: 0;
+        }
+
+        .gallery-thumb {
+            flex-shrink: 0;
+            width: 72px;
+            height: 48px;
+            border-radius: 8px;
+            overflow: hidden;
+            cursor: pointer;
+            opacity: 0.45;
+            border: 2px solid transparent;
+            transition: all 0.25s;
+        }
+
+        .gallery-thumb.active {
+            opacity: 1;
+            border-color: #2563eb;
+        }
+
+        .gallery-thumb:hover {
+            opacity: 0.8;
+        }
+
+        .gallery-thumb img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .gallery-empty {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 80px 24px;
+            text-align: center;
+            max-width: 1100px;
+            margin: 0 auto;
+            background: var(--white);
+            border: 2px dashed var(--border);
+            border-radius: var(--radius-lg);
+        }
+
+        .gallery-cta {
+            text-align: center;
+            margin-top: 32px;
+        }
+
+        .btn-outline-gallery {
+            border: 2px solid var(--blue);
+            color: var(--blue);
+            padding: 11px 30px;
+            border-radius: 30px;
+            font-weight: 700;
+            font-size: 0.9rem;
+            background: transparent;
+            cursor: pointer;
+            transition: all 0.25s;
+            font-family: 'DM Sans', sans-serif;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-outline-gallery:hover {
+            background: var(--blue);
+            color: #fff;
+            box-shadow: 0 4px 20px rgba(37, 99, 235, .35);
+        }
+
+        /* ══ FACULTY TICKER ══ */
+        .faculty-section {
+            padding: 80px 0 20px 0;
+            background: var(--white);
+            overflow: hidden;
+        }
+
+        .faculty-section .section-label {
+            text-align: center;
+            margin-bottom: 36px;
+            padding: 0 24px;
+        }
+
+        .faculty-box-container {
+            max-width: 1060px;
+            margin: 0 auto;
+            background: transparent;
+            border-radius: 0;
+            border: none;
+            box-shadow: none;
+            padding: 10px 0;
+            overflow: hidden;
+        }
+
+        .faculty-ticker-wrap {
+            position: relative;
+            width: 100%;
+            overflow: hidden;
+            /* fade edges */
+            -webkit-mask-image: linear-gradient(to right, transparent 0%, black 4%, black 96%, transparent 100%);
+            mask-image: linear-gradient(to right, transparent 0%, black 4%, black 96%, transparent 100%);
+        }
+
+        .faculty-ticker-track {
+            display: flex;
+            gap: 20px;
+            width: max-content;
+            padding: 8px 20px 12px;
+            animation: faculty-scroll 38s linear infinite;
+        }
+
+        .faculty-ticker-wrap:hover .faculty-ticker-track {
+            animation-play-state: paused;
+        }
+
+        @keyframes faculty-scroll {
+            0%   { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+
+        .faculty-grid {
+            /* kept for fallback / non-ticker pages */
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 260px));
+            gap: 24px;
+            max-width: 1100px;
+            margin: 0 auto;
+            justify-content: center;
+        }
+
+        .faculty-card {
+            background: #fff;
+            border-radius: 20px;
+            overflow: hidden;
+            border: 1px solid var(--border);
+            transition: all 0.35s cubic-bezier(0.25, 0.8, 0.25, 1);
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04);
+            border-top: 5px solid var(--blue);
+            /* ticker card fixed width */
+            min-width: 240px;
+            max-width: 240px;
+            flex-shrink: 0;
+        }
+
+        .faculty-card:hover {
+            transform: translateY(-8px) scale(1.03);
+            box-shadow: 0 24px 48px rgba(30, 58, 138, 0.15);
+            border-top-color: var(--accent);
+            z-index: 5;
+        }
+
+        .faculty-avatar {
+            height: 0;
+            opacity: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+            background: linear-gradient(135deg, #dbeafe 0%, #ede9fe 100%);
+            /* smooth reveal on hover */
+            transition: height 0.45s cubic-bezier(0.25, 0.8, 0.25, 1),
+                        opacity 0.35s ease;
+        }
+
+        /* show avatar when card is hovered */
+        .faculty-card:hover .faculty-avatar {
+            height: 200px;
+            opacity: 1;
+        }
+
+        .faculty-avatar img {
+            position: absolute;
+            inset: 0;
+            z-index: 2;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: top center;
+            display: block;
+            transform: scale(1.08);
+            transition: transform 0.5s ease;
+        }
+
+        .faculty-avatar .fac-initials {
+            font-size: 2.6rem;
+            font-weight: 900;
+            color: var(--blue);
+            font-family: 'Inter', sans-serif;
+            opacity: 0.35;
+            z-index: 1;
+            user-select: none;
+        }
+
+        .faculty-card:hover .faculty-avatar img {
+            transform: scale(1);
+        }
+
+        .dept-badge-fac {
+            position: absolute;
+            bottom: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(255, 255, 255, 0.92);
+            backdrop-filter: blur(8px);
+            border-radius: 20px;
+            padding: 3px 12px;
+            font-size: 0.68rem;
+            font-weight: 700;
+            color: var(--navy);
+            white-space: nowrap;
+            letter-spacing: 0.5px;
+            z-index: 3;
+        }
+
+        .faculty-info {
+            padding: 16px 18px 18px;
+        }
+
+        .faculty-info h3 {
+            font-size: 0.95rem;
+            font-weight: 700;
+            color: var(--navy);
+            margin-bottom: 3px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .faculty-info .designation {
+            font-size: 0.75rem;
+            color: var(--blue);
+            font-weight: 600;
+            margin-bottom: 10px;
+            line-height: 1.4;
+        }
+
+        .faculty-info .qual {
+            font-size: 0.75rem;
+            color: var(--text3);
+            margin-bottom: 12px;
+            line-height: 1.5;
+        }
+
+        .faculty-stats {
+            display: flex;
+            gap: 12px;
+            border-top: 1px solid var(--border);
+            padding-top: 12px;
+        }
+
+        .f-stat {
+            flex: 1;
+            text-align: center;
+        }
+
+        .f-stat .val {
+            font-size: 1rem;
+            font-weight: 800;
+            color: var(--navy);
+            font-family: 'Inter', sans-serif;
+        }
+
+        .f-stat .lbl {
+            font-size: 0.6rem;
+            color: var(--text3);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        /* ══ PLACEMENT ══ */
+        .placement-section {
+            padding: 20px 24px 90px 24px;
+            background: var(--white);
+        }
+
+        .placement-section .section-label {
+            text-align: center;
+            margin-bottom: 56px;
+        }
+
+        .placement-stats {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+            max-width: 900px;
+            margin: 0 auto 56px;
+        }
+
+        .ps-card {
+            text-align: center;
+            padding: 28px 20px;
+            border-radius: 18px;
+            border: 1.5px solid var(--border);
+            background: var(--white);
+            transition: all 0.3s;
+        }
+
+        .ps-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .ps-card .big {
+            font-size: 2.2rem;
+            font-weight: 800;
+            font-family: 'Inter', sans-serif;
+            color: var(--navy);
+            letter-spacing: -1px;
+        }
+
+        .ps-card .ps-lbl {
+            font-size: 0.78rem;
+            color: var(--text3);
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            margin-top: 4px;
+            font-weight: 600;
+        }
+
+        .ps-card:nth-child(1) .big {
+            color: #10b981;
+        }
+
+        .ps-card:nth-child(2) .big {
+            color: #3b82f6;
+        }
+
+        .ps-card:nth-child(3) .big {
+            color: #f59e0b;
+        }
+
+        .ps-card:nth-child(4) .big {
+            color: #8b5cf6;
+        }
+
+        .companies-label {
+            text-align: center;
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: var(--text3);
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            margin-bottom: 24px;
+        }
+
+        .company-logos {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 14px;
+            max-width: 900px;
+            margin: 0 auto 60px;
+        }
+
+        .co-badge {
+            padding: 10px 24px;
+            border-radius: 10px;
+            border: 2px solid var(--border);
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: var(--navy);
+            background: #fff;
+            transition: all 0.25px;
+            cursor: default;
+        }
+
+        .co-badge:hover {
+            border-color: var(--blue);
+            color: var(--blue);
+            background: #eff6ff;
+            transform: translateY(-2px);
+        }
+
+        .alumni-title {
+            text-align: center;
+            font-size: 1.3rem;
+            font-weight: 800;
+            color: var(--navy);
+            margin-bottom: 32px;
+            font-family: 'Playfair Display', serif;
+        }
+
+        .alumni-box-container {
+            max-width: 1060px;
+            margin: 0 auto;
+            background: transparent;
+            border-radius: 0;
+            border: none;
+            box-shadow: none;
+            padding: 10px 0;
+            overflow: hidden;
+        }
+
+        .alumni-slider-wrap {
+            overflow: hidden;
+            width: 100%;
+            position: relative;
+            padding: 10px 0 30px;
+            white-space: nowrap;
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+            transform: translateZ(0);
+            -webkit-mask-image: linear-gradient(to right, transparent 0%, black 4%, black 96%, transparent 100%);
+            mask-image: linear-gradient(to right, transparent 0%, black 4%, black 96%, transparent 100%);
+        }
+
+        .alumni-slider-wrap::-webkit-scrollbar {
+            display: none;
+        }
+
+        .alumni-slider-track {
+            display: inline-flex;
+            gap: 24px;
+            animation: scrollAlumni 40s linear infinite;
+            will-change: transform;
+            transform: translateZ(0);
+        }
+
+        .alumni-slider-wrap:hover .alumni-slider-track {
+            animation-play-state: paused;
+        }
+
+        .alumni-card {
+            background: var(--white);
+            border-radius: 18px;
+            padding: 28px 24px;
+            border: 1.5px solid var(--border);
+            transition: all 0.3s;
+            position: relative;
+            width: 350px;
+            white-space: normal;
+            flex-shrink: 0;
+            text-align: left;
+        }
+
+        .alumni-card:hover {
+            box-shadow: 0 12px 32px rgba(30, 58, 138, 0.1);
+            transform: translateY(-4px);
+        }
+
+        @keyframes scrollAlumni {
+            0% {
+                transform: translateX(0);
+            }
+
+            100% {
+                transform: translateX(calc(-50% - 12px));
+            }
+        }
+
+        .quote-mark {
+            font-size: 4rem;
+            color: var(--blue);
+            opacity: 0.15;
+            line-height: 1;
+            font-family: Georgia, serif;
+            position: absolute;
+            top: 10px;
+            right: 20px;
+        }
+
+        .alumni-text {
+            font-size: 0.88rem;
+            color: #475569;
+            line-height: 1.7;
+            margin-bottom: 20px;
+            font-style: italic;
+        }
+
+        .alumni-person {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .alumni-avatar-circle {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            font-size: 1rem;
+            color: #fff;
+            flex-shrink: 0;
+            background: linear-gradient(135deg, #94a3b8, #475569);
+        }
+
+        .alumni-name {
+            font-weight: 700;
+            font-size: 0.9rem;
+            color: var(--navy);
+        }
+
+        .alumni-role {
+            font-size: 0.75rem;
+            color: var(--text3);
+        }
+
+        .alumni-batch {
+            font-size: 0.7rem;
+            color: var(--blue);
+            font-weight: 600;
+            margin-top: 2px;
+        }
+
+        /* ══ FOOTER ══ */
+        .footer {
+            background: #0f172a;
+            position: relative;
+            overflow: hidden;
+            color: #94a3b8;
+            font-family: 'Inter', sans-serif;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .footer-glow {
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80%;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, #3b82f6, transparent);
+            box-shadow: 0 0 20px 2px rgba(59, 130, 246, 0.5);
+        }
+
+        .footer-inner {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 80px 32px 50px;
+            display: grid;
+            grid-template-columns: 1.8fr 1fr 1fr 1.2fr;
+            gap: 50px;
+        }
+
+        .footer-brand .logo-row {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+
+        .footer-brand .logo-row img {
+            width: 52px;
+            height: 52px;
+            object-fit: contain;
+            background: white;
+            padding: 4px;
+            border-radius: 12px;
+        }
+
+        .footer-brand .logo-row h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 24px;
+            font-weight: 800;
+            color: white;
+            letter-spacing: -0.5px;
+        }
+
+        .footer-brand p {
+            font-size: 14px;
+            line-height: 1.8;
+            margin-bottom: 30px;
+            max-width: 340px;
+        }
+
+        .footer-col h5 {
+            color: white;
+            font-size: 15px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            margin: 0 0 28px;
+            position: relative;
+            padding-bottom: 12px;
+        }
+
+        .footer-col h5::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 30px;
+            height: 3px;
+            background: #3b82f6;
+            border-radius: 3px;
+        }
+
+        .footer-links {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            padding: 0;
+            margin: 0;
+        }
+
+        .footer-links li a,
+        .footer-links li {
+            color: #94a3b8;
+            font-size: 14px;
+            font-weight: 500;
+            text-decoration: none;
+            transition: 0.3s;
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            line-height: 1.5;
+        }
+
+        .footer-links li a:hover {
+            color: #60a5fa;
+            transform: translateX(6px);
+        }
+
+        .footer-links li i {
+            margin-top: 2px;
+            font-style: normal;
+        }
+
+        .footer-bottom {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 30px 32px;
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 13.5px;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .footer-bottom-links {
+            display: flex;
+            gap: 24px;
+        }
+
+        .footer-bottom-links a {
+            color: #94a3b8;
+            text-decoration: none;
+            transition: 0.2s;
+            font-weight: 500;
+        }
+
+        .footer-bottom-links a:hover {
+            color: white;
+        }
+
+        .footer-dev {
+            color: #64748b;
+        }
+
+        .footer-dev a {
+            color: #3b82f6;
+            font-weight: 700;
+            text-decoration: none;
+            transition: 0.2s;
+        }
+
+        .footer-dev a:hover {
+            color: #60a5fa;
+        }
+
+        .btn-result {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 20px;
+            border-radius: 50px;
+            border: 1.5px solid #ef4444;
+            color: #ef4444;
+            font-size: 0.85rem;
+            font-weight: 700;
+            text-decoration: none;
+            transition: all 0.3s;
+            background: transparent;
+        }
+
+        .btn-result:hover {
+            background: #ef4444;
+            color: #fff;
+            box-shadow: 0 4px 12px rgba(239, 68, 68, 0.2);
+        }
+
+        .btn-notice {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 20px;
+            border-radius: 50px;
+            border: 1.5px solid #334155;
+            color: #334155;
+            font-size: 0.85rem;
+            font-weight: 700;
+            text-decoration: none;
+            transition: all 0.3s;
+            background: transparent;
+        }
+
+        .btn-notice:hover {
+            background: #334155;
+            color: #fff;
+            box-shadow: 0 4px 12px rgba(51, 65, 85, 0.25);
+        }
+
+        /* ══ MOBILE MENU ══ */
+        .mobile-toggle {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 5px;
+            z-index: 1100;
+        }
+
+        .mobile-toggle span {
+            width: 24px;
+            height: 2.5px;
+            background: var(--navy);
+            border-radius: 2px;
+            transition: all 0.3s;
+        }
+
+        .mobile-menu {
+            position: fixed;
+            top: 0;
+            right: 0;
+            transform: translateX(100%);
+            width: 85%;
+            height: 100vh;
+            background: var(--white);
+            z-index: 1050;
+            padding: 90px 24px 40px;
+            box-shadow: -10px 0 30px rgba(0, 0, 0, 0.1);
+            transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            overflow-y: auto;
+        }
+
+        .mobile-menu.active {
+            transform: translateX(0);
+        }
+
+        .mobile-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(15, 23, 42, 0.5);
+            backdrop-filter: blur(4px);
+            z-index: 1040;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s;
+        }
+
+        .mobile-overlay.active {
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        .mobile-nav-group {
+            margin-bottom: 32px;
+        }
+
+        .mobile-nav-title {
+            font-size: 11px;
+            font-weight: 800;
+            color: var(--text3);
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            margin-bottom: 16px;
+            display: block;
+        }
+
+        .mobile-nav-links {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .mobile-nav-link {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 16px;
+            background: var(--bg);
+            border-radius: 12px;
+            text-decoration: none;
+            color: var(--text);
+            font-weight: 600;
+            font-size: 14px;
+            transition: all 0.2s;
+            border: 1px solid var(--border);
+        }
+
+        .mobile-nav-link:active {
+            background: var(--blue-light);
+            border-color: var(--blue-mid);
+            color: var(--blue);
+        }
+
+        /* ══ LIBRARY SECTION ══ */
+        .lib-section {
+            padding: 90px 24px;
+            background: linear-gradient(160deg, #f0f6ff 0%, #ffffff 50%, #f5f0ff 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .lib-container {
+            max-width: 1060px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .lib-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 48px;
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 44px 48px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.06);
+        }
+
+        .lib-stats-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+
+        .lib-stat-card {
+            background: var(--white);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 24px 16px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            transition: all 0.3s;
+        }
+        
+        .lib-stat-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 10px 24px rgba(0,0,0,0.04);
+            border-color: #cbd5e1;
+            background: #f8fafc;
+        }
+
+        .lib-depts-wrap {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .lib-dept-tag {
+            padding: 6px 14px;
+            border-radius: 50px;
+            border: 1.5px solid var(--tag-color, #e2e8f0);
+            color: var(--tag-color, #334155);
+            font-size: 12px;
+            font-weight: 700;
+            text-decoration: none;
+            background: white;
+            transition: all 0.2s;
+        }
+        
+        .lib-dept-tag:hover {
+            transform: scale(1.05);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+        }
+
+        /* ══ RESPONSIVE ══ */
+        @media(max-width:1024px) {
+            .depts-grid {
+                grid-template-columns: repeat(2, 1fr)
+            }
+
+            .footer-inner {
+                grid-template-columns: 1fr 1fr
+            }
+        }
+
+        @media(max-width:900px) {
+            .placement-stats {
+                grid-template-columns: repeat(2, 1fr)
+            }
+
+            .lib-grid {
+                grid-template-columns: 1fr;
+                padding: 30px 24px;
+            }
+        }
+
+        @media(max-width:768px) {
+            .header-content {
+                padding: 0 20px;
+                height: 64px;
+            }
+
+            .nav-center {
+                display: none;
+            }
+
+            .mobile-toggle {
+                display: flex;
+            }
+
+            .header-right {
+                display: none;
+            }
+
+            .logo-section h2 {
+                font-size: 16px;
+                white-space: nowrap;
+        }
+
+            .logo-img {
+                width: 40px;
+                height: 40px;
+            }
+
+            .hero {
+                padding-top: 80px;
+                min-height: auto;
+            }
+
+            .hero-content-wrapper {
+                flex-direction: column;
+                transform: translateY(0);
+                gap: 30px;
+                align-items: center;
+            }
+            
+            .hero-inner {
+                text-align: center;
+                margin: 0 auto;
+            }
+
+            .apply-btn-wrapper {
+                margin-right: 0;
+            }
+            
+            #inline-admission-form {
+                margin: 0 auto;
+                width: 100%;
+            }
+
+            .hero h1 {
+                font-size: 38px;
+                letter-spacing: -1px;
+            }
+
+            .hero-desc {
+                font-size: 15px;
+                margin-bottom: 30px;
+                padding: 0 10px;
+            }
+
+            .stats-bar {
+                gap: 16px;
+                padding: 20px;
+                margin-top: 40px;
+                margin-left: auto;
+                margin-right: auto;
+                justify-content: center;
+            }
+
+            .stat-item {
+                padding: 0;
+                flex: 1 1 40%;
+            }
+
+            .stat-item .n {
+                font-size: 24px;
+            }
+
+            .stat-divider {
+                display: none
+            }
+
+            .depts-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 12px;
+            }
+            
+            .dept-card {
+                padding: 18px 14px;
+                gap: 12px;
+            }
+            
+            .dept-card h3 {
+                font-size: 1rem;
+            }
+            
+            .dept-card p {
+                font-size: 12px;
+            }
+            
+            .dept-emoji-box {
+                width: 44px;
+                height: 44px;
+                font-size: 20px;
+            }
+            
+            .d-pill {
+                font-size: 10px;
+                padding: 3px 8px;
+            }
+
+            .section-label {
+                margin-bottom: 36px;
+            }
+
+            .nc-body {
+                overflow: hidden;
+                min-width: 0;
+            }
+
+            .nc-body h4 {
+                font-size: 13px !important;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+            }
+
+            .event-body {
+                overflow: hidden;
+                min-width: 0;
+            }
+
+            .event-body h3 {
+                font-size: 13px !important;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+            }
+
+            .nc { gap: 12px; padding: 12px 16px; }
+            .nc-date { width: 40px; padding: 4px 4px; }
+            .nc-date .d { font-size: 16px; }
+            .nc-date .m { font-size: 8px; }
+            .nc-cat { font-size: 8px; padding: 2px 6px; margin-bottom: 4px; }
+            .nc-action { display: none; } /* Alternatively, we can hide the view button on mobile to save space */
+            
+            .event-card { gap: 12px; padding: 12px 16px; }
+            .event-date-box { padding: 6px 12px; min-width: 50px; }
+            .event-date-box .day { font-size: 1.4rem; }
+            .event-date-box .month { font-size: 0.65rem; }
+            .event-action { width: 80px; }
+            .event-tag { padding: 4px 8px; font-size: 0.6rem; }
+
+            .lib-stats-grid {
+                gap: 8px;
+                margin-bottom: 16px;
+            }
+
+            .lib-stat-card {
+                padding: 10px 6px;
+                border-radius: 10px;
+            }
+
+            .lib-stat-card > div:nth-child(1) {
+                width: 32px !important;
+                height: 32px !important;
+                font-size: 14px !important;
+                margin-bottom: 4px !important;
+                border-radius: 8px !important;
+            }
+
+            .lib-stat-card > div:nth-child(2) {
+                font-size: 16px !important;
+                line-height: 1.1;
+            }
+
+            .lib-stat-card > div:nth-child(3) {
+                font-size: 8px !important;
+                margin-top: 2px !important;
+                line-height: 1.2;
+            }
+
+            .footer-inner {
+                grid-template-columns: 1fr;
+                padding-top: 60px;
+                gap: 40px;
+            }
+
+            .footer-bottom {
+                flex-direction: column;
+                gap: 16px;
+                text-align: center;
+            }
+
+            .gallery-carousel {
+                aspect-ratio: 4/3;
+            }
+
+            .gallery-slide-overlay {
+                padding: 20px;
+            }
+        }
+
+        @media(max-width:600px) {
+
+            .events-grid,
+            .faculty-grid {
+                grid-template-columns: 1fr !important
+            }
+
+            .placement-stats {
+                grid-template-columns: repeat(2, 1fr) !important;
+                gap: 12px;
+            }
+
+            .ps-card {
+                padding: 16px 8px;
+            }
+
+            .events-section,
+            .faculty-section,
+            .placement-section {
+                padding: 60px 16px
+            }
+
+            .ps-card .big {
+                font-size: 1.8rem;
+            }
+
+            .chat-body {
+                height: 380px;
+            }
+
+            .msg > div:not(.msg-av) {
+                max-width: 90%;
+            }
+        }
+
+        /* Hamburger Animation */
+        .mobile-toggle.active span:nth-child(1) {
+            transform: translateY(7.5px) rotate(45deg);
+        }
+
+        .mobile-toggle.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .mobile-toggle.active span:nth-child(3) {
+            transform: translateY(-7.5px) rotate(-45deg);
+        }
+    
+        /* Glassmorphism Modal */
+        .glass-modal-overlay {
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0,0,0,0.4);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            padding: 20px;
+        }
+        .glass-modal {
+            background: rgba(255, 255, 255, 0.15);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 20px;
+            padding: 32px;
+            width: 100%;
+            max-width: 500px;
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            color: white;
+            position: relative;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+        .glass-modal::-webkit-scrollbar { width: 4px; }
+        .glass-modal::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.3); border-radius: 4px; }
+        .glass-modal h2 { text-align: center; margin-bottom: 8px; font-size: 1.5rem; font-weight: 700; }
+        .glass-modal p.subtext { text-align: center; font-size: 0.9rem; margin-bottom: 24px; opacity: 0.9; }
+        .glass-form-group { margin-bottom: 16px; }
+        .glass-form-group label { display: block; margin-bottom: 6px; font-size: 0.9rem; font-weight: 500; }
+        .glass-form-row { display: flex; gap: 12px; }
+        .glass-form-row .glass-form-group { flex: 1; }
+        .glass-input {
+            width: 100%;
+            padding: 12px 16px;
+            background: rgba(255, 255, 255, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 8px;
+            color: white;
+            font-family: inherit;
+            outline: none;
+            transition: all 0.3s;
+        }
+        .glass-input::placeholder { color: rgba(255, 255, 255, 0.7); }
+        .glass-input:focus { background: rgba(255, 255, 255, 0.3); border-color: rgba(255, 255, 255, 0.6); }
+        .glass-input option { color: black; }
+        .otp-btn {
+            padding: 12px 16px;
+            background: #eab308;
+            color: #1e293b;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            white-space: nowrap;
+        }
+        .glass-submit-btn {
+            width: 100%;
+            padding: 14px;
+            background: #475569;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: background 0.3s;
+        }
+        .glass-submit-btn:hover { background: #334155; }
+        .glass-close {
+            position: absolute;
+            top: 16px;
+            right: 16px;
+            background: transparent;
+            border: none;
+            color: white;
+            font-size: 24px;
+            cursor: pointer;
+            opacity: 0.7;
+        }
+        .glass-close:hover { opacity: 1; }
+
+</style>
+    <link rel="icon" type="image/png" href="{{ url_for('static', filename='logo.png') }}">
+</head>
+
+<body>
+
+    <div class="mobile-overlay" id="mobileOverlay"></div>
+    <div class="mobile-menu" id="mobileMenu">
+        <div class="mobile-nav-group">
+            <span class="mobile-nav-title">Navigation</span>
+            <div class="mobile-nav-links">
+                <a href="/" class="mobile-nav-link">🏠 Home</a>
+                <a href="/notice" class="mobile-nav-link">📋 Notice Board</a>
+                <a href="/result" class="mobile-nav-link">📄 View Result</a>
+            </div>
+        </div>
+        <div class="mobile-nav-group">
+            <span class="mobile-nav-title">About Us</span>
+            <div class="mobile-nav-links">
+                <a href="/college-profile" class="mobile-nav-link">🏛️ College Profile</a>
+                <a href="/mission-vision" class="mobile-nav-link">🚀 Mission & Vision</a>
+                <a href="/faculty" class="mobile-nav-link">👨‍🏫 Our Faculty</a>
+                <a href="/virtual-tour" class="mobile-nav-link">🌐 Virtual Tour</a>
+                <a href="/gallery" class="mobile-nav-link">🖼️ Gallery</a>
+                <a href="/voice" class="mobile-nav-link">🎙️ Voice Assistant</a>
+            </div>
+        </div>
+        <div class="mobile-nav-group">
+            <span class="mobile-nav-title">Academics</span>
+            <div class="mobile-nav-links">
+                <a href="/mechanical" class="mobile-nav-link">⚙️ Mechanical Engg.</a>
+                <a href="/civil" class="mobile-nav-link">🏗️ Civil Engg.</a>
+                <a href="/electrical" class="mobile-nav-link">⚡ Electrical Engg.</a>
+                <a href="/electronics" class="mobile-nav-link">📡 Electronics & Telecom</a>
+                <a href="/cst" class="mobile-nav-link">💻 Computer Science</a>
+                <a href="/chemical" class="mobile-nav-link">⚗️ Chemical Engg.</a>
+                <a href="/pharmacy" class="mobile-nav-link">💊 Pharmacy</a>
+                <a href="/admission" class="mobile-nav-link">🎓 Admission Process</a>
+                <a href="/academic-calendar" class="mobile-nav-link">📅 Academic Calendar</a>
+                <a href="/academic-holiday" class="mobile-nav-link">🌴 Holiday List</a>
+            </div>
+        </div>
+        <div class="mobile-nav-group">
+            <span class="mobile-nav-title">Administration</span>
+            <div class="mobile-nav-links">
+                <a href="/principal" class="mobile-nav-link">👤 Principal's Desk</a>
+                <a href="/secretary" class="mobile-nav-link">🖋️ Secretary's Desk</a>
+                <a href="/vocational-nodal" class="mobile-nav-link">🛠️ Vocational Cell</a>
+                <a href="/exam-cell" class="mobile-nav-link">📝 Exam Cell</a>
+                <a href="/anti-ragging" class="mobile-nav-link">🛡️ Anti-Ragging</a>
+                <a href="/admission" class="mobile-nav-link">🎓 Admission</a>
+            </div>
+        </div>
+        <div class="mobile-nav-group">
+            <span class="mobile-nav-title">Placement</span>
+            <div class="mobile-nav-links">
+                <a href="/about-tp-cell" class="mobile-nav-link">ℹ️ About TP Cell</a>
+                <a href="/tpo-desk" class="mobile-nav-link">👤 T.P.O.'s Desk</a>
+                <a href="/tp-cell" class="mobile-nav-link">💼 Training & Placement Cell</a>
+                <a href="/industry-partnerships" class="mobile-nav-link">🤝 Industry Partnerships</a>
+            </div>
+        </div>
+        <div class="mobile-nav-group">
+            <span class="mobile-nav-title">Student Zone</span>
+            <div class="mobile-nav-links">
+                <a href="/scholarship" class="mobile-nav-link">🎓 Scholarship &amp; Study Aid</a>
+                <a href="https://drive.google.com/drive/folders/1TcJV6tJ5fi1rsPardHJaWjG1Cpl0JdbZ?usp=drive_link" target="_blank" class="mobile-nav-link">📄 Previous Question Papers</a>
+                <a href="/hostel" class="mobile-nav-link">🏠 Hostel</a>
+                <a href="/canteen" class="mobile-nav-link">🍽️ Canteen</a>
+            </div>
+        </div>
+        <div class="mobile-nav-group">
+            <span class="mobile-nav-title">Other Links</span>
+            <div class="mobile-nav-links">
+                <a href="https://www.aicte.gov.in/" target="_blank" class="mobile-nav-link">🔗 AICTE Feedback Link</a>
+                <a href="https://swayam.gov.in/" target="_blank" class="mobile-nav-link">📚 SWAYAM</a>
+                <a href="/aicte-documents" class="mobile-nav-link">📄 AICTE Related Documents</a>
+            </div>
+        </div>
+    
+        <div class="mobile-nav-group">
+            <span class="mobile-nav-title">Resources</span>
+            <div class="mobile-nav-links">
+                <a href="/library" class="mobile-nav-link">📚 Library</a>
+                <a href="/modern-labs" class="mobile-nav-link">🔬 Modern Labs</a>
+                <a href="/computer-labs" class="mobile-nav-link">🖥️ Computer Labs</a>
+                <a href="/workshop" class="mobile-nav-link">⚙️ Engineering Workshop</a>
+                <a href="/auditorium" class="mobile-nav-link">🏛️ Auditorium</a>
+                <a href="/wifi-campus" class="mobile-nav-link">📶 Wi-Fi Campus</a>
+            </div>
+        </div>
+        <a href="/grievance" class="mobile-nav-link" style="font-weight:600; padding:12px 20px; color:var(--navy); border-bottom:1px solid var(--border);">🚩 Grievance</a>
+        <a href="/admin" class="mobile-nav-link" style="font-weight:600; padding:12px 20px; color:var(--navy); border-bottom:1px solid var(--border);">⚙️ Admin</a>
+    </div>
+
+    <div class="header">
+        <div class="header-content">
+            <a href="/" class="logo-section">
+                <img src="{{ url_for('static', filename='logo.png') }}" alt="Logo" class="logo-img">
+                <h2>Contai <span>Poly</span>technic</h2>
+            </a>
+            <nav class="nav-center">
+                <a href="/" class="nav-link">Home</a>
+                <div class="dept-dropdown-wrap">
+                    <button class="dept-trigger">About Us
+                        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2.5">
+                            <polyline points="6 9 12 15 18 9" />
+                        </svg>
+                    </button>
+                    <div class="dept-dropdown">
+                        <div class="dept-dropdown-inner">
+                            <a href="/college-profile" class="dd-item"><span class="dd-icon"
+                                    style="background:rgba(16,185,129,0.12);border-color:rgba(16,185,129,0.25)">🏛️</span>
+                                <div><strong>College Profile</strong><small>History &amp; Infrastructure</small></div>
+                            </a>
+                            <a href="/mission-vision" class="dd-item"><span class="dd-icon"
+                                    style="background:rgba(245,158,11,0.12);border-color:rgba(245,158,11,0.25)">🚀</span>
+                                <div><strong>Mission &amp; Vision</strong><small>Our Goals &amp; Values</small></div>
+                            </a>
+                            <a href="/faculty" class="dd-item"><span class="dd-icon"
+                                    style="background:rgba(245,158,11,0.12);border-color:rgba(245,158,11,0.25)">👨‍🏫</span>
+                                <div><strong>Our Faculty</strong><small>Meet Our Teachers</small></div>
+                            </a>
+                            <a href="/virtual-tour" class="dd-item"><span class="dd-icon"
+                                    style="background:rgba(99,102,241,0.12);border-color:rgba(99,102,241,0.25)">🌐</span>
+                                <div><strong>Virtual Tour</strong><small>360° Campus View</small></div>
+                            </a>
+                            <a href="/gallery" class="dd-item"><span class="dd-icon"
+                                    style="background:rgba(236,72,153,0.12);border-color:rgba(236,72,153,0.25)">🖼️</span>
+                                <div><strong>Gallery</strong><small>Campus &amp; Event Photos</small></div>
+                            </a>
+                            <a href="/voice" class="dd-item"><span class="dd-icon"
+                                    style="background:rgba(16,185,129,0.12);border-color:rgba(16,185,129,0.25)">🎙️</span>
+                                <div><strong>Voice Assistant</strong><small>Talk to AI Helpdesk</small></div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="dept-dropdown-wrap">
+                    <button class="dept-trigger">Academics
+                        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2.5">
+                            <polyline points="6 9 12 15 18 9" />
+                        </svg>
+                    </button>
+                    <div class="dept-dropdown">
+                        <div class="dept-dropdown-inner">
+                            <a href="/mechanical" class="dd-item"><span class="dd-icon"
+                                    style="background:rgba(249,115,22,0.12);border-color:rgba(249,115,22,0.25)">⚙️</span>
+                                <div><strong>Mechanical</strong><small>Engineering</small></div>
+                            </a>
+                            <a href="/civil" class="dd-item"><span class="dd-icon"
+                                    style="background:rgba(251,146,60,0.12);border-color:rgba(251,146,60,0.25)">🏗️</span>
+                                <div><strong>Civil</strong><small>Engineering</small></div>
+                            </a>
+                            <a href="/electrical" class="dd-item"><span class="dd-icon"
+                                    style="background:rgba(250,204,21,0.12);border-color:rgba(250,204,21,0.25)">⚡</span>
+                                <div><strong>Electrical</strong><small>Engineering</small></div>
+                            </a>
+                            <a href="/electronics" class="dd-item"><span class="dd-icon"
+                                    style="background:rgba(34,211,238,0.12);border-color:rgba(34,211,238,0.25)">📡</span>
+                                <div><strong>Electronics</strong><small>&amp; Telecom</small></div>
+                            </a>
+                            <a href="/cst" class="dd-item"><span class="dd-icon"
+                                    style="background:rgba(59,130,246,0.12);border-color:rgba(59,130,246,0.25)">💻</span>
+                                <div><strong>CST</strong><small>Computer Sc. &amp; Tech</small></div>
+                            </a>
+                            <a href="/chemical" class="dd-item"><span class="dd-icon"
+                                    style="background:rgba(52,211,153,0.12);border-color:rgba(52,211,153,0.25)">⚗️</span>
+                                <div><strong>Chemical</strong><small>Engineering</small></div>
+                            </a>
+                            <a href="/pharmacy" class="dd-item"><span class="dd-icon"
+                                    style="background:rgba(167,139,250,0.12);border-color:rgba(167,139,250,0.25)">💊</span>
+                                <div><strong>Pharmacy</strong><small>D.Pharm (PCI)</small></div>
+                            </a>
+                            <a href="/academic-calendar" class="dd-item"><span class="dd-icon"
+                                    style="background:rgba(79,70,229,0.12);border-color:rgba(79,70,229,0.25)">📅</span>
+                                <div><strong>Academic Calendar</strong><small>Session 2024-25</small></div>
+                            </a>
+                            <a href="/academic-holiday" class="dd-item"><span class="dd-icon"
+                                    style="background:rgba(244,63,94,0.12);border-color:rgba(244,63,94,0.25)">🌴</span>
+                                <div><strong>Holiday List</strong><small>Academic Holidays</small></div>
+                            </a>
+                            <a href="/admission" class="dd-item"><span class="dd-icon"
+                                    style="background:rgba(59,130,246,0.12);border-color:rgba(59,130,246,0.25)">🎓</span>
+                                <div><strong>Admission</strong><small>Process &amp; Guidelines</small></div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="dept-dropdown-wrap">
+                    <button class="dept-trigger">Administration
+                        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2.5">
+                            <polyline points="6 9 12 15 18 9" />
+                        </svg>
+                    </button>
+                    <div class="dept-dropdown">
+                        <div class="dept-dropdown-inner">
+                            <a href="/principal" class="dd-item"><span class="dd-icon"
+                                    style="background:rgba(59,130,246,0.12);border-color:rgba(59,130,246,0.25)">👤</span>
+                                <div><strong>Principal's Desk</strong><small>Message from Principal</small></div>
+                            </a>
+                            <a href="/secretary" class="dd-item"><span class="dd-icon"
+                                    style="background:rgba(139,92,246,0.12);border-color:rgba(139,92,246,0.25)">🖋️</span>
+                                <div><strong>Secretary's Desk</strong><small>Academic Council</small></div>
+                            </a>
+                            <a href="/vocational-nodal" class="dd-item"><span class="dd-icon"
+                                    style="background:rgba(20,184,166,0.12);border-color:rgba(20,184,166,0.25)">🛠️</span>
+                                <div><strong>Vocational Cell</strong><small>Nodal Centre Details</small></div>
+                            </a>
+                            <a href="/exam-cell" class="dd-item"><span class="dd-icon"
+                                    style="background:rgba(239,68,68,0.12);border-color:rgba(239,68,68,0.25)">📝</span>
+                                <div><strong>Exam Cell</strong><small>Examinations &amp; Results</small></div>
+                            </a>
+                            <a href="/anti-ragging" class="dd-item"><span class="dd-icon"
+                                    style="background:rgba(220,38,38,0.12);border-color:rgba(220,38,38,0.25)">🛡️</span>
+                                <div><strong>Anti-Ragging</strong><small>Safe Campus Policy</small></div>
+                            </a>
+                            <a href="/admission" class="dd-item"><span class="dd-icon"
+                                    style="background:rgba(59,130,246,0.12);border-color:rgba(59,130,246,0.25)">🎓</span>
+                                <div><strong>Admission</strong><small>Process &amp; Guidelines</small></div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="dept-dropdown-wrap">
+                    <button class="dept-trigger">Placement
+                        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2.5">
+                            <polyline points="6 9 12 15 18 9" />
+                        </svg>
+                    </button>
+                    <div class="dept-dropdown">
+                        <div class="dept-dropdown-inner">
+                            <a href="/about-tp-cell" class="dd-item"><span class="dd-icon"
+                                    style="background:rgba(20,184,166,0.12);border-color:rgba(20,184,166,0.25)">ℹ️</span>
+                                <div><strong>About TP Cell</strong><small>Placement Cell Overview</small></div>
+                            </a>
+                            <a href="/tpo-desk" class="dd-item"><span class="dd-icon"
+                                    style="background:rgba(59,130,246,0.12);border-color:rgba(59,130,246,0.25)">👤</span>
+                                <div><strong>T.P.O.'s Desk</strong><small>Message from T.P.O.</small></div>
+                            </a>
+                            <a href="/tp-cell" class="dd-item"><span class="dd-icon"
+                                    style="background:rgba(16,185,129,0.12);border-color:rgba(16,185,129,0.25)">💼</span>
+                                <div><strong>Training &amp; Placement Cell</strong><small>Career Opportunities</small></div>
+                            </a>
+                            <a href="/industry-partnerships" class="dd-item"><span class="dd-icon"
+                                    style="background:rgba(245,158,11,0.12);border-color:rgba(245,158,11,0.25)">🤝</span>
+                                <div><strong>Industry Partnerships</strong><small>Our Industry Ties</small></div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <a href="/notice" class="nav-link">Notice</a>
+                <a href="/result" class="nav-link">Result</a>
+                <div style="flex-basis: 100%; height: 0;"></div>
+                <div class="dept-dropdown-wrap">
+                    <button class="dept-trigger">Student Zone
+                        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2.5">
+                            <polyline points="6 9 12 15 18 9" />
+                        </svg>
+                    </button>
+                    <div class="dept-dropdown">
+                        <div class="dept-dropdown-inner">
+                            <a href="/scholarship" class="dd-item"><span class="dd-icon"
+                                    style="background:rgba(236,72,153,0.12);border-color:rgba(236,72,153,0.25)">🎓</span>
+                                <div><strong>Scholarship &amp; Study Aid</strong><small>Financial Assistance</small></div>
+                            </a>
+                            <a href="https://drive.google.com/drive/folders/1TcJV6tJ5fi1rsPardHJaWjG1Cpl0JdbZ?usp=drive_link" target="_blank" class="dd-item"><span class="dd-icon"
+                                    style="background:rgba(59,130,246,0.12);border-color:rgba(59,130,246,0.25)">📄</span>
+                                <div><strong>Previous Years' Question Papers</strong><small>Exam Resources</small></div>
+                            </a>
+                            <a href="/hostel" class="dd-item"><span class="dd-icon"
+                                    style="background:rgba(16,185,129,0.12);border-color:rgba(16,185,129,0.25)">🏠</span>
+                                <div><strong>Hostel</strong><small>Boys &amp; Girls Hostel</small></div>
+                            </a>
+                            <a href="/canteen" class="dd-item"><span class="dd-icon"
+                                    style="background:rgba(245,158,11,0.12);border-color:rgba(245,158,11,0.25)">🍽️</span>
+                                <div><strong>Canteen</strong><small>College Canteen</small></div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="dept-dropdown-wrap">
+                    <button class="dept-trigger">Other Links
+                        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                            <polyline points="6 9 12 15 18 9" />
+                        </svg>
+                    </button>
+                    <div class="dept-dropdown">
+                        <div class="dept-dropdown-inner">
+                            <a href="https://www.aicte.gov.in/" target="_blank" class="dd-item"><span class="dd-icon" style="background:rgba(236,72,153,0.12);border-color:rgba(236,72,153,0.25)">🔗</span>
+                                <div><strong>AICTE Feedback Link</strong><small>Official Portal</small></div>
+                            </a>
+                            <a href="https://swayam.gov.in/" target="_blank" class="dd-item"><span class="dd-icon" style="background:rgba(59,130,246,0.12);border-color:rgba(59,130,246,0.25)">📚</span>
+                                <div><strong>SWAYAM</strong><small>Online Courses</small></div>
+                            </a>
+                            <a href="/aicte-documents" class="dd-item"><span class="dd-icon" style="background:rgba(16,185,129,0.12);border-color:rgba(16,185,129,0.25)">📄</span>
+                                <div><strong>AICTE Related Documents</strong><small>MOU with Industries</small></div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            
+                <div class="dept-dropdown-wrap">
+                    <button class="dept-trigger">Resources
+                        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                            <polyline points="6 9 12 15 18 9" />
+                        </svg>
+                    </button>
+                    <div class="dept-dropdown">
+                        <div class="dept-dropdown-inner">
+                            <a href="/library" class="dd-item"><span class="dd-icon" style="background:rgba(59,130,246,0.12);border-color:rgba(59,130,246,0.25)">📚</span>
+                                <div><strong>Library</strong><small>Physical & E-Library</small></div>
+                            </a>
+                            <a href="/modern-labs" class="dd-item"><span class="dd-icon" style="background:rgba(16,185,129,0.12);border-color:rgba(16,185,129,0.25)">🔬</span>
+                                <div><strong>Modern Labs</strong><small>Hands-on Learning</small></div>
+                            </a>
+                            <a href="/computer-labs" class="dd-item"><span class="dd-icon" style="background:rgba(245,158,11,0.12);border-color:rgba(245,158,11,0.25)">🖥️</span>
+                                <div><strong>Computer Labs</strong><small>High-Performance Computing</small></div>
+                            </a>
+                            <a href="/workshop" class="dd-item"><span class="dd-icon" style="background:rgba(99,102,241,0.12);border-color:rgba(99,102,241,0.25)">⚙️</span>
+                                <div><strong>Engineering Workshop</strong><small>Practical Training</small></div>
+                            </a>
+                            <a href="/auditorium" class="dd-item"><span class="dd-icon" style="background:rgba(236,72,153,0.12);border-color:rgba(236,72,153,0.25)">🏛️</span>
+                                <div><strong>Auditorium</strong><small>Events & Seminars</small></div>
+                            </a>
+                            <a href="/wifi-campus" class="dd-item"><span class="dd-icon" style="background:rgba(14,165,233,0.12);border-color:rgba(14,165,233,0.25)">📶</span>
+                                <div><strong>Wi-Fi Campus</strong><small>24/7 Connectivity</small></div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <a href="/grievance" class="nav-link">Grievance</a>
+                <a href="/admin" class="nav-link">Admin</a>
+            </nav>
+
+            <button class="mobile-toggle" id="mobileToggle" aria-label="Menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </div>
+
+    <section class="hero">
+        <div class="hero-slides">
+            <div class="hero-slide active"
+                style="background-image:url(&quot;{{ url_for('static', filename='1ST.jpg') }}&quot;)"></div>
+            <div class="hero-slide"
+                style="background-image:url(&quot;{{ url_for('static', filename='2ND.jpg') }}&quot;)"></div>
+            <div class="hero-slide"
+                style="background-image:url(&quot;{{ url_for('static', filename='3RD.jpg') }}&quot;)"></div>
+            <div class="hero-slide"
+                style="background-image:url(&quot;{{ url_for('static', filename='4TH.jpg') }}&quot;)"></div>
+        </div>
+        <div class="slide-dots">
+            <div class="slide-dot active" onclick="goSlide(0)"></div>
+            <div class="slide-dot" onclick="goSlide(1)"></div>
+            <div class="slide-dot" onclick="goSlide(2)"></div>
+            <div class="slide-dot" onclick="goSlide(3)"></div>
+        </div>
+        <div class="hero-content-wrapper">
+            <div class="hero-inner">
+                <div class="hero-badge">
+                    <div class="dot"></div>WBSCTE Approved · PCI Approved
+                </div>
+                <h1>Welcome to<br><em>Contai Polytechnic</em></h1>
+                <p class="hero-desc">Delivering industry-ready diploma education in Engineering, Pharmacy, and Allied Technical fields through modern laboratories, practical training, expert faculty, personalized student support, and a strong placement ecosystem.</p>
+                <div class="stats-bar">
+                    <div class="stat-item">
+                        <div class="n">7</div>
+                        <div class="l">Departments</div>
+                    </div>
+                    <div class="stat-divider"></div>
+                    <div class="stat-item">
+                        <div class="n">33+</div>
+                        <div class="l">Years of Excellence</div>
+                    </div>
+                    <div class="stat-divider"></div>
+                    <div class="stat-item">
+                        <div class="n">420</div>
+                        <div class="l">Annual Intake</div>
+                    </div>
+                    <div class="stat-divider"></div>
+                    <div class="stat-item">
+                        <div class="n">100%</div>
+                        <div class="l">Placement Focus</div>
+                    </div>
+                </div>
+            </div>
+            <div class="apply-btn-wrapper" id="apply-btn-wrapper">
+                <button class="apply-now-btn" id="apply-now-btn" onclick="openAdmissionInline()">APPLY NOW</button>
+                
+                <!-- Inline Glassmorphism Admission Form -->
+                <div id="inline-admission-form" class="glass-modal" style="display: none; animation: msgIn 0.4s ease; max-width: 450px; text-align: left; padding: 24px;">
+                    <button class="glass-close" onclick="closeAdmissionInline()" style="right: 12px; top: 12px;">&times;</button>
+                    <h2 style="font-size: 1.25rem;">ADMISSIONS 2026-27</h2>
+                    <p class="subtext" style="font-size: 0.85rem; margin-bottom: 16px;">Please fill in your details below.</p>
+                    
+                    <form id="admissionForm" onsubmit="submitAdmission(event)">
+                        <div class="glass-form-group">
+                            <input type="text" id="adm-name" class="glass-input" placeholder="Name *" required>
+                        </div>
+                        <div class="glass-form-group">
+                            <input type="email" id="adm-email" class="glass-input" placeholder="Email *" required>
+                        </div>
+                        <div class="glass-form-row">
+                            <div class="glass-form-group" style="flex: 0 0 80px;">
+                                <select class="glass-input" style="padding: 12px 6px;">
+                                    <option>+91</option>
+                                </select>
+                            </div>
+                            <div class="glass-form-group" style="flex: 1;">
+                                <input type="tel" id="adm-mobile" class="glass-input" placeholder="Mobile Number *" required>
+                            </div>
+                            <div class="glass-form-group" style="flex: 0 0 auto;">
+                                <button type="button" class="otp-btn" id="adm-get-otp-btn" onclick="sendAdmOTP()" style="padding: 12px 10px;">Get OTP</button>
+                            </div>
+                        </div>
+
+                        <div class="glass-form-row" id="otp-group" style="display: none;">
+                            <div class="glass-form-group" style="flex: 1;">
+                                <input type="text" id="adm-otp" class="glass-input" placeholder="Enter 6-digit OTP *" pattern="\d{6}" maxlength="6">
+                            </div>
+                        </div>
+                        
+                        <div class="glass-form-row">
+                            <div class="glass-form-group">
+                                <select id="adm-level" class="glass-input" required style="padding: 12px 8px;">
+                                    <option value="" disabled selected>Level *</option>
+                                    <option value="diploma">Diploma</option>
+                                </select>
+                            </div>
+                            <div class="glass-form-group">
+                                <select id="adm-discipline" class="glass-input" required style="padding: 12px 8px;">
+                                    <option value="" disabled selected>Discipline *</option>
+                                    <option value="Mechanical Engineering">Mechanical Engineering</option>
+                                    <option value="Civil Engineering">Civil Engineering</option>
+                                    <option value="Electrical Engineering">Electrical Engineering</option>
+                                    <option value="Electronics & Telecom">Electronics & Telecom</option>
+                                    <option value="Computer Science & Tech">Computer Science & Tech</option>
+                                    <option value="Chemical Engineering">Chemical Engineering</option>
+                                    <option value="Pharmacy">Pharmacy</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="glass-form-row">
+                            <div class="glass-form-group">
+                                <select id="adm-course" class="glass-input" required style="padding: 12px 8px;">
+                                    <option value="" disabled selected>Courses *</option>
+                                    <option value="me">Mechanical Engineering</option>
+                                    <option value="ce">Civil Engineering</option>
+                                    <option value="ee">Electrical Engineering</option>
+                                    <option value="etce">Electronics & Telecom</option>
+                                    <option value="cst">Computer Sc. & Technology</option>
+                                    <option value="chem">Chemical Engineering</option>
+                                    <option value="pharmacy">Pharmacy</option>
+                                </select>
+                            </div>
+                            <div class="glass-form-group">
+                                <select id="adm-program" class="glass-input" required style="padding: 12px 8px;">
+                                    <option value="" disabled selected>Program *</option>
+                                    <option value="fulltime">Full Time</option>
+                                    <option value="parttime">Part Time</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <div style="display:flex; gap:10px; margin-top:8px; font-size:0.75rem; line-height:1.3;">
+                            <input type="checkbox" id="adm-auth-check" required style="margin-top:2px;">
+                            <label for="adm-auth-check" style="margin-bottom:0; font-weight:400;">
+                                I authorise Contai Polytechnic to contact me with updates and notifications via Email / SMS / WhatsApp / Call, which overrides DND and NDNC registrations.
+                            </label>
+                        </div>
+
+                        <button type="submit" id="adm-submit-btn" class="glass-submit-btn" style="margin-top: 12px; padding: 10px;">Submit</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+    <script>
+        let curSlide = 0; const slides = document.querySelectorAll('.hero-slide'); const dots = document.querySelectorAll('.slide-dot');
+        function goSlide(n) { slides[curSlide].classList.remove('active'); dots[curSlide].classList.remove('active'); curSlide = n % slides.length; slides[curSlide].classList.add('active'); dots[curSlide].classList.add('active'); }
+        setInterval(() => goSlide(curSlide + 1), 5000);
+
+        function sendAdmOTP() {
+            const mobile = document.getElementById('adm-mobile').value;
+            const name = document.getElementById('adm-name').value;
+            if(!mobile || mobile.length < 10) {
+                alert('Please enter a valid mobile number first.');
+                return;
+            }
+            const btn = document.getElementById('adm-get-otp-btn');
+            btn.disabled = true;
+            btn.innerText = 'Sending...';
+
+            fetch('/api/admissions/send_otp', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ mobile: mobile, name: name })
+            })
+            .then(res => res.json())
+            .then(data => {
+                if(data.success) {
+                    document.getElementById('otp-group').style.display = 'flex';
+                    document.getElementById('adm-otp').required = true;
+                    btn.innerText = 'OTP Sent ✓';
+                } else {
+                    alert('Error: ' + data.message);
+                    btn.disabled = false;
+                    btn.innerText = 'Get OTP';
+                }
+            })
+            .catch(err => {
+                console.error(err);
+                alert('Failed to send OTP.');
+                btn.disabled = false;
+                btn.innerText = 'Get OTP';
+            });
+        }
+
+        function submitAdmission(e) {
+            e.preventDefault();
+            const otpValue = document.getElementById('adm-otp').value;
+            if(!otpValue) {
+                alert('Please verify your mobile number with OTP first.');
+                return;
+            }
+
+            const submitBtn = document.getElementById('adm-submit-btn');
+            submitBtn.disabled = true;
+            submitBtn.innerText = 'Submitting...';
+
+            const payload = {
+                name: document.getElementById('adm-name').value,
+                email: document.getElementById('adm-email').value,
+                mobile: document.getElementById('adm-mobile').value,
+                otp: otpValue,
+                level: document.getElementById('adm-level').value,
+                discipline: document.getElementById('adm-discipline').value,
+                course: document.getElementById('adm-course').value,
+                program: document.getElementById('adm-program').value,
+                auth_check: document.getElementById('adm-auth-check').checked
+            };
+
+            fetch('/api/submit_admission', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload)
+            })
+            .then(res => res.json())
+            .then(data => {
+                if(data.success) {
+                    alert('Application Submitted Successfully!');
+                    closeAdmissionInline();
+                    document.getElementById('admissionForm').reset();
+                    document.getElementById('otp-group').style.display = 'none';
+                    document.getElementById('adm-otp').required = false;
+                    const btn = document.getElementById('adm-get-otp-btn');
+                    btn.disabled = false;
+                    btn.innerText = 'Get OTP';
+                } else {
+                    alert('Error: ' + data.message);
+                }
+            })
+            .catch(err => {
+                console.error(err);
+                alert('Something went wrong. Please try again.');
+            })
+            .finally(() => {
+                submitBtn.disabled = false;
+                submitBtn.innerText = 'Submit';
+            });
+        }
+    </script>
+
+    <section class="depts-section" id="departments">
+        <div class="section-label">
+            <div class="badge">🎓 7 Programmes</div>
+            <h2>Explore Our <span style="color:var(--blue);">Departments</span></h2>
+            <p>WBSCTE &amp; PCI approved diploma programmes</p>
+        </div>
+        <div class="depts-grid">
+            <a class="dept-card" href="/mechanical"
+                style="--accent-color:#ea580c;--icon-bg:#fff7ed;--icon-border:#fed7aa;--border-hover:#fed7aa;--pill-color:#ea580c;">
+                <div class="dept-emoji-box">⚙️</div>
+                <h3>Mechanical Engineering</h3>
+                <p>Fabrication, machining, thermodynamics &amp; industrial manufacturing.</p>
+                <div class="dept-pills"><span class="d-pill">60 Seats</span><span class="d-pill">Est. 1991</span></div>
+                <span class="dept-arrow">Visit Department →</span>
+            </a>
+            <a class="dept-card" href="/civil"
+                style="--accent-color:#d97706;--icon-bg:#fffbeb;--icon-border:#fde68a;--border-hover:#fde68a;--pill-color:#d97706;">
+                <div class="dept-emoji-box">🏗️</div>
+                <h3>Civil Engineering</h3>
+                <p>Structural design, surveying, construction &amp; geotechnical engineering.</p>
+                <div class="dept-pills"><span class="d-pill">60 Seats</span><span class="d-pill">Est. 1991</span></div>
+                <span class="dept-arrow">Visit Department →</span>
+            </a>
+            <a class="dept-card" href="/electrical"
+                style="--accent-color:#ca8a04;--icon-bg:#fefce8;--icon-border:#fef08a;--border-hover:#fef08a;--pill-color:#ca8a04;">
+                <div class="dept-emoji-box">⚡</div>
+                <h3>Electrical Engineering</h3>
+                <p>Power systems, machines, circuits &amp; industrial installations.</p>
+                <div class="dept-pills"><span class="d-pill">60 Seats</span><span class="d-pill">WBSCTE</span></div>
+                <span class="dept-arrow">Visit Department →</span>
+            </a>
+            <a class="dept-card" href="/electronics"
+                style="--accent-color:#0891b2;--icon-bg:#ecfeff;--icon-border:#a5f3fc;--border-hover:#a5f3fc;--pill-color:#0891b2;">
+                <div class="dept-emoji-box">📡</div>
+                <h3>Electronics &amp; Telecom</h3>
+                <p>Digital circuits, microprocessors, communication &amp; embedded systems.</p>
+                <div class="dept-pills"><span class="d-pill">60 Seats</span><span class="d-pill">WBSCTE</span></div>
+                <span class="dept-arrow">Visit Department →</span>
+            </a>
+            <a class="dept-card" href="/cst"
+                style="--accent-color:#2563eb;--icon-bg:#eff6ff;--icon-border:#bfdbfe;--border-hover:#bfdbfe;--pill-color:#2563eb;">
+                <div class="dept-emoji-box">💻</div>
+                <h3>Computer Sc. &amp; Technology</h3>
+                <p>Programming, data structures, databases &amp; software development.</p>
+                <div class="dept-pills"><span class="d-pill">60 Seats</span><span class="d-pill">WBSCTE</span></div>
+                <span class="dept-arrow">Visit Department →</span>
+            </a>
+            <a class="dept-card" href="/chemical"
+                style="--accent-color:#059669;--icon-bg:#f0fdf4;--icon-border:#a7f3d0;--border-hover:#a7f3d0;--pill-color:#059669;">
+                <div class="dept-emoji-box">⚗️</div>
+                <h3>Chemical Engineering</h3>
+                <p>Process engineering, distillation, petrochemicals &amp; industrial chemistry.</p>
+                <div class="dept-pills"><span class="d-pill">60 Seats</span><span class="d-pill">Est. 2008</span></div>
+                <span class="dept-arrow">Visit Department →</span>
+            </a>
+            <a class="dept-card" href="/pharmacy"
+                style="--accent-color:#7c3aed;--icon-bg:#f5f3ff;--icon-border:#ddd6fe;--border-hover:#ddd6fe;--pill-color:#7c3aed;">
+                <div class="dept-emoji-box">💊</div>
+                <h3>Department of Pharmacy</h3>
+                <p>D.Pharm, pharmacology, clinical pharmacy &amp; pharmaceutical sciences.</p>
+                <div class="dept-pills"><span class="d-pill">60 Seats</span><span class="d-pill">PCI Approved</span>
+                </div><span class="dept-arrow">Visit Department →</span>
+            </a>
+        </div>
+    </section>
+
+    <section class="notices-section">
+        <div class="notices-wrap">
+            <div class="notices-hdr">
+                <div>
+                    <div class="badge">🔴 Live</div>
+                    <h2>Latest <span>Notices</span></h2>
+                    <p>Official announcements from Contai Polytechnic</p>
+                </div>
+                <a href="/notice" class="btn-viewall">View All →</a>
+            </div>
+            <div class="notices-grid">
+                <div class="notices-thead" style="background: var(--navy); color: white; padding: 14px 24px; display: flex; gap: 20px; align-items: center;">
+                    <div style="width: 48px; text-align: center; font-weight: 700; font-size: 14px; text-transform: uppercase; letter-spacing: 0.5px;">Date</div>
+                    <div style="flex: 1; font-weight: 700; font-size: 14px; text-transform: uppercase; letter-spacing: 0.5px;">Notice Subject</div>
+                    <div style="width: 80px; text-align: center; font-weight: 700; font-size: 14px; text-transform: uppercase; letter-spacing: 0.5px;">Action</div>
+                </div>
+                {% if notices %}
+                {% for n in notices %}
+                <a class="nc" href="/notice">
+                    <div class="nc-date">
+                        <div class="d">{{ n[5].split('-')[2] if n[5] else '--' }}</div>
+                        <div class="m">{{
+                            ['','Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'][n[5].split('-')[1]|int]
+                            if n[5] else '---' }}</div>
+                    </div>
+                    <div class="nc-body">
+                        <span class="nc-cat {{ n[3] }}">{{ n[3] }}</span>
+                        <h4 style="font-size: 15px;">{{ n[1] }}</h4>
+
+                        <div class="nc-dept">📌 {{ n[4] }}</div>
+                    </div>
+                    <div class="nc-action">
+                        <div class="btn-view-notice">View</div>
+                    </div>
+                </a>
+                {% endfor %}
+                {% if notices|length == 5 %}
+                <a class="nc" href="/notice" style="justify-content:center; padding: 20px; background: rgba(37, 99, 235, 0.02);">
+                    <div style="display:flex; align-items:center; gap:12px;">
+                        <span style="font-size:20px;">📋</span>
+                        <span style="color:var(--blue); font-size:15px; font-weight:700;">View all official notices &rarr;</span>
+                    </div>
+                </a>
+                {% endif %}
+                {% else %}
+                <div class="nc-empty">
+                    <div style="font-size:36px;margin-bottom:12px">📋</div>
+                    <p>No notices yet. <a href="/login">Admin can post notices here.</a></p>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </section>
+
+    <section class="events-section" id="events">
+        <div class="section-label">
+            <div class="badge">📅 Schedule</div>
+            <h2>Upcoming <span style="color:var(--blue);">Events</span></h2>
+            <p>Exams, fests, seminars &amp; workshops — stay updated</p>
+        </div>
+        <div class="events-grid">
+            <div class="events-thead" style="background: var(--navy); color: white; padding: 14px 24px; display: flex; gap: 24px; align-items: center;">
+                <div style="width: 70px; text-align: center; font-weight: 700; font-size: 14px; text-transform: uppercase; letter-spacing: 0.5px;">Date</div>
+                <div style="flex: 1; font-weight: 700; font-size: 14px; text-transform: uppercase; letter-spacing: 0.5px;">Event Subject</div>
+                <div style="width: 120px; text-align: center; font-weight: 700; font-size: 14px; text-transform: uppercase; letter-spacing: 0.5px;">Category</div>
+            </div>
+            {% if hp_events %}
+            {% for ev in hp_events %}
+            <a class="event-card" href="#">
+                <div class="event-date-box"><span class="day">{{ ev.day }}</span><span class="month">{{ ev.month }}</span></div>
+                <div class="event-body">
+                    <h3>{{ ev.title }}</h3>
+                    {% if ev.location %}<div class="event-loc">📍 {{ ev.location }}</div>{% endif %}
+                </div>
+                <div class="event-action">
+                    <span class="event-tag tag-{{ ev.tag_color }}"><i class="fa-solid fa-circle" style="font-size: 6px;"></i>{{ ev.tag }}</span>
+                </div>
+            </a>
+            {% endfor %}
+            {% if hp_events|length == 5 %}
+            <a class="event-card" href="/events" style="justify-content:center; padding: 20px; background: rgba(37, 99, 235, 0.02);">
+                <div style="display:flex; align-items:center; gap:12px;">
+                    <span style="font-size:20px;">📅</span>
+                    <span style="color:var(--blue); font-size:15px; font-weight:700;">View full schedule &rarr;</span>
+                </div>
+            </a>
+            {% endif %}
+            {% else %}
+            <div style="text-align:center;color:var(--text3);padding:40px;">No upcoming events scheduled at this moment.</div>
+            {% endif %}
+        </div>
+        <div class="events-cta"><a href="/events" class="btn-outline-gallery">View Full Calendar →</a></div>
+    </section>
+
+    <section class="chat-section" id="chat">
+        <div class="section-label">
+            <div class="badge">🤖 AI Powered</div>
+            <h2>College Helpdesk AI</h2>
+            <p>Ask anything about admissions, departments, schedules &amp; more</p>
+        </div>
+        <div class="chat-card">
+            <div class="chat-hdr">
+                <div class="chat-hdr-left">
+                    <div class="ai-avatar" style="background:white;padding:3px;">
+                        <img src="{{ url_for('static', filename='logo.png') }}" alt="AI"
+                            style="width:100%;height:100%;object-fit:contain;border-radius:10px;">
+                    </div>
+                    <div>
+                        <h3>Helpdesk Assistant</h3>
+                        <div class="online-pill" id="chat-mode-pill">Checking AI...</div>
+                    </div>
+                </div>
+                <div class="three-dots"><span></span><span></span><span></span></div>
+            </div>
+            <div class="chat-body" id="chat-body">
+                <div class="msg bot">
+                    <div class="msg-av bot" style="background:white;padding:2px;">
+                        <img src="{{ url_for('static', filename='logo.png') }}" alt="AI"
+                            style="width:100%;height:100%;object-fit:contain;border-radius:8px;">
+                    </div>
+                    <div>
+                        <div class="msg-bubble">Hello! I'm your Contai Polytechnic Helpdesk Assistant. Ask me anything
+                            about admissions, departments, fees, or schedules! 🎓</div>
+                        <div class="msg-time" id="init-time">09:00</div>
+                    </div>
+                </div>
+            </div>
+            <div class="chat-foot">
+                <input class="chat-input" id="msg" type="text" placeholder="Ask anything about the college..."
+                    autocomplete="off">
+                <button class="chat-send" id="sendBtn" onclick="send()">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                        stroke-width="2.5">
+                        <line x1="22" y1="2" x2="11" y2="13"></line>
+                        <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <section class="lib-section" id="library">
+        <div class="lib-container">
+            <div class="section-label">
+                <div class="badge">📚 Digital Library</div>
+                <h2>Contai Polytechnic<br><span style="color:var(--blue);">eBook Library</span></h2>
+                <p>Browse department-wise eBooks, read PDFs online, and download for free</p>
+            </div>
+            <div class="lib-grid">
+                <div>
+                    <div
+                        style="width:60px;height:60px;background:linear-gradient(135deg,#1e3a5f,#2563eb);border-radius:16px;display:flex;align-items:center;justify-content:center;font-size:28px;margin-bottom:18px;box-shadow:0 8px 24px rgba(37,99,235,0.30);">
+                        📚</div>
+                    <h3
+                        style="font-family:'Playfair Display',serif;font-size:22px;font-weight:800;color:#1e3a5f;margin-bottom:12px;line-height:1.35;">
+                        Digital Library — At Your Fingertips</h3>
+                    <p style="color:#64748b;font-size:14px;line-height:1.7;margin-bottom:22px;">Access semester-wise
+                        eBooks for all departments. Read PDFs in your browser or download for offline use — login with
+                        your Registration Number.</p>
+                    <div style="display:flex;flex-direction:column;gap:10px;margin-bottom:28px;">
+                        <div
+                            style="display:flex;align-items:center;gap:10px;font-size:13.5px;color:#334155;font-weight:500;">
+                            <span style="font-size:17px;width:24px;flex-shrink:0;text-align:center;">📖</span> Read PDFs
+                            directly in your browser
+                        </div>
+                        <div
+                            style="display:flex;align-items:center;gap:10px;font-size:13.5px;color:#334155;font-weight:500;">
+                            <span style="font-size:17px;width:24px;flex-shrink:0;text-align:center;">📥</span> Download
+                            books for offline reading
+                        </div>
+                        <div
+                            style="display:flex;align-items:center;gap:10px;font-size:13.5px;color:#334155;font-weight:500;">
+                            <span style="font-size:17px;width:24px;flex-shrink:0;text-align:center;">🔍</span> Filter by
+                            Subject &amp; Semester
+                        </div>
+                        <div
+                            style="display:flex;align-items:center;gap:10px;font-size:13.5px;color:#334155;font-weight:500;">
+                            <span style="font-size:17px;width:24px;flex-shrink:0;text-align:center;">🔐</span> Login
+                            with your Registration Number
+                        </div>
+                    </div>
+                    <div style="display:flex;gap:12px;flex-wrap:wrap;">
+                        <a href="/go_library" target="_blank" rel="noopener"
+                            style="padding:12px 26px;background:linear-gradient(135deg,#1e3a5f,#2563eb);color:white;text-decoration:none;border-radius:12px;font-size:14px;font-weight:700;box-shadow:0 4px 20px rgba(37,99,235,0.35);">📚
+                            Enter Library</a>
+                        <a href="/go_library/login" target="_blank" rel="noopener"
+                            style="padding:12px 22px;background:white;color:#2563eb;border:1.5px solid #bfdbfe;text-decoration:none;border-radius:12px;font-size:14px;font-weight:700;">🔑
+                            Login</a>
+                    </div>
+                </div>
+                <div>
+                    <div class="lib-stats-grid">
+                        <div class="lib-stat-card">
+                            <div
+                                style="width:44px;height:44px;border-radius:11px;display:flex;align-items:center;justify-content:center;font-size:20px;margin-bottom:8px;background:linear-gradient(135deg,#1d4ed8,#0ea5e9);">
+                                📚</div>
+                            <div style="font-size:22px;font-weight:800;color:#1e3a5f;">100+</div>
+                            <div
+                                style="font-size:10px;color:#94a3b8;font-weight:600;text-transform:uppercase;letter-spacing:0.5px;margin-top:3px;">
+                                eBooks</div>
+                        </div>
+                        <div class="lib-stat-card">
+                            <div
+                                style="width:44px;height:44px;border-radius:11px;display:flex;align-items:center;justify-content:center;font-size:20px;margin-bottom:8px;background:linear-gradient(135deg,#059669,#10b981);">
+                                🏛️</div>
+                            <div style="font-size:22px;font-weight:800;color:#1e3a5f;">7</div>
+                            <div
+                                style="font-size:10px;color:#94a3b8;font-weight:600;text-transform:uppercase;letter-spacing:0.5px;margin-top:3px;">
+                                Departments</div>
+                        </div>
+                        <div class="lib-stat-card">
+                            <div
+                                style="width:44px;height:44px;border-radius:11px;display:flex;align-items:center;justify-content:center;font-size:20px;margin-bottom:8px;background:linear-gradient(135deg,#7c3aed,#a78bfa);">
+                                📖</div>
+                            <div style="font-size:22px;font-weight:800;color:#1e3a5f;">6</div>
+                            <div
+                                style="font-size:10px;color:#94a3b8;font-weight:600;text-transform:uppercase;letter-spacing:0.5px;margin-top:3px;">
+                                Semesters</div>
+                        </div>
+                        <div class="lib-stat-card">
+                            <div
+                                style="width:44px;height:44px;border-radius:11px;display:flex;align-items:center;justify-content:center;font-size:20px;margin-bottom:8px;background:linear-gradient(135deg,#d97706,#f59e0b);">
+                                📥</div>
+                            <div style="font-size:22px;font-weight:800;color:#1e3a5f;">Free</div>
+                            <div
+                                style="font-size:10px;color:#94a3b8;font-weight:600;text-transform:uppercase;letter-spacing:0.5px;margin-top:3px;">
+                                100% Free Access</div>
+                        </div>
+                    </div>
+                    <div class="lib-depts-wrap">
+                        <a href="/go_library/dept/mechanical" target="_blank" rel="noopener" class="lib-dept-tag"
+                            style="--tag-color:#e07b39;">⚙️ Mechanical</a>
+                        <a href="/go_library/dept/civil" target="_blank" rel="noopener" class="lib-dept-tag"
+                            style="--tag-color:#4a90d9;">🏗️ Civil</a>
+                        <a href="/go_library/dept/electrical" target="_blank" rel="noopener" class="lib-dept-tag"
+                            style="--tag-color:#d97706;">⚡ Electrical</a>
+                        <a href="/go_library/dept/electronics" target="_blank" rel="noopener" class="lib-dept-tag"
+                            style="--tag-color:#27ae60;">📡 Electronics</a>
+                        <a href="/go_library/dept/cst" target="_blank" rel="noopener" class="lib-dept-tag"
+                            style="--tag-color:#4a4a9f;">💻 CST</a>
+                        <a href="/go_library/dept/chemical" target="_blank" rel="noopener" class="lib-dept-tag"
+                            style="--tag-color:#16a085;">🧪 Chemical</a>
+                        <a href="/go_library/dept/pharmacy" target="_blank" rel="noopener" class="lib-dept-tag"
+                            style="--tag-color:#9b59b6;">💊 Pharmacy</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="faculty-section" id="faculty">
+        <div class="section-label">
+            <div class="badge">👨‍🏫 Our Team</div>
+            <h2>Meet Our <span style="color:var(--blue);">Faculty</span></h2>
+            <p>Experienced educators shaping tomorrow's engineers</p>
+        </div>
+        <div class="faculty-box-container">
+            <div class="faculty-ticker-wrap" id="facultyTicker">
+                <div class="faculty-ticker-track" id="facultyTrack">
+                {% if hp_faculty %}
+                {# -- first copy -- #}
+                {% for fac in hp_faculty %}
+                <div class="faculty-card">
+                    <div class="faculty-avatar">
+                        {% if fac.photo %}
+                        <img src="{{ url_for('static', filename='faculty/' + fac.photo) }}" alt="{{ fac.name }}" loading="lazy">
+                        {% else %}
+                        <span class="fac-initials">{{ fac.name[:2].upper() }}</span>
+                        {% endif %}
+                        {% if fac.department %}<div class="dept-badge-fac">{{ fac.department }}</div>{% endif %}
+                    </div>
+                    <div class="faculty-info">
+                        <h3>{{ fac.name }}</h3>
+                        <div class="designation">{{ fac.designation }}{% if fac.department %},<br>{{ fac.department }}{% endif %}</div>
+                        <div class="faculty-stats">
+                            <div class="f-stat">
+                                <div class="val" style="font-size:12px;font-weight:700;line-height:1.4;">{{ fac.qualification or '—' }}</div>
+                                <div class="lbl">Qualification</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+                {# -- duplicate copy for seamless loop -- #}
+                {% for fac in hp_faculty %}
+                <div class="faculty-card" aria-hidden="true">
+                    <div class="faculty-avatar">
+                        {% if fac.photo %}
+                        <img src="{{ url_for('static', filename='faculty/' + fac.photo) }}" alt="" loading="lazy">
+                        {% else %}
+                        <span class="fac-initials">{{ fac.name[:2].upper() }}</span>
+                        {% endif %}
+                        {% if fac.department %}<div class="dept-badge-fac">{{ fac.department }}</div>{% endif %}
+                    </div>
+                    <div class="faculty-info">
+                        <h3>{{ fac.name }}</h3>
+                        <div class="designation">{{ fac.designation }}{% if fac.department %},<br>{{ fac.department }}{% endif %}</div>
+                        <div class="faculty-stats">
+                            <div class="f-stat">
+                                <div class="val" style="font-size:12px;font-weight:700;line-height:1.4;">{{ fac.qualification or '—' }}</div>
+                                <div class="lbl">Qualification</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+                {% else %}
+                <div style="padding:40px 24px;color:var(--text3);">Faculty details will be updated shortly.</div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+        <div style="text-align:center;margin-top:36px;"><a href="/faculty" class="btn-outline-gallery">View All Faculty
+                →</a></div>
+    </section>
+
+    <section class="placement-section" id="placement">
+        <div class="section-label">
+            <div class="badge">🏆 Career Success</div>
+            <h2>Placements &amp; <span style="color:var(--blue);">Alumni</span></h2>
+            <p>Our students work at top companies across India</p>
+        </div>
+        <div class="placement-stats">
+            <div class="ps-card">
+                <div class="big">{{ hp_pstats.get('placement_rate', '94%') }}</div>
+                <div class="ps-lbl">Placement Rate</div>
+            </div>
+            <div class="ps-card">
+                <div class="big">{{ hp_pstats.get('avg_package', '₹3.2L') }}</div>
+                <div class="ps-lbl">Avg. Package</div>
+            </div>
+            <div class="ps-card">
+                <div class="big">{{ hp_pstats.get('companies_count', '50+') }}</div>
+                <div class="ps-lbl">Companies</div>
+            </div>
+            <div class="ps-card">
+                <div class="big">{{ hp_pstats.get('alumni_count', '2500+') }}</div>
+                <div class="ps-lbl">Alumni Network</div>
+            </div>
+        </div>
+        <p class="companies-label">Our Students Work At</p>
+        <div class="company-logos">
+            {% if hp_companies %}
+            {% for comp in hp_companies %}
+            <div class="co-badge">{% if comp.logo %}<img
+                    src="{{ url_for('static', filename='company_logos/' + comp.logo) }}" alt="{{ comp.name }}"
+                    style="width:22px;height:22px;object-fit:contain;border-radius:3px;vertical-align:middle;margin-right:4px;">{%
+                else %}{{ comp.emoji }}{% endif %}{{ comp.name }}</div>
+            {% endfor %}
+            {% else %}
+            <div class="co-badge">🔵 TATA Motors</div>
+            <div class="co-badge">🟠 L&amp;T</div>
+            <div class="co-badge">🟢 Infosys</div>
+            <div class="co-badge">🔴 TCS</div>
+            <div class="co-badge">🟣 Wipro</div>
+            {% endif %}
+        </div>
+        <p class="alumni-title">Success Stories</p>
+        <div class="alumni-box-container">
+            <div class="alumni-slider-wrap">
+                <div class="alumni-slider-track" id="alumniTrack">
+                <div class="alumni-card">
+                    <div class="quote-mark">"</div>
+                    <p class="alumni-text">Contai Polytechnic gave me the practical skills that no textbook could. The
+                        mechanical lab and workshop training helped me crack the TATA Motors campus placement.</p>
+                    <div class="alumni-person">
+                        <div class="alumni-avatar-circle" style="background:linear-gradient(135deg,#3b82f6,#7c3aed);">RG
+                        </div>
+                        <div>
+                            <div class="alumni-name">Rahul Ghosh</div>
+                            <div class="alumni-role">Junior Engineer, TATA Motors</div>
+                            <div class="alumni-batch">Batch 2022 · Mechanical Engg.</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="alumni-card">
+                    <div class="quote-mark">"</div>
+                    <p class="alumni-text">The teachers here are very dedicated. I joined as a pharmacy student and
+                        today I work at a reputed pharmaceutical company. Forever grateful to my department!</p>
+                    <div class="alumni-person">
+                        <div class="alumni-avatar-circle" style="background:linear-gradient(135deg,#10b981,#06b6d4);">SM
+                        </div>
+                        <div>
+                            <div class="alumni-name">Suchitra Maity</div>
+                            <div class="alumni-role">Pharmacist, Sun Pharma</div>
+                            <div class="alumni-batch">Batch 2023 · Pharmacy</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="alumni-card">
+                    <div class="quote-mark">"</div>
+                    <p class="alumni-text">The CST department's hands-on projects prepared me for real-world software
+                        development. I built my first web app here and now work at an IT startup in Bangalore.</p>
+                    <div class="alumni-person">
+                        <div class="alumni-avatar-circle" style="background:linear-gradient(135deg,#f59e0b,#ef4444);">AD
+                        </div>
+                        <div>
+                            <div class="alumni-name">Aritra Das</div>
+                            <div class="alumni-role">Software Developer, Zerodha</div>
+                            <div class="alumni-batch">Batch 2021 · CST</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="alumni-card">
+                    <div class="quote-mark">"</div>
+                    <p class="alumni-text">The rigorous surveying camps and structural mechanics classes laid a strong
+                        foundation for my career. Getting placed in L&T was a dream come true for me.</p>
+                    <div class="alumni-person">
+                        <div class="alumni-avatar-circle" style="background:linear-gradient(135deg,#0ea5e9,#2563eb);">SM
+                        </div>
+                        <div>
+                            <div class="alumni-name">Souvik Mondal</div>
+                            <div class="alumni-role">Site Engineer, L&T Construction</div>
+                            <div class="alumni-batch">Batch 2020 · Civil Engg.</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="alumni-card">
+                    <div class="quote-mark">"</div>
+                    <p class="alumni-text">Our chemical labs are top-notch. The faculty guided us through complex
+                        industrial processes, making the transition to the petrochemical industry very smooth.</p>
+                    <div class="alumni-person">
+                        <div class="alumni-avatar-circle" style="background:linear-gradient(135deg,#d946ef,#8b5cf6);">PS
+                        </div>
+                        <div>
+                            <div class="alumni-name">Priyanka Sen</div>
+                            <div class="alumni-role">QA Analyst, Haldia Petrochem</div>
+                            <div class="alumni-batch">Batch 2019 · Chemical Engg.</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="alumni-card">
+                    <div class="quote-mark">"</div>
+                    <p class="alumni-text">Cracking the WBSEDCL exam was possible because of the clear concepts taught
+                        by our electrical department professors. Proud to be an alumnus of this college.</p>
+                    <div class="alumni-person">
+                        <div class="alumni-avatar-circle" style="background:linear-gradient(135deg,#f59e0b,#d97706);">AB
+                        </div>
+                        <div>
+                            <div class="alumni-name">Amit Bera</div>
+                            <div class="alumni-role">Sub-Assistant Engineer, WBSEDCL</div>
+                            <div class="alumni-batch">Batch 2018 · Electrical Engg.</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="alumni-card">
+                    <div class="quote-mark">"</div>
+                    <p class="alumni-text">From building microcontrollers to understanding communication networks,
+                        Contai Polytechnic provided the perfect environment to learn and innovate.</p>
+                    <div class="alumni-person">
+                        <div class="alumni-avatar-circle" style="background:linear-gradient(135deg,#14b8a6,#059669);">SR
+                        </div>
+                        <div>
+                            <div class="alumni-name">Sneha Roy</div>
+                            <div class="alumni-role">Network Engineer, Jio Platforms</div>
+                            <div class="alumni-batch">Batch 2022 · Electronics</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="alumni-card">
+                    <div class="quote-mark">"</div>
+                    <p class="alumni-text">The CNC machine training during our final semester gave me a huge edge during
+                        interviews. The placement cell is incredibly supportive and proactive.</p>
+                    <div class="alumni-person">
+                        <div class="alumni-avatar-circle" style="background:linear-gradient(135deg,#ef4444,#b91c1c);">DJ
+                        </div>
+                        <div>
+                            <div class="alumni-name">Debabrata Jana</div>
+                            <div class="alumni-role">CNC Programmer, Bharat Forge</div>
+                            <div class="alumni-batch">Batch 2021 · Mechanical Engg.</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="alumni-card">
+                    <div class="quote-mark">"</div>
+                    <p class="alumni-text">The regular seminars and hospital training organized by the Pharmacy
+                        department built my confidence. I highly recommend this college to aspiring pharmacists.</p>
+                    <div class="alumni-person">
+                        <div class="alumni-avatar-circle" style="background:linear-gradient(135deg,#8b5cf6,#4338ca);">AC
+                        </div>
+                        <div>
+                            <div class="alumni-name">Ananya Chatterjee</div>
+                            <div class="alumni-role">Clinical Researcher, Cipla</div>
+                            <div class="alumni-batch">Batch 2020 · Pharmacy</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="alumni-card">
+                    <div class="quote-mark">"</div>
+                    <p class="alumni-text">I learned both frontend and backend development here. The tech fests and
+                        coding competitions completely changed my career trajectory and made me job-ready.</p>
+                    <div class="alumni-person">
+                        <div class="alumni-avatar-circle" style="background:linear-gradient(135deg,#f43f5e,#be123c);">RD
+                        </div>
+                        <div>
+                            <div class="alumni-name">Rakesh Dey</div>
+                            <div class="alumni-role">Full Stack Developer, TCS</div>
+                            <div class="alumni-batch">Batch 2023 · CST</div>
+                        </div>
+                    </div>
+                </div>
+                </div>
+            </div>
+        </div>
+        <script>document.addEventListener('DOMContentLoaded', function () { const t = document.getElementById('alumniTrack'); if (t) t.innerHTML += t.innerHTML; });</script>
+    </section>
+
+    <section class="gallery-section" id="gallery">
+        <div class="section-label">
+            <div class="badge">📷 Campus Life</div>
+            <h2>Our <span style="color:var(--blue);">Gallery</span></h2>
+            <p>Events, labs, classrooms &amp; campus moments</p>
+        </div>
+        {% if gallery_photos and gallery_photos|length > 0 %}
+        <div class="gallery-carousel-wrap">
+            <div class="gallery-carousel" id="galleryCarousel">
+                {% for photo in gallery_photos %}
+                <div class="gallery-slide {% if loop.index0 == 0 %}active{% endif %}">
+                    <img src="{{ url_for('static', filename='gallery/' ~ photo[2]) }}" alt="{{ photo[1] }}"
+                        loading="lazy">
+                    <div class="gallery-slide-overlay">
+                        <div class="gallery-slide-cat">📸 {{ photo[3]|capitalize }}</div>
+                        <div class="gallery-slide-title">{{ photo[1] }}</div>
+                        <div class="gallery-slide-counter">{{ loop.index }} / {{ gallery_photos|length }}</div>
+                    </div>
+                </div>
+                {% endfor %}
+                <button class="gallery-arrow prev" onclick="galSlide(-1)" aria-label="Previous"><svg width="18"
+                        height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                        <polyline points="15 18 9 12 15 6" />
+                    </svg></button>
+                <button class="gallery-arrow next" onclick="galSlide(1)" aria-label="Next"><svg width="18" height="18"
+                        viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                        <polyline points="9 6 15 12 9 18" />
+                    </svg></button>
+                <div class="gallery-dots" id="galleryDots">{% for photo in gallery_photos %}<div
+                        class="gallery-dot {% if loop.index0 == 0 %}active{% endif %}"
+                        onclick="galGo('{{ loop.index0 }}')"></div>{% endfor %}</div>
+                <div class="gallery-progress" id="galleryProgress" style="width:0%"></div>
+            </div>
+            <div class="gallery-thumbs" id="galleryThumbs">
+                {% for photo in gallery_photos %}<div class="gallery-thumb {% if loop.index0 == 0 %}active{% endif %}"
+                    onclick="galGo('{{ loop.index0 }}')"><img
+                        src="{{ url_for('static', filename='gallery/' ~ photo[2]) }}" alt="{{ photo[1] }}"></div>{%
+                endfor %}
+            </div>
+        </div>
+        {% else %}
+        <div class="gallery-empty">
+            <div style="font-size:48px;margin-bottom:16px">📷</div>
+            <h3>Gallery Coming Soon</h3>
+            <p>Photos will appear here once uploaded by the admin.</p>
+        </div>
+        {% endif %}
+        <div class="gallery-cta"><a href="/gallery" class="btn-outline-gallery">View All Photos →</a></div>
+    </section>
+
+    <!-- Map Section -->
+    <section class="map-section" style="padding: 80px 24px; background: var(--bg);">
+        <div class="section-label">
+            <span class="badge">📍 Location</span>
+            <h2>Find Us on Google Map</h2>
+            <p>Visit our campus</p>
+        </div>
+        <div class="map-container" style="max-width: 1000px; margin: 0 auto; border-radius: var(--radius-lg); overflow: hidden; border: 1.5px solid var(--border); box-shadow: var(--shadow-md);">
+            <iframe src="https://maps.google.com/maps?q=QQMQ%2BGMQ%2C%20VILL-RAGHURAMPUR%2C%20Contai%20Polytechnic%20Rd%2C%20P.O-DARUA%2C%20P.S%2C%20Contai%2C%20Uttar%20Adaberya%2C%20West%20Bengal%20721406&t=&z=15&ie=UTF8&iwloc=&output=embed" width="100%" height="450" style="border:0; display: block;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="footer-glow"></div>
+        <div class="footer-inner">
+            <div class="footer-brand">
+                <div class="logo-row">
+                    <img src="{{ url_for('static', filename='logo.png') }}" alt="Contai Polytechnic Logo">
+                    <h2>Contai Polytechnic</h2>
+                </div>
+                <p>Leading excellence in technical education since 1991. We are committed to producing world-class
+                    diploma engineers and shaping the innovators of tomorrow.</p>
+            </div>
+
+            <div class="footer-col">
+                <h5>Quick Links</h5>
+                <ul class="footer-links">
+                    <li><a href="/college-profile"><i>🏛️</i> College Profile</a></li>
+                    <li><a href="/admission"><i>🎓</i> Admission 2024</a></li>
+                    <li><a href="/academic-calendar"><i>📅</i> Academic Calendar</a></li>
+                    <li><a href="/notice"><i>📋</i> Notice Board</a></li>
+                    <li><a href="/library"><i>📚</i> Digital Library</a></li>
+                    <li><a href="https://webscte.co.in/" target="_blank"><i>🔗</i> WBSCTE Portal</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-col">
+                <h5>Our Departments</h5>
+                <ul class="footer-links">
+                    <li><a href="/mechanical"><i>⚙️</i> Mechanical Engg.</a></li>
+                    <li><a href="/civil"><i>🏗️</i> Civil Engg.</a></li>
+                    <li><a href="/electrical"><i>⚡</i> Electrical Engg.</a></li>
+                    <li><a href="/electronics"><i>📡</i> Electronics &amp; Telecom</a></li>
+                    <li><a href="/cst"><i>💻</i> Computer Science</a></li>
+                    <li><a href="/chemical"><i>⚗️</i> Chemical Engg.</a></li>
+                    <li><a href="/pharmacy"><i>💊</i> Pharmacy (PCI)</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-col">
+                <h5>Contact Us</h5>
+                <ul class="footer-links">
+                    <li><i>📍</i> <span>Contai, Purba Medinipur,<br>West Bengal 721401</span></li>
+                    <li><i>📞</i> <span>(03220)-255462</span></li>
+                    <li><i>✉️</i> <a
+                            href="mailto:polytechnic_contai@rediffmail.com">polytechnic_contai@rediffmail.com</a></li>
+                    <li><i>🕐</i> <span>Mon–Sat: 10:00 AM – 5:00 PM</span></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <span>&copy; 2026 Contai Polytechnic. All rights reserved.</span>
+            <div class="footer-bottom-links">
+                <a href="/">Home</a>
+                <a href="/gallery">Gallery</a>
+                <a href="/login">Admin Login</a>
+            </div>
+            <div class="footer-dev">
+                Designed with ❤️ by <a href="https://www.instagram.com/swarupdey_07?igsh=NW9jc3NuZGVnODUw"
+                    target="_blank" rel="noopener">Swarup Dey</a>
+            </div>
+        </div>
+    </footer>
+
+    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
+    <script>
+        // Mobile Menu Toggle
+        const mobileToggle = document.getElementById('mobileToggle');
+        const mobileMenu = document.getElementById('mobileMenu');
+        const mobileOverlay = document.getElementById('mobileOverlay');
+
+        function toggleMenu() {
+            mobileToggle.classList.toggle('active');
+            mobileMenu.classList.toggle('active');
+            mobileOverlay.classList.toggle('active');
+            document.body.style.overflow = mobileMenu.classList.contains('active') ? 'hidden' : '';
+        }
+
+        mobileToggle.addEventListener('click', toggleMenu);
+        mobileOverlay.addEventListener('click', toggleMenu);
+
+        // Close menu on link click
+        document.querySelectorAll('.mobile-nav-link').forEach(link => {
+            link.addEventListener('click', () => {
+                if (mobileMenu.classList.contains('active')) toggleMenu();
+            });
+        });
+
+        const now = new Date();
+        const t = now.getHours().toString().padStart(2, '0') + ':' + now.getMinutes().toString().padStart(2, '0');
+        document.getElementById('init-time').textContent = t;
+        const CHAT_API_BASE = window.location.protocol === 'file:' ? 'http://127.0.0.1:5000' : '';
+        function setChatMode(status) { const pill = document.getElementById('chat-mode-pill'); if (!pill) return; pill.textContent = status && status.configured ? 'CPP.AI Online' : 'Local DB Mode'; pill.title = status && status.configured ? 'CPP.AI is online' : 'AI key not found. Add GEMINI_API_KEY in .env and restart Flask.'; }
+        fetch(CHAT_API_BASE + '/chat/status').then(r => r.json()).then(d => setChatMode(d.gemini)).catch(() => setChatMode(null));
+        function send() { const input = document.getElementById('msg'); const msg = input.value.trim(); if (!msg) return; input.value = ''; appendMsg('user', msg); const tid = appendTyping(); fetch(CHAT_API_BASE + '/chat', { method: 'POST', headers: { 'Content-Type': 'application/x-www-form-urlencoded' }, body: 'msg=' + encodeURIComponent(msg) }).then(r => r.json()).then(d => { removeTyping(tid); if (d.gemini) setChatMode(d.gemini); appendMsg('bot', d.response || 'Sorry, I could not prepare an answer.'); }).catch(() => { removeTyping(tid); appendMsg('bot', 'Something went wrong. Please try again.'); }); }
+        document.getElementById('msg').addEventListener('keydown', e => { if (e.key === 'Enter') send(); });
+        function appendMsg(type, text) { const cb = document.getElementById('chat-body'); const now2 = new Date(); const ti = now2.getHours().toString().padStart(2, '0') + ':' + now2.getMinutes().toString().padStart(2, '0'); const isBot = type === 'bot'; const div = document.createElement('div'); div.className = `msg ${isBot ? 'bot' : 'user'}`; div.style.cssText = `display:flex;gap:10px;align-items:flex-end;flex-direction:${isBot ? 'row' : 'row-reverse'};animation:msgIn 0.35s cubic-bezier(.34,1.56,.64,1);margin-bottom:4px;`; const botAvatarHtml = `<img src="{{ url_for('static', filename='logo.png') }}" alt="AI" style="width:100%;height:100%;object-fit:contain;border-radius:8px;">`; div.innerHTML = `<div class="msg-av ${isBot ? 'bot' : 'user'}" style="width:34px;height:34px;border-radius:12px;flex-shrink:0;background:${isBot ? 'white' : '#e2e8f0'};padding:${isBot ? '2px' : '0'};display:flex;align-items:center;justify-content:center;font-size:16px;box-shadow:${isBot ? '0 2px 8px rgba(37,99,235,.3)' : 'none'};">${isBot ? botAvatarHtml : '👤'}</div><div><div style="padding:12px 18px;border-radius:${isBot ? '4px 18px 18px 18px' : '18px 4px 18px 18px'};font-size:14px;line-height:1.65;font-weight:500;word-break:break-word;background:${isBot ? '#ffffff' : 'linear-gradient(135deg,#1d4ed8,#2563eb)'};color:${isBot ? '#0f172a' : 'white'};border:${isBot ? '1px solid #e2e8f0' : 'none'};box-shadow:${isBot ? '0 1px 3px rgba(0,0,0,.08)' : '0 4px 20px rgba(37,99,235,.35)'};">${text}</div><div class="msg-time">${ti}</div></div>`; cb.appendChild(div); cb.scrollTop = cb.scrollHeight; }
+        let typingId = 0;
+        function appendTyping() { const cb = document.getElementById('chat-body'); const id = ++typingId; const div = document.createElement('div'); div.id = 'typing-' + id; div.style.cssText = 'display:flex;gap:10px;align-items:flex-end;animation:msgIn 0.3s ease;margin-bottom:4px;'; div.innerHTML = `<div style="width:34px;height:34px;border-radius:12px;flex-shrink:0;background:white;padding:2px;display:flex;align-items:center;justify-content:center;font-size:16px;box-shadow:0 2px 8px rgba(37,99,235,.3);"><img src="{{ url_for('static', filename='logo.png') }}" alt="AI" style="width:100%;height:100%;object-fit:contain;border-radius:8px;"></div><div style="background:#ffffff;border:1px solid #e2e8f0;border-radius:4px 18px 18px 18px;padding:14px 20px;box-shadow:0 1px 3px rgba(0,0,0,.08);"><div style="display:flex;gap:5px;align-items:center;"><span style="width:7px;height:7px;border-radius:50%;background:#2563eb;display:inline-block;animation:dot-bounce 1.2s 0s infinite;"></span><span style="width:7px;height:7px;border-radius:50%;background:#3b82f6;display:inline-block;animation:dot-bounce 1.2s 0.2s infinite;"></span><span style="width:7px;height:7px;border-radius:50%;background:#93c5fd;display:inline-block;animation:dot-bounce 1.2s 0.4s infinite;"></span></div></div>`; cb.appendChild(div); cb.scrollTop = cb.scrollHeight; return id; }
+        function removeTyping(id) { const el = document.getElementById('typing-' + id); if (el) el.remove(); }
+        (function () {
+            const slides = document.querySelectorAll('.gallery-slide'); const dots = document.querySelectorAll('.gallery-dot'); const thumbs = document.querySelectorAll('.gallery-thumb'); const progress = document.getElementById('galleryProgress'); const carousel = document.getElementById('galleryCarousel'); if (!slides.length) return; let galCur = 0; const galTotal = slides.length; const GAL_INTERVAL = 3500; let galTimer = null;
+            function galGo(n) { slides[galCur].classList.remove('active'); if (dots[galCur]) dots[galCur].classList.remove('active'); if (thumbs[galCur]) thumbs[galCur].classList.remove('active'); galCur = ((n % galTotal) + galTotal) % galTotal; slides[galCur].classList.add('active'); if (dots[galCur]) dots[galCur].classList.add('active'); if (thumbs[galCur]) { thumbs[galCur].classList.add('active'); const thumbStrip = document.getElementById('galleryThumbs'); if (thumbStrip) { const thumb = thumbs[galCur]; const stripLeft = thumbStrip.scrollLeft; const stripWidth = thumbStrip.offsetWidth; const thumbLeft = thumb.offsetLeft; const thumbWidth = thumb.offsetWidth; if (thumbLeft < stripLeft || thumbLeft + thumbWidth > stripLeft + stripWidth) { thumbStrip.scrollLeft = thumbLeft - stripWidth / 2 + thumbWidth / 2; } } } animateProgress(); }
+            window.galGo = galGo; function galSlide(dir) { clearInterval(galTimer); galGo(galCur + dir); startAuto(); } window.galSlide = galSlide;
+            function animateProgress() { if (!progress) return; progress.style.transition = 'none'; progress.style.width = '0%'; progress.style.display = 'block'; requestAnimationFrame(() => { requestAnimationFrame(() => { progress.style.transition = `width ${GAL_INTERVAL}ms linear`; progress.style.width = '100%'; }); }); }
+            function startAuto() { clearInterval(galTimer); galTimer = setInterval(() => { galGo(galCur + 1); }, GAL_INTERVAL); animateProgress(); }
+            if (carousel) { carousel.addEventListener('mouseenter', () => { clearInterval(galTimer); if (progress) { progress.style.transition = 'none'; } }); carousel.addEventListener('mouseleave', () => { startAuto(); }); let touchStartX = 0; carousel.addEventListener('touchstart', (e) => { touchStartX = e.touches[0].clientX; clearInterval(galTimer); }, { passive: true }); carousel.addEventListener('touchend', (e) => { const diff = touchStartX - e.changedTouches[0].clientX; if (Math.abs(diff) > 40) galGo(galCur + (diff > 0 ? 1 : -1)); startAuto(); }, { passive: true }); }
+            startAuto();
+        })();
+    </script>
+
+    <!-- Glassmorphism Admission Modal -->
+    <script>
+        function openAdmissionInline() {
+            document.getElementById('apply-now-btn').style.display = 'none';
+            document.getElementById('inline-admission-form').style.display = 'block';
+        }
+        function closeAdmissionInline() {
+            document.getElementById('inline-admission-form').style.display = 'none';
+            document.getElementById('apply-now-btn').style.display = 'inline-block';
+        }
+    </script>
+
+</body>
+
+</html>

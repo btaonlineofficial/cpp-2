@@ -1,0 +1,425 @@
+page 1 
+
+College Web Portal Management & Digital Library System (AI Powered)
+
+Project Report
+Submitted To
+Contai Polytechnic
+Department of Computer Science & Technology
+
+Submitted By
+Student Name: Swarup Dey
+Roll: DCONCSTS4,  No: 100033521
+Registration No: D242533471
+SEM- 4th
+YEAR- 2026
+Session: 2025-2026
+Guided By
+Project Guide Name: Gitanjali Mandal Ma’am
+Academic Year
+2025–2026
+
+page-2 
+CERTIFICATE
+
+This is to certify that the project entitled “College Web Portal Management & Digital Library System (AI Powered)” submitted by    Swarup Dey   of Computer Science & Technology Department, Contai Polytechnic, is a bonafide work carried out under the supervision of the undersigned during the academic session 2025–2026.
+The work presented in this project report is original and has been completed successfully according to the requirements of the diploma curriculum.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Project Guide Signature: ____________________
+
+
+Head of Department Signature: ____________________
+
+page-3
+ACKNOWLEDGEMENT
+
+I would like to express my sincere gratitude to all the people who supported me during the development of this project. First of all, I thank our respected Principal and Head of the Department of Computer Science & Technology, Contai Polytechnic, for providing the opportunity and necessary facilities to complete this project successfully.
+I would also like to thank my project guide for continuous guidance, valuable suggestions, and technical support throughout the development process. Their encouragement helped me to improve the project and complete it efficiently.
+I am grateful to my teachers, friends, and classmates who helped me directly or indirectly during the development and testing of this project.
+Finally, I would like to thank my family for their constant support and motivation.
+
+page-4 
+ABSTRACT
+
+The “College Web Portal Management & Digital Library System (AI Powered)” is an advanced web-based platform developed for modern educational institutions. The system is designed to digitally manage important academic activities such as library management, student support, communication, and online information services through a single integrated portal.
+The project combines multiple modern technologies including Artificial Intelligence, Digital Library Management, WhatsApp Automation, Online PDF Reader, and Virtual Campus Tour. The main purpose of the system is to provide students and teachers with easy access to educational resources and institutional information from anywhere through an internet connection.
+The system allows administrators to manage books, users, notices, departments, gallery images, and academic resources through a secure admin dashboard. Students can search books department-wise, read PDF books online, download study materials, and interact with the AI-powered support system for quick information retrieval.
+The WhatsApp integration module improves communication by automating notifications and updates for students. The responsive interface ensures smooth access from desktop, laptop, tablet, and mobile devices.
+The entire project is developed using Flask (Python), HTML5, CSS3, JavaScript, SQLite Database, and Node.js technologies. The project demonstrates practical implementation of modern web technologies and provides a smart digital solution for colleges and educational institutions.
+
+page-5
+INDEX
+Chapter No	Chapter Name	Page No
+1	Introduction	
+2	Objective of the Project	
+3	Existing System	
+4	Proposed System	
+5	Software & Hardware Requirements	
+6	System Architecture	
+7	Database Design	
+8	Modules Description	
+9	Working Procedure	
+10	AI & WhatsApp Integration	
+11	Advantages	
+12	Limitations	
+13	Future Scope	
+14	Testing	
+15	Conclusion	
+16	Bibliography	
+
+
+page-6 
+CHAPTER 1
+INTRODUCTION
+Technology has become one of the most important parts of modern education systems. Most colleges and educational institutions are now shifting from traditional manual systems to digital platforms in order to improve efficiency, communication, accessibility, and management. Manual systems consume more time, require excessive paperwork, and make academic resource management difficult.
+The “College Web Portal Management & Digital Library System (AI Powered)” is developed to solve these problems by providing a centralized online platform for students, teachers, and administrators. The system simplifies academic activities and allows users to access educational resources quickly and efficiently.
+This project integrates several advanced modules such as Digital Library Management, AI-powered Helpdesk, WhatsApp Automation, Online PDF Reading System, Admin Dashboard, and Virtual Campus Tour into a single web application. The platform helps students access study materials online while allowing administrators to manage users, books, departments, and other institutional information.
+The system is designed with a modern responsive user interface that works smoothly across different devices. By using this platform, institutions can reduce manual workload, improve communication, and enhance the overall learning experience for students.
+The project mainly focuses on creating a practical, user-friendly, secure, and scalable solution for modern educational institutions.
+
+page-7 
+CHAPTER 2
+OBJECTIVE OF THE PROJECT
+The main objectives of the project are:
+1.	To create a centralized college management platform.
+2.	To develop a digital library system for students and teachers.
+3.	To provide online access to eBooks and study materials.
+4.	To integrate AI assistance for smart information support.
+5.	To automate WhatsApp communication and notifications.
+6.	To reduce manual work in managing academic resources.
+7.	To provide secure authentication and user management.
+8.	To improve accessibility and digital learning.
+9.	To provide a responsive and modern user interface.
+10.	To implement a practical real-world web application.
+
+page-8
+CHAPTER 3
+EXISTING SYSTEM
+
+In many colleges, library and management activities are still handled manually. Traditional systems have several disadvantages:
+•	Books are maintained manually.
+•	Students must physically visit the library.
+•	Searching books takes more time.
+•	Communication with students is inefficient.
+•	Manual record management is difficult.
+•	No online access to study materials.
+•	Data management becomes complicated.
+•	User tracking and reporting are limited.
+Manual systems also increase paperwork and reduce efficiency. Students face difficulties accessing educational resources from remote locations.
+Because of these problems, there is a need for a smart digital system that automates academic resource management.
+
+page-9 
+CHAPTER 4
+PROPOSED SYSTEM
+The proposed system is a smart web-based application that integrates various academic and management services into a single centralized platform. The system is specially designed for colleges and educational institutions to digitally manage academic resources, library operations, communication systems, and user activities.
+The platform provides a modern Digital Library System where students and teachers can access study materials online. Users can search books by department, subject, or semester, read PDF books directly in the browser, and download materials whenever required.
+The proposed system also includes an AI-powered helpdesk module that helps users retrieve information quickly and efficiently. Additionally, the WhatsApp automation system enables instant communication and notification delivery through WhatsApp Web integration.
+The administrator can control the entire system through a secure dashboard. The admin panel provides facilities for uploading books, managing users, monitoring activities, managing departments, and controlling the communication system.
+The project also contains a Virtual Campus Tour module which provides an interactive digital overview of the campus environment for students and visitors.
+Overall, the proposed system reduces paperwork, minimizes manual effort, improves communication efficiency, and provides a better digital learning environment.
+
+page-10 
+CHAPTER 5
+SOFTWARE & HARDWARE REQUIREMENTS
+
+Software Requirements
+Software	Purpose
+Python	Backend Development
+Flask	Web Framework
+HTML5	Structure of Web Pages
+CSS3	Styling & Design
+JavaScript	Dynamic Functionality
+SQLite	Database Management
+Node.js	WhatsApp Bot Integration
+VS Code	Code Editor
+Git	Version Control
+Browser	Application Access
+
+Hardware Requirements
+Hardware	Specification
+Processor	Intel i3 or above
+RAM	Minimum 4GB
+Storage	20GB Free Space
+Internet	Required
+Operating System	Windows/Linux
+
+page 11 
+CHAPTER 6
+SYSTEM ARCHITECTURE
+The project follows a modular architecture.
+Main Components
+1. Frontend Layer
+The frontend is developed using HTML, CSS, and JavaScript. It provides the user interface and interacts with the backend.
+2. Backend Layer
+The backend is developed using Flask (Python). It handles authentication, database operations, routing, and business logic.
+3. Database Layer
+SQLite database stores user information, books, departments, and other records.
+4. AI Engine
+The AI engine handles smart responses and information retrieval.
+5. WhatsApp Bot
+Node.js-based WhatsApp bot manages automated messaging and communication.
+6. Virtual Tour Module
+This module provides a 3D virtual view of the campus.
+Project Structure
+college_html/
+├── app.py
+├── database.db
+├── requirements.txt
+├── rag_engine.py
+├── static/
+├── new_templates/
+├── wa_bot/
+└── virtual_tour/
+
+page-12 
+CHAPTER 7
+DATABASE DESIGN
+The system uses SQLite database.
+Main Tables
+1. Users Table
+Stores user information.
+Field	Description
+id	User ID
+name	User Name
+role	Student/Teacher/Admin
+phone	Mobile Number
+email	Email Address
+password	User Password
+2. Books Table
+Stores eBook details.
+Field	Description
+id	Book ID
+title	Book Title
+author	Author Name
+department	Department
+semester	Semester
+filepath	File Location
+3. Departments Table
+Stores department information.
+4. Activity Logs
+Stores system activities and logs.
+
+page-13
+CHAPTER 8
+MODULES DESCRIPTION
+1. Home Page Module
+The homepage provides an overview of the system. It contains navigation menus, announcements, and quick access options.
+Features:
+•	Responsive design
+•	Navigation menu
+•	College information
+•	Department links
+•	AI helpdesk access
+2. Login & Authentication Module
+This module handles user login and authentication.
+Features:
+•	Student login
+•	Admin login
+•	Password protection
+•	Session management
+3. Digital Library Module
+This is one of the main modules of the project.
+Features:
+•	Upload eBooks
+•	Read books online
+•	Download books
+•	Search functionality
+•	Department-wise filtering
+•	Semester filtering
+•	Subject-wise categorization
+4. Admin Dashboard Module
+The admin dashboard allows administrators to manage the system.
+Features:
+•	User management
+•	Book management
+•	Activity monitoring
+•	Statistics dashboard
+•	Upload controls
+5. AI Helpdesk Module
+The AI module helps users by answering questions and providing information.
+Features:
+•	Smart responses
+•	AI-based support
+•	Information retrieval
+•	Automated assistance
+6. WhatsApp Bot Module
+This module automates communication through WhatsApp.
+Features:
+•	QR authentication
+•	WhatsApp connection
+•	Automated notifications
+•	Bot control panel
+7. Virtual Tour Module
+This module provides a digital tour of the campus.
+Features:
+•	3D campus view
+•	Interactive navigation
+Better student experience
+
+page-14 
+CHAPTER 9
+WORKING PROCEDURE
+The working procedure of the system is as follows:
+1.	User opens the web application.
+2.	User logs into the system.
+3.	The backend verifies user credentials.
+4.	User accesses dashboard and resources.
+5.	Students search books by department or subject.
+6.	Books can be read online or downloaded.
+7.	Admin manages books and users.
+8.	AI engine handles information requests.
+9.	WhatsApp bot sends automated messages.
+
+All activities are stored in the database.
+
+page-15 
+CHAPTER 10
+AI & WHATSAPP INTEGRATION
+AI Integration
+The project includes an AI-powered system using a RAG (Retrieval-Augmented Generation) engine.
+Functions:
+•	Smart information retrieval
+•	Automated answering system
+•	Query handling
+•	AI support system
+The AI engine improves user interaction and makes the system more intelligent.
+WhatsApp Integration
+The project uses Node.js and WhatsApp Web integration.
+Functions:
+•	QR-based authentication
+•	Automated messaging
+•	Notification system
+•	Real-time communication
+This module improves communication efficiency between students and administration.
+
+page-16 
+CHAPTER 11
+ADVANTAGES
+Advantages of the system:
+1.	Provides easy online access to educational resources and study materials.
+2.	Reduces manual paperwork and administrative workload.
+3.	Saves time for both students and administrators.
+4.	Offers a modern and responsive user interface for better user experience.
+5.	Centralizes all important college services into a single platform.
+6.	Improves communication through WhatsApp automation.
+7.	Provides AI-powered support and smart information retrieval.
+8.	Enables secure login and user authentication.
+9.	Allows online reading and downloading of eBooks.
+10.	Supports department-wise and subject-wise organization of resources.
+11.	Improves digital learning opportunities for students.
+12.	Makes academic management more efficient and organized.
+13.	Provides scalability for future improvements and additional modules.
+14.	Supports real-world implementation in educational institutions.
+15.	Enhances the overall efficiency and accessibility of college management systems.
+
+page-17 
+CHAPTER 12
+LIMITATIONS
+Although the project provides many advanced features, there are some limitations:
+1.	SQLite is suitable mainly for small-scale systems.
+2.	Internet connection is required.
+3.	Large file uploads may affect performance.
+4.	AI responses depend on available data.
+5.	WhatsApp integration requires authentication.
+
+page-18
+CHAPTER 13
+FUTURE SCOPE
+The project can be improved further by adding:
+•	Online admission system
+•	Attendance management
+•	Online examination system
+•	Cloud deployment
+•	Mobile application
+•	Payment gateway integration
+•	Face recognition authentication
+•	AI chatbot improvements
+•	Advanced analytics dashboard
+•	Email notification system
+The project has strong future expansion possibilities.
+
+page-19 
+CHAPTER 14
+TESTING
+Testing is important for ensuring system reliability.
+Types of Testing Performed
+1. Unit Testing
+Individual modules were tested separately.
+2. Integration Testing
+Different modules were integrated and tested together.
+3. User Interface Testing
+The frontend interface was tested on different devices.
+4. Database Testing
+Database operations such as insert, update, delete, and retrieval were tested.
+5. Authentication Testing
+Login and session management were tested.
+6. File Upload Testing
+Book upload and reading functionality were verified.
+The system worked successfully during testing.
+
+page-20
+CHAPTER 15
+CONCLUSION
+The “College Web Portal Management & Digital Library System (AI Powered)” successfully fulfills the main objectives of the project by providing a smart, modern, and efficient digital platform for educational institutions.
+The project combines advanced technologies such as Artificial Intelligence, Digital Library Management, WhatsApp Automation, Online Reading System, and Modern Dashboard Design into a single integrated web application. The system simplifies academic management and improves accessibility of educational resources for students and teachers.
+The application helps reduce manual work, improve communication efficiency, and provide better digital services within the institution. Students can easily access study materials, search books, and use online resources from anywhere through the internet.
+The admin panel enables efficient management of users, books, departments, and system activities. The AI-powered support system and WhatsApp integration make the platform more interactive and intelligent compared to traditional systems.
+The project also demonstrates practical implementation of modern web development technologies, database management systems, frontend design principles, and backend integration techniques.
+Overall, the project is user-friendly, scalable, responsive, and suitable for real-world implementation in colleges and educational institutions. The system can be further improved in the future by integrating additional smart technologies and advanced management features.
+
+page-21 
+CHAPTER 16
+BIBLIOGRAPHY
+Websites
+11.	https://flask.palletsprojects.com/
+12.	https://www.python.org/
+13.	https://developer.mozilla.org/
+14.	https://nodejs.org/
+15.	https://www.sqlite.org/
+16.	https://www.w3schools.com/
+Books
+1.	Web Development using Python and Flask
+2.	Database Management Systems
+3.	HTML & CSS Web Design
+4.	JavaScript Programming Guide
+
+page-22 
+APPENDIX
+Screens Included
+
+ 
+ 
+page-23
+THANK YOU
+College Web Portal Management & Digital Library System (AI Powered)
+Submitted Successfully
+Developed By
+Student Name: Swarup dey
+Department
+Computer Science & Technology
+Institution
+Contai Polytechnic
+Academic Session
+2025–2026
+"Education is the most powerful weapon which you can use to change the world."
+— Nelson Mandela
+

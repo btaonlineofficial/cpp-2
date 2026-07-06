@@ -1,0 +1,376 @@
+{% extends 'library/base.html' %}
+{% block title %}Admin Panel{% endblock %}
+{% block page_title %}⚙️ Admin Panel{% endblock %}
+
+{% block content %}
+<!-- Stats -->
+<div class="grid-5" style="margin-bottom:24px;">
+  {% for ico,val,lab,bg in [('📚',stats.total_books,'Total eBooks','#ebf8ff'),('👥',stats.total_users,'Users','#f0fff4'),('📖',stats.total_rd,'Total Reads','#fffaf0'),('⬇️',stats.total_dl,'Downloads','#fef3f2')] %}
+  <div
+    style="background:white;border-radius:14px;padding:18px;box-shadow:0 2px 10px rgba(0,0,0,0.06);display:flex;align-items:center;gap:12px;">
+    <div
+      style="width:44px;height:44px;border-radius:12px;--bg: {{ bg }};background:var(--bg);display:flex;align-items:center;justify-content:center;font-size:20px;">
+      {{ ico }}</div>
+    <div>
+      <div style="font-size:26px;font-weight:700;color:var(--primary);">{{ val }}</div>
+      <div style="font-size:12px;color:var(--muted);">{{ lab }}</div>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+
+<!-- Tabs -->
+<div class="tabs-wrap"
+  style="display:flex;gap:4px;margin-bottom:20px;background:white;padding:6px;border-radius:14px;box-shadow:0 2px 10px rgba(0,0,0,0.06);overflow-x:auto;">
+  {% for tid,ticon,tlabel in [('books','📚','eBooks'),('upload','📤','Upload'),('users','👥','Users'),('activity','📋','Activity')] %}
+  {% set s_base = "flex:1;text-align:center;padding:10px 14px;border-radius:10px;font-size:13px;font-weight:600;text-decoration:none;transition:all 0.2s;white-space:nowrap;" %}
+  {% set s_cond = "background:var(--primary);color:white;" if tab==tid else "color:var(--muted);" %}
+  <a href="?tab={{ tid }}" {{ ('style="' ~ s_base ~ s_cond ~ '"') | safe }}>
+    {{ ticon }} {{ tlabel }}
+  </a>
+  {% endfor %}
+</div>
+
+<!-- ══ UPLOAD ══ -->
+{% if tab=='upload' %}
+<div class="card">
+  <div class="section-title" style="margin-bottom:20px;">📤 Upload New eBook</div>
+  <form method="POST" action="/library/admin/upload" enctype="multipart/form-data">
+    <div class="grid-2">
+      <div class="form-group" style="grid-column:1/-1;"><label>📖 Book Title *</label><input type="text" name="title"
+          placeholder="e.g. Strength of Materials" required></div>
+      <div class="form-group"><label>✍️ Author</label><input type="text" name="author" placeholder="e.g. R.K. Bansal">
+      </div>
+      <div class="form-group"><label>🏛️ Department *</label>
+        <select name="dept" required onchange="fillSubj(this.value)">
+          <option value="">— Select —</option>
+          {% for d in departments %}<option value="{{ d.id }}">{{ d.icon }} {{ d.name }}</option>{% endfor %}
+        </select>
+      </div>
+      <div class="form-group"><label>📂 Subject *</label><input type="text" name="subject" id="sj"
+          placeholder="Enter Subject" required></div>
+      <div class="form-group"><label>📅 Semester</label>
+        <select name="semester">
+          <option value="">— Optional —</option>
+          {% for s in ['1st','2nd','3rd','4th','5th','6th'] %}<option>{{ s }}</option>{% endfor %}
+        </select>
+      </div>
+      <div class="form-group" style="grid-column:1/-1;"><label>📝 Description</label><textarea name="description"
+          rows="2" placeholder="Short description..."></textarea></div>
+      <div style="grid-column:1/-1;">
+        <div style="display:flex;gap:8px;margin-bottom:10px">
+          <button type="button" id="btn-file2" onclick="setUploadMode2('file')" class="btn btn-primary" style="padding:7px 14px;font-size:12px;">📁 File Upload</button>
+          <button type="button" id="btn-drive2" onclick="setUploadMode2('drive')" class="btn" style="padding:7px 14px;font-size:12px;background:var(--light);color:var(--text);">🔗 Google Drive Link</button>
+        </div>
+        <div id="upload-file2">
+          <div class="form-group"><label>📁 File (PDF, EPUB, DOC, DOCX, PPT, PPTX — Max 100MB)</label>
+            <input type="file" name="ebook_file" accept=".pdf,.epub,.doc,.docx,.ppt,.pptx"
+              style="padding:10px;background:var(--light);border-radius:10px;border:2px dashed var(--border);">
+          </div>
+        </div>
+        <div id="upload-drive2" style="display:none">
+          <div class="form-group"><label>📎 Google Drive PDF Link</label>
+            <input type="url" name="drive_link" placeholder="https://drive.google.com/file/d/xxxxxxxxxx/view?usp=sharing">
+          </div>
+          <p style="font-size:11px;color:var(--muted);margin-top:-8px">📌 Make sure the file is set to "Anyone with the link can view"</p>
+        </div>
+      </div>
+    </div>
+    <div style="margin-top:18px;"><button type="submit" class="btn btn-primary" style="padding:12px 28px;">📤 Upload</button></div>
+  </form>
+</div>
+
+<!-- ══ BOOKS ══ -->
+{% elif tab=='books' %}
+<div class="card">
+  <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;">
+    <div class="section-title" style="margin-bottom:0;">📚 All eBooks ({{ books|length }})</div>
+    <a href="?tab=upload" class="btn btn-primary" style="text-decoration:none;padding:9px 18px;">+ Upload</a>
+  </div>
+  {% if books %}
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>Title</th>
+          <th>Dept</th>
+          <th>Subject</th>
+          <th>Sem</th>
+          <th>🔐</th>
+          <th>📖</th>
+          <th>⬇️</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for b in books %}
+        {% set ext = b[7].rsplit('.',1)[-1].upper() if b[7] else '' %}
+        <tr>
+          <td>
+            <div
+              style="font-weight:600;font-size:13px;max-width:180px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;"
+              title="{{ b[1] }}">{{ b[1] }}</div>
+            {% if b[2] %}<div style="font-size:11px;color:var(--muted);">{{ b[2] }}</div>{% endif %}
+            <span style="font-size:10px;background:#fef3ff;color:#6b46c1;padding:2px 6px;border-radius:4px;">{{ ext
+              }}</span>
+          </td>
+          <td><span class="badge badge-blue" style="font-size:10px;">{{ b[4]|upper }}</span></td>
+          <td style="font-size:12px;max-width:120px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;"
+            title="{{ b[5] }}">{{ b[5] }}</td>
+          <td><span class="badge" style="font-size:11px;">{{ b[6] or '—' }}</span></td>
+          <td>{% if b[13] %}<span title="Password protected" style="font-size:14px;">🔑</span>{% else %}<span
+              style="font-size:12px;color:var(--muted);">—</span>{% endif %}
+            {% if not b[14] %}<span title="No download" style="font-size:12px;">🚫</span>{% endif %}</td>
+          <td style="font-weight:600;color:#4a4a9f;">{{ b[11] or 0 }}</td>
+          <td style="font-weight:600;color:#27ae60;">{{ b[10] or 0 }}</td>
+          <td>
+            <div style="display:flex;gap:4px;">
+              <a href="/library/read/{{ b[0] }}" class="btn btn-sm"
+                style="background:#ebf8ff;color:#2b6cb0;text-decoration:none;" title="Read">📖</a>
+              {% if b[14] %}<a href="/library/download/{{ b[0] }}" class="btn btn-sm"
+                style="background:#f0fff4;color:#276749;text-decoration:none;" title="Download">⬇️</a>{% endif %}
+              <button class="btn btn-sm" style="background:#fffaf0;color:#b7791f;" title="Edit"
+                onclick="openEdit('{{ b[0] }}','{{ b[1]|e }}','{{ b[2]|e }}','{{ b[3]|e }}','{{ b[5]|e }}','{{ b[6] }}','{{ b[13] }}','{{ b[14] }}')">✏️</button>
+              <form method="POST" action="/library/admin/delete/{{ b[0] }}" style="display:inline;"
+                onsubmit="return confirm('Delete?')">
+                <button class="btn btn-sm btn-danger" title="Delete">🗑️</button>
+              </form>
+            </div>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  {% else %}
+  <div class="empty">
+    <div class="ei">📭</div>
+    <p>No books found.</p>
+  </div>
+  {% endif %}
+</div>
+
+<!-- ══ USERS ══ -->
+{% elif tab=='users' %}
+<div class="grid-2">
+  <div class="card">
+    <div class="section-title" style="margin-bottom:16px;">➕ New User</div>
+    <form method="POST" action="/library/admin/add-user">
+      <div style="display:flex;flex-direction:column;gap:11px;">
+        <div class="form-group"><label>Name *</label><input type="text" name="name" placeholder="Full name" required>
+        </div>
+        <div class="form-group"><label>Library ID *</label><input type="text" name="user_id" placeholder="STU2024001"
+            required></div>
+        <div class="form-group"><label>Password *</label><input type="password" name="password" required></div>
+        <div class="form-group"><label>Role</label><select name="role">
+            <option value="student">👨‍🎓 Student</option>
+            <option value="teacher">👨‍🏫 Teacher</option>
+            <option value="admin">👑 Admin</option>
+          </select></div>
+        <div class="form-group"><label>Department</label><select name="dept">
+            <option value="">General</option>
+            {% for d in departments %}<option value="{{ d.id }}">{{ d.icon }} {{ d.name }}</option>{% endfor %}
+          </select></div>
+        <button type="submit" class="btn btn-primary">➕ Add User</button>
+      </div>
+    </form>
+  </div>
+  <div class="card">
+    <div class="section-title" style="margin-bottom:16px;">👥 All Users ({{ users|length }})</div>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>ID</th>
+            <th>Role</th>
+            <th>Dept</th>
+            <th>Joined</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for u in users %}
+          <tr>
+            <td>
+              <div style="display:flex;align-items:center;gap:8px;">
+                <div
+                  style="width:30px;height:30px;border-radius:8px;background:linear-gradient(135deg,var(--primary),var(--accent));display:flex;align-items:center;justify-content:center;color:white;font-weight:700;font-size:12px;">
+                  {{ u[1][0].upper() }}</div>
+                <span style="font-weight:600;font-size:13px;">{{ u[1] }}</span>
+              </div>
+            </td>
+            <td><span class="badge badge-blue">{{ u[2] }}</span></td>
+            <td><span class="badge {% if u[4]=='admin' %}badge-gold{% elif u[4]=='teacher' %}badge-green{% endif %}">
+                {% if u[4]=='admin' %}👑{% elif u[4]=='teacher' %}👨‍🏫{% else %}👨‍🎓{% endif %} {{ u[4]|title }}
+              </span></td>
+            <td style="font-size:12px;color:var(--muted);">{{ u[5] or '—' }}</td>
+            <td style="font-size:12px;color:var(--muted);">{{ u[6] or '—' }}</td>
+            <td>
+              <div style="display:flex;gap:4px;">
+                <button class="btn btn-sm" style="background:#ebf8ff;color:#2b6cb0;"
+                  onclick="openPwChange('{{ u[2] }}','{{ u[1]|e }}')">🔑</button>
+                {% if u[2]!='admin' %}
+                <form method="POST" action="/library/admin/delete-user/{{ u[0] }}" onsubmit="return confirm('Remove?')">
+                  <button class="btn btn-sm btn-danger">🗑️</button>
+                </form>
+                {% endif %}
+              </div>
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- ══ ACTIVITY ══ -->
+{% elif tab=='activity' %}
+<div class="card">
+  <div class="section-title" style="margin-bottom:16px;">📋 Activity Log</div>
+  {% if activity %}
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>Time</th>
+          <th>User</th>
+          <th>Action</th>
+          <th>Book</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for a in activity %}
+        <tr>
+          <td style="font-size:12px;color:var(--muted);white-space:nowrap;">{{ a[4] }}</td>
+          <td>
+            <div style="display:flex;align-items:center;gap:6px;">
+              <div
+                style="width:26px;height:26px;border-radius:7px;background:linear-gradient(135deg,var(--primary),var(--accent));display:flex;align-items:center;justify-content:center;color:white;font-size:11px;font-weight:700;">
+                {{ a[2][0].upper() if a[2] else '?' }}</div>
+              <span style="font-size:13px;font-weight:600;">{{ a[2] }}</span>
+            </div>
+          </td>
+          <td>{% if a[3]=='read' %}<span
+              style="background:#ebf8ff;color:#2b6cb0;padding:4px 10px;border-radius:20px;font-size:12px;font-weight:600;">📖
+              Read</span>
+            {% else %}<span
+              style="background:#f0fff4;color:#276749;padding:4px 10px;border-radius:20px;font-size:12px;font-weight:600;">⬇️
+              Download</span>{% endif %}</td>
+          <td style="font-size:13px;max-width:260px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;"
+            title="{{ a[1] }}">{{ a[1] }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  {% else %}
+  <div class="empty">
+    <div class="ei">📋</div>
+    <p>No activity found.</p>
+  </div>
+  {% endif %}
+</div>
+{% endif %}
+
+<!-- Edit Book Modal -->
+<div id="edit-modal"
+  style="display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.55);z-index:1000;align-items:center;justify-content:center;">
+  <div
+    style="background:white;border-radius:20px;padding:28px;width:500px;max-width:92vw;max-height:90vh;overflow-y:auto;">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:18px;">
+      <h3 style="font-family:'Playfair Display',serif;color:var(--primary);">✏️ Book Edit</h3>
+      <button onclick="closeEdit()" style="background:none;border:none;font-size:20px;cursor:pointer;">✕</button>
+    </div>
+    <form id="edit-form" method="POST">
+      <div class="grid-2">
+        <div class="form-group" style="grid-column:1/-1;"><label>Title</label><input name="title" id="et" required>
+        </div>
+        <div class="form-group"><label>Author</label><input name="author" id="ea"></div>
+        <div class="form-group"><label>Subject</label><input name="subject" id="es" required></div>
+        <div class="form-group"><label>Semester</label><select name="semester" id="ese">
+            <option value="">—</option>{% for s in ['1st','2nd','3rd','4th','5th','6th'] %}<option>{{ s }}</option>{%
+            endfor %}
+          </select></div>
+        <div class="form-group"><label>Read Password</label><input name="read_password" id="ep"
+            placeholder="Blank = no password"></div>
+        <div style="display:flex;align-items:center;gap:8px;padding-top:20px;">
+          <input type="checkbox" name="allow_download" id="edl" value="1"
+            style="width:18px;height:18px;accent-color:var(--accent);">
+          <label for="edl" style="font-size:13px;font-weight:600;cursor:pointer;">⬇️ Allow Download</label>
+        </div>
+        <div class="form-group" style="grid-column:1/-1;"><label>Description</label><textarea name="description" id="ed"
+            rows="2"></textarea></div>
+      </div>
+      <div style="margin-top:14px;display:flex;gap:10px;">
+        <button type="submit" class="btn btn-primary">💾 Save</button>
+        <button type="button" onclick="closeEdit()" class="btn"
+          style="background:var(--light);color:var(--text);">Cancel</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- PW Change Modal -->
+<div id="pw-modal"
+  style="display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.55);z-index:1000;align-items:center;justify-content:center;">
+  <div style="background:white;border-radius:20px;padding:28px;width:360px;">
+    <h3 style="font-family:'Playfair Display',serif;color:var(--primary);margin-bottom:4px;">🔑 Password Change</h3>
+    <p id="pwun" style="font-size:13px;color:var(--muted);margin-bottom:18px;"></p>
+    <form method="POST" action="/library/admin/change-password">
+      <input type="hidden" name="target_uid" id="pwuid">
+      <div class="form-group" style="margin-bottom:14px;"><label>New Password</label><input type="password"
+          name="new_password" required></div>
+      <div style="display:flex;gap:10px;">
+        <button type="submit" class="btn btn-primary">💾 Change</button>
+        <button type="button" onclick="document.getElementById('pw-modal').style.display='none'" class="btn"
+          style="background:var(--light);color:var(--text);">Cancel</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<script>
+  const sm = { mechanical: ['Mathematics-I', 'Thermodynamics', 'Manufacturing Technology', 'Fluid Mechanics', 'Machine Design'], civil: ['Surveying', 'Concrete Technology', 'Structural Analysis'], electrical: ['Circuit Theory', 'Electrical Machines', 'Power Systems', 'Control Systems'], electronics: ['Digital Electronics', 'Microprocessors', 'Communication Systems'], cst: ['Programming in C', 'Data Structures', 'Database Management', 'Web Technology'], chemical: ['Process Engineering', 'Chemical Reaction Engineering'], pharmacy: ['Pharmaceutical Chemistry', 'Pharmacology', 'Clinical Pharmacy'] };
+  function fillSubj(d) { const i = document.getElementById('sj'); if (sm[d]) i.placeholder = 'e.g. ' + sm[d][0]; }
+  function setUploadMode2(mode) {
+    const fileDiv = document.getElementById('upload-file2');
+    const driveDiv = document.getElementById('upload-drive2');
+    const btnFile = document.getElementById('btn-file2');
+    const btnDrive = document.getElementById('btn-drive2');
+    if (mode === 'drive') {
+      fileDiv.style.display = 'none'; driveDiv.style.display = 'block';
+      btnDrive.style.background = 'var(--accent)'; btnDrive.style.color = 'white';
+      btnFile.style.background = 'var(--light)'; btnFile.style.color = 'var(--text)';
+      const fi = fileDiv.querySelector('input[type=file]'); if (fi) fi.value = '';
+    } else {
+      fileDiv.style.display = 'block'; driveDiv.style.display = 'none';
+      btnFile.style.background = ''; btnFile.style.color = '';
+      btnDrive.style.background = 'var(--light)'; btnDrive.style.color = 'var(--text)';
+      const di = driveDiv.querySelector('input[type=url]'); if (di) di.value = '';
+    }
+  }
+  function openEdit(id, title, author, desc, subj, sem, pw, dl) {
+    document.getElementById('edit-form').action = '/library/admin/edit/' + id;
+    document.getElementById('et').value = title;
+    document.getElementById('ea').value = author;
+    document.getElementById('ed').value = desc;
+    document.getElementById('es').value = subj;
+    document.getElementById('ese').value = sem;
+    document.getElementById('ep').value = pw;
+    document.getElementById('edl').checked = (dl == '1' || dl == 1);
+    document.getElementById('edit-modal').style.display = 'flex';
+  }
+  function closeEdit() { document.getElementById('edit-modal').style.display = 'none'; }
+  function openPwChange(uid, name) {
+    document.getElementById('pwuid').value = uid;
+    document.getElementById('pwun').textContent = name + ' (' + uid + ')';
+    document.getElementById('pw-modal').style.display = 'flex';
+  }
+  window.addEventListener('click', e => {
+    if (e.target.id === 'edit-modal') closeEdit();
+    if (e.target.id === 'pw-modal') document.getElementById('pw-modal').style.display = 'none';
+  });
+</script>
+{% endblock %}

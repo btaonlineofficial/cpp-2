@@ -1,0 +1,192 @@
+{% extends 'library/base.html' %}
+{% block title %}Books Manage{% endblock %}
+{% block page_title %}📚 Books Manage{% endblock %}
+{% block content %}
+
+<!-- Upload Form -->
+<div class="card" style="margin-bottom:20px">
+  <div class="sec-title" style="margin-bottom:16px">📤 Upload New eBook</div>
+  <form method="POST" action="/library/admin/upload" enctype="multipart/form-data">
+    <div class="form-grid">
+      <div class="fg full"><label>Book Title *</label><input type="text" name="title"
+          placeholder="e.g. Engineering Mathematics Vol.1" required></div>
+      <div class="fg"><label>Author / Publisher</label><input type="text" name="author" placeholder="e.g. R.K. Bansal">
+      </div>
+      <div class="fg"><label>Semester</label>
+        <select name="semester">
+          <option value="">— Select —</option>
+          {% for s in ['1st','2nd','3rd','4th','5th','6th'] %}<option>{{s}}</option>{% endfor %}
+        </select>
+      </div>
+      <div class="fg"><label>Category *</label>
+        <select name="dept" id="dept-sel" required onchange="updateClasses(this.value)">
+          <option value="">— Select Category —</option>
+          {% for d in departments %}
+          <option value="{{d.id}}" {% if dept_filter==d.id %}selected{% endif %}>{{d.icon}} {{d.name}}</option>
+          {% endfor %}
+        </select>
+      </div>
+      <div class="fg"><label>Class *</label>
+        <select name="subject" id="class-sel" required>
+          <option value="">— Select Category first —</option>
+        </select>
+      </div>
+      <div class="fg"><label>Subject Name *</label>
+        <input type="text" name="book_subject" placeholder="e.g. Mathematics-I, Java Programming" required>
+      </div>
+      <div class="fg full"><label>Description (Optional)</label><textarea name="description" rows="2"
+          placeholder="Short description about the book..."></textarea></div>
+      
+      <!-- Upload Method Toggle -->
+      <div class="fg full">
+        <div style="display:flex;gap:8px;margin-bottom:10px">
+          <button type="button" id="btn-file" onclick="setUploadMode('file')" class="btn btn-pr btn-sm" style="font-size:12px">📁 File Upload</button>
+          <button type="button" id="btn-drive" onclick="setUploadMode('drive')" class="btn btn-sm" style="font-size:12px;background:var(--light);color:var(--text)">🔗 Google Drive Link</button>
+        </div>
+        <!-- File Upload -->
+        <div id="upload-file">
+          <label>Select File (PDF, EPUB, DOC, DOCX, PPT, PPTX — Max 100MB)</label>
+          <input type="file" name="ebook_file" accept=".pdf,.epub,.doc,.docx,.ppt,.pptx"
+            style="padding:8px;background:var(--light)">
+        </div>
+        <!-- Drive Link -->
+        <div id="upload-drive" style="display:none">
+          <label>📎 Google Drive PDF Link</label>
+          <input type="url" name="drive_link" placeholder="https://drive.google.com/file/d/xxxxxxxxxx/view?usp=sharing"
+            style="padding:9px 12px;border:2px solid var(--bd);border-radius:8px;font-size:13px;font-family:'Hind Siliguri',sans-serif;width:100%">
+          <p style="font-size:11px;color:var(--muted);margin-top:6px">📌 Make sure the file is set to "Anyone with the link can view" in Google Drive sharing settings.</p>
+        </div>
+      </div>
+    </div>
+    <div style="margin-top:16px;display:flex;gap:10px;align-items:center">
+      <button type="submit" class="btn btn-pr">📤 Upload</button>
+      <span style="font-size:12px;color:var(--muted)">PDFs can be read directly in the browser</span>
+    </div>
+  </form>
+</div>
+
+<!-- Books Table -->
+<div class="card">
+  <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;flex-wrap:wrap;gap:10px">
+    <div class="sec-title" style="margin-bottom:0">📋 All eBooks ({{books|length}})</div>
+    <div style="display:flex;gap:8px;flex-wrap:wrap">
+      <a href="/library/admin/books"
+        style="padding:6px 14px;border-radius:8px;font-size:12px;font-weight:700;text-decoration:none;--bg: {{ 'var(--pr)' if not dept_filter else 'var(--light)' }};--c: {{ 'white' if not dept_filter else 'var(--text)' }};background:var(--bg);color:var(--c);">All</a>
+      {% for d in departments %}
+      <a href="/library/admin/books?dept={{d.id}}"
+        style="padding:6px 14px;border-radius:8px;font-size:12px;font-weight:700;text-decoration:none;--bg: {{ d.color if dept_filter==d.id else 'var(--light)' }};--c: {{ 'white' if dept_filter==d.id else 'var(--text)' }};background:var(--bg);color:var(--c);">{{d.icon}}</a>
+      {% endfor %}
+    </div>
+  </div>
+
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>TITLE</th>
+          <th>AUTHOR</th>
+          <th>CATEGORY</th>
+          <th>CLASS</th>
+          <th>SUBJECT</th>
+          <th>SEM</th>
+          <th>SIZE</th>
+          <th>UPLOAD DATE</th>
+          <th>👁️</th>
+          <th>📥</th>
+          <th>ACTION</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for b in books %}
+        <tr>
+          <td style="color:var(--muted)">{{b['id']}}</td>
+          <td>
+            <div
+              style="font-weight:700;font-size:12px;max-width:160px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">
+              {{b['title']}}</div>
+            <span class="badge badge-purple">{{b['filetype']|upper}}</span>
+            {% if b['drive_link'] %}<span class="badge badge-green" style="font-size:9px">🔗 DRIVE</span>{% endif %}
+          </td>
+          <td style="font-size:12px;color:var(--muted)">{{b['author'] or '—'}}</td>
+          <td><span class="badge badge-blue">{{b['dept']|upper}}</span></td>
+          <td><span class="badge" style="background:var(--light);color:var(--text)">{{b['subject']}}</span></td>
+          <td style="font-size:12px;font-weight:600;color:var(--teal)">{{b['book_subject'] or '—'}}</td>
+          <td><span class="badge">{{b['semester'] or '—'}}</span></td>
+          <td style="font-size:11px;color:var(--muted)">{{b['filesize'] or '—'}}</td>
+          <td style="font-size:11px;color:var(--muted)">{{b['upload_date'] or '—'}}</td>
+          <td style="font-weight:700;color:var(--ac)">{{b['reads'] or 0}}</td>
+          <td style="font-weight:700;color:var(--teal)">{{b['downloads'] or 0}}</td>
+          <td>
+            <div style="display:flex;gap:5px">
+              {% if b['filetype']=='pdf' %}
+              <a href="/library/read/{{b['id']}}" class="btn btn-sm btn-success" target="_blank">📖</a>
+              {% endif %}
+              <a href="/library/download/{{b['id']}}" class="btn btn-sm btn-warn">📥</a>
+              <form method="POST" action="/library/admin/delete-book/{{b['id']}}" data-title="{{b['title']}}" onsubmit="return confirm('Delete &quot;' + this.dataset.title + '&quot;?')">
+                <button type="submit" class="btn btn-sm btn-danger">🗑️</button>
+              </form>
+            </div>
+          </td>
+        </tr>
+        {% else %}
+        <tr>
+          <td colspan="11" style="text-align:center;padding:40px;color:var(--muted)">No books found.</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<script>
+  // Department → classes map built from Jinja data
+  const deptClasses = {
+    {% for d in departments %}
+    "{{ d.id }}": [
+      {% for s in d.subjects %}["{{ s.name }}", "{{ s.icon }}"],{% endfor %}
+    ],
+    {% endfor %}
+  };
+  function updateClasses(deptId) {
+    const sel = document.getElementById('class-sel');
+    sel.innerHTML = '';
+    const classes = deptClasses[deptId] || [];
+    if (!classes.length) {
+      sel.innerHTML = '<option value="">— No classes in this category —</option>';
+      return;
+    }
+    sel.innerHTML = '<option value="">— Select Class —</option>';
+    classes.forEach(([name, icon]) => {
+      const opt = document.createElement('option');
+      opt.value = name;
+      opt.textContent = (icon || '📄') + ' ' + name;
+      sel.appendChild(opt);
+    });
+  }
+
+  function setUploadMode(mode) {
+    const fileDiv = document.getElementById('upload-file');
+    const driveDiv = document.getElementById('upload-drive');
+    const btnFile = document.getElementById('btn-file');
+    const btnDrive = document.getElementById('btn-drive');
+    if (mode === 'drive') {
+      fileDiv.style.display = 'none';
+      driveDiv.style.display = 'block';
+      btnDrive.style.background = 'var(--ac)'; btnDrive.style.color = 'white';
+      btnFile.style.background = 'var(--light)'; btnFile.style.color = 'var(--text)';
+      // Clear file input
+      const fi = fileDiv.querySelector('input[type=file]');
+      if (fi) fi.value = '';
+    } else {
+      fileDiv.style.display = 'block';
+      driveDiv.style.display = 'none';
+      btnFile.style.background = ''; btnFile.style.color = '';
+      btnDrive.style.background = 'var(--light)'; btnDrive.style.color = 'var(--text)';
+      // Clear drive input
+      const di = driveDiv.querySelector('input[type=url]');
+      if (di) di.value = '';
+    }
+  }
+</script>
+{% endblock %}

@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="bn">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <title>{{book['title']}} — Library Reader</title>
+  <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box
+    }
+
+    html,
+    body {
+      height: 100%;
+      overflow: hidden;
+      font-family: 'Hind Siliguri', sans-serif;
+      background: #1a1a2e
+    }
+
+    /* ── Top Bar ── */
+    .rbar {
+      height: 52px;
+      background: linear-gradient(135deg, #1a3a5c, #0f4c75);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 0 16px;
+      flex-shrink: 0;
+      border-bottom: 2px solid rgba(255, 255, 255, .12);
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+    }
+
+    .rb-back {
+      color: rgba(255, 255, 255, .8);
+      text-decoration: none;
+      font-size: 13px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 12px;
+      border-radius: 7px;
+      background: rgba(255, 255, 255, .1);
+      white-space: nowrap;
+      transition: all .2s;
+    }
+
+    .rb-back:hover {
+      background: rgba(255, 255, 255, .2);
+      color: white
+    }
+
+    .rb-title {
+      color: white;
+      font-size: 14px;
+      font-weight: 700;
+      flex: 1;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .rb-tag {
+      padding: 4px 10px;
+      border-radius: 10px;
+      font-size: 11px;
+      font-weight: 700;
+      background: rgba(255, 255, 255, .15);
+      color: rgba(255, 255, 255, .9);
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
+    .rb-dl {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 7px 16px;
+      background: #2e86de;
+      color: white;
+      text-decoration: none;
+      border-radius: 7px;
+      font-size: 12px;
+      font-weight: 700;
+      white-space: nowrap;
+      flex-shrink: 0;
+      transition: all .2s;
+    }
+
+    .rb-dl:hover {
+      background: #1a5ea8
+    }
+
+    /* ── Layout ── */
+    .reader-wrap {
+      display: flex;
+      position: fixed;
+      top: 52px;
+      left: 0;
+      right: 0;
+      bottom: 0;
+    }
+
+    /* ── PDF Frame ── */
+    .pdf-container {
+      flex: 1;
+      background: #525659;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .pdf-container embed,
+    .pdf-container object,
+    .pdf-container iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+      display: block;
+    }
+
+    /* ── Fallback for browsers that block embed ── */
+    .pdf-fallback {
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100%;
+      background: linear-gradient(135deg, #1a1a2e, #1a3a5c);
+      color: white;
+      text-align: center;
+      padding: 40px;
+    }
+
+    .pdf-fallback.show {
+      display: flex
+    }
+
+    .pf-icon {
+      font-size: 72px;
+      margin-bottom: 20px;
+      filter: drop-shadow(0 8px 16px rgba(0, 0, 0, .4))
+    }
+
+    .pf-title {
+      font-size: 20px;
+      font-weight: 700;
+      margin-bottom: 8px
+    }
+
+    .pf-sub {
+      opacity: .7;
+      font-size: 14px;
+      margin-bottom: 28px;
+      line-height: 1.6
+    }
+
+    .pf-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 13px 30px;
+      background: linear-gradient(135deg, #2e86de, #0abde3);
+      color: white;
+      text-decoration: none;
+      border-radius: 10px;
+      font-size: 15px;
+      font-weight: 700;
+      box-shadow: 0 6px 20px rgba(46, 134, 222, .4);
+      transition: all .3s;
+    }
+
+    .pf-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 28px rgba(46, 134, 222, .5)
+    }
+
+    /* ── Info Panel ── */
+    .info-panel {
+      width: 260px;
+      background: #0d1b2a;
+      border-left: 1px solid rgba(255, 255, 255, .1);
+      overflow-y: auto;
+      padding: 18px;
+      flex-shrink: 0;
+    }
+
+    .ip-title {
+      color: white;
+      font-size: 15px;
+      font-weight: 700;
+      margin-bottom: 4px;
+      line-height: 1.4
+    }
+
+    .ip-author {
+      color: rgba(255, 255, 255, .5);
+      font-size: 12px;
+      margin-bottom: 14px
+    }
+
+    .ip-badge {
+      display: inline-block;
+      padding: 3px 10px;
+      border-radius: 10px;
+      font-size: 10px;
+      font-weight: 700;
+      background: rgba(46, 134, 222, .25);
+      color: #90caf9;
+      margin: 0 4px 4px 0;
+    }
+
+    .ip-desc {
+      color: rgba(255, 255, 255, .6);
+      font-size: 12px;
+      line-height: 1.6;
+      margin: 12px 0 16px
+    }
+
+    .ip-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 9px 10px;
+      background: rgba(255, 255, 255, .05);
+      border-radius: 7px;
+      margin-bottom: 6px;
+    }
+
+    .ip-row span {
+      color: rgba(255, 255, 255, .45);
+      font-size: 11px
+    }
+
+    .ip-row strong {
+      color: white;
+      font-size: 13px
+    }
+
+    .ip-dl {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      padding: 11px;
+      background: linear-gradient(135deg, #1a3a5c, #2e86de);
+      color: white;
+      border-radius: 9px;
+      text-decoration: none;
+      font-size: 13px;
+      font-weight: 700;
+      margin-top: 14px;
+      transition: all .2s;
+    }
+
+    .ip-dl:hover {
+      opacity: .9
+    }
+
+    /* ── Loading spinner ── */
+    .pdf-loading {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+      color: #aaa;
+    }
+
+    .spinner {
+      width: 40px;
+      height: 40px;
+      border: 4px solid rgba(255, 255, 255, .1);
+      border-top-color: #2e86de;
+      border-radius: 50%;
+      animation: spin .8s linear infinite;
+    }
+
+    @keyframes spin {
+      to {
+        transform: rotate(360deg)
+      }
+    }
+
+    @media(max-width:900px) {
+      .info-panel {
+        display: none
+      }
+    }
+    
+    @media(max-width:600px) {
+      .rb-tag {
+        display: none
+      }
+      .rb-title {
+        font-size: 13px
+      }
+      .rb-back {
+        padding: 6px 8px;
+        font-size: 12px
+      }
+      .rb-dl {
+        padding: 7px 10px;
+        font-size: 11px
+      }
+    }
+  </style>
+    <link rel="icon" type="image/png" href="{{ url_for('static', filename='logo.png') }}">
+</head>
+
+<body>
+
+  <!-- Top bar -->
+  <div class="rbar">
+    <a href="/library/dept/{{dept.id}}" class="rb-back">← Back</a>
+    <div class="rb-title">📖 {{book['title']}}</div>
+    {% if book['author'] %}<span class="rb-tag">✍️ {{book['author']}}</span>{% endif %}
+    <span class="rb-tag">{{dept.icon}} {{dept.name[:12]}}</span>
+    {% if book['semester'] %}<span class="rb-tag">Sem {{book['semester']}}</span>{% endif %}
+    {% if user.role != 'student' %}
+    <a href="/library/download/{{book['id']}}" class="rb-dl">📥 Download</a>
+    {% endif %}
+  </div>
+
+  <div class="reader-wrap">
+
+    {% if book['drive_link'] %}
+    <!-- ── Google Drive PDF Viewer ── -->
+    <div class="pdf-container" id="pdfContainer">
+      <div class="pdf-loading" id="loadingSpinner">
+        <div class="spinner"></div>
+        <span style="font-size:13px">Loading from Google Drive...</span>
+      </div>
+      <iframe id="driveFrame" src="{{book['drive_link']}}" 
+        style="width:100%;height:100%;border:none;display:none"
+        onload="document.getElementById('loadingSpinner').style.display='none';this.style.display='block'"
+        allow="autoplay"></iframe>
+      
+      <div class="pdf-fallback" id="pdfFallback">
+        <div class="pf-icon">📄</div>
+        <div class="pf-title">{{book['title']}}</div>
+        <div class="pf-sub">
+          Cannot load from Google Drive.<br>
+          Try opening the link directly.
+        </div>
+        <a href="{{book['drive_link']}}" target="_blank" class="pf-btn">🔗 Open in Google Drive</a>
+      </div>
+    </div>
+
+    {% elif book['filetype'] == 'pdf' %}
+    <!-- ── PDF Viewer ── -->
+    <div class="pdf-container" id="pdfContainer">
+
+      <!-- Loading state -->
+      <div class="pdf-loading" id="loadingSpinner">
+        <div class="spinner"></div>
+        <span style="font-size:13px">Loading PDF...</span>
+      </div>
+
+      <!-- Method 1: Native embed (works in Chrome, Firefox, Edge) -->
+      <embed id="pdfEmbed" src="/library/file/{{book['id']}}#toolbar=1&navpanes=1&scrollbar=1&zoom=page-fit"
+        type="application/pdf" style="width:100%;height:100%;display:none" onload="embedLoaded()" />
+
+      <!-- Fallback if embed is blocked -->
+      <div class="pdf-fallback" id="pdfFallback">
+        <div class="pf-icon">📄</div>
+        <div class="pf-title">{{book['title']}}</div>
+        <div class="pf-sub">
+          Your browser cannot display PDFs directly.<br>
+          Please download it to read.
+        </div>
+        {% if user.role != 'student' %}
+        <a href="/library/download/{{book['id']}}" class="pf-btn">📥 Download PDF</a>
+        {% endif %}
+        <div style="margin-top:20px">
+          <button onclick="tryIframe()"
+            style="padding:9px 20px;background:rgba(255,255,255,.1);color:white;border:1px solid rgba(255,255,255,.3);border-radius:8px;cursor:pointer;font-family:'Hind Siliguri',sans-serif;font-size:13px">
+            🔄 Try Again
+          </button>
+        </div>
+      </div>
+    </div>
+
+    {% else %}
+    <!-- ── Non-PDF: download prompt ── -->
+    <div class="pdf-container">
+      <div class="pdf-fallback show">
+        <div class="pf-icon">
+          {% if book['filetype'] in ('doc','docx') %}📝
+          {% elif book['filetype'] in ('ppt','pptx') %}📊
+          {% elif book['filetype'] == 'epub' %}📕
+          {% else %}📄{% endif %}
+        </div>
+        <div class="pf-title">{{book['title']}}</div>
+        <div class="pf-sub">
+          This file ({{book['filetype']|upper}}) cannot be viewed directly in the browser.<br>
+          Download and open it with Microsoft Office or another app.
+        </div>
+        {% if user.role != 'student' %}
+        <a href="/library/download/{{book['id']}}" class="pf-btn">
+          📥 Download ({{book['filetype']|upper}})
+        </a>
+        {% endif %}
+      </div>
+    </div>
+    {% endif %}
+
+    <!-- ── Info Panel ── -->
+    <div class="info-panel">
+      <div class="ip-title">{{book['title']}}</div>
+      {% if book['author'] %}<div class="ip-author">✍️ {{book['author']}}</div>{% endif %}
+
+      <span class="ip-badge">{{dept.icon}} {{dept.name}}</span>
+      <span class="ip-badge">📂 {{book['subject']}}</span>
+      {% if book['semester'] %}<span class="ip-badge">📅 Sem {{book['semester']}}</span>{% endif %}
+      <span class="ip-badge">📄 {{book['filetype']|upper}}</span>
+
+      {% if book['description'] %}<div class="ip-desc">{{book['description']}}</div>{% endif %}
+
+      <div class="ip-row"><span>👁️ Reading</span><strong>{{book['reads'] or 0}}</strong></div>
+      <div class="ip-row"><span>📥 Download</span><strong>{{book['downloads'] or 0}}</strong></div>
+      {% if book['filesize'] %}<div class="ip-row"><span>📦 Size</span><strong>{{book['filesize']}}</strong></div>{%
+      endif %}
+      {% if book['uploaded_by'] %}<div class="ip-row"><span>👤 Uploaded
+          by</span><strong>{{book['uploaded_by']}}</strong></div>{% endif %}
+
+      {% if user.role != 'student' %}
+      <a href="/library/download/{{book['id']}}" class="ip-dl">📥 Download</a>
+      {% endif %}
+    </div>
+  </div>
+
+  <script>
+    // Show embed once loaded, hide spinner
+    function embedLoaded() {
+      document.getElementById('loadingSpinner').style.display = 'none';
+      document.getElementById('pdfEmbed').style.display = 'block';
+    }
+
+    // If embed fails or takes too long, show fallback
+    function showFallback() {
+      document.getElementById('loadingSpinner').style.display = 'none';
+      document.getElementById('pdfEmbed').style.display = 'none';
+      document.getElementById('pdfFallback').classList.add('show');
+    }
+
+    function tryIframe() {
+      const container = document.getElementById('pdfContainer');
+      document.getElementById('pdfFallback').classList.remove('show');
+      document.getElementById('loadingSpinner').style.display = 'flex';
+
+      const iframe = document.createElement('iframe');
+      iframe.src = '/library/file/{{book["id"]}}';
+      iframe.style.cssText = 'width:100%;height:100%;border:none;display:block';
+      iframe.onload = function () {
+        document.getElementById('loadingSpinner').style.display = 'none';
+      };
+      iframe.onerror = showFallback;
+      container.appendChild(iframe);
+    }
+
+    // Auto-timeout: if embed hasn't loaded in 5s, try iframe method
+    var embedTimeout = setTimeout(function () {
+      var embed = document.getElementById('pdfEmbed');
+      if (embed && embed.style.display === 'none') {
+        // Try switching to direct iframe
+        embed.style.display = 'none';
+        tryIframe();
+      }
+    }, 5000);
+
+    // Also handle embed error
+    var embed = document.getElementById('pdfEmbed');
+    if (embed) {
+      embed.onerror = showFallback;
+      // For browsers where onload fires immediately (Firefox)
+      embed.addEventListener('load', function () {
+        clearTimeout(embedTimeout);
+        embedLoaded();
+      });
+    }
+  </script>
+</body>
+
+</html>

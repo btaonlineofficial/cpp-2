@@ -44,8 +44,7 @@
         }
 
         html {
-            scroll-behavior: smooth
-            overflow-x: hidden;
+            scroll-behavior: smooth overflow-x: hidden;
             width: 100%;
             max-width: 100vw;
         }
@@ -92,7 +91,8 @@
             max-width: 1280px;
             margin: 0 auto;
             min-height: 74px;
-            padding: 12px 32px; /* updated */
+            padding: 12px 32px;
+            /* updated */
             display: flex;
             align-items: center;
             justify-content: space-between;
@@ -391,15 +391,18 @@
             gap: 40px;
             transform: translateY(-60px);
         }
+
         .hero-inner {
             text-align: left;
             max-width: 600px;
         }
+
         .apply-btn-wrapper {
             flex-shrink: 0;
             text-align: center;
             margin-right: 4%;
         }
+
         .apply-now-btn {
             background: linear-gradient(135deg, var(--blue), var(--accent));
             color: white;
@@ -416,27 +419,33 @@
             display: inline-block;
             animation: pulse-glow 2s infinite;
         }
+
         .apply-now-btn:hover {
             transform: translateY(-4px) scale(1.02);
             box-shadow: 0 20px 40px rgba(14, 165, 233, 0.45);
             background: linear-gradient(135deg, #1d4ed8, #0ea5e9);
         }
+
         @keyframes pulse-glow {
             0% {
                 box-shadow: 0 0 0 0 rgba(37, 99, 235, 0.5);
             }
+
             70% {
                 box-shadow: 0 0 0 15px rgba(37, 99, 235, 0);
             }
+
             100% {
                 box-shadow: 0 0 0 0 rgba(37, 99, 235, 0);
             }
         }
+
         @media (max-width: 768px) {
             .hero-content-wrapper {
                 flex-direction: column;
                 text-align: center;
             }
+
             .hero-inner {
                 text-align: center;
             }
@@ -619,7 +628,7 @@
             position: relative;
             overflow: hidden;
             transition: transform .3s cubic-bezier(0.4, 0, 0.2, 1), border-color .3s, box-shadow .3s;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.02);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.02);
         }
 
         .dept-card::before {
@@ -639,7 +648,7 @@
             border-color: var(--border-hover, var(--blue-mid));
             box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
         }
-        
+
         .dept-card:hover::before {
             height: 6px;
             opacity: 1;
@@ -655,7 +664,7 @@
             align-items: center;
             justify-content: center;
             font-size: 24px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.03);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.03);
         }
 
         .dept-card h3 {
@@ -784,7 +793,7 @@
             flex-direction: column;
             background: white;
             border-radius: 20px;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.06);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.06);
             border: 1px solid var(--border);
             overflow: hidden;
         }
@@ -802,11 +811,11 @@
             transition: background 0.2s;
             text-decoration: none;
         }
-        
+
         .nc:last-child {
             border-bottom: none;
         }
-        
+
         .nc:nth-child(even) {
             background: #f8fafc;
         }
@@ -822,7 +831,7 @@
             white-space: nowrap;
             transition: all 0.2s;
         }
-        
+
         .nc:hover .btn-view-notice {
             background: var(--blue);
             color: white;
@@ -844,7 +853,7 @@
         }
 
         .nc:hover {
-            background: rgba(0,0,0,0.02);
+            background: rgba(0, 0, 0, 0.02);
         }
 
 
@@ -978,7 +987,7 @@
             flex-direction: column;
             background: white;
             border-radius: 20px;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.06);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.06);
             border: 1px solid var(--border);
             overflow: hidden;
             max-width: 960px;
@@ -998,7 +1007,7 @@
             transition: background 0.2s;
             text-decoration: none;
         }
-        
+
         .event-card:last-child {
             border-bottom: none;
         }
@@ -1008,7 +1017,7 @@
         }
 
         .event-card:hover {
-            background: rgba(0,0,0,0.02);
+            background: rgba(0, 0, 0, 0.02);
         }
 
         .event-date-box {
@@ -1020,7 +1029,7 @@
             padding: 10px 18px;
             min-width: 70px;
             border: 1px solid var(--border);
-            box-shadow: 0 4px 10px rgba(0,0,0,0.03);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.03);
             flex-shrink: 0;
         }
 
@@ -1040,7 +1049,7 @@
             color: var(--blue);
             margin-top: 4px;
         }
-        
+
         .event-body {
             flex: 1;
             display: flex;
@@ -1055,7 +1064,7 @@
             margin-bottom: 6px;
             font-family: 'Playfair Display', serif;
         }
-        
+
         .event-loc {
             font-size: 0.85rem;
             color: var(--text3);
@@ -1064,7 +1073,7 @@
             gap: 8px;
             font-weight: 600;
         }
-        
+
         .event-action {
             width: 120px;
             display: flex;
@@ -1340,17 +1349,17 @@
             background: #e2e8f0
         }
 
-        .msg > div:not(.msg-av) {
+        .msg>div:not(.msg-av) {
             display: flex;
             flex-direction: column;
             max-width: 82%;
         }
 
-        .msg.bot > div:not(.msg-av) {
+        .msg.bot>div:not(.msg-av) {
             align-items: flex-start;
         }
 
-        .msg.user > div:not(.msg-av) {
+        .msg.user>div:not(.msg-av) {
             align-items: flex-end;
         }
 
@@ -1453,7 +1462,7 @@
             position: relative;
             border-radius: 20px;
             overflow: hidden;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.06);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.06);
             border: 1px solid var(--border);
             background: #0f172a;
         }
@@ -1723,8 +1732,13 @@
         }
 
         @keyframes faculty-scroll {
-            0%   { transform: translateX(0); }
-            100% { transform: translateX(-50%); }
+            0% {
+                transform: translateX(0);
+            }
+
+            100% {
+                transform: translateX(-50%);
+            }
         }
 
         .faculty-grid {
@@ -1769,7 +1783,7 @@
             background: linear-gradient(135deg, #dbeafe 0%, #ede9fe 100%);
             /* smooth reveal on hover */
             transition: height 0.45s cubic-bezier(0.25, 0.8, 0.25, 1),
-                        opacity 0.35s ease;
+                opacity 0.35s ease;
         }
 
         /* show avatar when card is hovered */
@@ -2433,7 +2447,7 @@
             border: 1px solid var(--border);
             border-radius: 20px;
             padding: 44px 48px;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.06);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.06);
         }
 
         .lib-stats-grid {
@@ -2454,10 +2468,10 @@
             text-align: center;
             transition: all 0.3s;
         }
-        
+
         .lib-stat-card:hover {
             transform: translateY(-6px);
-            box-shadow: 0 10px 24px rgba(0,0,0,0.04);
+            box-shadow: 0 10px 24px rgba(0, 0, 0, 0.04);
             border-color: #cbd5e1;
             background: #f8fafc;
         }
@@ -2479,10 +2493,10 @@
             background: white;
             transition: all 0.2s;
         }
-        
+
         .lib-dept-tag:hover {
             transform: scale(1.05);
-            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
         }
 
         /* ══ RESPONSIVE ══ */
@@ -2528,7 +2542,7 @@
             .logo-section h2 {
                 font-size: 16px;
                 white-space: nowrap;
-        }
+            }
 
             .logo-img {
                 width: 40px;
@@ -2546,7 +2560,7 @@
                 gap: 30px;
                 align-items: center;
             }
-            
+
             .hero-inner {
                 text-align: center;
                 margin: 0 auto;
@@ -2555,7 +2569,7 @@
             .apply-btn-wrapper {
                 margin-right: 0;
             }
-            
+
             #inline-admission-form {
                 margin: 0 auto;
                 width: 100%;
@@ -2598,26 +2612,26 @@
                 grid-template-columns: repeat(2, 1fr);
                 gap: 12px;
             }
-            
+
             .dept-card {
                 padding: 18px 14px;
                 gap: 12px;
             }
-            
+
             .dept-card h3 {
                 font-size: 1rem;
             }
-            
+
             .dept-card p {
                 font-size: 12px;
             }
-            
+
             .dept-emoji-box {
                 width: 44px;
                 height: 44px;
                 font-size: 20px;
             }
-            
+
             .d-pill {
                 font-size: 10px;
                 padding: 3px 8px;
@@ -2651,19 +2665,60 @@
                 text-overflow: ellipsis;
             }
 
-            .nc { gap: 12px; padding: 12px 16px; }
-            .nc-date { width: 40px; padding: 4px 4px; }
-            .nc-date .d { font-size: 16px; }
-            .nc-date .m { font-size: 8px; }
-            .nc-cat { font-size: 8px; padding: 2px 6px; margin-bottom: 4px; }
-            .nc-action { display: none; } /* Alternatively, we can hide the view button on mobile to save space */
-            
-            .event-card { gap: 12px; padding: 12px 16px; }
-            .event-date-box { padding: 6px 12px; min-width: 50px; }
-            .event-date-box .day { font-size: 1.4rem; }
-            .event-date-box .month { font-size: 0.65rem; }
-            .event-action { width: 80px; }
-            .event-tag { padding: 4px 8px; font-size: 0.6rem; }
+            .nc {
+                gap: 12px;
+                padding: 12px 16px;
+            }
+
+            .nc-date {
+                width: 40px;
+                padding: 4px 4px;
+            }
+
+            .nc-date .d {
+                font-size: 16px;
+            }
+
+            .nc-date .m {
+                font-size: 8px;
+            }
+
+            .nc-cat {
+                font-size: 8px;
+                padding: 2px 6px;
+                margin-bottom: 4px;
+            }
+
+            .nc-action {
+                display: none;
+            }
+
+            .event-card {
+                gap: 12px;
+                padding: 12px 16px;
+            }
+
+            .event-date-box {
+                padding: 6px 12px;
+                min-width: 50px;
+            }
+
+            .event-date-box .day {
+                font-size: 1.4rem;
+            }
+
+            .event-date-box .month {
+                font-size: 0.65rem;
+            }
+
+            .event-action {
+                width: 80px;
+            }
+
+            .event-tag {
+                padding: 4px 8px;
+                font-size: 0.6rem;
+            }
 
             .lib-stats-grid {
                 gap: 8px;
@@ -2675,7 +2730,7 @@
                 border-radius: 10px;
             }
 
-            .lib-stat-card > div:nth-child(1) {
+            .lib-stat-card>div:nth-child(1) {
                 width: 32px !important;
                 height: 32px !important;
                 font-size: 14px !important;
@@ -2683,12 +2738,12 @@
                 border-radius: 8px !important;
             }
 
-            .lib-stat-card > div:nth-child(2) {
+            .lib-stat-card>div:nth-child(2) {
                 font-size: 16px !important;
                 line-height: 1.1;
             }
 
-            .lib-stat-card > div:nth-child(3) {
+            .lib-stat-card>div:nth-child(3) {
                 font-size: 8px !important;
                 margin-top: 2px !important;
                 line-height: 1.2;
@@ -2745,7 +2800,7 @@
                 height: 380px;
             }
 
-            .msg > div:not(.msg-av) {
+            .msg>div:not(.msg-av) {
                 max-width: 90%;
             }
         }
@@ -2762,12 +2817,15 @@
         .mobile-toggle.active span:nth-child(3) {
             transform: translateY(-7.5px) rotate(-45deg);
         }
-    
+
         /* Glassmorphism Modal */
         .glass-modal-overlay {
             position: fixed;
-            top: 0; left: 0; right: 0; bottom: 0;
-            background: rgba(0,0,0,0.4);
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.4);
             backdrop-filter: blur(8px);
             -webkit-backdrop-filter: blur(8px);
             display: none;
@@ -2776,6 +2834,7 @@
             z-index: 9999;
             padding: 20px;
         }
+
         .glass-modal {
             background: rgba(255, 255, 255, 0.15);
             border: 1px solid rgba(255, 255, 255, 0.3);
@@ -2791,14 +2850,50 @@
             max-height: 90vh;
             overflow-y: auto;
         }
-        .glass-modal::-webkit-scrollbar { width: 4px; }
-        .glass-modal::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.3); border-radius: 4px; }
-        .glass-modal h2 { text-align: center; margin-bottom: 8px; font-size: 1.5rem; font-weight: 700; }
-        .glass-modal p.subtext { text-align: center; font-size: 0.9rem; margin-bottom: 24px; opacity: 0.9; }
-        .glass-form-group { margin-bottom: 16px; }
-        .glass-form-group label { display: block; margin-bottom: 6px; font-size: 0.9rem; font-weight: 500; }
-        .glass-form-row { display: flex; gap: 12px; }
-        .glass-form-row .glass-form-group { flex: 1; }
+
+        .glass-modal::-webkit-scrollbar {
+            width: 4px;
+        }
+
+        .glass-modal::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 4px;
+        }
+
+        .glass-modal h2 {
+            text-align: center;
+            margin-bottom: 8px;
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+        .glass-modal p.subtext {
+            text-align: center;
+            font-size: 0.9rem;
+            margin-bottom: 24px;
+            opacity: 0.9;
+        }
+
+        .glass-form-group {
+            margin-bottom: 16px;
+        }
+
+        .glass-form-group label {
+            display: block;
+            margin-bottom: 6px;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        .glass-form-row {
+            display: flex;
+            gap: 12px;
+        }
+
+        .glass-form-row .glass-form-group {
+            flex: 1;
+        }
+
         .glass-input {
             width: 100%;
             padding: 12px 16px;
@@ -2810,9 +2905,20 @@
             outline: none;
             transition: all 0.3s;
         }
-        .glass-input::placeholder { color: rgba(255, 255, 255, 0.7); }
-        .glass-input:focus { background: rgba(255, 255, 255, 0.3); border-color: rgba(255, 255, 255, 0.6); }
-        .glass-input option { color: black; }
+
+        .glass-input::placeholder {
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .glass-input:focus {
+            background: rgba(255, 255, 255, 0.3);
+            border-color: rgba(255, 255, 255, 0.6);
+        }
+
+        .glass-input option {
+            color: black;
+        }
+
         .otp-btn {
             padding: 12px 16px;
             background: #eab308;
@@ -2823,6 +2929,7 @@
             cursor: pointer;
             white-space: nowrap;
         }
+
         .glass-submit-btn {
             width: 100%;
             padding: 14px;
@@ -2836,7 +2943,11 @@
             margin-top: 20px;
             transition: background 0.3s;
         }
-        .glass-submit-btn:hover { background: #334155; }
+
+        .glass-submit-btn:hover {
+            background: #334155;
+        }
+
         .glass-close {
             position: absolute;
             top: 16px;
@@ -2848,9 +2959,11 @@
             cursor: pointer;
             opacity: 0.7;
         }
-        .glass-close:hover { opacity: 1; }
 
-</style>
+        .glass-close:hover {
+            opacity: 1;
+        }
+    </style>
     <link rel="icon" type="image/png" href="{{ url_for('static', filename='logo.png') }}">
 </head>
 
@@ -2916,7 +3029,8 @@
             <span class="mobile-nav-title">Student Zone</span>
             <div class="mobile-nav-links">
                 <a href="/scholarship" class="mobile-nav-link">🎓 Scholarship &amp; Study Aid</a>
-                <a href="https://drive.google.com/drive/folders/1TcJV6tJ5fi1rsPardHJaWjG1Cpl0JdbZ?usp=drive_link" target="_blank" class="mobile-nav-link">📄 Previous Question Papers</a>
+                <a href="https://drive.google.com/drive/folders/1TcJV6tJ5fi1rsPardHJaWjG1Cpl0JdbZ?usp=drive_link"
+                    target="_blank" class="mobile-nav-link">📄 Previous Question Papers</a>
                 <a href="/hostel" class="mobile-nav-link">🏠 Hostel</a>
                 <a href="/canteen" class="mobile-nav-link">🍽️ Canteen</a>
             </div>
@@ -2929,7 +3043,7 @@
                 <a href="/aicte-documents" class="mobile-nav-link">📄 AICTE Related Documents</a>
             </div>
         </div>
-    
+
         <div class="mobile-nav-group">
             <span class="mobile-nav-title">Resources</span>
             <div class="mobile-nav-links">
@@ -2941,8 +3055,12 @@
                 <a href="/wifi-campus" class="mobile-nav-link">📶 Wi-Fi Campus</a>
             </div>
         </div>
-        <a href="/grievance" class="mobile-nav-link" style="font-weight:600; padding:12px 20px; color:var(--navy); border-bottom:1px solid var(--border);">🚩 Grievance</a>
-        <a href="/admin" class="mobile-nav-link" style="font-weight:600; padding:12px 20px; color:var(--navy); border-bottom:1px solid var(--border);">⚙️ Admin</a>
+        <a href="/grievance" class="mobile-nav-link"
+            style="font-weight:600; padding:12px 20px; color:var(--navy); border-bottom:1px solid var(--border);">🚩
+            Grievance</a>
+        <a href="/admin" class="mobile-nav-link"
+            style="font-weight:600; padding:12px 20px; color:var(--navy); border-bottom:1px solid var(--border);">⚙️
+            Admin</a>
     </div>
 
     <div class="header">
@@ -3099,7 +3217,8 @@
                             </a>
                             <a href="/tp-cell" class="dd-item"><span class="dd-icon"
                                     style="background:rgba(16,185,129,0.12);border-color:rgba(16,185,129,0.25)">💼</span>
-                                <div><strong>Training &amp; Placement Cell</strong><small>Career Opportunities</small></div>
+                                <div><strong>Training &amp; Placement Cell</strong><small>Career Opportunities</small>
+                                </div>
                             </a>
                             <a href="/industry-partnerships" class="dd-item"><span class="dd-icon"
                                     style="background:rgba(245,158,11,0.12);border-color:rgba(245,158,11,0.25)">🤝</span>
@@ -3122,9 +3241,11 @@
                         <div class="dept-dropdown-inner">
                             <a href="/scholarship" class="dd-item"><span class="dd-icon"
                                     style="background:rgba(236,72,153,0.12);border-color:rgba(236,72,153,0.25)">🎓</span>
-                                <div><strong>Scholarship &amp; Study Aid</strong><small>Financial Assistance</small></div>
+                                <div><strong>Scholarship &amp; Study Aid</strong><small>Financial Assistance</small>
+                                </div>
                             </a>
-                            <a href="https://drive.google.com/drive/folders/1TcJV6tJ5fi1rsPardHJaWjG1Cpl0JdbZ?usp=drive_link" target="_blank" class="dd-item"><span class="dd-icon"
+                            <a href="https://drive.google.com/drive/folders/1TcJV6tJ5fi1rsPardHJaWjG1Cpl0JdbZ?usp=drive_link"
+                                target="_blank" class="dd-item"><span class="dd-icon"
                                     style="background:rgba(59,130,246,0.12);border-color:rgba(59,130,246,0.25)">📄</span>
                                 <div><strong>Previous Years' Question Papers</strong><small>Exam Resources</small></div>
                             </a>
@@ -3141,49 +3262,60 @@
                 </div>
                 <div class="dept-dropdown-wrap">
                     <button class="dept-trigger">Other Links
-                        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2.5">
                             <polyline points="6 9 12 15 18 9" />
                         </svg>
                     </button>
                     <div class="dept-dropdown">
                         <div class="dept-dropdown-inner">
-                            <a href="https://www.aicte.gov.in/" target="_blank" class="dd-item"><span class="dd-icon" style="background:rgba(236,72,153,0.12);border-color:rgba(236,72,153,0.25)">🔗</span>
+                            <a href="https://www.aicte.gov.in/" target="_blank" class="dd-item"><span class="dd-icon"
+                                    style="background:rgba(236,72,153,0.12);border-color:rgba(236,72,153,0.25)">🔗</span>
                                 <div><strong>AICTE Feedback Link</strong><small>Official Portal</small></div>
                             </a>
-                            <a href="https://swayam.gov.in/" target="_blank" class="dd-item"><span class="dd-icon" style="background:rgba(59,130,246,0.12);border-color:rgba(59,130,246,0.25)">📚</span>
+                            <a href="https://swayam.gov.in/" target="_blank" class="dd-item"><span class="dd-icon"
+                                    style="background:rgba(59,130,246,0.12);border-color:rgba(59,130,246,0.25)">📚</span>
                                 <div><strong>SWAYAM</strong><small>Online Courses</small></div>
                             </a>
-                            <a href="/aicte-documents" class="dd-item"><span class="dd-icon" style="background:rgba(16,185,129,0.12);border-color:rgba(16,185,129,0.25)">📄</span>
+                            <a href="/aicte-documents" class="dd-item"><span class="dd-icon"
+                                    style="background:rgba(16,185,129,0.12);border-color:rgba(16,185,129,0.25)">📄</span>
                                 <div><strong>AICTE Related Documents</strong><small>MOU with Industries</small></div>
                             </a>
                         </div>
                     </div>
                 </div>
-            
+
                 <div class="dept-dropdown-wrap">
                     <button class="dept-trigger">Resources
-                        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2.5">
                             <polyline points="6 9 12 15 18 9" />
                         </svg>
                     </button>
                     <div class="dept-dropdown">
                         <div class="dept-dropdown-inner">
-                            <a href="/library" class="dd-item"><span class="dd-icon" style="background:rgba(59,130,246,0.12);border-color:rgba(59,130,246,0.25)">📚</span>
+                            <a href="/library" class="dd-item"><span class="dd-icon"
+                                    style="background:rgba(59,130,246,0.12);border-color:rgba(59,130,246,0.25)">📚</span>
                                 <div><strong>Library</strong><small>Physical & E-Library</small></div>
                             </a>
-                            <a href="/modern-labs" class="dd-item"><span class="dd-icon" style="background:rgba(16,185,129,0.12);border-color:rgba(16,185,129,0.25)">🔬</span>
+                            <a href="/modern-labs" class="dd-item"><span class="dd-icon"
+                                    style="background:rgba(16,185,129,0.12);border-color:rgba(16,185,129,0.25)">🔬</span>
                                 <div><strong>Modern Labs</strong><small>Hands-on Learning</small></div>
                             </a>
-                            <a href="/computer-labs" class="dd-item"><span class="dd-icon" style="background:rgba(245,158,11,0.12);border-color:rgba(245,158,11,0.25)">🖥️</span>
+                            <a href="/computer-labs" class="dd-item"><span class="dd-icon"
+                                    style="background:rgba(245,158,11,0.12);border-color:rgba(245,158,11,0.25)">🖥️</span>
                                 <div><strong>Computer Labs</strong><small>High-Performance Computing</small></div>
                             </a>
-                            <a href="/workshop" class="dd-item"><span class="dd-icon" style="background:rgba(99,102,241,0.12);border-color:rgba(99,102,241,0.25)">⚙️</span>
+                            <a href="/workshop" class="dd-item"><span class="dd-icon"
+                                    style="background:rgba(99,102,241,0.12);border-color:rgba(99,102,241,0.25)">⚙️</span>
                                 <div><strong>Engineering Workshop</strong><small>Practical Training</small></div>
                             </a>
-                            <a href="/auditorium" class="dd-item"><span class="dd-icon" style="background:rgba(236,72,153,0.12);border-color:rgba(236,72,153,0.25)">🏛️</span>
+                            <a href="/auditorium" class="dd-item"><span class="dd-icon"
+                                    style="background:rgba(236,72,153,0.12);border-color:rgba(236,72,153,0.25)">🏛️</span>
                                 <div><strong>Auditorium</strong><small>Events & Seminars</small></div>
                             </a>
-                            <a href="/wifi-campus" class="dd-item"><span class="dd-icon" style="background:rgba(14,165,233,0.12);border-color:rgba(14,165,233,0.25)">📶</span>
+                            <a href="/wifi-campus" class="dd-item"><span class="dd-icon"
+                                    style="background:rgba(14,165,233,0.12);border-color:rgba(14,165,233,0.25)">📶</span>
                                 <div><strong>Wi-Fi Campus</strong><small>24/7 Connectivity</small></div>
                             </a>
                         </div>
@@ -3224,7 +3356,9 @@
                     <div class="dot"></div>WBSCTE Approved · PCI Approved
                 </div>
                 <h1>Welcome to<br><em>Contai Polytechnic</em></h1>
-                <p class="hero-desc">Delivering industry-ready diploma education in Engineering, Pharmacy, and Allied Technical fields through modern laboratories, practical training, expert faculty, personalized student support, and a strong placement ecosystem.</p>
+                <p class="hero-desc">Delivering industry-ready diploma education in Engineering, Pharmacy, and Allied
+                    Technical fields through modern laboratories, practical training, expert faculty, personalized
+                    student support, and a strong placement ecosystem.</p>
                 <div class="stats-bar">
                     <div class="stat-item">
                         <div class="n">7</div>
@@ -3249,13 +3383,16 @@
             </div>
             <div class="apply-btn-wrapper" id="apply-btn-wrapper">
                 <button class="apply-now-btn" id="apply-now-btn" onclick="openAdmissionInline()">APPLY NOW</button>
-                
+
                 <!-- Inline Glassmorphism Admission Form -->
-                <div id="inline-admission-form" class="glass-modal" style="display: none; animation: msgIn 0.4s ease; max-width: 450px; text-align: left; padding: 24px;">
-                    <button class="glass-close" onclick="closeAdmissionInline()" style="right: 12px; top: 12px;">&times;</button>
+                <div id="inline-admission-form" class="glass-modal"
+                    style="display: none; animation: msgIn 0.4s ease; max-width: 450px; text-align: left; padding: 24px;">
+                    <button class="glass-close" onclick="closeAdmissionInline()"
+                        style="right: 12px; top: 12px;">&times;</button>
                     <h2 style="font-size: 1.25rem;">ADMISSIONS 2026-27</h2>
-                    <p class="subtext" style="font-size: 0.85rem; margin-bottom: 16px;">Please fill in your details below.</p>
-                    
+                    <p class="subtext" style="font-size: 0.85rem; margin-bottom: 16px;">Please fill in your details
+                        below.</p>
+
                     <form id="admissionForm" onsubmit="submitAdmission(event)">
                         <div class="glass-form-group">
                             <input type="text" id="adm-name" class="glass-input" placeholder="Name *" required>
@@ -3270,19 +3407,22 @@
                                 </select>
                             </div>
                             <div class="glass-form-group" style="flex: 1;">
-                                <input type="tel" id="adm-mobile" class="glass-input" placeholder="Mobile Number *" required>
+                                <input type="tel" id="adm-mobile" class="glass-input" placeholder="Mobile Number *"
+                                    required>
                             </div>
                             <div class="glass-form-group" style="flex: 0 0 auto;">
-                                <button type="button" class="otp-btn" id="adm-get-otp-btn" onclick="sendAdmOTP()" style="padding: 12px 10px;">Get OTP</button>
+                                <button type="button" class="otp-btn" id="adm-get-otp-btn" onclick="sendAdmOTP()"
+                                    style="padding: 12px 10px;">Get OTP</button>
                             </div>
                         </div>
 
                         <div class="glass-form-row" id="otp-group" style="display: none;">
                             <div class="glass-form-group" style="flex: 1;">
-                                <input type="text" id="adm-otp" class="glass-input" placeholder="Enter 6-digit OTP *" pattern="\d{6}" maxlength="6">
+                                <input type="text" id="adm-otp" class="glass-input" placeholder="Enter 6-digit OTP *"
+                                    pattern="\d{6}" maxlength="6">
                             </div>
                         </div>
-                        
+
                         <div class="glass-form-row">
                             <div class="glass-form-group">
                                 <select id="adm-level" class="glass-input" required style="padding: 12px 8px;">
@@ -3325,15 +3465,17 @@
                                 </select>
                             </div>
                         </div>
-                        
+
                         <div style="display:flex; gap:10px; margin-top:8px; font-size:0.75rem; line-height:1.3;">
                             <input type="checkbox" id="adm-auth-check" required style="margin-top:2px;">
                             <label for="adm-auth-check" style="margin-bottom:0; font-weight:400;">
-                                I authorise Contai Polytechnic to contact me with updates and notifications via Email / SMS / WhatsApp / Call, which overrides DND and NDNC registrations.
+                                I authorise Contai Polytechnic to contact me with updates and notifications via Email /
+                                SMS / WhatsApp / Call, which overrides DND and NDNC registrations.
                             </label>
                         </div>
 
-                        <button type="submit" id="adm-submit-btn" class="glass-submit-btn" style="margin-top: 12px; padding: 10px;">Submit</button>
+                        <button type="submit" id="adm-submit-btn" class="glass-submit-btn"
+                            style="margin-top: 12px; padding: 10px;">Submit</button>
                     </form>
                 </div>
             </div>
@@ -3347,7 +3489,7 @@
         function sendAdmOTP() {
             const mobile = document.getElementById('adm-mobile').value;
             const name = document.getElementById('adm-name').value;
-            if(!mobile || mobile.length < 10) {
+            if (!mobile || mobile.length < 10) {
                 alert('Please enter a valid mobile number first.');
                 return;
             }
@@ -3360,30 +3502,30 @@
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ mobile: mobile, name: name })
             })
-            .then(res => res.json())
-            .then(data => {
-                if(data.success) {
-                    document.getElementById('otp-group').style.display = 'flex';
-                    document.getElementById('adm-otp').required = true;
-                    btn.innerText = 'OTP Sent ✓';
-                } else {
-                    alert('Error: ' + data.message);
+                .then(res => res.json())
+                .then(data => {
+                    if (data.success) {
+                        document.getElementById('otp-group').style.display = 'flex';
+                        document.getElementById('adm-otp').required = true;
+                        btn.innerText = 'OTP Sent ✓';
+                    } else {
+                        alert('Error: ' + data.message);
+                        btn.disabled = false;
+                        btn.innerText = 'Get OTP';
+                    }
+                })
+                .catch(err => {
+                    console.error(err);
+                    alert('Failed to send OTP.');
                     btn.disabled = false;
                     btn.innerText = 'Get OTP';
-                }
-            })
-            .catch(err => {
-                console.error(err);
-                alert('Failed to send OTP.');
-                btn.disabled = false;
-                btn.innerText = 'Get OTP';
-            });
+                });
         }
 
         function submitAdmission(e) {
             e.preventDefault();
             const otpValue = document.getElementById('adm-otp').value;
-            if(!otpValue) {
+            if (!otpValue) {
                 alert('Please verify your mobile number with OTP first.');
                 return;
             }
@@ -3409,29 +3551,29 @@
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(payload)
             })
-            .then(res => res.json())
-            .then(data => {
-                if(data.success) {
-                    alert('Application Submitted Successfully!');
-                    closeAdmissionInline();
-                    document.getElementById('admissionForm').reset();
-                    document.getElementById('otp-group').style.display = 'none';
-                    document.getElementById('adm-otp').required = false;
-                    const btn = document.getElementById('adm-get-otp-btn');
-                    btn.disabled = false;
-                    btn.innerText = 'Get OTP';
-                } else {
-                    alert('Error: ' + data.message);
-                }
-            })
-            .catch(err => {
-                console.error(err);
-                alert('Something went wrong. Please try again.');
-            })
-            .finally(() => {
-                submitBtn.disabled = false;
-                submitBtn.innerText = 'Submit';
-            });
+                .then(res => res.json())
+                .then(data => {
+                    if (data.success) {
+                        alert('Application Submitted Successfully!');
+                        closeAdmissionInline();
+                        document.getElementById('admissionForm').reset();
+                        document.getElementById('otp-group').style.display = 'none';
+                        document.getElementById('adm-otp').required = false;
+                        const btn = document.getElementById('adm-get-otp-btn');
+                        btn.disabled = false;
+                        btn.innerText = 'Get OTP';
+                    } else {
+                        alert('Error: ' + data.message);
+                    }
+                })
+                .catch(err => {
+                    console.error(err);
+                    alert('Something went wrong. Please try again.');
+                })
+                .finally(() => {
+                    submitBtn.disabled = false;
+                    submitBtn.innerText = 'Submit';
+                });
         }
     </script>
 
@@ -3512,10 +3654,17 @@
                 <a href="/notice" class="btn-viewall">View All →</a>
             </div>
             <div class="notices-grid">
-                <div class="notices-thead" style="background: var(--navy); color: white; padding: 14px 24px; display: flex; gap: 20px; align-items: center;">
-                    <div style="width: 48px; text-align: center; font-weight: 700; font-size: 14px; text-transform: uppercase; letter-spacing: 0.5px;">Date</div>
-                    <div style="flex: 1; font-weight: 700; font-size: 14px; text-transform: uppercase; letter-spacing: 0.5px;">Notice Subject</div>
-                    <div style="width: 80px; text-align: center; font-weight: 700; font-size: 14px; text-transform: uppercase; letter-spacing: 0.5px;">Action</div>
+                <div class="notices-thead"
+                    style="background: var(--navy); color: white; padding: 14px 24px; display: flex; gap: 20px; align-items: center;">
+                    <div
+                        style="width: 48px; text-align: center; font-weight: 700; font-size: 14px; text-transform: uppercase; letter-spacing: 0.5px;">
+                        Date</div>
+                    <div
+                        style="flex: 1; font-weight: 700; font-size: 14px; text-transform: uppercase; letter-spacing: 0.5px;">
+                        Notice Subject</div>
+                    <div
+                        style="width: 80px; text-align: center; font-weight: 700; font-size: 14px; text-transform: uppercase; letter-spacing: 0.5px;">
+                        Action</div>
                 </div>
                 {% if notices %}
                 {% for n in notices %}
@@ -3538,10 +3687,12 @@
                 </a>
                 {% endfor %}
                 {% if notices|length == 5 %}
-                <a class="nc" href="/notice" style="justify-content:center; padding: 20px; background: rgba(37, 99, 235, 0.02);">
+                <a class="nc" href="/notice"
+                    style="justify-content:center; padding: 20px; background: rgba(37, 99, 235, 0.02);">
                     <div style="display:flex; align-items:center; gap:12px;">
                         <span style="font-size:20px;">📋</span>
-                        <span style="color:var(--blue); font-size:15px; font-weight:700;">View all official notices &rarr;</span>
+                        <span style="color:var(--blue); font-size:15px; font-weight:700;">View all official notices
+                            &rarr;</span>
                     </div>
                 </a>
                 {% endif %}
@@ -3562,26 +3713,36 @@
             <p>Exams, fests, seminars &amp; workshops — stay updated</p>
         </div>
         <div class="events-grid">
-            <div class="events-thead" style="background: var(--navy); color: white; padding: 14px 24px; display: flex; gap: 24px; align-items: center;">
-                <div style="width: 70px; text-align: center; font-weight: 700; font-size: 14px; text-transform: uppercase; letter-spacing: 0.5px;">Date</div>
-                <div style="flex: 1; font-weight: 700; font-size: 14px; text-transform: uppercase; letter-spacing: 0.5px;">Event Subject</div>
-                <div style="width: 120px; text-align: center; font-weight: 700; font-size: 14px; text-transform: uppercase; letter-spacing: 0.5px;">Category</div>
+            <div class="events-thead"
+                style="background: var(--navy); color: white; padding: 14px 24px; display: flex; gap: 24px; align-items: center;">
+                <div
+                    style="width: 70px; text-align: center; font-weight: 700; font-size: 14px; text-transform: uppercase; letter-spacing: 0.5px;">
+                    Date</div>
+                <div
+                    style="flex: 1; font-weight: 700; font-size: 14px; text-transform: uppercase; letter-spacing: 0.5px;">
+                    Event Subject</div>
+                <div
+                    style="width: 120px; text-align: center; font-weight: 700; font-size: 14px; text-transform: uppercase; letter-spacing: 0.5px;">
+                    Category</div>
             </div>
             {% if hp_events %}
             {% for ev in hp_events %}
             <a class="event-card" href="#">
-                <div class="event-date-box"><span class="day">{{ ev.day }}</span><span class="month">{{ ev.month }}</span></div>
+                <div class="event-date-box"><span class="day">{{ ev.day }}</span><span class="month">{{ ev.month
+                        }}</span></div>
                 <div class="event-body">
                     <h3>{{ ev.title }}</h3>
                     {% if ev.location %}<div class="event-loc">📍 {{ ev.location }}</div>{% endif %}
                 </div>
                 <div class="event-action">
-                    <span class="event-tag tag-{{ ev.tag_color }}"><i class="fa-solid fa-circle" style="font-size: 6px;"></i>{{ ev.tag }}</span>
+                    <span class="event-tag tag-{{ ev.tag_color }}"><i class="fa-solid fa-circle"
+                            style="font-size: 6px;"></i>{{ ev.tag }}</span>
                 </div>
             </a>
             {% endfor %}
             {% if hp_events|length == 5 %}
-            <a class="event-card" href="/events" style="justify-content:center; padding: 20px; background: rgba(37, 99, 235, 0.02);">
+            <a class="event-card" href="/events"
+                style="justify-content:center; padding: 20px; background: rgba(37, 99, 235, 0.02);">
                 <div style="display:flex; align-items:center; gap:12px;">
                     <span style="font-size:20px;">📅</span>
                     <span style="color:var(--blue); font-size:15px; font-weight:700;">View full schedule &rarr;</span>
@@ -3589,7 +3750,8 @@
             </a>
             {% endif %}
             {% else %}
-            <div style="text-align:center;color:var(--text3);padding:40px;">No upcoming events scheduled at this moment.</div>
+            <div style="text-align:center;color:var(--text3);padding:40px;">No upcoming events scheduled at this moment.
+            </div>
             {% endif %}
         </div>
         <div class="events-cta"><a href="/events" class="btn-outline-gallery">View Full Calendar →</a></div>
@@ -3760,59 +3922,64 @@
         <div class="faculty-box-container">
             <div class="faculty-ticker-wrap" id="facultyTicker">
                 <div class="faculty-ticker-track" id="facultyTrack">
-                {% if hp_faculty %}
-                {# -- first copy -- #}
-                {% for fac in hp_faculty %}
-                <div class="faculty-card">
-                    <div class="faculty-avatar">
-                        {% if fac.photo %}
-                        <img src="{{ url_for('static', filename='faculty/' + fac.photo) }}" alt="{{ fac.name }}" loading="lazy">
-                        {% else %}
-                        <span class="fac-initials">{{ fac.name[:2].upper() }}</span>
-                        {% endif %}
-                        {% if fac.department %}<div class="dept-badge-fac">{{ fac.department }}</div>{% endif %}
-                    </div>
-                    <div class="faculty-info">
-                        <h3>{{ fac.name }}</h3>
-                        <div class="designation">{{ fac.designation }}{% if fac.department %},<br>{{ fac.department }}{% endif %}</div>
-                        <div class="faculty-stats">
-                            <div class="f-stat">
-                                <div class="val" style="font-size:12px;font-weight:700;line-height:1.4;">{{ fac.qualification or '—' }}</div>
-                                <div class="lbl">Qualification</div>
+                    {% if hp_faculty %}
+                    {# -- first copy -- #}
+                    {% for fac in hp_faculty %}
+                    <div class="faculty-card">
+                        <div class="faculty-avatar">
+                            {% if fac.photo %}
+                            <img src="{{ url_for('static', filename='faculty/' + fac.photo) }}" alt="{{ fac.name }}"
+                                loading="lazy">
+                            {% else %}
+                            <span class="fac-initials">{{ fac.name[:2].upper() }}</span>
+                            {% endif %}
+                            {% if fac.department %}<div class="dept-badge-fac">{{ fac.department }}</div>{% endif %}
+                        </div>
+                        <div class="faculty-info">
+                            <h3>{{ fac.name }}</h3>
+                            <div class="designation">{{ fac.designation }}{% if fac.department %},<br>{{ fac.department
+                                }}{% endif %}</div>
+                            <div class="faculty-stats">
+                                <div class="f-stat">
+                                    <div class="val" style="font-size:12px;font-weight:700;line-height:1.4;">{{
+                                        fac.qualification or '—' }}</div>
+                                    <div class="lbl">Qualification</div>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                {% endfor %}
-                {# -- duplicate copy for seamless loop -- #}
-                {% for fac in hp_faculty %}
-                <div class="faculty-card" aria-hidden="true">
-                    <div class="faculty-avatar">
-                        {% if fac.photo %}
-                        <img src="{{ url_for('static', filename='faculty/' + fac.photo) }}" alt="" loading="lazy">
-                        {% else %}
-                        <span class="fac-initials">{{ fac.name[:2].upper() }}</span>
-                        {% endif %}
-                        {% if fac.department %}<div class="dept-badge-fac">{{ fac.department }}</div>{% endif %}
-                    </div>
-                    <div class="faculty-info">
-                        <h3>{{ fac.name }}</h3>
-                        <div class="designation">{{ fac.designation }}{% if fac.department %},<br>{{ fac.department }}{% endif %}</div>
-                        <div class="faculty-stats">
-                            <div class="f-stat">
-                                <div class="val" style="font-size:12px;font-weight:700;line-height:1.4;">{{ fac.qualification or '—' }}</div>
-                                <div class="lbl">Qualification</div>
+                    {% endfor %}
+                    {# -- duplicate copy for seamless loop -- #}
+                    {% for fac in hp_faculty %}
+                    <div class="faculty-card" aria-hidden="true">
+                        <div class="faculty-avatar">
+                            {% if fac.photo %}
+                            <img src="{{ url_for('static', filename='faculty/' + fac.photo) }}" alt="" loading="lazy">
+                            {% else %}
+                            <span class="fac-initials">{{ fac.name[:2].upper() }}</span>
+                            {% endif %}
+                            {% if fac.department %}<div class="dept-badge-fac">{{ fac.department }}</div>{% endif %}
+                        </div>
+                        <div class="faculty-info">
+                            <h3>{{ fac.name }}</h3>
+                            <div class="designation">{{ fac.designation }}{% if fac.department %},<br>{{ fac.department
+                                }}{% endif %}</div>
+                            <div class="faculty-stats">
+                                <div class="f-stat">
+                                    <div class="val" style="font-size:12px;font-weight:700;line-height:1.4;">{{
+                                        fac.qualification or '—' }}</div>
+                                    <div class="lbl">Qualification</div>
+                                </div>
                             </div>
                         </div>
                     </div>
+                    {% endfor %}
+                    {% else %}
+                    <div style="padding:40px 24px;color:var(--text3);">Faculty details will be updated shortly.</div>
+                    {% endif %}
                 </div>
-                {% endfor %}
-                {% else %}
-                <div style="padding:40px 24px;color:var(--text3);">Faculty details will be updated shortly.</div>
-                {% endif %}
             </div>
         </div>
-    </div>
         <div style="text-align:center;margin-top:36px;"><a href="/faculty" class="btn-outline-gallery">View All Faculty
                 →</a></div>
     </section>
@@ -3862,146 +4029,161 @@
         <div class="alumni-box-container">
             <div class="alumni-slider-wrap">
                 <div class="alumni-slider-track" id="alumniTrack">
-                <div class="alumni-card">
-                    <div class="quote-mark">"</div>
-                    <p class="alumni-text">Contai Polytechnic gave me the practical skills that no textbook could. The
-                        mechanical lab and workshop training helped me crack the TATA Motors campus placement.</p>
-                    <div class="alumni-person">
-                        <div class="alumni-avatar-circle" style="background:linear-gradient(135deg,#3b82f6,#7c3aed);">RG
-                        </div>
-                        <div>
-                            <div class="alumni-name">Rahul Ghosh</div>
-                            <div class="alumni-role">Junior Engineer, TATA Motors</div>
-                            <div class="alumni-batch">Batch 2022 · Mechanical Engg.</div>
-                        </div>
-                    </div>
-                </div>
-                <div class="alumni-card">
-                    <div class="quote-mark">"</div>
-                    <p class="alumni-text">The teachers here are very dedicated. I joined as a pharmacy student and
-                        today I work at a reputed pharmaceutical company. Forever grateful to my department!</p>
-                    <div class="alumni-person">
-                        <div class="alumni-avatar-circle" style="background:linear-gradient(135deg,#10b981,#06b6d4);">SM
-                        </div>
-                        <div>
-                            <div class="alumni-name">Suchitra Maity</div>
-                            <div class="alumni-role">Pharmacist, Sun Pharma</div>
-                            <div class="alumni-batch">Batch 2023 · Pharmacy</div>
+                    <div class="alumni-card">
+                        <div class="quote-mark">"</div>
+                        <p class="alumni-text">Contai Polytechnic gave me the practical skills that no textbook could.
+                            The
+                            mechanical lab and workshop training helped me crack the TATA Motors campus placement.</p>
+                        <div class="alumni-person">
+                            <div class="alumni-avatar-circle"
+                                style="background:linear-gradient(135deg,#3b82f6,#7c3aed);">RG
+                            </div>
+                            <div>
+                                <div class="alumni-name">Rahul Ghosh</div>
+                                <div class="alumni-role">Junior Engineer, TATA Motors</div>
+                                <div class="alumni-batch">Batch 2022 · Mechanical Engg.</div>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="alumni-card">
-                    <div class="quote-mark">"</div>
-                    <p class="alumni-text">The CST department's hands-on projects prepared me for real-world software
-                        development. I built my first web app here and now work at an IT startup in Bangalore.</p>
-                    <div class="alumni-person">
-                        <div class="alumni-avatar-circle" style="background:linear-gradient(135deg,#f59e0b,#ef4444);">AD
-                        </div>
-                        <div>
-                            <div class="alumni-name">Aritra Das</div>
-                            <div class="alumni-role">Software Developer, Zerodha</div>
-                            <div class="alumni-batch">Batch 2021 · CST</div>
-                        </div>
-                    </div>
-                </div>
-                <div class="alumni-card">
-                    <div class="quote-mark">"</div>
-                    <p class="alumni-text">The rigorous surveying camps and structural mechanics classes laid a strong
-                        foundation for my career. Getting placed in L&T was a dream come true for me.</p>
-                    <div class="alumni-person">
-                        <div class="alumni-avatar-circle" style="background:linear-gradient(135deg,#0ea5e9,#2563eb);">SM
-                        </div>
-                        <div>
-                            <div class="alumni-name">Souvik Mondal</div>
-                            <div class="alumni-role">Site Engineer, L&T Construction</div>
-                            <div class="alumni-batch">Batch 2020 · Civil Engg.</div>
+                    <div class="alumni-card">
+                        <div class="quote-mark">"</div>
+                        <p class="alumni-text">The teachers here are very dedicated. I joined as a pharmacy student and
+                            today I work at a reputed pharmaceutical company. Forever grateful to my department!</p>
+                        <div class="alumni-person">
+                            <div class="alumni-avatar-circle"
+                                style="background:linear-gradient(135deg,#10b981,#06b6d4);">SM
+                            </div>
+                            <div>
+                                <div class="alumni-name">Suchitra Maity</div>
+                                <div class="alumni-role">Pharmacist, Sun Pharma</div>
+                                <div class="alumni-batch">Batch 2023 · Pharmacy</div>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="alumni-card">
-                    <div class="quote-mark">"</div>
-                    <p class="alumni-text">Our chemical labs are top-notch. The faculty guided us through complex
-                        industrial processes, making the transition to the petrochemical industry very smooth.</p>
-                    <div class="alumni-person">
-                        <div class="alumni-avatar-circle" style="background:linear-gradient(135deg,#d946ef,#8b5cf6);">PS
-                        </div>
-                        <div>
-                            <div class="alumni-name">Priyanka Sen</div>
-                            <div class="alumni-role">QA Analyst, Haldia Petrochem</div>
-                            <div class="alumni-batch">Batch 2019 · Chemical Engg.</div>
-                        </div>
-                    </div>
-                </div>
-                <div class="alumni-card">
-                    <div class="quote-mark">"</div>
-                    <p class="alumni-text">Cracking the WBSEDCL exam was possible because of the clear concepts taught
-                        by our electrical department professors. Proud to be an alumnus of this college.</p>
-                    <div class="alumni-person">
-                        <div class="alumni-avatar-circle" style="background:linear-gradient(135deg,#f59e0b,#d97706);">AB
-                        </div>
-                        <div>
-                            <div class="alumni-name">Amit Bera</div>
-                            <div class="alumni-role">Sub-Assistant Engineer, WBSEDCL</div>
-                            <div class="alumni-batch">Batch 2018 · Electrical Engg.</div>
+                    <div class="alumni-card">
+                        <div class="quote-mark">"</div>
+                        <p class="alumni-text">The CST department's hands-on projects prepared me for real-world
+                            software
+                            development. I built my first web app here and now work at an IT startup in Bangalore.</p>
+                        <div class="alumni-person">
+                            <div class="alumni-avatar-circle"
+                                style="background:linear-gradient(135deg,#f59e0b,#ef4444);">AD
+                            </div>
+                            <div>
+                                <div class="alumni-name">Aritra Das</div>
+                                <div class="alumni-role">Software Developer, Zerodha</div>
+                                <div class="alumni-batch">Batch 2021 · CST</div>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="alumni-card">
-                    <div class="quote-mark">"</div>
-                    <p class="alumni-text">From building microcontrollers to understanding communication networks,
-                        Contai Polytechnic provided the perfect environment to learn and innovate.</p>
-                    <div class="alumni-person">
-                        <div class="alumni-avatar-circle" style="background:linear-gradient(135deg,#14b8a6,#059669);">SR
-                        </div>
-                        <div>
-                            <div class="alumni-name">Sneha Roy</div>
-                            <div class="alumni-role">Network Engineer, Jio Platforms</div>
-                            <div class="alumni-batch">Batch 2022 · Electronics</div>
-                        </div>
-                    </div>
-                </div>
-                <div class="alumni-card">
-                    <div class="quote-mark">"</div>
-                    <p class="alumni-text">The CNC machine training during our final semester gave me a huge edge during
-                        interviews. The placement cell is incredibly supportive and proactive.</p>
-                    <div class="alumni-person">
-                        <div class="alumni-avatar-circle" style="background:linear-gradient(135deg,#ef4444,#b91c1c);">DJ
-                        </div>
-                        <div>
-                            <div class="alumni-name">Debabrata Jana</div>
-                            <div class="alumni-role">CNC Programmer, Bharat Forge</div>
-                            <div class="alumni-batch">Batch 2021 · Mechanical Engg.</div>
+                    <div class="alumni-card">
+                        <div class="quote-mark">"</div>
+                        <p class="alumni-text">The rigorous surveying camps and structural mechanics classes laid a
+                            strong
+                            foundation for my career. Getting placed in L&T was a dream come true for me.</p>
+                        <div class="alumni-person">
+                            <div class="alumni-avatar-circle"
+                                style="background:linear-gradient(135deg,#0ea5e9,#2563eb);">SM
+                            </div>
+                            <div>
+                                <div class="alumni-name">Souvik Mondal</div>
+                                <div class="alumni-role">Site Engineer, L&T Construction</div>
+                                <div class="alumni-batch">Batch 2020 · Civil Engg.</div>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="alumni-card">
-                    <div class="quote-mark">"</div>
-                    <p class="alumni-text">The regular seminars and hospital training organized by the Pharmacy
-                        department built my confidence. I highly recommend this college to aspiring pharmacists.</p>
-                    <div class="alumni-person">
-                        <div class="alumni-avatar-circle" style="background:linear-gradient(135deg,#8b5cf6,#4338ca);">AC
-                        </div>
-                        <div>
-                            <div class="alumni-name">Ananya Chatterjee</div>
-                            <div class="alumni-role">Clinical Researcher, Cipla</div>
-                            <div class="alumni-batch">Batch 2020 · Pharmacy</div>
-                        </div>
-                    </div>
-                </div>
-                <div class="alumni-card">
-                    <div class="quote-mark">"</div>
-                    <p class="alumni-text">I learned both frontend and backend development here. The tech fests and
-                        coding competitions completely changed my career trajectory and made me job-ready.</p>
-                    <div class="alumni-person">
-                        <div class="alumni-avatar-circle" style="background:linear-gradient(135deg,#f43f5e,#be123c);">RD
-                        </div>
-                        <div>
-                            <div class="alumni-name">Rakesh Dey</div>
-                            <div class="alumni-role">Full Stack Developer, TCS</div>
-                            <div class="alumni-batch">Batch 2023 · CST</div>
+                    <div class="alumni-card">
+                        <div class="quote-mark">"</div>
+                        <p class="alumni-text">Our chemical labs are top-notch. The faculty guided us through complex
+                            industrial processes, making the transition to the petrochemical industry very smooth.</p>
+                        <div class="alumni-person">
+                            <div class="alumni-avatar-circle"
+                                style="background:linear-gradient(135deg,#d946ef,#8b5cf6);">PS
+                            </div>
+                            <div>
+                                <div class="alumni-name">Priyanka Sen</div>
+                                <div class="alumni-role">QA Analyst, Haldia Petrochem</div>
+                                <div class="alumni-batch">Batch 2019 · Chemical Engg.</div>
+                            </div>
                         </div>
                     </div>
-                </div>
+                    <div class="alumni-card">
+                        <div class="quote-mark">"</div>
+                        <p class="alumni-text">Cracking the WBSEDCL exam was possible because of the clear concepts
+                            taught
+                            by our electrical department professors. Proud to be an alumnus of this college.</p>
+                        <div class="alumni-person">
+                            <div class="alumni-avatar-circle"
+                                style="background:linear-gradient(135deg,#f59e0b,#d97706);">AB
+                            </div>
+                            <div>
+                                <div class="alumni-name">Amit Bera</div>
+                                <div class="alumni-role">Sub-Assistant Engineer, WBSEDCL</div>
+                                <div class="alumni-batch">Batch 2018 · Electrical Engg.</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="alumni-card">
+                        <div class="quote-mark">"</div>
+                        <p class="alumni-text">From building microcontrollers to understanding communication networks,
+                            Contai Polytechnic provided the perfect environment to learn and innovate.</p>
+                        <div class="alumni-person">
+                            <div class="alumni-avatar-circle"
+                                style="background:linear-gradient(135deg,#14b8a6,#059669);">SR
+                            </div>
+                            <div>
+                                <div class="alumni-name">Sneha Roy</div>
+                                <div class="alumni-role">Network Engineer, Jio Platforms</div>
+                                <div class="alumni-batch">Batch 2022 · Electronics</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="alumni-card">
+                        <div class="quote-mark">"</div>
+                        <p class="alumni-text">The CNC machine training during our final semester gave me a huge edge
+                            during
+                            interviews. The placement cell is incredibly supportive and proactive.</p>
+                        <div class="alumni-person">
+                            <div class="alumni-avatar-circle"
+                                style="background:linear-gradient(135deg,#ef4444,#b91c1c);">DJ
+                            </div>
+                            <div>
+                                <div class="alumni-name">Debabrata Jana</div>
+                                <div class="alumni-role">CNC Programmer, Bharat Forge</div>
+                                <div class="alumni-batch">Batch 2021 · Mechanical Engg.</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="alumni-card">
+                        <div class="quote-mark">"</div>
+                        <p class="alumni-text">The regular seminars and hospital training organized by the Pharmacy
+                            department built my confidence. I highly recommend this college to aspiring pharmacists.</p>
+                        <div class="alumni-person">
+                            <div class="alumni-avatar-circle"
+                                style="background:linear-gradient(135deg,#8b5cf6,#4338ca);">AC
+                            </div>
+                            <div>
+                                <div class="alumni-name">Ananya Chatterjee</div>
+                                <div class="alumni-role">Clinical Researcher, Cipla</div>
+                                <div class="alumni-batch">Batch 2020 · Pharmacy</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="alumni-card">
+                        <div class="quote-mark">"</div>
+                        <p class="alumni-text">I learned both frontend and backend development here. The tech fests and
+                            coding competitions completely changed my career trajectory and made me job-ready.</p>
+                        <div class="alumni-person">
+                            <div class="alumni-avatar-circle"
+                                style="background:linear-gradient(135deg,#f43f5e,#be123c);">RD
+                            </div>
+                            <div>
+                                <div class="alumni-name">Rakesh Dey</div>
+                                <div class="alumni-role">Full Stack Developer, TCS</div>
+                                <div class="alumni-batch">Batch 2023 · CST</div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -4065,8 +4247,12 @@
             <h2>Find Us on Google Map</h2>
             <p>Visit our campus</p>
         </div>
-        <div class="map-container" style="max-width: 1000px; margin: 0 auto; border-radius: var(--radius-lg); overflow: hidden; border: 1.5px solid var(--border); box-shadow: var(--shadow-md);">
-            <iframe src="https://maps.google.com/maps?q=QQMQ%2BGMQ%2C%20VILL-RAGHURAMPUR%2C%20Contai%20Polytechnic%20Rd%2C%20P.O-DARUA%2C%20P.S%2C%20Contai%2C%20Uttar%20Adaberya%2C%20West%20Bengal%20721406&t=&z=15&ie=UTF8&iwloc=&output=embed" width="100%" height="450" style="border:0; display: block;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        <div class="map-container"
+            style="max-width: 1000px; margin: 0 auto; border-radius: var(--radius-lg); overflow: hidden; border: 1.5px solid var(--border); box-shadow: var(--shadow-md);">
+            <iframe
+                src="https://maps.google.com/maps?q=QQMQ%2BGMQ%2C%20VILL-RAGHURAMPUR%2C%20Contai%20Polytechnic%20Rd%2C%20P.O-DARUA%2C%20P.S%2C%20Contai%2C%20Uttar%20Adaberya%2C%20West%20Bengal%20721406&t=&z=15&ie=UTF8&iwloc=&output=embed"
+                width="100%" height="450" style="border:0; display: block;" allowfullscreen="" loading="lazy"
+                referrerpolicy="no-referrer-when-downgrade"></iframe>
         </div>
     </section>
 

@@ -1,0 +1,5 @@
+[phases.setup]
+nixPkgs = ["python313"]
+
+[start]
+cmd = "python -c \"import app; app.init_db(); app.init_notices_table(); app.init_gallery_table(); app.init_homepage_tables(); app.load_model()\" && gunicorn -c gunicorn.conf.py app:app"

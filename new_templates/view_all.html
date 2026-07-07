@@ -1,15 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>All Q&A Repository — Contai Polytechnic Admin</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
     <link rel="icon" type="image/png" href="{{ url_for('static', filename='logo.png') }}">
     <style>
-        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
         body {
             font-family: 'Inter', sans-serif;
             background: #f1f5f9;
@@ -25,416 +34,891 @@
         .page-header {
             max-width: 1200px;
             margin: 0 auto 28px;
-            display: flex; align-items: center;
-            justify-content: space-between; gap: 16px; flex-wrap: wrap;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+            flex-wrap: wrap;
         }
-        .page-header-left a {
-            display: flex; align-items: center; gap: 10px; text-decoration: none;
-        }
-        .page-header-left img { width: 38px; height: 38px; object-fit: contain; }
-        .page-header-left strong { font-size: 16px; font-weight: 800; color: #0f172a; }
-        .page-header-left small { display: block; font-size: 10px; color: #94a3b8; font-weight: 600; }
 
-        h1 { font-size: 22px; font-weight: 800; color: #0f172a; text-align: center; margin-bottom: 6px; }
-        .sub-title { text-align: center; font-size: 13px; color: #94a3b8; margin-bottom: 28px; }
+        .page-header-left a {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+        }
+
+        .page-header-left img {
+            width: 38px;
+            height: 38px;
+            object-fit: contain;
+        }
+
+        .page-header-left strong {
+            font-size: 16px;
+            font-weight: 800;
+            color: #0f172a;
+        }
+
+        .page-header-left small {
+            display: block;
+            font-size: 10px;
+            color: #94a3b8;
+            font-weight: 600;
+        }
+
+        h1 {
+            font-size: 22px;
+            font-weight: 800;
+            color: #0f172a;
+            text-align: center;
+            margin-bottom: 6px;
+        }
+
+        .sub-title {
+            text-align: center;
+            font-size: 13px;
+            color: #94a3b8;
+            margin-bottom: 28px;
+        }
 
         /* ── Badges ── */
-        .badge { font-size: 12px; font-weight: 700; padding: 5px 12px; border-radius: 50px; }
-        .badge-total  { background: #eff4ff; border: 1px solid #c7d7fd; color: #1a56db; }
-        .badge-manual { background: #f0fdf4; border: 1px solid #bbf7d0; color: #166534; }
-        .badge-auto   { background: #fdf4ff; border: 1px solid #e9d5ff; color: #6b21a8; }
-        .badge-approved { background: #fff7ed; border: 1px solid #fed7aa; color: #9a3412; }
+        .badge {
+            font-size: 12px;
+            font-weight: 700;
+            padding: 5px 12px;
+            border-radius: 50px;
+        }
+
+        .badge-total {
+            background: #eff4ff;
+            border: 1px solid #c7d7fd;
+            color: #1a56db;
+        }
+
+        .badge-manual {
+            background: #f0fdf4;
+            border: 1px solid #bbf7d0;
+            color: #166534;
+        }
+
+        .badge-auto {
+            background: #fdf4ff;
+            border: 1px solid #e9d5ff;
+            color: #6b21a8;
+        }
+
+        .badge-approved {
+            background: #fff7ed;
+            border: 1px solid #fed7aa;
+            color: #9a3412;
+        }
 
         /* Source pill in table */
-        .src { font-size: 10px; font-weight: 800; padding: 2px 8px; border-radius: 50px;
-               display: inline-block; margin-top: 3px; text-transform: uppercase; letter-spacing: 0.5px; }
-        .src-manual   { background: #f0fdf4; color: #166534; border: 1px solid #bbf7d0; }
-        .src-auto     { background: #fdf4ff; color: #6b21a8; border: 1px solid #e9d5ff; }
-        .src-approved { background: #fff7ed; color: #9a3412; border: 1px solid #fed7aa; }
+        .src {
+            font-size: 10px;
+            font-weight: 800;
+            padding: 2px 8px;
+            border-radius: 50px;
+            display: inline-block;
+            margin-top: 3px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .src-manual {
+            background: #f0fdf4;
+            color: #166534;
+            border: 1px solid #bbf7d0;
+        }
+
+        .src-auto {
+            background: #fdf4ff;
+            color: #6b21a8;
+            border: 1px solid #e9d5ff;
+        }
+
+        .src-approved {
+            background: #fff7ed;
+            color: #9a3412;
+            border: 1px solid #fed7aa;
+        }
 
         /* ── Action row ── */
         .actions-row {
-            max-width: 1200px; margin: 0 auto 16px;
-            display: flex; justify-content: space-between; align-items: center;
-            gap: 12px; flex-wrap: wrap;
+            max-width: 1200px;
+            margin: 0 auto 16px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
         }
+
         .btn {
-            display: inline-flex; align-items: center; gap: 7px;
-            padding: 10px 18px; border-radius: 8px; font-weight: 700;
-            font-size: 13px; cursor: pointer; font-family: 'Inter', sans-serif;
-            transition: all 0.2s; text-decoration: none; border: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+            padding: 10px 18px;
+            border-radius: 8px;
+            font-weight: 700;
+            font-size: 13px;
+            cursor: pointer;
+            font-family: 'Inter', sans-serif;
+            transition: all 0.2s;
+            text-decoration: none;
+            border: none;
         }
-        .btn-primary { background: #1a56db; color: white; }
-        .btn-primary:hover { background: #1447b3; box-shadow: 0 4px 14px rgba(26,86,219,0.3); }
-        .btn-success { background: #059669; color: white; }
-        .btn-success:hover { background: #047857; box-shadow: 0 4px 14px rgba(5,150,105,0.3); }
-        .btn-white { background: white; color: #475569; border: 1px solid #e2e8f0; }
-        .btn-white:hover { border-color: #c7d7fd; color: #1a56db; background: #eff4ff; }
-        .btn-orange { background: #f97316; color: white; }
-        .btn-orange:hover { background: #ea580c; }
+
+        .btn-primary {
+            background: #1a56db;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #1447b3;
+            box-shadow: 0 4px 14px rgba(26, 86, 219, 0.3);
+        }
+
+        .btn-success {
+            background: #059669;
+            color: white;
+        }
+
+        .btn-success:hover {
+            background: #047857;
+            box-shadow: 0 4px 14px rgba(5, 150, 105, 0.3);
+        }
+
+        .btn-white {
+            background: white;
+            color: #475569;
+            border: 1px solid #e2e8f0;
+        }
+
+        .btn-white:hover {
+            border-color: #c7d7fd;
+            color: #1a56db;
+            background: #eff4ff;
+        }
+
+        .btn-orange {
+            background: #f97316;
+            color: white;
+        }
+
+        .btn-orange:hover {
+            background: #ea580c;
+        }
 
         /* ── Filter Tabs ── */
         .filter-tabs {
-            max-width: 1200px; margin: 0 auto 16px;
-            display: flex; gap: 8px; flex-wrap: wrap;
+            max-width: 1200px;
+            margin: 0 auto 16px;
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
         }
+
         .tab {
-            padding: 8px 16px; border-radius: 8px; border: 1.5px solid #e2e8f0;
-            background: white; font-size: 13px; font-weight: 700; color: #64748b;
-            cursor: pointer; transition: all 0.2s; font-family: 'Inter', sans-serif;
+            padding: 8px 16px;
+            border-radius: 8px;
+            border: 1.5px solid #e2e8f0;
+            background: white;
+            font-size: 13px;
+            font-weight: 700;
+            color: #64748b;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-family: 'Inter', sans-serif;
         }
-        .tab.active { background: #1a56db; color: white; border-color: #1a56db; }
-        .tab.active-manual { background: #166534; color: white; border-color: #166534; }
-        .tab.active-auto   { background: #6b21a8; color: white; border-color: #6b21a8; }
-        .tab.active-approved { background: #9a3412; color: white; border-color: #9a3412; }
+
+        .tab.active {
+            background: #1a56db;
+            color: white;
+            border-color: #1a56db;
+        }
+
+        .tab.active-manual {
+            background: #166534;
+            color: white;
+            border-color: #166534;
+        }
+
+        .tab.active-auto {
+            background: #6b21a8;
+            color: white;
+            border-color: #6b21a8;
+        }
+
+        .tab.active-approved {
+            background: #9a3412;
+            color: white;
+            border-color: #9a3412;
+        }
+
         .tab:hover:not(.active):not(.active-manual):not(.active-auto):not(.active-approved) {
-            border-color: #c7d7fd; color: #1a56db;
+            border-color: #c7d7fd;
+            color: #1a56db;
         }
 
         /* ── Toast ── */
         #toast {
-            position: fixed; top: 24px; right: 24px; z-index: 9999;
-            padding: 14px 20px; border-radius: 10px; font-size: 13.5px; font-weight: 700;
-            box-shadow: 0 8px 24px rgba(0,0,0,0.15); display: none;
-            align-items: center; gap: 10px; max-width: 380px;
+            position: fixed;
+            top: 24px;
+            right: 24px;
+            z-index: 9999;
+            padding: 14px 20px;
+            border-radius: 10px;
+            font-size: 13.5px;
+            font-weight: 700;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+            display: none;
+            align-items: center;
+            gap: 10px;
+            max-width: 380px;
             animation: slideIn 0.3s ease;
         }
-        @keyframes slideIn { from{transform:translateX(120%);opacity:0} to{transform:translateX(0);opacity:1} }
-        #toast.success { background:#ecfdf5; border:1px solid #a7f3d0; color:#065f46; }
-        #toast.error   { background:#fef2f2; border:1px solid #fecaca; color:#991b1b; }
-        #toast.warning { background:#fffbeb; border:1px solid #fcd34d; color:#92400e; }
+
+        @keyframes slideIn {
+            from {
+                transform: translateX(120%);
+                opacity: 0
+            }
+
+            to {
+                transform: translateX(0);
+                opacity: 1
+            }
+        }
+
+        #toast.success {
+            background: #ecfdf5;
+            border: 1px solid #a7f3d0;
+            color: #065f46;
+        }
+
+        #toast.error {
+            background: #fef2f2;
+            border: 1px solid #fecaca;
+            color: #991b1b;
+        }
+
+        #toast.warning {
+            background: #fffbeb;
+            border: 1px solid #fcd34d;
+            color: #92400e;
+        }
 
         /* ── Flash ── */
         .flash {
-            max-width:700px; margin:0 auto 20px;
-            padding:13px 18px; border-radius:8px;
-            font-size:13px; font-weight:600; text-align:center;
+            max-width: 700px;
+            margin: 0 auto 20px;
+            padding: 13px 18px;
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 600;
+            text-align: center;
         }
-        .flash.success{ background:#ecfdf5; border:1px solid #a7f3d0; color:#065f46; }
-        .flash.error  { background:#fef2f2; border:1px solid #fecaca; color:#991b1b; }
+
+        .flash.success {
+            background: #ecfdf5;
+            border: 1px solid #a7f3d0;
+            color: #065f46;
+        }
+
+        .flash.error {
+            background: #fef2f2;
+            border: 1px solid #fecaca;
+            color: #991b1b;
+        }
 
         /* ── Add Q&A Card ── */
         .add-card {
-            max-width: 1200px; margin: 0 auto 24px;
-            background: white; border: 2px solid #c7d7fd; border-radius: 16px;
-            padding: 24px 28px; box-shadow: 0 4px 20px rgba(26,86,219,0.08);
+            max-width: 1200px;
+            margin: 0 auto 24px;
+            background: white;
+            border: 2px solid #c7d7fd;
+            border-radius: 16px;
+            padding: 24px 28px;
+            box-shadow: 0 4px 20px rgba(26, 86, 219, 0.08);
         }
-        .add-card h2 { font-size:15px; font-weight:800; color:#1a56db; margin-bottom:16px;
-            display:flex; align-items:center; gap:8px; }
-        .form-row { display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-bottom:14px; }
-        @media(max-width:680px){ .form-row{grid-template-columns:1fr;} }
+
+        .add-card h2 {
+            font-size: 15px;
+            font-weight: 800;
+            color: #1a56db;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 14px;
+            margin-bottom: 14px;
+        }
+
+        @media(max-width:680px) {
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+        }
+
         .form-group label {
-            display:block; font-size:11px; font-weight:800; color:#64748b;
-            text-transform:uppercase; letter-spacing:1px; margin-bottom:6px;
+            display: block;
+            font-size: 11px;
+            font-weight: 800;
+            color: #64748b;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 6px;
         }
+
         .form-group textarea {
-            width:100%; padding:10px 14px; border:1.5px solid #e2e8f0; border-radius:8px;
-            font-size:13.5px; font-family:'Inter',sans-serif; color:#0f172a;
-            resize:vertical; min-height:80px; transition:border-color 0.2s; background:#f8fafc;
+            width: 100%;
+            padding: 10px 14px;
+            border: 1.5px solid #e2e8f0;
+            border-radius: 8px;
+            font-size: 13.5px;
+            font-family: 'Inter', sans-serif;
+            color: #0f172a;
+            resize: vertical;
+            min-height: 80px;
+            transition: border-color 0.2s;
+            background: #f8fafc;
         }
+
         .form-group textarea:focus {
-            outline:none; border-color:#1a56db; background:white;
-            box-shadow:0 0 0 3px rgba(26,86,219,0.1);
+            outline: none;
+            border-color: #1a56db;
+            background: white;
+            box-shadow: 0 0 0 3px rgba(26, 86, 219, 0.1);
         }
-        .form-actions{ display:flex; align-items:center; gap:12px; flex-wrap:wrap; }
-        .char-hint{ font-size:11px; color:#94a3b8; font-weight:600; }
+
+        .form-actions {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .char-hint {
+            font-size: 11px;
+            color: #94a3b8;
+            font-weight: 600;
+        }
 
         /* ── Search ── */
-        .search-row { max-width:1200px; margin:0 auto 16px; }
-        .search-input {
-            width:100%; padding:11px 16px 11px 42px; border:1.5px solid #e2e8f0;
-            border-radius:10px; font-size:13.5px; font-family:'Inter',sans-serif; color:#0f172a;
-            background:white url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%2394a3b8' viewBox='0 0 16 16'%3E%3Cpath d='M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.099zm-5.242 1.656a5.5 5.5 0 1 1 0-11 5.5 5.5 0 0 1 0 11z'/%3E%3C/svg%3E") no-repeat 14px center;
-            transition:border-color 0.2s;
+        .search-row {
+            max-width: 1200px;
+            margin: 0 auto 16px;
         }
-        .search-input:focus{outline:none;border-color:#1a56db;box-shadow:0 0 0 3px rgba(26,86,219,0.1);}
+
+        .search-input {
+            width: 100%;
+            padding: 11px 16px 11px 42px;
+            border: 1.5px solid #e2e8f0;
+            border-radius: 10px;
+            font-size: 13.5px;
+            font-family: 'Inter', sans-serif;
+            color: #0f172a;
+            background: white url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%2394a3b8' viewBox='0 0 16 16'%3E%3Cpath d='M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.099zm-5.242 1.656a5.5 5.5 0 1 1 0-11 5.5 5.5 0 0 1 0 11z'/%3E%3C/svg%3E") no-repeat 14px center;
+            transition: border-color 0.2s;
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: #1a56db;
+            box-shadow: 0 0 0 3px rgba(26, 86, 219, 0.1);
+        }
 
         /* ── Legend ── */
         .legend {
-            max-width: 1200px; margin: 0 auto 12px;
-            display: flex; gap: 14px; align-items: center; flex-wrap: wrap;
+            max-width: 1200px;
+            margin: 0 auto 12px;
+            display: flex;
+            gap: 14px;
+            align-items: center;
+            flex-wrap: wrap;
         }
-        .legend-item { display: flex; align-items: center; gap: 6px; font-size: 12px; font-weight: 600; color: #64748b; }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 12px;
+            font-weight: 600;
+            color: #64748b;
+        }
 
         /* ── Table ── */
         .table-container {
-            max-width:1200px; margin:0 auto; background:white;
-            border:1px solid #e2e8f0; border-radius:16px; overflow:hidden;
-            box-shadow:0 4px 16px rgba(0,0,0,0.06);
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
         }
-        table { width:100%; border-collapse:collapse; }
-        th,td { padding:13px 16px; text-align:left; border-bottom:1px solid #f1f5f9; }
-        thead tr { background:#f8fafc; }
-        th { font-size:11px; font-weight:800; color:#64748b; text-transform:uppercase;
-             letter-spacing:1.2px; border-bottom:2px solid #e2e8f0; }
-        td { font-size:13.5px; line-height:1.6; vertical-align:top; color:#334155; }
-        tr:last-child td { border-bottom:none; }
-        tr:hover td { background:#f8fafc; }
-        tr.highlight-new td { animation:highlightRow 2s ease-out forwards; }
-        @keyframes highlightRow { 0%{background:#eff4ff} 100%{background:transparent} }
-        td:first-child { font-weight:700; color:#94a3b8; font-size:12px; width:45px; }
-        .q-text { font-weight:600; color:#0f172a; }
-        .a-text { color:#475569; }
-        .action-cell { width:130px; white-space:nowrap; }
-        .action-cell .btn-group { display:flex; gap:6px; }
 
-        .btn-edit,.btn-delete-sm {
-            display:inline-flex; align-items:center; gap:4px; padding:5px 10px;
-            border-radius:6px; text-decoration:none; font-size:11px; font-weight:700;
-            transition:all 0.18s; cursor:pointer; border:none; font-family:'Inter',sans-serif;
+        table {
+            width: 100%;
+            border-collapse: collapse;
         }
-        .btn-edit { background:#eff4ff; color:#1a56db; border:1px solid #c7d7fd; }
-        .btn-edit:hover { background:#1a56db; color:white; border-color:#1a56db; }
-        .btn-delete-sm { background:#fef2f2; color:#991b1b; border:1px solid #fecaca; }
-        .btn-delete-sm:hover { background:#e02424; color:white; border-color:#e02424; }
 
-        .empty-row td { text-align:center; padding:60px; color:#94a3b8; font-size:14px; }
+        th,
+        td {
+            padding: 13px 16px;
+            text-align: left;
+            border-bottom: 1px solid #f1f5f9;
+        }
+
+        thead tr {
+            background: #f8fafc;
+        }
+
+        th {
+            font-size: 11px;
+            font-weight: 800;
+            color: #64748b;
+            text-transform: uppercase;
+            letter-spacing: 1.2px;
+            border-bottom: 2px solid #e2e8f0;
+        }
+
+        td {
+            font-size: 13.5px;
+            line-height: 1.6;
+            vertical-align: top;
+            color: #334155;
+        }
+
+        tr:last-child td {
+            border-bottom: none;
+        }
+
+        tr:hover td {
+            background: #f8fafc;
+        }
+
+        tr.highlight-new td {
+            animation: highlightRow 2s ease-out forwards;
+        }
+
+        @keyframes highlightRow {
+            0% {
+                background: #eff4ff
+            }
+
+            100% {
+                background: transparent
+            }
+        }
+
+        td:first-child {
+            font-weight: 700;
+            color: #94a3b8;
+            font-size: 12px;
+            width: 45px;
+        }
+
+        .q-text {
+            font-weight: 600;
+            color: #0f172a;
+        }
+
+        .a-text {
+            color: #475569;
+        }
+
+        .action-cell {
+            width: 130px;
+            white-space: nowrap;
+        }
+
+        .action-cell .btn-group {
+            display: flex;
+            gap: 6px;
+        }
+
+        .btn-edit,
+        .btn-delete-sm {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            padding: 5px 10px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-size: 11px;
+            font-weight: 700;
+            transition: all 0.18s;
+            cursor: pointer;
+            border: none;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .btn-edit {
+            background: #eff4ff;
+            color: #1a56db;
+            border: 1px solid #c7d7fd;
+        }
+
+        .btn-edit:hover {
+            background: #1a56db;
+            color: white;
+            border-color: #1a56db;
+        }
+
+        .btn-delete-sm {
+            background: #fef2f2;
+            color: #991b1b;
+            border: 1px solid #fecaca;
+        }
+
+        .btn-delete-sm:hover {
+            background: #e02424;
+            color: white;
+            border-color: #e02424;
+        }
+
+        .empty-row td {
+            text-align: center;
+            padding: 60px;
+            color: #94a3b8;
+            font-size: 14px;
+        }
 
         /* ── Edit Modal ── */
         .modal-overlay {
-            display:none; position:fixed; inset:0;
-            background:rgba(15,23,42,0.5); z-index:1000;
-            align-items:center; justify-content:center; padding:20px;
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(15, 23, 42, 0.5);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
         }
-        .modal-overlay.open { display:flex; }
+
+        .modal-overlay.open {
+            display: flex;
+        }
+
         .modal {
-            background:white; border-radius:16px; padding:28px;
-            max-width:640px; width:100%;
-            box-shadow:0 20px 60px rgba(0,0,0,0.2); animation:popIn 0.2s ease;
+            background: white;
+            border-radius: 16px;
+            padding: 28px;
+            max-width: 640px;
+            width: 100%;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
+            animation: popIn 0.2s ease;
         }
-        @keyframes popIn{from{transform:scale(0.95);opacity:0}to{transform:scale(1);opacity:1}}
-        .modal-header { display:flex; justify-content:space-between; align-items:center; margin-bottom:20px; }
-        .modal-header h3 { font-size:16px; font-weight:800; color:#0f172a; }
+
+        @keyframes popIn {
+            from {
+                transform: scale(0.95);
+                opacity: 0
+            }
+
+            to {
+                transform: scale(1);
+                opacity: 1
+            }
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .modal-header h3 {
+            font-size: 16px;
+            font-weight: 800;
+            color: #0f172a;
+        }
+
         .modal-close {
-            background:#f1f5f9; border:none; border-radius:8px; width:32px; height:32px;
-            cursor:pointer; font-size:16px; display:flex; align-items:center;
-            justify-content:center; color:#64748b; transition:all 0.15s;
+            background: #f1f5f9;
+            border: none;
+            border-radius: 8px;
+            width: 32px;
+            height: 32px;
+            cursor: pointer;
+            font-size: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #64748b;
+            transition: all 0.15s;
         }
-        .modal-close:hover { background:#e2e8f0; color:#0f172a; }
+
+        .modal-close:hover {
+            background: #e2e8f0;
+            color: #0f172a;
+        }
 
         .spinner {
-            display:inline-block; width:14px; height:14px;
-            border:2px solid rgba(255,255,255,0.4); border-top-color:white;
-            border-radius:50%; animation:spin 0.7s linear infinite; vertical-align:middle;
+            display: inline-block;
+            width: 14px;
+            height: 14px;
+            border: 2px solid rgba(255, 255, 255, 0.4);
+            border-top-color: white;
+            border-radius: 50%;
+            animation: spin 0.7s linear infinite;
+            vertical-align: middle;
         }
-        @keyframes spin{to{transform:rotate(360deg)}}
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg)
+            }
+        }
 
         @media print {
-            body{background:white;padding:20px;}
-            .page-header,.actions-row,.add-card,.search-row,.action-cell,
-            .filter-tabs,.legend,#toast,.modal-overlay{display:none!important;}
-            .table-container{box-shadow:none;border:1px solid #ccc;}
-            th{background:#f1f5f9;}
+            body {
+                background: white;
+                padding: 20px;
+            }
+
+            .page-header,
+            .actions-row,
+            .add-card,
+            .search-row,
+            .action-cell,
+            .filter-tabs,
+            .legend,
+            #toast,
+            .modal-overlay {
+                display: none !important;
+            }
+
+            .table-container {
+                box-shadow: none;
+                border: 1px solid #ccc;
+            }
+
+            th {
+                background: #f1f5f9;
+            }
         }
     </style>
 </head>
+
 <body>
 
-<div id="toast"></div>
+    <div id="toast"></div>
 
-<!-- Edit Modal -->
-<div class="modal-overlay" id="editModal">
-    <div class="modal">
-        <div class="modal-header">
-            <h3>✏️ Edit Q&A Entry</h3>
-            <button class="modal-close" onclick="closeEditModal()">✕</button>
+    <!-- Edit Modal -->
+    <div class="modal-overlay" id="editModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3>✏️ Edit Q&A Entry</h3>
+                <button class="modal-close" onclick="closeEditModal()">✕</button>
+            </div>
+            <input type="hidden" id="edit-id">
+            <div class="form-group" style="margin-bottom:14px;">
+                <label>Question</label>
+                <textarea id="edit-question" rows="3" placeholder="Enter question..."></textarea>
+            </div>
+            <div class="form-group" style="margin-bottom:20px;">
+                <label>Answer</label>
+                <textarea id="edit-answer" rows="4" placeholder="Enter answer..."></textarea>
+            </div>
+            <div class="form-actions">
+                <button class="btn btn-success" id="edit-save-btn" onclick="saveEdit()">💾 Save Changes</button>
+                <button class="btn btn-white" onclick="closeEditModal()">Cancel</button>
+            </div>
         </div>
-        <input type="hidden" id="edit-id">
-        <div class="form-group" style="margin-bottom:14px;">
-            <label>Question</label>
-            <textarea id="edit-question" rows="3" placeholder="Enter question..."></textarea>
+    </div>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+    {% for category, message in messages %}
+    <div class="flash {{ category }}">{{ message }}</div>
+    {% endfor %}
+    {% endwith %}
+
+    <!-- Header -->
+    <div class="page-header">
+        <div class="page-header-left">
+            <a href="/admin">
+                <img src="{{ url_for('static', filename='logo.png') }}" alt="Logo">
+                <div>
+                    <strong>Contai Polytechnic</strong>
+                    <small>Admin Panel → Data Repository</small>
+                </div>
+            </a>
         </div>
-        <div class="form-group" style="margin-bottom:20px;">
-            <label>Answer</label>
-            <textarea id="edit-answer" rows="4" placeholder="Enter answer..."></textarea>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center;">
+            <span class="badge badge-total" id="count-badge">{{ qa_list|length }} Total</span>
+            <span class="badge badge-manual" id="manual-badge">
+                🟢 {{ qa_list|selectattr(3,'equalto','manual')|list|length }} Manual
+            </span>
+            <span class="badge badge-auto" id="auto-badge">
+                🤖 {{ qa_list|selectattr(3,'equalto','auto')|list|length }} Auto
+            </span>
+            <span class="badge badge-approved" id="approved-badge">
+                ✅ {{ qa_list|selectattr(3,'equalto','approved')|list|length }} Approved
+            </span>
+        </div>
+    </div>
+
+    <h1>📚 All Q&A Repository</h1>
+    <p class="sub-title">Complete chatbot training data — Contai Polytechnic AI Assistant</p>
+
+    <!-- Add Q&A Card -->
+    <div class="add-card">
+        <h2>➕ Add New Q&A</h2>
+        <div class="form-row">
+            <div class="form-group">
+                <label>Question</label>
+                <textarea id="new-question" placeholder="e.g. What is the hostel fee?" rows="3"></textarea>
+            </div>
+            <div class="form-group">
+                <label>Answer</label>
+                <textarea id="new-answer" placeholder="e.g. The hostel fee is ₹12,000 per year." rows="3"></textarea>
+            </div>
         </div>
         <div class="form-actions">
-            <button class="btn btn-success" id="edit-save-btn" onclick="saveEdit()">💾 Save Changes</button>
-            <button class="btn btn-white" onclick="closeEditModal()">Cancel</button>
+            <button class="btn btn-success" id="add-btn" onclick="addQA()">➕ Add to Database</button>
+            <button class="btn btn-white" onclick="clearForm()">🗑 Clear</button>
+            <span class="char-hint" id="char-hint"></span>
         </div>
     </div>
-</div>
 
-{% with messages = get_flashed_messages(with_categories=true) %}
-{% for category, message in messages %}
-<div class="flash {{ category }}">{{ message }}</div>
-{% endfor %}
-{% endwith %}
-
-<!-- Header -->
-<div class="page-header">
-    <div class="page-header-left">
-        <a href="/admin">
-            <img src="{{ url_for('static', filename='logo.png') }}" alt="Logo">
-            <div>
-                <strong>Contai Polytechnic</strong>
-                <small>Admin Panel → Data Repository</small>
-            </div>
-        </a>
-    </div>
-    <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center;">
-        <span class="badge badge-total" id="count-badge">{{ qa_list|length }} Total</span>
-        <span class="badge badge-manual" id="manual-badge">
-            🟢 {{ qa_list|selectattr(3,'equalto','manual')|list|length }} Manual
-        </span>
-        <span class="badge badge-auto" id="auto-badge">
-            🤖 {{ qa_list|selectattr(3,'equalto','auto')|list|length }} Auto
-        </span>
-        <span class="badge badge-approved" id="approved-badge">
-            ✅ {{ qa_list|selectattr(3,'equalto','approved')|list|length }} Approved
-        </span>
-    </div>
-</div>
-
-<h1>📚 All Q&A Repository</h1>
-<p class="sub-title">Complete chatbot training data — Contai Polytechnic AI Assistant</p>
-
-<!-- Add Q&A Card -->
-<div class="add-card">
-    <h2>➕ Add New Q&A</h2>
-    <div class="form-row">
-        <div class="form-group">
-            <label>Question</label>
-            <textarea id="new-question" placeholder="e.g. What is the hostel fee?" rows="3"></textarea>
+    <!-- Actions Row -->
+    <div class="actions-row">
+        <div style="display:flex;gap:8px;flex-wrap:wrap;">
+            <a href="/admin" class="btn btn-white">← Back to Admin</a>
+            <a href="/admin/chat-log" class="btn btn-orange">💬 Chat Log</a>
         </div>
-        <div class="form-group">
-            <label>Answer</label>
-            <textarea id="new-answer" placeholder="e.g. The hostel fee is ₹12,000 per year." rows="3"></textarea>
-        </div>
+        <button onclick="window.print()" class="btn btn-primary">🖨️ Print / Export</button>
     </div>
-    <div class="form-actions">
-        <button class="btn btn-success" id="add-btn" onclick="addQA()">➕ Add to Database</button>
-        <button class="btn btn-white" onclick="clearForm()">🗑 Clear</button>
-        <span class="char-hint" id="char-hint"></span>
+
+    <!-- Filter Tabs -->
+    <div class="filter-tabs">
+        <button class="tab active" id="tab-all" onclick="filterTable('all', this)">🔵 All ({{ qa_list|length
+            }})</button>
+        <button class="tab" id="tab-manual" onclick="filterTable('manual', this)">🟢 Manual ({{
+            qa_list|selectattr(3,'equalto','manual')|list|length }})</button>
+        <button class="tab" id="tab-auto" onclick="filterTable('auto', this)">🤖 Auto-Learned ({{
+            qa_list|selectattr(3,'equalto','auto')|list|length }})</button>
+        <button class="tab" id="tab-approved" onclick="filterTable('approved', this)">✅ Admin Approved ({{
+            qa_list|selectattr(3,'equalto','approved')|list|length }})</button>
     </div>
-</div>
 
-<!-- Actions Row -->
-<div class="actions-row">
-    <div style="display:flex;gap:8px;flex-wrap:wrap;">
-        <a href="/admin" class="btn btn-white">← Back to Admin</a>
-        <a href="/admin/chat-log" class="btn btn-orange">💬 Chat Log</a>
+    <!-- Legend -->
+    <div class="legend">
+        <span style="font-size:12px;font-weight:700;color:#64748b;">Legend:</span>
+        <span class="legend-item"><span class="src src-manual">manual</span> Admin নিজে যোগ করেছেন</span>
+        <span class="legend-item"><span class="src src-auto">auto</span> Bot নিজে শিখেছে</span>
+        <span class="legend-item"><span class="src src-approved">approved</span> Admin approve করেছেন</span>
     </div>
-    <button onclick="window.print()" class="btn btn-primary">🖨️ Print / Export</button>
-</div>
 
-<!-- Filter Tabs -->
-<div class="filter-tabs">
-    <button class="tab active" id="tab-all"      onclick="filterTable('all', this)">🔵 All ({{ qa_list|length }})</button>
-    <button class="tab"        id="tab-manual"   onclick="filterTable('manual', this)">🟢 Manual ({{ qa_list|selectattr(3,'equalto','manual')|list|length }})</button>
-    <button class="tab"        id="tab-auto"     onclick="filterTable('auto', this)">🤖 Auto-Learned ({{ qa_list|selectattr(3,'equalto','auto')|list|length }})</button>
-    <button class="tab"        id="tab-approved" onclick="filterTable('approved', this)">✅ Admin Approved ({{ qa_list|selectattr(3,'equalto','approved')|list|length }})</button>
-</div>
+    <!-- Search -->
+    <div class="search-row">
+        <input type="text" class="search-input" id="searchInput" placeholder="🔍 Search questions or answers..."
+            oninput="searchTable()">
+    </div>
 
-<!-- Legend -->
-<div class="legend">
-    <span style="font-size:12px;font-weight:700;color:#64748b;">Legend:</span>
-    <span class="legend-item"><span class="src src-manual">manual</span> Admin নিজে যোগ করেছেন</span>
-    <span class="legend-item"><span class="src src-auto">auto</span> Bot নিজে শিখেছে</span>
-    <span class="legend-item"><span class="src src-approved">approved</span> Admin approve করেছেন</span>
-</div>
+    <!-- Table -->
+    <div class="table-container">
+        <table id="qa-table">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th style="width:32%;">Question</th>
+                    <th>Answer</th>
+                    <th style="width:90px;">Source</th>
+                    <th class="action-cell">Actions</th>
+                </tr>
+            </thead>
+            <tbody id="qa-tbody">
+                {% for item in qa_list %}
+                {# item: (id, question, answer, source) #}
+                {% set src = item[3] if item[3] else 'manual' %}
+                <tr data-id="{{ item[0] }}" data-q="{{ item[1]|e }}" data-a="{{ item[2]|e }}" data-src="{{ src }}"
+                    data-text="{{ (item[1] + ' ' + item[2])|lower|e }}">
+                    <td>{{ loop.index }}</td>
+                    <td class="q-text">{{ item[1] }}</td>
+                    <td class="a-text">{{ item[2] }}</td>
+                    <td><span class="src src-{{ src }}">{{ src }}</span></td>
+                    <td class="action-cell">
+                        <div class="btn-group">
+                            <button class="btn-edit" onclick="openEdit({{ item[0] }}, this)">✏️ Edit</button>
+                            <button class="btn-delete-sm" onclick="deleteQA({{ item[0] }}, this)">🗑️ Del</button>
+                        </div>
+                    </td>
+                </tr>
+                {% else %}
+                <tr class="empty-row" id="empty-row">
+                    <td colspan="5">📭 No Q&A entries yet. Add some above!</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
 
-<!-- Search -->
-<div class="search-row">
-    <input type="text" class="search-input" id="searchInput"
-        placeholder="🔍 Search questions or answers..."
-        oninput="searchTable()">
-</div>
+    <script>
+        // ── Toast ──
+        function showToast(msg, type = 'success', dur = 3500) {
+            const t = document.getElementById('toast');
+            const icons = { success: '✅', error: '❌', warning: '⚠️' };
+            t.className = type;
+            t.innerHTML = `<span>${icons[type] || ''}</span> <span>${msg}</span>`;
+            t.style.display = 'flex';
+            clearTimeout(t._timer);
+            t._timer = setTimeout(() => t.style.display = 'none', dur);
+        }
 
-<!-- Table -->
-<div class="table-container">
-    <table id="qa-table">
-        <thead>
-            <tr>
-                <th>#</th>
-                <th style="width:32%;">Question</th>
-                <th>Answer</th>
-                <th style="width:90px;">Source</th>
-                <th class="action-cell">Actions</th>
-            </tr>
-        </thead>
-        <tbody id="qa-tbody">
-            {% for item in qa_list %}
-            {# item: (id, question, answer, source) #}
-            {% set src = item[3] if item[3] else 'manual' %}
-            <tr data-id="{{ item[0] }}" data-q="{{ item[1]|e }}" data-a="{{ item[2]|e }}"
-                data-src="{{ src }}"
-                data-text="{{ (item[1] + ' ' + item[2])|lower|e }}">
-                <td>{{ loop.index }}</td>
-                <td class="q-text">{{ item[1] }}</td>
-                <td class="a-text">{{ item[2] }}</td>
-                <td><span class="src src-{{ src }}">{{ src }}</span></td>
-                <td class="action-cell">
-                    <div class="btn-group">
-                        <button class="btn-edit" onclick="openEdit({{ item[0] }}, this)">✏️ Edit</button>
-                        <button class="btn-delete-sm" onclick="deleteQA({{ item[0] }}, this)">🗑️ Del</button>
-                    </div>
-                </td>
-            </tr>
-            {% else %}
-            <tr class="empty-row" id="empty-row">
-                <td colspan="5">📭 No Q&A entries yet. Add some above!</td>
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
-</div>
+        // ── Add Q&A ──
+        async function addQA() {
+            const qEl = document.getElementById('new-question');
+            const aEl = document.getElementById('new-answer');
+            const btn = document.getElementById('add-btn');
+            const q = qEl.value.trim(), a = aEl.value.trim();
+            if (!q || !a) { showToast('Both question and answer are required!', 'warning'); return; }
 
-<script>
-    // ── Toast ──
-    function showToast(msg, type='success', dur=3500) {
-        const t = document.getElementById('toast');
-        const icons = {success:'✅',error:'❌',warning:'⚠️'};
-        t.className = type;
-        t.innerHTML = `<span>${icons[type]||''}</span> <span>${msg}</span>`;
-        t.style.display = 'flex';
-        clearTimeout(t._timer);
-        t._timer = setTimeout(()=>t.style.display='none', dur);
-    }
+            btn.disabled = true;
+            btn.innerHTML = '<span class="spinner"></span> Saving...';
+            try {
+                const res = await fetch('/qa/add', {
+                    method: 'POST', headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ question: q, answer: a })
+                });
+                const data = await res.json();
+                if (data.success) {
+                    showToast('Q&A added successfully!', 'success');
+                    appendRow(data.id, q, a, 'manual');
+                    qEl.value = ''; aEl.value = '';
+                    updateCounts();
+                } else if (data.duplicate) {
+                    showToast('⚠️ This question already exists!', 'warning', 5000);
+                } else {
+                    showToast(data.error || 'Failed to add Q&A.', 'error');
+                }
+            } catch (e) { showToast('Network error. Try again.', 'error'); }
+            finally { btn.disabled = false; btn.innerHTML = '➕ Add to Database'; }
+        }
 
-    // ── Add Q&A ──
-    async function addQA() {
-        const qEl = document.getElementById('new-question');
-        const aEl = document.getElementById('new-answer');
-        const btn = document.getElementById('add-btn');
-        const q = qEl.value.trim(), a = aEl.value.trim();
-        if (!q || !a) { showToast('Both question and answer are required!', 'warning'); return; }
-
-        btn.disabled = true;
-        btn.innerHTML = '<span class="spinner"></span> Saving...';
-        try {
-            const res = await fetch('/qa/add', {
-                method:'POST', headers:{'Content-Type':'application/json'},
-                body: JSON.stringify({question:q, answer:a})
-            });
-            const data = await res.json();
-            if (data.success) {
-                showToast('Q&A added successfully!', 'success');
-                appendRow(data.id, q, a, 'manual');
-                qEl.value=''; aEl.value='';
-                updateCounts();
-            } else if (data.duplicate) {
-                showToast('⚠️ This question already exists!', 'warning', 5000);
-            } else {
-                showToast(data.error||'Failed to add Q&A.', 'error');
-            }
-        } catch(e) { showToast('Network error. Try again.', 'error'); }
-        finally { btn.disabled=false; btn.innerHTML='➕ Add to Database'; }
-    }
-
-    function appendRow(id, q, a, src) {
-        const tbody = document.getElementById('qa-tbody');
-        const emptyRow = document.getElementById('empty-row');
-        if (emptyRow) emptyRow.remove();
-        const rowCount = tbody.querySelectorAll('tr:not(.empty-row)').length + 1;
-        const tr = document.createElement('tr');
-        tr.dataset.id  = id;
-        tr.dataset.q   = q;
-        tr.dataset.a   = a;
-        tr.dataset.src = src;
-        tr.dataset.text = (q+' '+a).toLowerCase();
-        tr.classList.add('highlight-new');
-        tr.innerHTML = `
+        function appendRow(id, q, a, src) {
+            const tbody = document.getElementById('qa-tbody');
+            const emptyRow = document.getElementById('empty-row');
+            if (emptyRow) emptyRow.remove();
+            const rowCount = tbody.querySelectorAll('tr:not(.empty-row)').length + 1;
+            const tr = document.createElement('tr');
+            tr.dataset.id = id;
+            tr.dataset.q = q;
+            tr.dataset.a = a;
+            tr.dataset.src = src;
+            tr.dataset.text = (q + ' ' + a).toLowerCase();
+            tr.classList.add('highlight-new');
+            tr.innerHTML = `
             <td>${rowCount}</td>
             <td class="q-text">${escHtml(q)}</td>
             <td class="a-text">${escHtml(a)}</td>
@@ -443,150 +927,151 @@
                 <button class="btn-edit" onclick="openEdit(${id},this)">✏️ Edit</button>
                 <button class="btn-delete-sm" onclick="deleteQA(${id},this)">🗑️ Del</button>
             </div></td>`;
-        tbody.appendChild(tr);
-    }
-
-    function clearForm() {
-        document.getElementById('new-question').value='';
-        document.getElementById('new-answer').value='';
-        document.getElementById('char-hint').textContent='';
-    }
-
-    // ── Delete ──
-    async function deleteQA(id, btn) {
-        if (!confirm('Delete this Q&A entry permanently?')) return;
-        const tr = btn.closest('tr');
-        tr.style.opacity='0.4';
-        try {
-            await fetch(`/delete/${id}`);
-            tr.remove();
-            renumberRows();
-            updateCounts();
-            showToast('Q&A deleted!', 'success');
-        } catch(e) {
-            tr.remove(); renumberRows(); updateCounts();
-            showToast('Q&A deleted!', 'success');
-        }
-    }
-
-    // ── Edit Modal ──
-    function openEdit(id, btn) {
-        const tr = btn.closest('tr');
-        document.getElementById('edit-id').value = id;
-        document.getElementById('edit-question').value = tr.dataset.q;
-        document.getElementById('edit-answer').value   = tr.dataset.a;
-        document.getElementById('editModal').classList.add('open');
-    }
-    function closeEditModal() { document.getElementById('editModal').classList.remove('open'); }
-
-    async function saveEdit() {
-        const id = document.getElementById('edit-id').value;
-        const q  = document.getElementById('edit-question').value.trim();
-        const a  = document.getElementById('edit-answer').value.trim();
-        const btn = document.getElementById('edit-save-btn');
-        if (!q||!a) { showToast('Both fields are required!','warning'); return; }
-        btn.disabled=true; btn.innerHTML='<span class="spinner"></span> Saving...';
-        try {
-            const res = await fetch(`/qa/edit/${id}`, {
-                method:'POST', headers:{'Content-Type':'application/json'},
-                body: JSON.stringify({question:q, answer:a})
-            });
-            const data = await res.json();
-            if (data.success) {
-                const tr = document.querySelector(`tr[data-id="${id}"]`);
-                if (tr) {
-                    tr.querySelector('.q-text').textContent=q;
-                    tr.querySelector('.a-text').textContent=a;
-                    tr.dataset.q=q; tr.dataset.a=a;
-                    tr.dataset.text=(q+' '+a).toLowerCase();
-                    tr.classList.add('highlight-new');
-                    setTimeout(()=>tr.classList.remove('highlight-new'),2100);
-                }
-                closeEditModal(); showToast('Q&A updated!','success');
-            } else if (data.duplicate) {
-                showToast('Another entry with this question exists!','warning',5000);
-            } else {
-                showToast(data.error||'Failed to update.','error');
-            }
-        } catch(e) { showToast('Network error.','error'); }
-        finally { btn.disabled=false; btn.innerHTML='💾 Save Changes'; }
-    }
-
-    // ── Filter by source ──
-    let currentFilter = 'all';
-    const activeClasses = {all:'active', manual:'active-manual', auto:'active-auto', approved:'active-approved'};
-
-    function filterTable(src, tabEl) {
-        currentFilter = src;
-        document.querySelectorAll('.tab').forEach(t=>{
-            t.className='tab'; // reset
-        });
-        tabEl.classList.add(activeClasses[src]||'active');
-        applyFilters();
-    }
-
-    function searchTable() { applyFilters(); }
-
-    function applyFilters() {
-        const q = document.getElementById('searchInput').value.toLowerCase();
-        let visible = 0;
-        document.querySelectorAll('#qa-tbody tr:not(.empty-row)').forEach(r => {
-            const matchSrc  = currentFilter==='all' || r.dataset.src===currentFilter;
-            const matchText = !q || r.dataset.text.includes(q);
-            r.style.display = (matchSrc && matchText) ? '' : 'none';
-            if (matchSrc && matchText) visible++;
-        });
-        document.getElementById('count-badge').textContent =
-            q ? `${visible} / ${document.querySelectorAll('#qa-tbody tr:not(.empty-row)').length} Q&A`
-              : `${document.querySelectorAll('#qa-tbody tr:not(.empty-row)').length} Total`;
-    }
-
-    // ── Helpers ──
-    function escHtml(t){
-        return t.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
-    }
-
-    function renumberRows() {
-        const rows = document.querySelectorAll('#qa-tbody tr:not(.empty-row)');
-        rows.forEach((r,i)=>r.cells[0].textContent=i+1);
-        if (rows.length===0) {
-            const tbody=document.getElementById('qa-tbody');
-            const tr=document.createElement('tr');
-            tr.id='empty-row'; tr.className='empty-row';
-            tr.innerHTML='<td colspan="5">📭 No Q&A entries yet. Add some above!</td>';
             tbody.appendChild(tr);
         }
-    }
 
-    function updateCounts() {
-        const rows = document.querySelectorAll('#qa-tbody tr:not(.empty-row)');
-        let manual=0, auto=0, approved=0;
-        rows.forEach(r=>{
-            if(r.dataset.src==='manual') manual++;
-            else if(r.dataset.src==='auto') auto++;
-            else if(r.dataset.src==='approved') approved++;
+        function clearForm() {
+            document.getElementById('new-question').value = '';
+            document.getElementById('new-answer').value = '';
+            document.getElementById('char-hint').textContent = '';
+        }
+
+        // ── Delete ──
+        async function deleteQA(id, btn) {
+            if (!confirm('Delete this Q&A entry permanently?')) return;
+            const tr = btn.closest('tr');
+            tr.style.opacity = '0.4';
+            try {
+                await fetch(`/delete/${id}`);
+                tr.remove();
+                renumberRows();
+                updateCounts();
+                showToast('Q&A deleted!', 'success');
+            } catch (e) {
+                tr.remove(); renumberRows(); updateCounts();
+                showToast('Q&A deleted!', 'success');
+            }
+        }
+
+        // ── Edit Modal ──
+        function openEdit(id, btn) {
+            const tr = btn.closest('tr');
+            document.getElementById('edit-id').value = id;
+            document.getElementById('edit-question').value = tr.dataset.q;
+            document.getElementById('edit-answer').value = tr.dataset.a;
+            document.getElementById('editModal').classList.add('open');
+        }
+        function closeEditModal() { document.getElementById('editModal').classList.remove('open'); }
+
+        async function saveEdit() {
+            const id = document.getElementById('edit-id').value;
+            const q = document.getElementById('edit-question').value.trim();
+            const a = document.getElementById('edit-answer').value.trim();
+            const btn = document.getElementById('edit-save-btn');
+            if (!q || !a) { showToast('Both fields are required!', 'warning'); return; }
+            btn.disabled = true; btn.innerHTML = '<span class="spinner"></span> Saving...';
+            try {
+                const res = await fetch(`/qa/edit/${id}`, {
+                    method: 'POST', headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ question: q, answer: a })
+                });
+                const data = await res.json();
+                if (data.success) {
+                    const tr = document.querySelector(`tr[data-id="${id}"]`);
+                    if (tr) {
+                        tr.querySelector('.q-text').textContent = q;
+                        tr.querySelector('.a-text').textContent = a;
+                        tr.dataset.q = q; tr.dataset.a = a;
+                        tr.dataset.text = (q + ' ' + a).toLowerCase();
+                        tr.classList.add('highlight-new');
+                        setTimeout(() => tr.classList.remove('highlight-new'), 2100);
+                    }
+                    closeEditModal(); showToast('Q&A updated!', 'success');
+                } else if (data.duplicate) {
+                    showToast('Another entry with this question exists!', 'warning', 5000);
+                } else {
+                    showToast(data.error || 'Failed to update.', 'error');
+                }
+            } catch (e) { showToast('Network error.', 'error'); }
+            finally { btn.disabled = false; btn.innerHTML = '💾 Save Changes'; }
+        }
+
+        // ── Filter by source ──
+        let currentFilter = 'all';
+        const activeClasses = { all: 'active', manual: 'active-manual', auto: 'active-auto', approved: 'active-approved' };
+
+        function filterTable(src, tabEl) {
+            currentFilter = src;
+            document.querySelectorAll('.tab').forEach(t => {
+                t.className = 'tab'; // reset
+            });
+            tabEl.classList.add(activeClasses[src] || 'active');
+            applyFilters();
+        }
+
+        function searchTable() { applyFilters(); }
+
+        function applyFilters() {
+            const q = document.getElementById('searchInput').value.toLowerCase();
+            let visible = 0;
+            document.querySelectorAll('#qa-tbody tr:not(.empty-row)').forEach(r => {
+                const matchSrc = currentFilter === 'all' || r.dataset.src === currentFilter;
+                const matchText = !q || r.dataset.text.includes(q);
+                r.style.display = (matchSrc && matchText) ? '' : 'none';
+                if (matchSrc && matchText) visible++;
+            });
+            document.getElementById('count-badge').textContent =
+                q ? `${visible} / ${document.querySelectorAll('#qa-tbody tr:not(.empty-row)').length} Q&A`
+                    : `${document.querySelectorAll('#qa-tbody tr:not(.empty-row)').length} Total`;
+        }
+
+        // ── Helpers ──
+        function escHtml(t) {
+            return t.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+        }
+
+        function renumberRows() {
+            const rows = document.querySelectorAll('#qa-tbody tr:not(.empty-row)');
+            rows.forEach((r, i) => r.cells[0].textContent = i + 1);
+            if (rows.length === 0) {
+                const tbody = document.getElementById('qa-tbody');
+                const tr = document.createElement('tr');
+                tr.id = 'empty-row'; tr.className = 'empty-row';
+                tr.innerHTML = '<td colspan="5">📭 No Q&A entries yet. Add some above!</td>';
+                tbody.appendChild(tr);
+            }
+        }
+
+        function updateCounts() {
+            const rows = document.querySelectorAll('#qa-tbody tr:not(.empty-row)');
+            let manual = 0, auto = 0, approved = 0;
+            rows.forEach(r => {
+                if (r.dataset.src === 'manual') manual++;
+                else if (r.dataset.src === 'auto') auto++;
+                else if (r.dataset.src === 'approved') approved++;
+            });
+            document.getElementById('count-badge').textContent = `${rows.length} Total`;
+            document.getElementById('manual-badge').textContent = `🟢 ${manual} Manual`;
+            document.getElementById('auto-badge').textContent = `🤖 ${auto} Auto`;
+            document.getElementById('approved-badge').textContent = `✅ ${approved} Approved`;
+            // Update tab labels
+            document.getElementById('tab-all').textContent = `🔵 All (${rows.length})`;
+            document.getElementById('tab-manual').textContent = `🟢 Manual (${manual})`;
+            document.getElementById('tab-auto').textContent = `🤖 Auto-Learned (${auto})`;
+            document.getElementById('tab-approved').textContent = `✅ Admin Approved (${approved})`;
+        }
+
+        // Char hint
+        document.getElementById('new-question').addEventListener('input', function () {
+            document.getElementById('char-hint').textContent = this.value.length > 0 ? `${this.value.length} chars` : '';
         });
-        document.getElementById('count-badge').textContent  = `${rows.length} Total`;
-        document.getElementById('manual-badge').textContent = `🟢 ${manual} Manual`;
-        document.getElementById('auto-badge').textContent   = `🤖 ${auto} Auto`;
-        document.getElementById('approved-badge').textContent = `✅ ${approved} Approved`;
-        // Update tab labels
-        document.getElementById('tab-all').textContent      = `🔵 All (${rows.length})`;
-        document.getElementById('tab-manual').textContent   = `🟢 Manual (${manual})`;
-        document.getElementById('tab-auto').textContent     = `🤖 Auto-Learned (${auto})`;
-        document.getElementById('tab-approved').textContent = `✅ Admin Approved (${approved})`;
-    }
-
-    // Char hint
-    document.getElementById('new-question').addEventListener('input', function(){
-        document.getElementById('char-hint').textContent=this.value.length>0?`${this.value.length} chars`:'';
-    });
-    // Ctrl+Enter shortcut
-    ['new-question','new-answer'].forEach(id=>{
-        document.getElementById(id).addEventListener('keydown',e=>{if(e.ctrlKey&&e.key==='Enter')addQA();});
-    });
-    // Close modal on overlay click
-    document.getElementById('editModal').addEventListener('click',e=>{if(e.target===document.getElementById('editModal'))closeEditModal();});
-</script>
+        // Ctrl+Enter shortcut
+        ['new-question', 'new-answer'].forEach(id => {
+            document.getElementById(id).addEventListener('keydown', e => { if (e.ctrlKey && e.key === 'Enter') addQA(); });
+        });
+        // Close modal on overlay click
+        document.getElementById('editModal').addEventListener('click', e => { if (e.target === document.getElementById('editModal')) closeEditModal(); });
+    </script>
 </body>
+
 </html>
